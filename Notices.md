@@ -11,3 +11,11 @@ Authorized individual and system identifier: jcgregorio@google.com
 Specification version: 1.0
 
 ---
+
+Licensee’s name: Florin Malita
+
+Authorized individual and system identifier: fmalita@google.com
+
+Specification version: 1.0
+
+---
