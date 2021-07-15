@@ -19,3 +19,11 @@ Authorized individual and system identifier: fmalita@google.com
 Specification version: 1.0
 
 ---
+
+Licensee’s name: Mike Reed
+
+Authorized individual and system identifier: reed@google.com
+
+Specification version: 1.0
+
+---
