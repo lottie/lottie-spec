@@ -79,3 +79,9 @@ Authorized individual and system identifier: glax@dragon.best
 Specification version: 1.0
 
 ---
+
+Licensee's name: Jorge Betancourt
+
+Authorized individual and system identifier: jmbetancourt@google.com
+
+Specification version: 1.0
