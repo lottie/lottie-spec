@@ -93,3 +93,11 @@ Licensee's name: Jawish Hameed
 Authorized individual and system identifier: jawish@lottiefiles.com
 
 Specification version: 1.0
+
+---
+
+Licensee's name: Aidos Sabit
+
+Authorized individual and system identifier: aidosmf@gmail.com
+
+Specification version: 1.0
