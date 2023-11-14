@@ -101,3 +101,11 @@ Licensee's name: Aidos Sabit
 Authorized individual and system identifier: aidosmf@gmail.com
 
 Specification version: 1.0
+
+---
+
+Licensee's name: Marcus Stenbeck
+
+Authorized individual and system identifier: marcus.stenbeck@gmail.com
+
+Specification version: 1.0
