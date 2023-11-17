@@ -20,6 +20,14 @@ Specification version: 1.0
 
 ---
 
+Licensee’s name: Hernán Torrisi
+
+Authorized individual and system identifier: hernantorrisi@gmail.com
+
+Specification version: 1.0
+
+---
+
 Licensee’s name: Mike Reed
 
 Authorized individual and system identifier: reed@google.com
