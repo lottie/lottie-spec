@@ -1,0 +1,14 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Precomposition",
+    "description": "Asset containing a composition that can be referenced by layers.",
+    "allOf": [
+        {
+            "$ref": "#/$defs/assets/asset"
+        },
+        {
+            "$ref": "#/$defs/animation/composition"
+        }
+    ]
+}

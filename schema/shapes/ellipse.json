@@ -1,0 +1,32 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Ellipse",
+    "description": "Ellipse shape",
+    "allOf": [
+        {
+            "$ref": "#/$defs/shapes/shape"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "ty": {
+                    "title": "Shape Type",
+                    "type": "string",
+                    "const": "el"
+                },
+                "p": {
+                    "title": "Position",
+                    "$ref": "#/$defs/properties/position"
+                },
+                "s": {
+                    "title": "Size",
+                    "$ref": "#/$defs/properties/multi-dimensional"
+                }
+            },
+            "required": [
+                "ty", "s", "p"
+            ]
+        }
+    ]
+}

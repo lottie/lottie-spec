@@ -1,0 +1,53 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Keyframe Easing",
+    "description": "Bezier handle for keyframe interpolation",
+    "properties": {
+        "x": {
+            "title": "X",
+            "description": "Time component:\n0 means start time of the keyframe,\n1 means time of the next keyframe.",
+            "oneOf":[
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number",
+                        "default": 0,
+                        "minimum": 0,
+                        "maximum": 1
+                    },
+                    "minItems": 1
+                },
+                {
+                    "type": "number",
+                    "default": 0,
+                    "minimum": 0,
+                    "maximum": 1
+                }
+            ]
+        },
+        "y": {
+            "title": "Y",
+            "description": "Value interpolation component:\n0 means start value of the keyframe,\n1 means value at the next keyframe.",
+            "oneOf": [
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "number",
+                        "default": 0,
+                        "minimum": 0,
+                        "maximum": 1
+                    },
+                    "minItems": 1
+                },
+                {
+                    "type": "number",
+                    "default": 0,
+                    "minimum": 0,
+                    "maximum": 1
+                }
+            ]
+        }
+    },
+    "required": ["x", "y"]
+}

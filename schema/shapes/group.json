@@ -1,0 +1,35 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Group",
+    "description": "Shape Element that can contain other shapes",
+    "allOf": [
+        {
+            "$ref": "#/$defs/shapes/shape-element"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "ty": {
+                    "title": "Shape Type",
+                    "type": "string",
+                    "const": "gr"
+                },
+                "np": {
+                    "title": "Number Of Properties",
+                    "type": "number"
+                },
+                "it": {
+                    "title": "Shapes",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/shapes/shape-list"
+                    }
+                }
+            },
+            "required": [
+                "ty"
+            ]
+        }
+    ]
+}

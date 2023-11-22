@@ -1,0 +1,53 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Base Keyframe",
+    "description": "A Keyframes specifies the value at a specific time and the interpolation function to reach the next keyframe.",
+    "allOf": [
+        {
+            "properties": {
+                "t": {
+                    "title": "Time",
+                    "description": "Frame number",
+                    "type": "number",
+                    "default": 0
+                },
+                "h": {
+                    "title": "Hold",
+                    "$ref": "#/$defs/helpers/int-boolean",
+                    "default": 0
+                }
+            }
+        },
+        {
+            "if": {
+                "oneOf": [
+                    {
+                        "properties": {
+                            "h": { "const": 0  }
+                        }
+                    },
+                    {
+                        "not": {"required": ["h"]}
+                    }
+                ]
+            },
+            "then": {
+                "properties": {
+                    "i": {
+                        "title": "In Tangent",
+                        "description": "Easing tangent going into the next keyframe",
+                        "$ref": "#/$defs/properties/easing-handle"
+                    },
+                    "o": {
+                        "title": "Out Tangent",
+                        "description": "Easing tangent leaving the current keyframe",
+                        "$ref": "#/$defs/properties/easing-handle"
+                    }
+                }
+            }
+        }
+    ],
+    "required": ["t"]
+}
+

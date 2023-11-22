@@ -1,0 +1,24 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Visual Object",
+    "description": "",
+    "allOf": [
+        {
+            "type": "object",
+            "properties": {
+                "nm": {
+                    "title": "Name",
+                    "description": "Name, as seen from editors and the like",
+                    "type": "string"
+                },
+                "mn": {
+                    "title": "Match Name",
+                    "description": "Match name, used in expressions",
+                    "type": "string"
+                }
+            },
+            "required": []
+        }
+    ]
+}

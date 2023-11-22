@@ -1,0 +1,57 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Layer",
+    "description": "",
+    "allOf": [
+        {
+            "$ref": "#/$defs/helpers/visual-object"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "hd": {
+                    "title": "Hidden",
+                    "description": "Whether the layer is hidden",
+                    "type": "boolean"
+                },
+                "ty": {
+                    "title": "Type",
+                    "description": "Layer Type",
+                    "type": "integer"
+                },
+                "ind": {
+                    "title": "Index",
+                    "type": "integer",
+                    "description": "Index that can be used for parenting and referenced in expressions"
+                },
+                "parent": {
+                    "title": "Parent Index",
+                    "description": "Must be the `ind` property of another layer",
+                    "type": "integer"
+                },
+                "sr": {
+                    "title": "Time Stretch",
+                    "type": "number",
+                    "default": 1
+                },
+                "ip": {
+                    "title": "In Point",
+                    "description": "Frame when the layer becomes visible",
+                    "type": "number"
+                },
+                "op": {
+                    "title": "Out Point",
+                    "description": "Frame when the layer becomes invisible",
+                    "type": "number"
+                },
+                "st": {
+                    "title": "Start Time",
+                    "type": "number",
+                    "default": 0
+                }
+            },
+            "required": ["ty", "st", "ip", "op"]
+        }
+    ]
+}

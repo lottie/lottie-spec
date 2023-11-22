@@ -1,0 +1,16 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "integer",
+    "title": "Trim Multiple Shapes",
+    "description": "How to handle multiple shapes in trim path",
+    "oneOf": [
+        {
+            "title": "Individually",
+            "const": 1
+        },
+        {
+            "title": "Simultaneously",
+            "const": 2
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+        {
+            "$ref": "#/$defs/layers/precomposition-layer"
+        },
+        {
+            "$ref": "#/$defs/layers/null-layer"
+        },
+        {
+            "$ref": "#/$defs/layers/shape-layer"
+        }
+    ]
+}
+

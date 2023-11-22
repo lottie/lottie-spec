@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Color Keyframe",
+    "allOf": [
+        {
+            "$ref": "#/$defs/properties/base-keyframe"
+        },
+        {
+            "properties": {
+                "s": {
+                    "title": "Value",
+                    "description": "Value at this keyframe.",
+                    "$ref": "#/$defs/helpers/color"
+                }
+            }
+        }
+    ],
+    "required": ["t", "s"]
+}

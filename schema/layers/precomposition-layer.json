@@ -1,0 +1,40 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Precomposition Layer",
+    "description": "Layer that renders a Precomposition asset",
+    "allOf": [
+        {
+            "$ref": "#/$defs/layers/visual-layer"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "ty": {
+                    "title": "Type",
+                    "description": "Layer type",
+                    "type": "integer",
+                    "const": 0
+                },
+                "refId": {
+                    "title": "Reference Id",
+                    "description": "ID of the precomp as specified in the assets",
+                    "type": "string"
+                },
+                "w": {
+                    "title": "Width",
+                    "description": "Width of the clipping rect",
+                    "type": "integer"
+                },
+                "h": {
+                    "title": "Height",
+                    "description": "Height of the clipping rect",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "ty", "refId"
+            ]
+        }
+    ]
+}
