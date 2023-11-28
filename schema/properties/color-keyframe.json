@@ -16,5 +16,5 @@
             }
         }
     ],
-    "required": ["t", "s"]
+    "required": ["s"]
 }

@@ -9,36 +9,36 @@
                 "a": {
                     "title": "Anchor Point",
                     "description": "Anchor point: a position (relative to its parent) around which transformations are applied (ie: center for rotation / scale)",
-                    "$ref": "#/$defs/animated-properties/position"
+                    "$ref": "#/$defs/properties/position"
                 },
                 "p": {
                     "title": "Position",
                     "description": "Position / Translation",
-                    "$ref": "#/$defs/animated-properties/position"
+                    "$ref": "#/$defs/properties/position"
                 },
                 "r": {
                     "title": "Rotation",
                     "description": "Rotation in degrees, clockwise",
-                    "$ref": "#/$defs/animated-properties/value"
+                    "$ref": "#/$defs/properties/value"
                 },
                 "s": {
                     "title": "Scale",
                     "description": "Scale factor, `[100, 100]` for no scaling",
-                    "$ref": "#/$defs/animated-properties/multi-dimensional"
+                    "$ref": "#/$defs/properties/multi-dimensional"
                 },
                 "o": {
                     "title": "Opacity",
-                    "$ref": "#/$defs/animated-properties/value"
+                    "$ref": "#/$defs/properties/value"
                 },
                 "sk": {
                     "title": "Skew",
                     "description": "Skew amount as an angle in degrees",
-                    "$ref": "#/$defs/animated-properties/value"
+                    "$ref": "#/$defs/properties/value"
                 },
                 "sa": {
                     "title": "Skew Axis",
                     "description": "Direction along which skew is applied, in degrees (`0` skews along the X axis, `90` along the Y axis)",
-                    "$ref": "#/$defs/animated-properties/value"
+                    "$ref": "#/$defs/properties/value"
                 }
             }
         }

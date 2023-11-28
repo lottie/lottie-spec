@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
-    "title": "Vector Keyframe",
+    "title": "Shape Keyframe",
     "allOf": [
         {
             "$ref": "#/$defs/properties/base-keyframe"
@@ -16,5 +16,5 @@
             }
         }
     ],
-    "required": ["t", "s"]
+    "required": ["s"]
 }
