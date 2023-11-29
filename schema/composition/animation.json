@@ -55,7 +55,7 @@
             "required": ["w", "h", "fr", "op", "ip"]
         },
         {
-            "$ref": "#/$defs/animation/composition"
+            "$ref": "#/$defs/composition/composition"
         }
     ]
 }
