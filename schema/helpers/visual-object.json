@@ -11,11 +11,6 @@
                     "title": "Name",
                     "description": "Name, as seen from editors and the like",
                     "type": "string"
-                },
-                "mn": {
-                    "title": "Match Name",
-                    "description": "Match name, used in expressions",
-                    "type": "string"
                 }
             },
             "required": []
