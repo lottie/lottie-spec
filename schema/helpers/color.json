@@ -1,0 +1,13 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "title": "Color",
+    "description": "Color as a [r, g, b] array with values in [0, 1]",
+    "items": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+    },
+    "minItems": 3,
+    "maxItems": 4
+}

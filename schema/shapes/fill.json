@@ -1,0 +1,32 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Fill",
+    "description": "Solid fill color",
+    "allOf": [
+        {
+            "$ref": "#/$defs/shapes/shape-style"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "ty": {
+                    "title": "Shape Type",
+                    "type": "string",
+                    "const": "fl"
+                },
+                "c": {
+                    "title": "Color",
+                    "$ref": "#/$defs/properties/color-value"
+                },
+                "r": {
+                    "title": "Fill Rule",
+                    "$ref": "#/$defs/constants/fill-rule"
+                }
+            },
+            "required": [
+                "ty", "c"
+            ]
+        }
+    ]
+}

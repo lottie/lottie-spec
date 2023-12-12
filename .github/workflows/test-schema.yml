@@ -1,0 +1,24 @@
+name: Test Schema
+on:
+    - push
+    - pull_request
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Setup
+        run: |
+            sudo apt update -q
+            sudo apt install -yy python3 python3-pip
+      -
+        name: Build
+        run: |
+            ./tools/schema-merge.py
+      -
+        name: Validate
+        run: |
+            ./tools/schema-validate.py

@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Marker",
+    "description": "Defines named portions of the composition.",
+    "properties": {
+        "cm": {
+            "title": "Comment",
+            "type": "string"
+        },
+        "tm": {
+            "title": "Time",
+            "type": "number"
+        },
+        "dr": {
+            "title": "Duration",
+            "type": "number"
+        }
+    }
+}

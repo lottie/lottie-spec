@@ -1,0 +1,50 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Bezier",
+    "description": "Cubic polybezier",
+    "properties": {
+        "c": {
+            "title": "Closed",
+            "type": "boolean",
+            "default": false
+        },
+        "i": {
+            "title": "In Tangents",
+            "type": "array",
+            "description": "Array of points, each point is an array of coordinates.\nThese points are along the `in` tangents relative to the corresponding `v`.",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "number",
+                    "default": []
+                }
+            }
+        },
+        "o": {
+            "title": "Out Tangents",
+            "type": "array",
+            "description": "Array of points, each point is an array of coordinates.\nThese points are along the `out` tangents relative to the corresponding `v`.",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "number",
+                    "default": []
+                }
+            }
+        },
+        "v": {
+            "title": "Vertices",
+            "description": "Array of points, each point is an array of coordinates.\nThese points are along the bezier path",
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "number",
+                    "default": []
+                }
+            }
+        }
+    },
+    "required": ["i", "v", "o"]
+}
