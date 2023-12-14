@@ -6,12 +6,12 @@ on:
             - docs-setup
     workflow_dispatch:
 jobs:
-  publish:
-    runs-on: ubuntu-20.04
+  pages:
+    runs-on: ubuntu-latest
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       -
         name: Setup
         run: |
@@ -24,12 +24,15 @@ jobs:
             ./tools/schema-merge.py
             ./tools/mkdocs build -d site
       -
-        name: Deploy to GitHub Pages
-        if: success()
-        uses: crazy-max/ghaction-github-pages@v2
+        name: Setup Pages
+        uses: actions/configure-pages@v4
+      -
+        name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          target_branch: gh-pages
-          build_dir: site
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            path: 'site'
+      -
+        name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v3
 
