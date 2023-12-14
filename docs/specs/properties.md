@@ -2,13 +2,11 @@
 
 ## Introduction
 
-### Base Keyframe
-
-{schema_string:properties/base-keyframe/description}
+<h3 id="base-keyframe">Keyframes</h3>
 
 {schema_object:properties/base-keyframe}
 
-### Easing Handle
+<h3 id="easing-handle">Easing</h3>
 
 {schema_string:properties/easing-handle/description}
 

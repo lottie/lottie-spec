@@ -8,6 +8,8 @@ import xml.etree.ElementTree as etree
 from markdown.extensions import Extension
 from markdown.inlinepatterns import InlineProcessor
 from markdown.blockprocessors import BlockProcessor
+from markdown.preprocessors import Preprocessor
+from markdown.util import HTML_PLACEHOLDER_RE
 
 from schema_tools.schema import Schema
 
@@ -557,6 +559,36 @@ class SubTypeTable(InlineProcessor):
         return table, match.start(0), match.end(0)
 
 
+class RawHeadings(BlockProcessor):
+    """
+    Needlessly complex workaround to allow HTML-style headings `<h1>foo</h1>`
+    to show up in the table of contents
+    """
+    re_heading = re.compile(r'^<(h[1-6])([^>]*)>(.*)</\1>')
+
+    def __init__(self, parser, schema_data: Schema):
+        super().__init__(parser)
+        self.schema_data = schema_data
+
+    def test(self, parent: etree.Element, block):
+        return HTML_PLACEHOLDER_RE.match(block)
+
+    def run(self, parent: etree.Element, blocks):
+        match = HTML_PLACEHOLDER_RE.match(blocks[0])
+        index = int(match.group(1))
+        raw_string = self.parser.md.htmlStash.rawHtmlBlocks[index]
+        match = self.re_heading.match(raw_string)
+        if not match:
+            return False
+
+        self.parser.md.htmlStash.rawHtmlBlocks.pop(index)
+        self.parser.md.htmlStash.rawHtmlBlocks.insert(index, '')
+
+        header = etree.fromstring(raw_string)
+        parent.append(header)
+        return True
+
+
 class LottieExtension(Extension):
     def extendMarkdown(self, md):
         with open(docs_path / "lottie.schema.json") as file:
@@ -568,6 +600,7 @@ class LottieExtension(Extension):
         md.inlinePatterns.register(SchemaLink(md), 'schema_link', 175)
         md.parser.blockprocessors.register(SchemaEnum(md.parser, schema_data), 'schema_enum', 175)
         md.inlinePatterns.register(SubTypeTable(md, schema_data), 'schema_subtype_table', 175)
+        md.parser.blockprocessors.register(RawHeadings(md.parser, schema_data), 'raw_heading', 175)
 
 
 def makeExtension(**kwargs):
