@@ -1,5 +1,4 @@
 import json
-import pathlib
 
 
 class SchemaPath:
@@ -96,3 +95,11 @@ class Schema:
 
     def child(self, key):
         return Schema(SchemaPath.step(self.schema, key), self.path / key)
+
+    @classmethod
+    def load(cls, file):
+        if hasattr(file, "read"):
+            return cls(json.load(file))
+
+        with open(file, "r") as f:
+            return cls(json.load(f))

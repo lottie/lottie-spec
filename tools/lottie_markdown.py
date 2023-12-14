@@ -299,6 +299,12 @@ class SchemaObject(BlockProcessor):
 
             prop_dict[name] = SchemaProperty(**data)
 
+    def _conditional_properties(self, object, prop_dict, base_list):
+        if "if" in object:
+            self._object_properties(object["then"], prop_dict, base_list)
+            if "else" in object:
+                self._object_properties(object["else"], prop_dict, base_list)
+
     def _object_properties(self, object, prop_dict, base_list):
         if "properties" in object:
             self._add_properties(object["properties"], prop_dict)
@@ -309,6 +315,9 @@ class SchemaObject(BlockProcessor):
                     self._add_properties(chunk["properties"], prop_dict)
                 elif "$ref" in chunk:
                     base_list.append(chunk["$ref"])
+                self._conditional_properties(chunk, prop_dict, base_list)
+
+        self._conditional_properties(object, prop_dict, base_list)
 
     def _base_link(self, parent, ref):
         link = ref_links(ref, self.schema_data)[0]
