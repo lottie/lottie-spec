@@ -21,7 +21,8 @@ jobs:
       -
         name: Docs
         run: |
-            tools/mkdocs build -d site
+            ./tools/schema-merge.py
+            ./tools/mkdocs build -d site
       -
         name: Deploy to GitHub Pages
         if: success()

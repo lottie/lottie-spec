@@ -7,4 +7,4 @@ import subprocess
 
 source_dir = pathlib.Path(__file__).parent.parent
 os.environ["PYTHONPATH"] = str(source_dir / "tools")
-subprocess.call(["mkdocs"] + sys.argv[1:] + ["-f", source_dir / "mkdocs.yml"])
+sys.exit(subprocess.call(["mkdocs"] + sys.argv[1:] + ["-f", source_dir / "mkdocs.yml"]))
