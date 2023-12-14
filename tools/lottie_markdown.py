@@ -15,15 +15,6 @@ from schema_tools.schema import Schema
 docs_path = Path(__file__).parent.parent / "docs"
 
 
-def get_url(md, path):
-    # Mkdocs adds a tree processor to adjust urls, but it won't work with lottie js so we do the same here
-    processor = next(proc for proc in md.treeprocessors if proc.__class__.__module__ == 'mkdocs.structure.pages')
-    try:
-        return processor.files.get_file_from_path(path).url_relative_to(processor.file)
-    except AttributeError:
-        raise Exception("Page %s not found" % path)
-
-
 class ReferenceLink:
     _link_mapping = None
 
@@ -411,7 +402,7 @@ class SchemaObject(BlockProcessor):
             etree.SubElement(thead, "th").text = "Type"
             etree.SubElement(thead, "th").text = "Title"
             desc = etree.SubElement(thead, "th")
-            desc.text = "Description"
+            desc.text = "Description "
             desc.append(SchemaLink.icon(object_name))
             if "caniuse" in schema_data:
                 desc.append(SchemaLink.caniuse_icon(schema_data["caniuse"]))
@@ -507,6 +498,56 @@ class SchemaEnum(BlockProcessor):
         return True
 
 
+def find_property(object_schema: Schema, property: str, root_schema: Schema|None = None) -> Schema|None:
+    if "properties" in object_schema:
+        props = object_schema / "properties"
+        if property in props:
+            return props[property]
+
+    for switch in ["allOf", "oneOf", "anyOf"]:
+        if switch in object_schema:
+            for val in reversed(list(object_schema / switch)):
+                found = find_property(val, property, root_schema)
+                if found is not None:
+                    return found
+
+    if "$ref" in object_schema and root_schema:
+        return find_property(root_schema.get_ref(object_schema.get("$ref")), property, root_schema)
+
+
+class SubTypeTable(InlineProcessor):
+    def __init__(self, md, schema_data: Schema):
+        super().__init__(r'\{schema_subtype_table:(?P<path>[^:}]+):(?P<attribute>[^:}]+)\}', md)
+        self.schema_data = schema_data
+
+    def handleMatch(self, match, data):
+        table = etree.Element("table")
+        tr = etree.SubElement(etree.SubElement(table, "thead"), "tr")
+        attribute = match.group("attribute") or "ty"
+        etree.SubElement(etree.SubElement(tr, "th"), "code").text = attribute
+        etree.SubElement(tr, "th").text = "Type"
+
+        tbody = etree.SubElement(table, "tbody")
+
+        schema_obj = self.schema_data.get_ref("$defs/" + match.group("path"))
+        schema_types = schema_obj.get_ref("oneOf")
+
+        for row in schema_types:
+            ref = row.get("$ref")
+            row = self.schema_data.get_ref(ref)
+
+            tr = etree.SubElement(tbody, "tr")
+            prop_schema = find_property(row, attribute, self.schema_data)
+            etree.SubElement(etree.SubElement(tr, "td"), "code").text = str(prop_schema.get("const"))
+
+            td = etree.SubElement(tr, "td")
+            links = ref_links(ref, self.schema_data)
+            for link in links:
+                link.to_element(td, links)
+
+        return table, match.start(0), match.end(0)
+
+
 class LottieExtension(Extension):
     def extendMarkdown(self, md):
         with open(docs_path / "lottie.schema.json") as file:
@@ -517,8 +558,8 @@ class LottieExtension(Extension):
         md.inlinePatterns.register(JsonFile(md), 'json_file', 175)
         md.inlinePatterns.register(SchemaLink(md), 'schema_link', 175)
         md.parser.blockprocessors.register(SchemaEnum(md.parser, schema_data), 'schema_enum', 175)
+        md.inlinePatterns.register(SubTypeTable(md, schema_data), 'schema_subtype_table', 175)
 
 
 def makeExtension(**kwargs):
     return LottieExtension(**kwargs)
-
