@@ -1,2 +1,4 @@
 mkdocs==1.5.3
 mkdocs-cinder==1.2.0
+# Used for link validations
+lxml==4.9.3
