@@ -491,9 +491,9 @@ class SchemaEnum(BlockProcessor):
 
         thead = etree.SubElement(etree.SubElement(table, "thead"), "tr")
         etree.SubElement(thead, "th").text = "Value"
-        etree.SubElement(thead, "th").text = "Name"
+        etree.SubElement(thead, "th").text = "Name "
         if descriptions:
-            etree.SubElement(thead, "th").text = "Description"
+            etree.SubElement(thead, "th").text = "Description "
 
         thead[-1].append(SchemaLink.icon("constants/" + enum_name))
 
