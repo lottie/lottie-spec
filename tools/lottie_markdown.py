@@ -564,7 +564,7 @@ class RawHTML(BlockProcessor):
     Needlessly complex workaround to allow HTML-style headings `<h1>foo</h1>`
     to show up in the table of contents
     """
-    headers = ["h%s" for h in range(1, 7)]
+    headers = ["h%s" % h for h in range(1, 7)]
 
     def __init__(self, parser, schema_data: Schema, extra_elements):
         super().__init__(parser)
@@ -578,11 +578,14 @@ class RawHTML(BlockProcessor):
         match = HTML_PLACEHOLDER_RE.match(blocks[0])
         index = int(match.group(1))
         raw_string = self.parser.md.htmlStash.rawHtmlBlocks[index]
+        if not raw_string:
+            return False
         element = etree.fromstring(raw_string)
 
         if element.tag not in self.tag_names:
             return False
 
+        print(element.tag)
         self.parser.md.htmlStash.rawHtmlBlocks.pop(index)
         self.parser.md.htmlStash.rawHtmlBlocks.insert(index, '')
 
@@ -985,7 +988,7 @@ class LottieExtension(Extension):
                 ["lottie", "lottie-playground"]
             ),
             "raw_heading",
-            10
+            100
         )
         md.parser.blockprocessors.register(LottiePlayground(md, schema_data), "lottie-playground", 200)
         md.parser.blockprocessors.register(LottieBlock(md), "lottie", 175)
