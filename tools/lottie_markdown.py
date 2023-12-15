@@ -1,5 +1,6 @@
 import re
 import json
+import inspect
 import dataclasses
 from typing import Any
 from pathlib import Path
@@ -604,7 +605,8 @@ class LottieRenderer:
         LottieRenderer._id += 1
         return id
 
-    def __init__(self, *, parent: etree.Element = None, download_file=None, width=None, height=None, buttons=True):
+    def __init__(self, *, parent: etree.Element = None, download_file=None,
+                 width=None, height=None, buttons=True, button_parent=None, background=None):
         self.id = LottieRenderer.get_id()
 
         element = etree.Element("div")
@@ -613,7 +615,11 @@ class LottieRenderer:
             parent.append(element)
 
         self.animation_container = etree.SubElement(element, "div")
-        self.animation_container.attrib["class"] = "animation-container alpha_checkered"
+        self.animation_container.attrib["class"] = "animation-container"
+        if not background:
+            self.animation_container.attrib["class"] += " animation-container-alpha"
+        else:
+            self.animation_container.attrib["style"] = "background: %s" % background
 
         self.animation = etree.SubElement(self.animation_container, "div")
         self.animation.attrib["id"] = "lottie_target_%s" % self.id
@@ -625,7 +631,7 @@ class LottieRenderer:
             self.animation.attrib["style"] = "width:%spx;height:%spx" % (width, height)
 
         if buttons:
-            self.button_container = etree.SubElement(element, "div")
+            self.button_container = etree.SubElement(button_parent or element, "div")
 
             self.add_button(
                 id="lottie_play_{id}".format(id=self.id),
@@ -728,27 +734,236 @@ class LottieBlock(BlockProcessor):
 
     def run(self, parent, blocks):
         raw_string = blocks.pop(0)
-        element = etree.fromstring(raw_string)
-        filename = element.attrib.pop("src")
+        md_element = etree.fromstring(raw_string)
+        filename = md_element.attrib.pop("src")
         lottie_url = get_url(self.md, filename)
-        # mkdocs will perform something similar to get_url to all the href, so we counteract it...
-        download_file = lottie_url
-
-        width = element.attrib.pop("width", None)
-        height = element.attrib.pop("height", None)
-        buttons = element.attrib.pop("buttons", "true") == "true"
+        width = md_element.attrib.pop("width", None)
+        height = md_element.attrib.pop("height", None)
+        buttons = md_element.attrib.pop("buttons", "true") == "true"
+        background = md_element.attrib.pop("background", None)
         element = LottieRenderer.render(
             url=lottie_url,
-            download_file=download_file,
+            download_file=lottie_url,
             width=width,
             height=height,
-            extra_options=json.dumps(element.attrib),
+            extra_options=json.dumps(md_element.attrib),
             buttons=buttons,
+            background=background,
         )[0]
 
         parent.append(element)
 
         return True
+
+
+class LottiePlaygroundBuilder:
+    def __init__(self, parent, schema_data, width, height, buttons):
+        self.parent = parent
+        self.schema_data = schema_data
+
+        self.element = etree.SubElement(parent, "div")
+        self.element.attrib["class"] = "playground"
+
+        self.renderer = LottieRenderer(
+            parent=self.element, width=width, height=height,
+            buttons=buttons, button_parent=self.element
+        )
+        self.player_container = self.renderer.element
+        self.player_container.attrib["class"] = "animation-json"
+
+        self.controls_container = etree.Element("table", {"class": "table-plain", "style": "width: 100%"})
+        self.element.insert(0, self.controls_container)
+
+        self.control_id_counter = 0
+
+    @property
+    def anim_id(self):
+        return self.renderer.id
+
+    @property
+    def add_button(self):
+        return self.renderer.add_button
+
+    def control_id(self):
+        self.control_id_counter += 1
+        return "playground_{id}_{index}".format(id=self.anim_id, index=self.control_id_counter)
+
+    def add_control(self, label, input):
+        tr = etree.SubElement(self.controls_container, "tr")
+
+        label_cell = etree.SubElement(tr, "td", {"style": "white-space: pre"})
+        label_element = etree.SubElement(label_cell, "label")
+        label_element.text = label
+
+        if input is None:
+            label_cell.tag = "th"
+            label_cell.attrib["colspan"] = "2"
+            label_element.tag = "span"
+            return
+
+        label_element.tail = " "
+        td = etree.SubElement(tr, "td", {"style": "width: 100%"})
+        input_wrapper = input
+
+        if input.tag == "enum":
+            enum_id = input.text
+            default_value = input.attrib.get("value", "")
+
+            input = input_wrapper = etree.Element("select")
+            for value, opt_label, _ in enum_values(self.schema_data, enum_id):
+                option = etree.SubElement(input, "option", {"value": str(value)})
+                option.text = opt_label
+                if str(value) == default_value:
+                    option.attrib["selected"] = "selected"
+        elif input.tag == "highlight":
+            input_wrapper = etree.Element("div", {"class": "highlighted-input"})
+            lang = input.attrib.get("lang", "javascript")
+            contents = input.text.strip()
+            input = etree.SubElement(input_wrapper, "textarea", {
+                "spellcheck": "false",
+                "oninput": "syntax_edit_update(this, this.value); syntax_edit_scroll(this);",
+                "onscroll": "syntax_edit_scroll(this);",
+                "onkeydown": "syntax_edit_tab(this, event);",
+                "data-lang": lang,
+            })
+            input.text = contents
+            pre = etree.SubElement(input_wrapper, "pre", {"aria-hidden": "true"})
+            code = etree.SubElement(pre, "code", {"class": "language-js hljs"})
+            code.text = AtomicString(contents)
+
+        input.attrib.setdefault("oninput", "")
+        input.attrib["oninput"] += "lottie_player_{id}.reload();".format(id=self.anim_id)
+        input.attrib["data-lottie-input"] = str(self.anim_id)
+        input.attrib["autocomplete"] = "off"
+        if "name" not in input.attrib:
+            input.attrib["name"] = label
+        td.append(input_wrapper)
+
+        id_base = self.control_id()
+        if input.attrib.get("type", "") == "range":
+            etree.SubElement(td, "span", {
+                "id": id_base + "_span"
+            }).text = input.attrib["value"]
+            input.attrib["oninput"] += (
+                "document.getElementById('{span}').innerText = event.target.value;"
+                .format(span=id_base + "_span")
+            )
+        elif input.tag == "textarea":
+            tr.remove(td)
+            tr = etree.SubElement(self.controls_container, "tr")
+            tr.append(td)
+            td.attrib["colspan"] = "2"
+            label_cell.attrib["colspan"] = "2"
+            input.attrib["rows"] = str(max(3, input.text.count("\n")))
+            input.attrib["class"] = "code-input"
+            input.attrib["style"] = "width: 100%"
+
+
+class LottiePlayground(BlockProcessor):
+    def __init__(self, md, schema_data):
+        self.md = md
+        self.schema_data = schema_data
+        super().__init__(md.parser)
+
+    def test(self, parent, block):
+        return block.startswith("<lottie-playground")
+
+    def run(self, parent, blocks):
+        raw_string = blocks.pop(0)
+        md_element: etree.Element = etree.fromstring(raw_string)
+
+        md_title = md_element.find("./title")
+        if md_title is not None:
+            md_title.tag = "p"
+            parent.append(md_title)
+
+        width = md_element.attrib.pop("width", None)
+        height = md_element.attrib.pop("height", None)
+        buttons = md_element.attrib.pop("buttons", False)
+
+        builder = LottiePlaygroundBuilder(parent, self.schema_data, width=width, height=height, buttons=buttons)
+
+        md_form = md_element.find("./form")
+        if md_form:
+            for input in md_form:
+                if not input.attrib.get("title", ""):
+                    input.attrib["title"] = input.attrib["name"]
+                elif not input.attrib.get("name", ""):
+                    input.attrib["name"] = input.attrib["title"]
+                builder.add_control(input.attrib["title"], input)
+
+        md_json = md_element.find("./json")
+        json_parent = etree.SubElement(builder.player_container, "div")
+        json_parent.attrib["class"] = "json-parent"
+        json_viewer_id = self.add_json_viewer(builder, json_parent)
+        json_viewer_path = md_json.text
+        #
+        # filename = element.attrib.pop("src")
+        # lottie_url = get_url(self.md, filename)
+        # buttons = md_element.attrib.pop("buttons", "true") == "true"
+        # element = LottieRenderer.render(
+        #     url=lottie_url,
+        #     download_file=lottie_url,
+        #     width=width,
+        #     height=height,
+        #     extra_options=json.dumps(element.attrib),
+        #     buttons=buttons,
+        # )[0]
+
+        # parent.append(element)
+
+        example_id = md_element.attrib.pop("example")
+        json_data = self.example_json(example_id)
+        extra = json.dumps(md_element.attrib)
+        md_script = md_element.find("./script")
+        self.populate_script(md_script, builder, json_data, extra, json_viewer_id, json_viewer_path)
+
+        return True
+
+    def example_json(self, filename):
+        """
+        Returns minified JSON string
+        """
+        with open(docs_path / "static" / "examples" / filename) as file:
+            return json.dumps(json.load(file))
+
+    def populate_script(self, script_element, builder, json_data, extra_options, json_viewer_id, json_viewer_path):
+        # <script> are gobbled up by a preprocessor
+        script = ""
+        if script_element is not None:
+            script = script_element.text
+
+        if json_viewer_path:
+            script += "this.json_viewer_contents = %s;" % json_viewer_path
+
+        builder.renderer.populate_script("""
+        var lottie_player_{id} = new PlaygroundPlayer(
+            {id},
+            '{json_viewer_id}',
+            'lottie_target_{id}',
+            {json_data},
+            function (lottie, data)
+            {{
+                {on_load}
+            }},
+            {extra_options}
+        );
+        """.format(
+            id=builder.anim_id,
+            json_viewer_id=json_viewer_id,
+            on_load=script,
+            json_data=json_data,
+            extra_options=extra_options
+        ))
+
+    def add_json_viewer(self, builder, parent):
+        code_viewer_id = builder.control_id()
+        parent.attrib["id"] = code_viewer_id + "_parent"
+
+        pre = etree.SubElement(parent, "pre")
+        code = etree.SubElement(pre, "code", {"id": code_viewer_id, "class": "language-json hljs"})
+        code.text = ""
+        return code_viewer_id
 
 
 class LottieExtension(Extension):
@@ -761,7 +976,16 @@ class LottieExtension(Extension):
         md.inlinePatterns.register(SchemaLink(md), "schema_link", 175)
         md.inlinePatterns.register(SubTypeTable(md, schema_data), "schema_subtype_table", 175)
 
-        md.parser.blockprocessors.register(RawHTML(md.parser, schema_data, ["lottie"]), "raw_heading", 10)
+        md.parser.blockprocessors.register(
+            RawHTML(
+                md.parser,
+                schema_data,
+                ["lottie", "lottie-playground"]
+            ),
+            "raw_heading",
+            10
+        )
+        md.parser.blockprocessors.register(LottiePlayground(md, schema_data), "lottie-playground", 200)
         md.parser.blockprocessors.register(LottieBlock(md), "lottie", 175)
         md.parser.blockprocessors.register(SchemaObject(md.parser, schema_data), "schema_object", 175)
         md.parser.blockprocessors.register(SchemaEnum(md.parser, schema_data), "schema_enum", 175)

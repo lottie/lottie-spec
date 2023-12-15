@@ -45,6 +45,27 @@ The `ty` property defines the specific element type based on the following value
 
 {schema_object:shapes/rectangle}
 
+<lottie-playground example="rectangle.json">
+    <title>Example</title>
+    <form>
+        <input title="Position x" type="range" min="0" max="512" value="256"/>
+        <input title="Position y" type="range" min="0" max="512" value="256"/>
+        <input title="Width" type="range" min="0" max="512" value="256"/>
+        <input title="Height" type="range" min="0" max="512" value="256"/>
+        <input title="Roundness" type="range" min="0" max="512" value="0"/>
+    </form>
+    <json>lottie.layers[0].shapes[0].it[0]</json>
+    <script>
+    lottie.layers[0].shapes[0].it[0].p.k = [
+        data["Position x"], data["Position y"]
+    ];
+    lottie.layers[0].shapes[0].it[0].s.k = [
+        data["Width"], data["Height"]
+    ];
+    lottie.layers[0].shapes[0].it[0].r.k = data["Roundness"];
+    </script>
+</lottie-playground>
+
 <h2 id="grouping">Grouping</h2>
 
 <h3 id="group">Group</h3>

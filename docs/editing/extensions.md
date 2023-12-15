@@ -93,15 +93,73 @@ Example:
 
 Embeds a lottie into the document
 
+Example:
 
 ```xml
 <lottie
     src="static/logo.json"
     width="200"
+    background="white"
 />
 ```
+
+Output:
 
 <lottie
     src="static/logo.json"
     width="200"
+    background="white"
 />
+
+
+### `lottie-playground`
+
+Embeds a player side by side to a JSON snipped and controls to tweak the animation
+
+Example:
+
+```html
+<lottie-playground example="rectangle.json">
+    <title>Example</title>
+    <form>
+        <input title="Position x" type="range" min="0" max="512" value="256"/>
+        <input title="Position y" type="range" min="0" max="512" value="256"/>
+        <input title="Width" type="range" min="0" max="512" value="256"/>
+        <input title="Height" type="range" min="0" max="512" value="256"/>
+        <input title="Roundness" type="range" min="0" max="512" value="0"/>
+    </form>
+    <json>lottie.layers[0].shapes[0].it[0]</json>
+    <script>
+    lottie.layers[0].shapes[0].it[0].p.k = [
+        data["Position x"], data["Position y"]
+    ];
+    lottie.layers[0].shapes[0].it[0].s.k = [
+        data["Width"], data["Height"]
+    ];
+    lottie.layers[0].shapes[0].it[0].r.k = data["Roundness"];
+    </script>
+</lottie-playground>
+```
+
+Output:
+
+<lottie-playground example="rectangle.json">
+    <title>Example</title>
+    <form>
+        <input title="Position x" type="range" min="0" max="512" value="256"/>
+        <input title="Position y" type="range" min="0" max="512" value="256"/>
+        <input title="Width" type="range" min="0" max="512" value="256"/>
+        <input title="Height" type="range" min="0" max="512" value="256"/>
+        <input title="Roundness" type="range" min="0" max="512" value="0"/>
+    </form>
+    <json>lottie.layers[0].shapes[0].it[0]</json>
+    <script>
+    lottie.layers[0].shapes[0].it[0].p.k = [
+        data["Position x"], data["Position y"]
+    ];
+    lottie.layers[0].shapes[0].it[0].s.k = [
+        data["Width"], data["Height"]
+    ];
+    lottie.layers[0].shapes[0].it[0].r.k = data["Roundness"];
+    </script>
+</lottie-playground>
