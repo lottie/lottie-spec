@@ -12,17 +12,18 @@
 
 {schema_object:properties/easing-handle}
 
+
 ## Property types
 
 
-### {schema_string:properties/multi-dimensional/title}
+<h3 id="multi-dimensional">Vector</h3>
 
 {schema_string:properties/multi-dimensional/description}
 
 {schema_object:properties/multi-dimensional}
 
 
-#### {schema_string:properties/vector-keyframe/title}
+<h4 id="vector-keyframe">Vector Keyframe</h4>
 
 {schema_string:properties/vector-keyframe/description}
 
@@ -30,21 +31,21 @@
 EXPAND:#/$defs/properties/base-keyframe
 
 
-### {schema_string:properties/value/title}
+<h3 id="value">Scalar</h3>
 
 {schema_string:properties/value/description}
 
 {schema_object:properties/value}
 
 
-### Position
+<h3 id="position">Position</h3>
 
 {schema_string:properties/position/description}
 
 {schema_object:properties/position}
 
 
-#### {schema_string:properties/position-keyframe/title}
+<h4 id="position-keyframe">Position Keyframe</h4>
 
 {schema_string:properties/position-keyframe/description}
 
@@ -52,28 +53,28 @@ EXPAND:#/$defs/properties/base-keyframe
 EXPAND:#/$defs/properties/base-keyframe
 
 
-### {schema_string:properties/shape-property/title}
+<h3 id="shape-property">Shape</h3>
 
 {schema_string:properties/shape-property/description}
 
 {schema_object:properties/shape-property}
 
 
-#### {schema_string:properties/shape-keyframe/title}
+<h4 id="shape-keyframe">Shape Keyframe</h4>
 
 {schema_string:properties/shape-keyframe/description}
 
 {schema_object:properties/shape-keyframe}
 EXPAND:#/$defs/properties/base-keyframe
 
-### {schema_string:properties/color-value/title}
+<h3 id="color-value">Color</h3>
 
 {schema_string:properties/color-value/description}
 
 {schema_object:properties/color-value}
 
 
-#### {schema_string:properties/color-keyframe/title}
+<h4 id="color-keyframe">Color Keyframe</h4>
 
 {schema_string:properties/color-keyframe/description}
 

@@ -4,10 +4,10 @@ The shape objects are divided in 4 categories:
 
 * [Raw Shapes](#raw-shapes) that define the actual curves but have no styling information
 * [Grouping](#grouping), used to organize collections of shape elements
-* [Styles](#styles), that define the visual appearance of raw shapes
-* [Modifiers](#modifiers) alter the curves of the raw shapes
+* [Styles](#shape-style), that define the visual appearance of raw shapes
+* [Modifiers](#modifier) alter the curves of the raw shapes
 
-## {schema_string:shapes/shape-element/title}
+<h2 id="shape-element">Shape Element</h2>
 
 {schema_string:shapes/shape-element/description}
 
@@ -20,28 +20,28 @@ The `ty` property defines the specific element type based on the following value
 
 ## Raw Shapes
 
-### {schema_string:shapes/shape/title}
+<h2 id="shape">Shapes</h2>
 
 {schema_string:shapes/shape/description}
 
 {schema_object:shapes/shape}
 
 
-### {schema_string:shapes/ellipse/title}
+<h3 id="ellipse">Ellipse</h3>
 
 {schema_string:shapes/ellipse/description}
 
 {schema_object:shapes/ellipse}
 
 
-### {schema_string:shapes/path/title}
+<h3 id="path">Path</h3>
 
 {schema_string:shapes/path/description}
 
 {schema_object:shapes/path}
 
 
-### {schema_string:shapes/rectangle/title}
+<h3 id="rectangle">Rectangle</h3>
 
 {schema_string:shapes/rectangle/description}
 
@@ -49,7 +49,7 @@ The `ty` property defines the specific element type based on the following value
 
 ## Grouping
 
-### {schema_string:shapes/group/title}
+<h3 id="group">Group</h3>
 
 {schema_string:shapes/group/description}
 
@@ -61,32 +61,28 @@ The `ty` property defines the specific element type based on the following value
 
 {schema_object:shapes/transform}
 
-## Styles
 
-### {schema_string:shapes/fill/title}
+<h2 id="shape-style">Styles</h3>
+
+{schema_string:shapes/shape-style/description}
+
+{schema_object:shapes/shape-style}
+
+
+<h3 id="fill">Fill</h3>
 
 {schema_string:shapes/fill/description}
 
 {schema_object:shapes/fill}
 
-
-## Modifiers
-
-### {schema_string:shapes/modifier/title}
+<h2 id="modifier">Modifiers</h2>
 
 {schema_string:shapes/modifier/description}
 
 {schema_object:shapes/modifier}
 
-### {schema_string:shapes/trim-path/title}
+<h3 id="trim-path">Trim Path</h3>
 
 {schema_string:shapes/trim-path/description}
 
 {schema_object:shapes/trim-path}
-
-
-### {schema_string:shapes/shape-style/title}
-
-{schema_string:shapes/shape-style/description}
-
-{schema_object:shapes/shape-style}

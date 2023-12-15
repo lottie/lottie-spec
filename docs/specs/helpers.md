@@ -7,35 +7,35 @@
 {schema_object:helpers/int-boolean}
 
 
-## {schema_string:helpers/transform/title}
+<h2 id="transform">Transform</h2>
 
 {schema_string:helpers/transform/description}
 
 {schema_object:helpers/transform}
 
 
-## {schema_string:helpers/visual-object/title}
+<h2 id="visual-object">Visual Object</h2>
 
 {schema_string:helpers/visual-object/description}
 
 {schema_object:helpers/visual-object}
 
 
-## {schema_string:helpers/color/title}
+<h2 id="color">Color</h2>
 
 {schema_string:helpers/color/description}
 
 {schema_object:helpers/color}
 
 
-## {schema_string:helpers/marker/title}
+<h2 id="marker">Marker</h2>
 
 {schema_string:helpers/marker/description}
 
 {schema_object:helpers/marker}
 
 
-## {schema_string:helpers/bezier/title}
+<h2 id="bezier">Bezier</h2>
 
 {schema_string:helpers/bezier/description}
 

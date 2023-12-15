@@ -1,7 +1,7 @@
 # Composition
 
 
-## {schema_string:composition/animation/title}
+<h2 id="animation">Animation</h2>
 
 {schema_string:composition/animation/description}
 
@@ -10,7 +10,7 @@ EXPAND:#/$defs/composition/composition
 EXPAND:#/$defs/helpers/visual-object
 
 
-## {schema_string:composition/composition/title}
+<h2 id="composition">Composition</h2>
 
 {schema_string:composition/composition/description}
 
