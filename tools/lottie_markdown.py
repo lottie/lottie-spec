@@ -676,9 +676,11 @@ class LottieRenderer:
         script.text = AtomicString(script_src)
 
     @staticmethod
-    def render(*, parent: etree.Element = None, url=None, json_data=None,
-               download_file=None, width=None, height=None, extra_options="{}", buttons=True):
-        obj = LottieRenderer(parent=parent, download_file=download_file, width=width, height=height, buttons=buttons)
+    def render(
+        *, parent: etree.Element = None, url=None, json_data=None, download_file=None,
+        width=None, height=None, extra_options="{}", buttons=True, background=None
+    ):
+        obj = LottieRenderer(parent=parent, download_file=download_file, width=width, height=height, buttons=buttons, background=background)
         if json_data is None:
             script_src = """
                 var lottie_player_{id} = new LottiePlayer(
