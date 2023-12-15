@@ -50,7 +50,7 @@ class ReferenceLink:
 
 
 def ref_links(ref: str, data: Schema):
-    ref = re.sub("all-([a-z]+)s", "\\1", ref)
+    ref = re.sub("all-([-a-z]+)s", "\\1", ref)
     chunks = ref.strip("#/").split("/")
     if len(chunks) > 0 and chunks[0] == "$defs":
         chunks.pop(0)

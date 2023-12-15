@@ -1,24 +1,22 @@
 # Shapes
 
-The shape objects are divided in 4 categories:
+The graphical elements are divided in 4 categories:
 
-* [Raw Shapes](#raw-shapes) that define the actual curves but have no styling information
-* [Grouping](#grouping), used to organize collections of shape elements
-* [Styles](#shape-style), that define the visual appearance of raw shapes
-* [Modifiers](#modifier) alter the curves of the raw shapes
+* [Shapes](#shape) that define the actual curves but have no styling information
+* [Grouping](#grouping), used to organize collections of graphic elements
+* [Styles](#shape-style), that define the visual appearance of shapes
+* [Modifiers](#modifier) alter the curves of the shapes
 
-<h2 id="shape-element">Shape Element</h2>
+<h2 id="graphic-element">Graphic Element</h2>
 
-{schema_string:shapes/shape-element/description}
+{schema_string:shapes/graphic-element/description}
 
-{schema_object:shapes/shape-element}
+{schema_object:shapes/graphic-element}
 
 The `ty` property defines the specific element type based on the following values:
 
-{schema_subtype_table:shapes/all-shapes:ty}
+{schema_subtype_table:shapes/all-graphic-elements:ty}
 
-
-## Raw Shapes
 
 <h2 id="shape">Shapes</h2>
 
@@ -47,7 +45,7 @@ The `ty` property defines the specific element type based on the following value
 
 {schema_object:shapes/rectangle}
 
-## Grouping
+<h2 id="grouping">Grouping</h2>
 
 <h3 id="group">Group</h3>
 
@@ -55,14 +53,14 @@ The `ty` property defines the specific element type based on the following value
 
 {schema_object:shapes/group}
 
-### Transform
+<h3 id="transform">Transform</h3>
 
 {schema_string:shapes/transform/description}
 
 {schema_object:shapes/transform}
 
 
-<h2 id="shape-style">Styles</h3>
+<h2 id="shape-style">Style</h2>
 
 {schema_string:shapes/shape-style/description}
 
@@ -79,7 +77,6 @@ The `ty` property defines the specific element type based on the following value
 
 {schema_string:shapes/modifier/description}
 
-{schema_object:shapes/modifier}
 
 <h3 id="trim-path">Trim Path</h3>
 

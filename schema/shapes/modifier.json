@@ -5,7 +5,7 @@
     "description": "Modifiers change the bezier curves of neighbouring shapes",
     "allOf": [
         {
-            "$ref": "#/$defs/shapes/shape-element"
+            "$ref": "#/$defs/shapes/graphic-element"
         }
     ]
 }
