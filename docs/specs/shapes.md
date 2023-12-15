@@ -31,6 +31,25 @@ The `ty` property defines the specific element type based on the following value
 
 {schema_object:shapes/ellipse}
 
+<lottie-playground example="ellipse.json">
+    <title>Example</title>
+    <form>
+        <input title="Position x" type="range" min="0" max="512" value="256"/>
+        <input title="Position y" type="range" min="0" max="512" value="256"/>
+        <input title="Width" type="range" min="0" max="512" value="256"/>
+        <input title="Height" type="range" min="0" max="512" value="256"/>
+    </form>
+    <json>lottie.layers[0].shapes[0].it[0]</json>
+    <script>
+    lottie.layers[0].shapes[0].it[0].p.k = [
+        data["Position x"], data["Position y"]
+    ];
+    lottie.layers[0].shapes[0].it[0].s.k = [
+        data["Width"], data["Height"]
+    ];
+    </script>
+</lottie-playground>
+
 
 <h3 id="path">Path</h3>
 
@@ -93,6 +112,25 @@ The `ty` property defines the specific element type based on the following value
 {schema_string:shapes/fill/description}
 
 {schema_object:shapes/fill}
+
+<lottie-playground example="fill.json">
+    <title>Example</title>
+    <form>
+        <input title="Red" type="range" min="0" max="1" step="0.01" value="1"/>
+        <input title="Green" type="range" min="0" max="1" step="0.01" value="0.98"/>
+        <input title="Blue" type="range" min="0" max="1" step="0.01" value="0.28"/>
+        <input title="Opacity" type="range" min="0" max="100" value="100"/>
+        <enum title="Fill Rule">fill-rule</enum>
+    </form>
+    <json>lottie.layers[0].shapes[0].it[1]</json>
+    <script>
+        var shape = lottie.layers[0].shapes[0].it[1];
+        shape.c.k = [data["Red"], data["Green"], data["Blue"]];
+        shape.o.k = data["Opacity"];
+        shape.r = Number(data["Fill Rule"]);
+    </script>
+</lottie-playground>
+
 
 <h2 id="modifier">Modifiers</h2>
 

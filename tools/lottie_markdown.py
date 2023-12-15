@@ -283,7 +283,10 @@ class SchemaObject(BlockProcessor):
         if "$ref" in prop and "type" not in prop:
             return prop["$ref"]
         if "type" in prop:
-            return prop["type"]
+            type = prop["type"]
+            if type == "array" and prop.get("items", {}).get("type", "") == "number":
+                return "Vector"
+            return type
         if "oneOf" in prop:
             return [self._type(t) for t in prop["oneOf"]]
         return ""
@@ -585,7 +588,6 @@ class RawHTML(BlockProcessor):
         if element.tag not in self.tag_names:
             return False
 
-        print(element.tag)
         self.parser.md.htmlStash.rawHtmlBlocks.pop(index)
         self.parser.md.htmlStash.rawHtmlBlocks.insert(index, '')
 
@@ -971,6 +973,42 @@ class LottiePlayground(BlockProcessor):
         return code_viewer_id
 
 
+def css_style(**args):
+    string = ""
+    for k, v in args.items():
+        string += "%s:%s;" % (k.replace("_", "-"), v)
+
+    return string
+
+
+class LottieColor(InlineProcessor):
+    def __init__(self, pattern, md, mult):
+        super().__init__(pattern, md)
+        self.mult = mult
+
+    def handleMatch(self, match, data):
+        span = etree.Element("span")
+        span.attrib["style"] = "font-family: right"
+
+        if self.mult == -1:
+            hex = match.group(1)
+        else:
+            comp = [float(match.group(i)) / self.mult for i in range(2, 5)]
+            hex = "#" + "".join("%02x" % round(x * 255) for x in comp)
+
+        color = etree.SubElement(span, "span")
+        color.attrib["style"] = css_style(background_color=hex)
+        color.attrib["class"] = "color-preview"
+        code = etree.SubElement(span, "code")
+
+        if self.mult == -1:
+            code.text = hex
+        else:
+            code.text = "[%s]" % ", ".join("%.3g" % x for x in comp)
+
+        return span, match.start(0), match.end(0)
+
+
 class LottieExtension(Extension):
     def extendMarkdown(self, md):
         with open(docs_path / "lottie.schema.json") as file:
@@ -980,6 +1018,7 @@ class LottieExtension(Extension):
         md.inlinePatterns.register(JsonFile(md), "json_file", 175)
         md.inlinePatterns.register(SchemaLink(md), "schema_link", 175)
         md.inlinePatterns.register(SubTypeTable(md, schema_data), "schema_subtype_table", 175)
+        md.inlinePatterns.register(LottieColor(r'{lottie_color:(([^,]+),\s*([^,]+),\s*([^,]+))}', md, 1), 'lottie_color', 175)
 
         md.parser.blockprocessors.register(
             RawHTML(

@@ -24,3 +24,13 @@
 .animation-json > div pre {
     margin: 0;
 }
+
+.color-preview {
+    border: 1px solid black;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.5ex;
+    border-radius: 3px;
+    height: 1.2em;
+    width: 1.2em;
+}

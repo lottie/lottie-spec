@@ -7,6 +7,18 @@
 
 {schema_enum:fill-rule}
 
+<lottie-playground example="fill.json">
+    <title>Example</title>
+    <form>
+        <enum title="Fill Rule">fill-rule</enum>
+    </form>
+    <json>lottie.layers[0].shapes[0].it[1]</json>
+    <script>
+        var shape = lottie.layers[0].shapes[0].it[1];
+        shape.r = Number(data["Fill Rule"]);
+    </script>
+</lottie-playground>
+
 
 <h2 id="trim-multiple-shapes">Trim Multiple Shapes</h2>
 
