@@ -9,7 +9,7 @@ from markdown.extensions import Extension
 from markdown.inlinepatterns import InlineProcessor
 from markdown.blockprocessors import BlockProcessor
 from markdown.preprocessors import Preprocessor
-from markdown.util import HTML_PLACEHOLDER_RE
+from markdown.util import HTML_PLACEHOLDER_RE, AtomicString
 
 from schema_tools.schema import Schema
 
@@ -114,7 +114,7 @@ class SchemaLink(InlineProcessor):
         href = "schema.md#/$defs/" + path
         element = etree.Element("a", {"href": href, "class": "schema-link"})
         element.attrib["title"] = "View Schema"
-        etree.SubElement(element, "i").attrib["class"] = "fas fa-file-code"
+        element.append(etree_fontawesome("file-code"))
         return element
 
     @staticmethod
@@ -122,7 +122,7 @@ class SchemaLink(InlineProcessor):
         href = "https://canilottie.com/" + feature
         element = etree.Element("a", {"href": href, "class": "schema-link"})
         element.attrib["title"] = "View Compatibility"
-        etree.SubElement(element, "i").attrib["class"] = "fas fa-list-check"
+        element.append(etree_fontawesome("list-check"))
         return element
 
     def handleMatch(self, m, data):
@@ -180,8 +180,7 @@ class JsonHtmlSerializer:
                 self.tail = etree.SubElement(self.parent, "a")
                 self.tail.attrib["href"] = link.url()
                 self.tail.attrib["title"] = link.name
-                icon = etree.SubElement(self.tail, "i")
-                icon.attrib["class"] = "fas fa-book-open"
+                self.tail.append(etree_fontawesome("book-open"))
                 self.tail.tail = " "
         return child_id
 
@@ -559,16 +558,17 @@ class SubTypeTable(InlineProcessor):
         return table, match.start(0), match.end(0)
 
 
-class RawHeadings(BlockProcessor):
+class RawHTML(BlockProcessor):
     """
     Needlessly complex workaround to allow HTML-style headings `<h1>foo</h1>`
     to show up in the table of contents
     """
-    re_heading = re.compile(r'^<(h[1-6])([^>]*)>(.*)</\1>')
+    headers = ["h%s" for h in range(1, 7)]
 
-    def __init__(self, parser, schema_data: Schema):
+    def __init__(self, parser, schema_data: Schema, extra_elements):
         super().__init__(parser)
         self.schema_data = schema_data
+        self.tag_names = set(self.headers + extra_elements)
 
     def test(self, parent: etree.Element, block):
         return HTML_PLACEHOLDER_RE.match(block)
@@ -577,15 +577,177 @@ class RawHeadings(BlockProcessor):
         match = HTML_PLACEHOLDER_RE.match(blocks[0])
         index = int(match.group(1))
         raw_string = self.parser.md.htmlStash.rawHtmlBlocks[index]
-        match = self.re_heading.match(raw_string)
-        if not match:
+        element = etree.fromstring(raw_string)
+
+        if element.tag not in self.tag_names:
             return False
 
         self.parser.md.htmlStash.rawHtmlBlocks.pop(index)
         self.parser.md.htmlStash.rawHtmlBlocks.insert(index, '')
 
-        header = etree.fromstring(raw_string)
-        parent.append(header)
+        parent.append(element)
+        return True
+
+
+def etree_fontawesome(icon, group="fas"):
+    el = etree.Element("i")
+    el.attrib["class"] = "%s fa-%s" % (group, icon)
+    return el
+
+
+class LottieRenderer:
+    _id = 0
+
+    @staticmethod
+    def get_id():
+        id = LottieRenderer._id
+        LottieRenderer._id += 1
+        return id
+
+    def __init__(self, *, parent: etree.Element = None, download_file=None, width=None, height=None, buttons=True):
+        self.id = LottieRenderer.get_id()
+
+        element = etree.Element("div")
+
+        if parent is not None:
+            parent.append(element)
+
+        self.animation_container = etree.SubElement(element, "div")
+        self.animation_container.attrib["class"] = "animation-container alpha_checkered"
+
+        self.animation = etree.SubElement(self.animation_container, "div")
+        self.animation.attrib["id"] = "lottie_target_%s" % self.id
+
+        self.width = width
+        self.height = height
+
+        if width:
+            self.animation.attrib["style"] = "width:%spx;height:%spx" % (width, height)
+
+        if buttons:
+            self.button_container = etree.SubElement(element, "div")
+
+            self.add_button(
+                id="lottie_play_{id}".format(id=self.id),
+                onclick=(
+                    "lottie_player_{id}.play(); " +
+                    "document.getElementById('lottie_pause_{id}').style.display = 'inline-block'; " +
+                    "this.style.display = 'none'"
+                ).format(id=self.id),
+                icon="play",
+                title="Play",
+                style="display:none"
+            )
+
+            self.add_button(
+                id="lottie_pause_{id}".format(id=self.id),
+                onclick=(
+                    "lottie_player_{id}.pause(); " +
+                    "document.getElementById('lottie_play_{id}').style.display = 'inline-block'; " +
+                    "this.style.display = 'none'"
+                ).format(id=self.id),
+                icon="pause",
+                title="Pause"
+            )
+
+            if download_file:
+                download = etree.Element("a")
+                self.button_container.append(download)
+                download.attrib["href"] = download_file
+                # download.attrib["download"] = ""
+                download.attrib["title"] = "Download"
+                download_button = etree.Element("button")
+                download.append(download_button)
+                download_button.append(etree_fontawesome("download"))
+
+        self.element = element
+        self.variable_name = "lottie_player_{id}".format(id=self.id)
+        self.target_id = "lottie_target_{id}".format(id=self.id)
+
+    def populate_script(self, script_src):
+        script = etree.Element("script")
+        self.element.append(script)
+        script.text = AtomicString(script_src)
+
+    @staticmethod
+    def render(*, parent: etree.Element = None, url=None, json_data=None,
+               download_file=None, width=None, height=None, extra_options="{}", buttons=True):
+        obj = LottieRenderer(parent=parent, download_file=download_file, width=width, height=height, buttons=buttons)
+        if json_data is None:
+            script_src = """
+                var lottie_player_{id} = new LottiePlayer(
+                    'lottie_target_{id}',
+                    '{file}',
+                    true,
+                    {extra_options}
+                );
+            """.format(id=obj.id, file=url, extra_options=extra_options)
+        else:
+            script_src = """
+                var lottie_player_{id} = new LottiePlayer(
+                    'lottie_target_{id}',
+                    {json_data},
+                    true,
+                    {extra_options}
+                );
+            """.format(id=obj.id, json_data=json.dumps(json_data), extra_options=extra_options)
+
+        obj.populate_script(script_src)
+        return (obj.element, obj.id)
+
+    def add_button(self, *, text=None, icon=None, **attrib):
+        button = etree.SubElement(self.button_container, "button")
+        button.attrib = attrib
+        if icon:
+            icon_element = etree_fontawesome(icon)
+            if text:
+                icon_element.tail = text
+            button.append(icon_element)
+        elif text:
+            button.text = text
+
+        return button
+
+
+def get_url(md, path):
+    # Mkdocs adds a tree processor to adjust urls, but it won't work with lottie js so we do the same here
+    processor = next(proc for proc in md.treeprocessors if proc.__class__.__module__ == 'mkdocs.structure.pages')
+    page = processor.files.get_file_from_path(path)
+    if not page:
+        raise Exception("Page not found at %s" % path)
+    return page.url_relative_to(processor.file)
+
+
+class LottieBlock(BlockProcessor):
+    def __init__(self, md):
+        self.md = md
+        super().__init__(md.parser)
+
+    def test(self, parent, block):
+        return block.startswith("<lottie")
+
+    def run(self, parent, blocks):
+        raw_string = blocks.pop(0)
+        element = etree.fromstring(raw_string)
+        filename = element.attrib.pop("src")
+        lottie_url = get_url(self.md, filename)
+        # mkdocs will perform something similar to get_url to all the href, so we counteract it...
+        download_file = lottie_url
+
+        width = element.attrib.pop("width", None)
+        height = element.attrib.pop("height", None)
+        buttons = element.attrib.pop("buttons", "true") == "true"
+        element = LottieRenderer.render(
+            url=lottie_url,
+            download_file=download_file,
+            width=width,
+            height=height,
+            extra_options=json.dumps(element.attrib),
+            buttons=buttons,
+        )[0]
+
+        parent.append(element)
+
         return True
 
 
@@ -594,13 +756,15 @@ class LottieExtension(Extension):
         with open(docs_path / "lottie.schema.json") as file:
             schema_data = Schema(json.load(file))
 
-        md.inlinePatterns.register(SchemaString(md, schema_data), 'schema_string', 175)
-        md.parser.blockprocessors.register(SchemaObject(md.parser, schema_data), 'schema_object', 175)
-        md.inlinePatterns.register(JsonFile(md), 'json_file', 175)
-        md.inlinePatterns.register(SchemaLink(md), 'schema_link', 175)
-        md.parser.blockprocessors.register(SchemaEnum(md.parser, schema_data), 'schema_enum', 175)
-        md.inlinePatterns.register(SubTypeTable(md, schema_data), 'schema_subtype_table', 175)
-        md.parser.blockprocessors.register(RawHeadings(md.parser, schema_data), 'raw_heading', 175)
+        md.inlinePatterns.register(SchemaString(md, schema_data), "schema_string", 175)
+        md.inlinePatterns.register(JsonFile(md), "json_file", 175)
+        md.inlinePatterns.register(SchemaLink(md), "schema_link", 175)
+        md.inlinePatterns.register(SubTypeTable(md, schema_data), "schema_subtype_table", 175)
+
+        md.parser.blockprocessors.register(RawHTML(md.parser, schema_data, ["lottie"]), "raw_heading", 10)
+        md.parser.blockprocessors.register(LottieBlock(md), "lottie", 175)
+        md.parser.blockprocessors.register(SchemaObject(md.parser, schema_data), "schema_object", 175)
+        md.parser.blockprocessors.register(SchemaEnum(md.parser, schema_data), "schema_enum", 175)
 
 
 def makeExtension(**kwargs):
