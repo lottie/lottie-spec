@@ -15,10 +15,7 @@
                 },
                 "k": {
                     "title": "Static value",
-                    "type": "array",
-                    "items": {
-                        "type": "number"
-                    }
+                    "$ref": "#/$defs/helpers/vector"
                 }
             }
         },

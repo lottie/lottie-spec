@@ -15,10 +15,7 @@
                 },
                 "k": {
                     "title": "Static value",
-                    "type": "array",
-                    "items": {
-                        "type": "number"
-                    }
+                    "$ref": "#/$defs/helpers/vector"
                 }
             }
         },
@@ -36,7 +33,7 @@
                     "title": "Keyframes",
                     "description": "Array of keyframes",
                     "items": {
-                            "$ref": "#/$defs/properties/vector-keyframe"
+                        "$ref": "#/$defs/properties/vector-keyframe"
                     }
                 }
             }
