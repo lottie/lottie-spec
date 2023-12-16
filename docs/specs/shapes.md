@@ -142,3 +142,19 @@ The `ty` property defines the specific element type based on the following value
 {schema_string:shapes/trim-path/description}
 
 {schema_object:shapes/trim-path}
+
+<lottie-playground example="trim_path.json">
+    <form>
+        <input title="Start" type="range" min="0" value="0" max="100"/>
+        <input title="End" type="range" min="0" value="50" max="100"/>
+        <input title="Offset" type="range" min="0" value="0" max="360"/>
+        <enum title="Multiple Shapes">trim-multiple-shapes</enum>
+    </form>
+    <json>lottie.layers[0].shapes[4]</json>
+    <script>
+        lottie.layers[0].shapes[4].s.k = data["Start"];
+        lottie.layers[0].shapes[4].e.k = data["End"];
+        lottie.layers[0].shapes[4].o.k = data["Offset"];
+        lottie.layers[0].shapes[4].m = Number(data["Multiple Shapes"]);
+    </script>
+</lottie-playground>
