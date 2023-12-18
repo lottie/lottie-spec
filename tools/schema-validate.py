@@ -64,7 +64,7 @@ class Validator:
         file_cache = {}
 
         for ref in self.expected_refs:
-            links = lottie_markdown.ref_links(ref, None)
+            links = lottie_markdown.ref_links(ref, self.root)
             for link in links:
                 key = (link.page, link.anchor)
                 if key in checked:
