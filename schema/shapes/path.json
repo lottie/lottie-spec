@@ -18,7 +18,7 @@
                 "ks": {
                     "title": "Shape",
                     "description": "Bezier path",
-                    "$ref": "#/$defs/properties/shape-property"
+                    "$ref": "#/$defs/properties/bezier-property"
                 }
             },
             "required": [

@@ -16,11 +16,11 @@
 ## Property types
 
 
-<h3 id="multi-dimensional">Vector</h3>
+<h3 id="vector-property">Vector</h3>
 
-{schema_string:properties/multi-dimensional/description}
+{schema_string:properties/vector-property/description}
 
-{schema_object:properties/multi-dimensional}
+{schema_object:properties/vector-property}
 
 
 <h4 id="vector-keyframe">Vector Keyframe</h4>
@@ -31,18 +31,18 @@
 EXPAND:#/$defs/properties/base-keyframe
 
 
-<h3 id="value">Scalar</h3>
+<h3 id="scalar-property">Scalar</h3>
 
-{schema_string:properties/value/description}
+{schema_string:properties/scalar-property/description}
 
-{schema_object:properties/value}
+{schema_object:properties/scalar-property}
 
 
-<h3 id="position">Position</h3>
+<h3 id="position-property">Position</h3>
 
-{schema_string:properties/position/description}
+{schema_string:properties/position-property/description}
 
-{schema_object:properties/position}
+{schema_object:properties/position-property}
 
 
 <h4 id="position-keyframe">Position Keyframe</h4>
@@ -53,25 +53,25 @@ EXPAND:#/$defs/properties/base-keyframe
 EXPAND:#/$defs/properties/base-keyframe
 
 
-<h3 id="shape-property">Shape</h3>
+<h3 id="bezier-property">Bezier</h3>
 
-{schema_string:properties/shape-property/description}
+{schema_string:properties/bezier-property/description}
 
-{schema_object:properties/shape-property}
+{schema_object:properties/bezier-property}
 
 
-<h4 id="shape-keyframe">Shape Keyframe</h4>
+<h4 id="bezier-keyframe">Bezier Keyframe</h4>
 
-{schema_string:properties/shape-keyframe/description}
+{schema_string:properties/bezier-keyframe/description}
 
-{schema_object:properties/shape-keyframe}
+{schema_object:properties/bezier-keyframe}
 EXPAND:#/$defs/properties/base-keyframe
 
-<h3 id="color-value">Color</h3>
+<h3 id="color-property">Color</h3>
 
-{schema_string:properties/color-value/description}
+{schema_string:properties/color-property/description}
 
-{schema_object:properties/color-value}
+{schema_object:properties/color-property}
 
 
 <h4 id="color-keyframe">Color Keyframe</h4>

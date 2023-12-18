@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
-    "title": "Multi Dimensional",
+    "title": "Vector Property",
     "description": "An animatable property that holds an array of numbers",
     "oneOf": [
         {

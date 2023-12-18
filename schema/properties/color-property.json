@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
-    "title": "Color Value",
+    "title": "Color Property",
     "description": "An animatable property that holds a Color",
     "oneOf": [
         {

@@ -1,8 +1,8 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
-    "title": "Value",
-    "description": "An animatable property that holds a float",
+    "title": "Bezier Property",
+    "description": "An animatable property that holds a Bezier shape",
     "oneOf": [
         {
             "$comment": "Not animated",
@@ -15,7 +15,7 @@
                 },
                 "k": {
                     "title": "Static value",
-                    "type": "number"
+                    "$ref": "#/$defs/values/bezier"
                 }
             }
         },
@@ -33,7 +33,7 @@
                     "title": "Keyframes",
                     "description": "Array of keyframes",
                     "items": {
-                            "$ref": "#/$defs/properties/vector-keyframe"
+                            "$ref": "#/$defs/properties/bezier-keyframe"
                     }
                 }
             }
