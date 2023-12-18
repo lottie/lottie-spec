@@ -6,6 +6,7 @@ from typing import Any
 from pathlib import Path
 import xml.etree.ElementTree as etree
 
+import graphviz
 from markdown.extensions import Extension
 from markdown.inlinepatterns import InlineProcessor
 from markdown.blockprocessors import BlockProcessor
@@ -13,7 +14,7 @@ from markdown.preprocessors import Preprocessor
 from markdown.util import HTML_PLACEHOLDER_RE, AtomicString
 from mkdocs.utils import get_relative_url
 
-from schema_tools.schema import Schema
+from schema_tools.schema import Schema, SchemaPath
 
 
 docs_path = Path(__file__).parent.parent / "docs"
@@ -45,19 +46,20 @@ class ReferenceLink:
 
 def ref_links(ref: str, data: Schema):
     ref = re.sub("all-([-a-z]+)s", "\\1", ref)
-    chunks = ref.strip("#/").split("/")
-    if len(chunks) > 0 and chunks[0] == "$defs":
-        chunks.pop(0)
-    else:
-        ref = "#/$defs/" + ref
+    path = SchemaPath(ref)
+    path.ensure_defs()
+    link = schema_link(data.get_ref(path))
+    return [link]
 
-    if len(chunks) != 2:
-        return []
+
+def schema_link(schema: Schema):
+    chunks = list(schema.path.chunks)
+    chunks.pop(0)
 
     group = chunks[0]
     cls = chunks[1]
 
-    name = data.get_ref(ref).get("title", cls) if data else cls
+    name = schema.get("title", cls)
 
     if group == "properties":
         name = name.replace(" Property", "")
@@ -70,7 +72,7 @@ def ref_links(ref: str, data: Schema):
         cls
     )
 
-    return [link]
+    return link
 
 
 class SchemaString(InlineProcessor):
@@ -246,6 +248,9 @@ class SchemaProperty:
 
 
 class SchemaObject(BlockProcessor):
+    """
+    Object property table
+    """
     re_fence_start = re.compile(r'^\s*\{schema_object:([^}]+)\}\s*(?:\n|$)')
     re_row = re.compile(r'^\s*(\w+)\s*:\s*(.*)')
     prop_fields = {f.name for f in dataclasses.fields(SchemaProperty)}
@@ -369,21 +374,13 @@ class SchemaObject(BlockProcessor):
 
         has_own_props = len(prop_dict)
 
-        if len(base_list):
-            p = etree.SubElement(div, "p")
-            if not has_own_props:
-                p.text = "Has the attributes from"
-            else:
-                p.text = "Also has the attributes from"
-
-            if len(base_list) == 1:
-                p.text += " "
-                self._base_link(p, base_list[0]).tail = "."
-            else:
-                p.text += ":"
-                ul = etree.SubElement(p, "ul")
-                for base in base_list:
-                    self._base_link(etree.SubElement(ul, "li"), base)
+        inheritance = SchemaInheritance(self.md, self.schema_data)
+        inh_cls = inheritance.get_class(schema_data.path)
+        if len(inh_cls.bases):
+            details = etree.SubElement(div, "details")
+            etree.SubElement(details, "summary").text = "Inheritance Diagram for %s" % inh_cls.link.name
+            graph = inheritance.inheritance_graph(inh_cls)
+            details.append(graph)
 
         if has_own_props:
             table = etree.SubElement(div, "table")
@@ -428,6 +425,91 @@ class SchemaObject(BlockProcessor):
         self.parser.parseBlocks(description, [prop.description])
 
 
+class SchemaInheritance(InlineProcessor):
+    @dataclasses.dataclass
+    class Class:
+        node_id: str
+        link: ReferenceLink
+        bases: list
+
+    cache = {}
+
+    def __init__(self, md, schema_data: Schema):
+        super().__init__(r'^\s*\{schema_inheritance:([^}]+)\}\s*(?:\n|$)', md)
+        self.schema_data = schema_data
+
+    def graph_to_etree(self, graph):
+        svg = graph.pipe(encoding='utf-8', format="svg")
+        pos = svg.find("<svg")
+        return etree.fromstring(
+            svg[pos:]
+            .replace("xlink:", "")
+            .replace("xmlns=", "_xmlns=")
+            .replace("font-family", "_ff")
+        )
+
+    def get_class(self, path: SchemaPath):
+        canonical_ref = str(path)
+
+        if canonical_ref not in self.cache:
+            schema = self.schema_data.get_ref(path)
+            cls = self.Class(self.ref_to_id(canonical_ref), schema_link(schema), [])
+            self.cache[canonical_ref] = cls
+            if "allOf" in schema:
+                for base in schema / "allOf":
+                    if "$ref" in base:
+                        cls.bases.append(base.get("$ref"))
+            return cls
+        else:
+            return self.cache[canonical_ref]
+
+    def add_object(self, graph, cls: Class, current: bool):
+        kwargs = {}
+
+        if not current:
+            kwargs["href"] = cls.link.url(self.md)
+        else:
+            kwargs["class"] = "current"
+
+        graph.node(
+            cls.node_id,
+            cls.link.name,
+            shape="box",
+            margin="0",
+            fontsize="10pt",
+            **kwargs
+        )
+
+        for base in cls.bases:
+            base_id = self.add_object_ref(graph, base, False)
+            graph.edge(cls.node_id, base_id, arrowhead="onormal")
+
+        return cls.node_id
+
+    def add_object_ref(self, graph, object_ref, current: bool):
+        cls = self.get_class(object_ref)
+        return self.add_object(graph, cls, current)
+
+    def ref_to_id(self, ref):
+        return ref.replace("#/$defs/", "").replace("/", "-")
+
+    def inheritance_graph(self, cls: Class):
+        graph = graphviz.Digraph()
+        graph.attr(rankdir="LR")
+
+        self.add_object(graph, cls, True)
+
+        return self.graph_to_etree(graph)
+
+    def handleMatch(self, match, data):
+        object_name = match.group(1)
+        path = SchemaPath(object_name)
+        path.ensure_defs()
+        cls = self.get_class(path)
+        element = self.inheritance_graph(cls)
+        return element, match.start(0), match.end(0)
+
+
 def enum_values(schema: Schema, name):
     enum = schema.get_ref(["$defs", "constants", name])
     data = []
@@ -437,6 +519,9 @@ def enum_values(schema: Schema, name):
 
 
 class SchemaEnum(BlockProcessor):
+    """
+    Enum value table
+    """
     re_fence_start = re.compile(r'^\s*\{schema_enum:([^}]+)\}\s*(?:\n|$)')
     re_row = re.compile(r'^\s*(\w+)\s*:\s*(.*)')
 
@@ -505,6 +590,9 @@ def find_property(object_schema: Schema, property: str, root_schema: Schema|None
 
 
 class SubTypeTable(InlineProcessor):
+    """
+    Table of links for `ty` values based on a `all-*s` schema
+    """
     def __init__(self, md, schema_data: Schema):
         super().__init__(r'\{schema_subtype_table:(?P<path>[^:}]+):(?P<attribute>[^:}]+)\}', md)
         self.schema_data = schema_data
@@ -997,6 +1085,7 @@ class LottieExtension(Extension):
         md.inlinePatterns.register(SchemaLink(md), "schema_link", 175)
         md.inlinePatterns.register(SubTypeTable(md, schema_data), "schema_subtype_table", 175)
         md.inlinePatterns.register(LottieColor(r'{lottie_color:(([^,]+),\s*([^,]+),\s*([^,]+))}', md, 1), 'lottie_color', 175)
+        md.inlinePatterns.register(SchemaInheritance(md, schema_data), "schema_inheritance", 175)
 
         md.parser.blockprocessors.register(
             RawHTML(

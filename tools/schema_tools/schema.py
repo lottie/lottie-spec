@@ -40,6 +40,10 @@ class SchemaPath:
             return False
         return True
 
+    def ensure_defs(self):
+        if self.chunks[0] != "$defs":
+            self.chunks.insert(0, "$defs")
+
     def __str__(self):
         return "#/" + "/".join(map(str, self.chunks))
 

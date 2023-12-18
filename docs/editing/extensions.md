@@ -77,6 +77,20 @@ Output:
 
 {schema_enum:fill-rule}
 
+### `schema_inheritance`
+
+Shows the inheritance diagram for an object type.
+
+Example:
+
+```
+{schema_inheritance:shapes/ellipse}
+```
+
+Output:
+
+{schema_inheritance:shapes/ellipse}
+
 ### `json_file`
 
 Embed a JSON file into markdown, including syntax highlighting and reference links for JSON schema.

@@ -34,3 +34,22 @@
     height: 1.2em;
     width: 1.2em;
 }
+
+summary {
+    display: list-item;
+    cursor: pointer;
+}
+
+summary:hover {
+    text-decoration: underline;
+}
+
+/* Graphviz */
+
+g.node.current text {
+    font-weight: bold;
+}
+
+g.graph text {
+    fill: currentColor;
+}
