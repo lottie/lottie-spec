@@ -22,7 +22,7 @@ The anchor point is highlighted with an orange dot.
         <input title="Position Y" type="range" min="0" value="256" max="512"/>
         <input title="Scale X" type="range" min="0" value="100" max="200"/>
         <input title="Scale Y" type="range" min="0" value="100" max="200"/>
-        <input title="Rotation" type="range" min="0" value="0" max="360"/>
+        <input title="Rotation" type="range" min="-360" value="0" max="360"/>
         <input title="Skew" type="range" min="0" value="0" max="360"/>
         <input title="Skew Angle" type="range" min="0" value="0" max="360"/>
         <input title="Opacity" type="range" min="0" value="100" max="100"/>
