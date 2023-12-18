@@ -64,22 +64,21 @@ class Validator:
         file_cache = {}
 
         for ref in self.expected_refs:
-            links = lottie_markdown.ref_links(ref, self.root)
-            for link in links:
-                key = (link.page, link.anchor)
-                if key in checked:
+            link = lottie_markdown.ref_link(ref, self.root)
+            key = (link.page, link.anchor)
+            if key in checked:
+                continue
+            checked.add(key)
+
+            if link.page not in file_cache:
+                file = html_path / link.page / "index.html"
+                if not file.exists():
+                    self.show_error("%s: Missing page %s" % (ref, link.page))
                     continue
-                checked.add(key)
+                file_cache[link.page] = lxml.html.parse(str(file)).xpath(".//*[@id]/@id")
 
-                if link.page not in file_cache:
-                    file = html_path / link.page / "index.html"
-                    if not file.exists():
-                        self.show_error("%s: Missing page %s" % (ref, link.page))
-                        continue
-                    file_cache[link.page] = lxml.html.parse(str(file)).xpath(".//*[@id]/@id")
-
-                if link.anchor not in file_cache[link.page]:
-                    self.show_error("%s: Missing anchor %s.md %s" % (ref, link.page, link.anchor))
+            if link.anchor not in file_cache[link.page]:
+                self.show_error("%s: Missing anchor %s.md %s" % (ref, link.page, link.anchor))
 
 
 if __name__ == "__main__":

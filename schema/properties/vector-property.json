@@ -14,7 +14,8 @@
                     "const": 0
                 },
                 "k": {
-                    "title": "Static value",
+                    "title": "Value",
+                    "description": "Static Value",
                     "$ref": "#/$defs/values/vector"
                 }
             }

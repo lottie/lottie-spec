@@ -34,22 +34,25 @@ class ReferenceLink:
         return get_url(md, "specs/%s.md" % self.page, self.anchor)
 
     def to_element(self, parent, md):
-        type_text = etree.SubElement(parent, "a")
+        type_text = etree.Element("a")
+        if parent is not None:
+            parent.append(type_text)
         type_text.attrib["href"] = self.url(md)
         type_text.text = self.name
-        type_text.tail = " "
+        # type_text.tail = " "
         if self.cls == "int-boolean":
             type_text.text = "0-1 "
             etree.SubElement(type_text, "code").text = "integer"
+            type_text.attrib["style"] = "white-space: nowrap;"
         return type_text
 
 
-def ref_links(ref: str, data: Schema):
+def ref_link(ref: str, data: Schema):
     ref = re.sub("all-([-a-z]+)s", "\\1", ref)
     path = SchemaPath(ref)
     path.ensure_defs()
     link = schema_link(data.get_ref(path))
-    return [link]
+    return link
 
 
 def schema_link(schema: Schema):
@@ -110,6 +113,33 @@ class SchemaLink(InlineProcessor):
         return SchemaLink.element(self.md, m.group(1)), m.start(0), m.end(0)
 
 
+class DocsLink(InlineProcessor):
+    def __init__(self, md, schema_data):
+        super().__init__(r'{link:([^:}]+)(?::([^:}]+))?}', md)
+        self.schema_data = schema_data
+
+    @staticmethod
+    def element(md, path):
+        href = get_url(md, "specs/schema.md", "/$defs/" + path)
+        element = etree.Element("a", {"href": href, "class": "schema-link"})
+        element.text = "View Schema"
+        return element
+
+    @staticmethod
+    def icon(md, path):
+        href = get_url(md, "specs/schema.md", "/$defs/" + path)
+        element = etree.Element("a", {"href": href, "class": "schema-link"})
+        element.attrib["title"] = "View Schema"
+        element.append(etree_fontawesome("file-code"))
+        return element
+
+    def handleMatch(self, m, data):
+        link = ref_link(m.group(1), self.schema_data).to_element(None, self.md)
+        if m.group(2):
+            link.text = m.group(2)
+        return link, m.start(0), m.end(0)
+
+
 class JsonHtmlSerializer:
     def __init__(self, parent, md, json_data):
         self.parent = parent
@@ -156,13 +186,13 @@ class JsonHtmlSerializer:
         self.encode_item(key, "attr", "#" + child_id)
         self.tail.attrib["id"] = child_id
         if child_id.count("/") == 3:
-            for link in ref_links(child_id, self.schema):
-                self.tail.tail += " "
-                self.tail = etree.SubElement(self.parent, "a")
-                self.tail.attrib["href"] = link.url(self.md)
-                self.tail.attrib["title"] = link.name
-                self.tail.append(etree_fontawesome("book-open"))
-                self.tail.tail = " "
+            link = ref_link(child_id, self.schema)
+            self.tail.tail += " "
+            self.tail = etree.SubElement(self.parent, "a")
+            self.tail.attrib["href"] = link.url(self.md)
+            self.tail.attrib["title"] = link.name
+            self.tail.append(etree_fontawesome("book-open"))
+            self.tail.tail = " "
         return child_id
 
     def encode_dict(self, json_object, indent, id):
@@ -309,7 +339,7 @@ class SchemaObject(BlockProcessor):
         self._conditional_properties(object, prop_dict, base_list)
 
     def _base_link(self, parent, ref):
-        link = ref_links(ref, self.schema_data)[0]
+        link = ref_link(ref, self.schema_data)
         return link.to_element(parent, self.md)
 
     def _base_type(self, type, parent):
@@ -320,9 +350,8 @@ class SchemaObject(BlockProcessor):
                 type_child.tail = " or "
             type_child.tail = ""
         elif type.startswith("#/$defs/"):
-            links = ref_links(type, self.schema_data)
-            for link in links:
-                type_text = link.to_element(parent, self.md)
+            link = ref_link(type, self.schema_data)
+            type_text = link.to_element(parent, self.md)
         else:
             type_text = etree.SubElement(parent, "code")
             type_text.text = type
@@ -618,9 +647,8 @@ class SubTypeTable(InlineProcessor):
             etree.SubElement(etree.SubElement(tr, "td"), "code").text = str(prop_schema.get("const"))
 
             td = etree.SubElement(tr, "td")
-            links = ref_links(ref, self.schema_data)
-            for link in links:
-                link.to_element(td, self.md)
+            link = ref_link(ref, self.schema_data)
+            link.to_element(td, self.md)
 
         return table, match.start(0), match.end(0)
 
@@ -1083,6 +1111,7 @@ class LottieExtension(Extension):
         md.inlinePatterns.register(SchemaString(md, schema_data), "schema_string", 175)
         md.inlinePatterns.register(JsonFile(md), "json_file", 175)
         md.inlinePatterns.register(SchemaLink(md), "schema_link", 175)
+        md.inlinePatterns.register(DocsLink(md, schema_data), "docs_link", 175)
         md.inlinePatterns.register(SubTypeTable(md, schema_data), "schema_subtype_table", 175)
         md.inlinePatterns.register(LottieColor(r'{lottie_color:(([^,]+),\s*([^,]+),\s*([^,]+))}', md, 1), 'lottie_color', 175)
         md.inlinePatterns.register(SchemaInheritance(md, schema_data), "schema_inheritance", 175)

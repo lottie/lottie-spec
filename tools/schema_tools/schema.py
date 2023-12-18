@@ -7,7 +7,7 @@ class SchemaPath:
     """
     def __init__(self, path=None):
         if isinstance(path, str):
-            self.chunks = path.strip("#/").split("/")
+            self.chunks = [int(chunk) if chunk.isdigit() else chunk for chunk in path.strip("#/").split("/")]
         elif path is None:
             self.chunks = []
         elif isinstance(path, SchemaPath):
@@ -34,8 +34,8 @@ class SchemaPath:
 
     @classmethod
     def valid_step(cls, schema, chunk):
-        if isinstance(chunk, int) and (not isinstance(schema, list) or len(schema) <= chunk):
-            return False
+        if isinstance(chunk, int) and isinstance(schema, list):
+            return 0 <= chunk < len(schema)
         elif chunk not in schema:
             return False
         return True
