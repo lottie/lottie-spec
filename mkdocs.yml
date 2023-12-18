@@ -22,13 +22,14 @@ plugins:
 nav:
     - "Home" : index.md
     - "Format":
+        - specs/values.md
+        - specs/properties.md
         - specs/composition.md
         - specs/layers.md
         - specs/shapes.md
         - specs/assets.md
         - specs/constants.md
         - specs/helpers.md
-        - specs/properties.md
         #
         - specs/schema.md
     - "Community":

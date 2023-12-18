@@ -14,7 +14,7 @@
             "type": "array",
             "description": "Array of points, each point is an array of coordinates.\nThese points are along the `in` tangents relative to the corresponding `v`.",
             "items": {
-                "$ref": "#/$defs/helpers/vector",
+                "$ref": "#/$defs/values/vector",
                 "default": []
             }
         },
@@ -23,7 +23,7 @@
             "type": "array",
             "description": "Array of points, each point is an array of coordinates.\nThese points are along the `out` tangents relative to the corresponding `v`.",
             "items": {
-                "$ref": "#/$defs/helpers/vector",
+                "$ref": "#/$defs/values/vector",
                 "default": []
             }
         },
@@ -32,7 +32,7 @@
             "description": "Array of points, each point is an array of coordinates.\nThese points are along the bezier path",
             "type": "array",
             "items": {
-                "$ref": "#/$defs/helpers/vector",
+                "$ref": "#/$defs/values/vector",
                 "default": []
             }
         }

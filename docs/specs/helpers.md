@@ -1,39 +1,5 @@
 # Helpers
 
-## Int Boolean
-
-{schema_string:helpers/int-boolean/description}
-
-{schema_object:helpers/int-boolean}
-
-
-<h2 id="vector">Vector</h2>
-
-{schema_string:helpers/vector/description}
-
-{schema_object:helpers/vector}
-
-
-<h2 id="color">Color</h2>
-
-Colors are represented as arrays with values between 0 and 1 for the RGB components.
-
-for example:
-
-* {lottie_color:1, 0, 0}
-* {lottie_color:1, 0.5, 0}
-
-Note sometimes you might find color values with 4 components (the 4th being alpha)
-but most players ignore the last component.
-
-<h2 id="bezier">Bezier</h2>
-
-{schema_string:helpers/bezier/description}
-
-{schema_object:helpers/bezier}
-
-
-
 <h2 id="transform">Transform</h2>
 
 {schema_string:helpers/transform/description}

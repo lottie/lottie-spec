@@ -14,7 +14,7 @@
                 },
                 "h": {
                     "title": "Hold",
-                    "$ref": "#/$defs/helpers/int-boolean",
+                    "$ref": "#/$defs/values/int-boolean",
                     "default": 0
                 }
             }

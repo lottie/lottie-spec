@@ -11,12 +11,12 @@
                 "ti": {
                     "title": "Value In Tangent",
                     "description": "Tangent for values (eg: moving position around a curved path)",
-                    "$ref": "#/$defs/helpers/vector"
+                    "$ref": "#/$defs/values/vector"
                 },
                 "to": {
                     "title": "Value Out Tangent",
                     "description": "Tangent for values (eg: moving position around a curved path)",
-                    "$ref": "#/$defs/helpers/vector"
+                    "$ref": "#/$defs/values/vector"
                 }
             }
         }
