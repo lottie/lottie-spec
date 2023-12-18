@@ -11,6 +11,7 @@ from markdown.inlinepatterns import InlineProcessor
 from markdown.blockprocessors import BlockProcessor
 from markdown.preprocessors import Preprocessor
 from markdown.util import HTML_PLACEHOLDER_RE, AtomicString
+from mkdocs.utils import get_relative_url
 
 from schema_tools.schema import Schema
 
@@ -28,25 +29,17 @@ class ReferenceLink:
         self.page = page or group
         self.anchor = anchor or cls
 
-    def url(self):
-        return "/lottie-spec/specs/%s#%s" % (self.page, self.anchor)
+    def url(self, md):
+        return get_url(md, "specs/%s.md" % self.page, self.anchor)
 
-    def to_element(self, parent, links):
+    def to_element(self, parent, md):
         type_text = etree.SubElement(parent, "a")
-        type_text.attrib["href"] = self.url()
+        type_text.attrib["href"] = self.url(md)
         type_text.text = self.name
         type_text.tail = " "
         if self.cls == "int-boolean":
             type_text.text = "0-1 "
             etree.SubElement(type_text, "code").text = "integer"
-        elif self.anchor == "properties" and len(links) == 1:
-            type_text.text = "Animated"
-            type_text.tail = " "
-            if self.cls == "value":
-                type_text = etree.SubElement(parent, "code").text = "number"
-            else:
-                type_text.tail += self.name.split(" ", 1)[1]
-
         return type_text
 
 
@@ -64,27 +57,20 @@ def ref_links(ref: str, data: Schema):
     group = chunks[0]
     cls = chunks[1]
 
-    values = {
-        "extra": None,
-        "page": group,
-        "anchor": cls,
-        "name": data.get_ref(ref).get("title", cls) if data else cls,
-        "name_prefix": "",
-    }
+    name = data.get_ref(ref).get("title", cls) if data else cls
 
-    links = []
-    if values["page"]:
-        links.append(ReferenceLink(
-            values["page"], values["anchor"], values["name_prefix"] + values["name"], group, cls
-        ))
+    if group == "properties":
+        name = name.replace(" Property", "")
 
-    if values["extra"]:
-        extra = values["extra"]
-        links.append(ReferenceLink(
-            extra["page"], extra["anchor"], extra["name"],
-        ))
+    link = ReferenceLink(
+        group,
+        cls,
+        name,
+        group,
+        cls
+    )
 
-    return links
+    return [link]
 
 
 class SchemaString(InlineProcessor):
@@ -104,30 +90,22 @@ class SchemaLink(InlineProcessor):
         super().__init__(pattern, md)
 
     @staticmethod
-    def element(path):
-        href = "schema.md#/$defs/" + path
+    def element(md, path):
+        href = get_url(md, "specs/schema.md", "/$defs/" + path)
         element = etree.Element("a", {"href": href, "class": "schema-link"})
         element.text = "View Schema"
         return element
 
     @staticmethod
-    def icon(path):
-        href = "schema.md#/$defs/" + path
+    def icon(md, path):
+        href = get_url(md, "specs/schema.md", "/$defs/" + path)
         element = etree.Element("a", {"href": href, "class": "schema-link"})
         element.attrib["title"] = "View Schema"
         element.append(etree_fontawesome("file-code"))
         return element
 
-    @staticmethod
-    def caniuse_icon(feature):
-        href = "https://canilottie.com/" + feature
-        element = etree.Element("a", {"href": href, "class": "schema-link"})
-        element.attrib["title"] = "View Compatibility"
-        element.append(etree_fontawesome("list-check"))
-        return element
-
     def handleMatch(self, m, data):
-        return SchemaLink.element(m.group(1)), m.start(0), m.end(0)
+        return SchemaLink.element(self.md, m.group(1)), m.start(0), m.end(0)
 
 
 class JsonHtmlSerializer:
@@ -179,7 +157,7 @@ class JsonHtmlSerializer:
             for link in ref_links(child_id, self.schema):
                 self.tail.tail += " "
                 self.tail = etree.SubElement(self.parent, "a")
-                self.tail.attrib["href"] = link.url()
+                self.tail.attrib["href"] = link.url(self.md)
                 self.tail.attrib["title"] = link.name
                 self.tail.append(etree_fontawesome("book-open"))
                 self.tail.tail = " "
@@ -272,8 +250,9 @@ class SchemaObject(BlockProcessor):
     re_row = re.compile(r'^\s*(\w+)\s*:\s*(.*)')
     prop_fields = {f.name for f in dataclasses.fields(SchemaProperty)}
 
-    def __init__(self, parser, schema_data: Schema):
-        super().__init__(parser)
+    def __init__(self, md, schema_data: Schema):
+        super().__init__(md.parser)
+        self.md = md
         self.schema_data = schema_data
 
     def test(self, parent, block):
@@ -326,10 +305,7 @@ class SchemaObject(BlockProcessor):
 
     def _base_link(self, parent, ref):
         link = ref_links(ref, self.schema_data)[0]
-        a = etree.SubElement(parent, "a")
-        a.text = link.name
-        a.attrib["href"] = "%s.md#%s" % (link.page, link.anchor)
-        return a
+        return link.to_element(parent, self.md)
 
     def _base_type(self, type, parent):
         if isinstance(type, list):
@@ -341,7 +317,7 @@ class SchemaObject(BlockProcessor):
         elif type.startswith("#/$defs/"):
             links = ref_links(type, self.schema_data)
             for link in links:
-                type_text = link.to_element(parent, links)
+                type_text = link.to_element(parent, self.md)
         else:
             type_text = etree.SubElement(parent, "code")
             type_text.text = type
@@ -417,9 +393,7 @@ class SchemaObject(BlockProcessor):
             etree.SubElement(thead, "th").text = "Title"
             desc = etree.SubElement(thead, "th")
             desc.text = "Description "
-            desc.append(SchemaLink.icon(object_name))
-            if "caniuse" in schema_data:
-                desc.append(SchemaLink.caniuse_icon(schema_data["caniuse"]))
+            desc.append(SchemaLink.icon(self.md, object_name))
 
             tbody = etree.SubElement(table, "tbody")
 
@@ -466,8 +440,9 @@ class SchemaEnum(BlockProcessor):
     re_fence_start = re.compile(r'^\s*\{schema_enum:([^}]+)\}\s*(?:\n|$)')
     re_row = re.compile(r'^\s*(\w+)\s*:\s*(.*)')
 
-    def __init__(self, parser, schema_data: Schema):
-        super().__init__(parser)
+    def __init__(self, md, schema_data: Schema):
+        super().__init__(md.parser)
+        self.md = md
         self.schema_data = schema_data
 
     def test(self, parent, block):
@@ -498,7 +473,7 @@ class SchemaEnum(BlockProcessor):
         if descriptions:
             etree.SubElement(thead, "th").text = "Description "
 
-        thead[-1].append(SchemaLink.icon("constants/" + enum_name))
+        thead[-1].append(SchemaLink.icon(self.md, "constants/" + enum_name))
 
         tbody = etree.SubElement(table, "tbody")
 
@@ -557,7 +532,7 @@ class SubTypeTable(InlineProcessor):
             td = etree.SubElement(tr, "td")
             links = ref_links(ref, self.schema_data)
             for link in links:
-                link.to_element(td, links)
+                link.to_element(td, self.md)
 
         return table, match.start(0), match.end(0)
 
@@ -722,13 +697,16 @@ class LottieRenderer:
         return button
 
 
-def get_url(md, path):
+def get_url(md, path, anchor=None):
     # Mkdocs adds a tree processor to adjust urls, but it won't work with lottie js so we do the same here
     processor = next(proc for proc in md.treeprocessors if proc.__class__.__module__ == 'mkdocs.structure.pages')
     page = processor.files.get_file_from_path(path)
     if not page:
         raise Exception("Page not found at %s" % path)
-    return page.url_relative_to(processor.file)
+    url = get_relative_url(page.src_uri, processor.file.src_uri)
+    if anchor is not None:
+        url += "#" + anchor
+    return url
 
 
 class LottieBlock(BlockProcessor):
@@ -1031,8 +1009,8 @@ class LottieExtension(Extension):
         )
         md.parser.blockprocessors.register(LottiePlayground(md, schema_data), "lottie-playground", 200)
         md.parser.blockprocessors.register(LottieBlock(md), "lottie", 175)
-        md.parser.blockprocessors.register(SchemaObject(md.parser, schema_data), "schema_object", 175)
-        md.parser.blockprocessors.register(SchemaEnum(md.parser, schema_data), "schema_enum", 175)
+        md.parser.blockprocessors.register(SchemaObject(md, schema_data), "schema_object", 175)
+        md.parser.blockprocessors.register(SchemaEnum(md, schema_data), "schema_enum", 175)
 
 
 def makeExtension(**kwargs):
