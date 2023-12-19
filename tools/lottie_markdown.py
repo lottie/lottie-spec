@@ -876,6 +876,7 @@ class LottiePlaygroundBuilder:
         self.element.insert(0, self.controls_container)
 
         self.control_id_counter = 0
+        self.post_script = ""
 
     @property
     def anim_id(self):
@@ -905,6 +906,7 @@ class LottiePlaygroundBuilder:
         label_element.tail = " "
         td = etree.SubElement(tr, "td", {"style": "width: 100%"})
         input_wrapper = input
+        id_base = self.control_id()
 
         if input.tag == "enum":
             enum_id = input.text
@@ -931,6 +933,26 @@ class LottiePlaygroundBuilder:
             pre = etree.SubElement(input_wrapper, "pre", {"aria-hidden": "true"})
             code = etree.SubElement(pre, "code", {"class": "language-js hljs"})
             code.text = AtomicString(contents)
+        elif input.attrib.get("type") == "bezier":
+            input_wrapper = etree.Element("div")
+            input_wrapper.attrib["id"] = id_base + "_playground"
+            input_wrapper.attrib["class"] = "bezier-playground-input"
+            self.post_script += """
+            var {pg} = document.getElementById("{pg}");
+            {pg}.name = {pg}.getAttribute("name");
+            var {pg}_editor = BezierPreviewEditor.stand_alone(
+                {pg}, (lottie) => {{
+                    {pg}.value = lottie;
+                    lottie_player_{anim_id}.reload();
+                }}, {initial}, 512, 512
+            );
+            """.format(
+                pg=input_wrapper.attrib["id"],
+                id=id_base,
+                initial=input.attrib.get("value", "null"),
+                anim_id=self.anim_id,
+            )
+            input = input_wrapper
 
         input.attrib.setdefault("oninput", "")
         input.attrib["oninput"] += "lottie_player_{id}.reload();".format(id=self.anim_id)
@@ -940,7 +962,6 @@ class LottiePlaygroundBuilder:
             input.attrib["name"] = label
         td.append(input_wrapper)
 
-        id_base = self.control_id()
         if input.attrib.get("type", "") == "range":
             etree.SubElement(td, "span", {
                 "id": id_base + "_span"
@@ -1048,13 +1069,14 @@ class LottiePlayground(BlockProcessor):
                 {on_load}
             }},
             {extra_options}
-        );
+        );{post_script}
         """.format(
             id=builder.anim_id,
             json_viewer_id=json_viewer_id,
             on_load=script,
             json_data=json_data,
-            extra_options=extra_options
+            extra_options=extra_options,
+            post_script=builder.post_script,
         ))
 
     def add_json_viewer(self, builder, parent):

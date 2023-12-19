@@ -57,14 +57,23 @@ g.graph text {
 
 /* embedded editors */
 
+.bezier-playground-input {
+    display: flex;
+    gap: 3px;
+    flex-flow: row wrap;
+}
+
+.bezier-playground-input > canvas {
+    max-width: 256px !important;
+}
+
 .keyframe-playground {
     display: flex;
     flex-flow: column;
 }
 
-.keyframe-playground canvas {
+canvas.bezier-editor {
     border: 1px solid #ccc;
-    max-width: 512px;
 }
 
 .keyframe-preview-container {

@@ -57,6 +57,18 @@ The `ty` property defines the specific element type based on the following value
 
 {schema_object:shapes/path}
 
+<lottie-playground example="path.json">
+    <title>Example</title>
+    <form>
+        <input title="Shape" type="bezier"/>
+    </form>
+    <json>lottie.layers[0].shapes[0].it[0]</json>
+    <script>
+        var shape = lottie.layers[0].shapes[0].it[0];
+        if ( data["Shape"] )
+            shape.ks.k = data["Shape"];
+    </script>
+</lottie-playground>
 
 <h3 id="rectangle">Rectangle</h3>
 

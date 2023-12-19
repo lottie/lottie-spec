@@ -109,6 +109,7 @@ class BezierEditor
         this.canvas.width = width;
         this.canvas.height = height;
         this.canvas.style.width = "100%";
+        this.canvas.style.maxWidth = `${width}px`;
         this.context = this.canvas.getContext("2d");
         this.points = [];
         this.handles = [];
@@ -292,7 +293,21 @@ class BezierEditor
                 continue;
 
             this.context.beginPath();
-            this.context.arc(...h.absolute_canvas_coords(), this.radius * this.viewport_scale, 0, Math.PI * 2);
+            if ( h.parent )
+            {
+                this.context.arc(...h.absolute_canvas_coords(), this.radius * this.viewport_scale, 0, Math.PI * 2);
+            }
+            else
+            {
+                var [x, y] = h.absolute_canvas_coords();
+                var r = this.radius * this.viewport_scale;
+                this.context.moveTo(x - r, y - r);
+                this.context.lineTo(x + r, y - r);
+                this.context.lineTo(x + r, y + r);
+                this.context.lineTo(x - r, y + r);
+                this.context.closePath();
+            }
+
             this.context.fill();
             this.context.stroke();
         }
@@ -306,7 +321,7 @@ class BezierEditor
 
         for ( let h of this.handles )
         {
-            if ( h.editable && (h.parent || !only_tan) && h.distance(p.x, p.y) < this.radius )
+            if ( h.editable && (h.parent || !only_tan) && h.distance(p.x, p.y) < this.radius * this.viewport_scale )
                 return h;
         }
 
@@ -386,7 +401,7 @@ class BezierPreviewEditor
     {
         this.on_change = on_change;
         this.bezier_editor = new BezierEditor(this._on_change.bind(this), width, height);
-        this.bezier_editor.canvas.classList.add("alpha-checkered");
+        this.bezier_editor.canvas.classList.add("bezier-editor");
         parent.appendChild(this.bezier_editor.canvas);
 
         let p = parent.appendChild(document.createElement("p"));
@@ -493,10 +508,10 @@ class BezierPreviewEditor
     {
         if ( !initial )
             initial = {
-                "c": false,
-                "v": [[53, 325], [429, 147], [215, 430]],
-                "i": [[0, 0], [-147, 186], [114, 36]],
-                "o": [[89, -189], [40, 189], [0, 0]]
+                "c": true,
+                "v": [[253,147],[56,153],[253,440],[450,153]],
+                "i": [[12,-57],[42,-112],[-32,-114],[46,123]],
+                "o": [[-17,-61],[-46,125],[32,-114],[-43,-115]]
             };
         on_change(initial);
         return new BezierPreviewEditor(parent, initial, on_change, width, height);

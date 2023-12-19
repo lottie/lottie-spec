@@ -141,4 +141,3 @@ Animatable {link:values/color}.
 
 {schema_object:properties/color-keyframe}
 EXPAND:#/$defs/properties/base-keyframe
-
