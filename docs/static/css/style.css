@@ -10,18 +10,18 @@
         linear-gradient(to right, transparent 50%, rgba(0, 0, 0, .5) 50%);
 }
 
-.animation-json {
+.playground-columns {
     display: flex;
     gap: 10px;
     flex-flow: row wrap;
 }
 
-.animation-json > div {
+.playground-columns > div {
     flex: 1 1 0;
     min-width: 300px;
 }
 
-.animation-json > div pre {
+.playground-columns > div pre {
     margin: 0;
 }
 

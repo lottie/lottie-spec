@@ -36,3 +36,4 @@ but most players ignore the last component.
 
 {schema_object:values/bezier}
 
+{editor_example:bezier}

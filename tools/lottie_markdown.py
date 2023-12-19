@@ -870,7 +870,7 @@ class LottiePlaygroundBuilder:
             buttons=buttons, button_parent=self.element
         )
         self.player_container = self.renderer.element
-        self.player_container.attrib["class"] = "animation-json"
+        self.player_container.attrib["class"] = "playground-columns"
 
         self.controls_container = etree.Element("table", {"class": "table-plain", "style": "width: 100%"})
         self.element.insert(0, self.controls_container)
@@ -1103,6 +1103,88 @@ class LottieColor(InlineProcessor):
         return span, match.start(0), match.end(0)
 
 
+def pop_script_block(block_processor, blocks):
+    script_match = HTML_PLACEHOLDER_RE.match(blocks[0])
+    if script_match:
+        index = int(script_match.group(1))
+        raw_string = block_processor.parser.md.htmlStash.rawHtmlBlocks[index]
+        if "<script" in raw_string:
+            blocks.pop(0)
+
+            # Escape <>& inside the block, avoiding escaping them in <script></script>
+            lines = raw_string.strip().split("\n")
+            source = "\n".join(lines[1:-1])
+
+            script_element = etree.fromstring(lines[0] + lines[-1])
+            script_element.text = source
+            block_processor.parser.md.htmlStash.rawHtmlBlocks.pop(index)
+            block_processor.parser.md.htmlStash.rawHtmlBlocks.insert(index, '')
+            return script_element
+
+
+class EditorExample(BlockProcessor):
+    re_fence_start = re.compile(r"\{editor_example:(?P<which>[^:}]+)\}")
+
+    def test(self, parent, block):
+        return self.re_fence_start.match(block)
+
+    def run(self, parent, blocks):
+        match = self.test(parent, blocks.pop(0))
+        id_base = str(LottieRenderer.get_id())
+
+        extra = ""
+
+        while True:
+            if len(blocks) > 1 and blocks[0] == '' and HTML_PLACEHOLDER_RE.match(blocks[1]):
+                blocks.pop(0)
+
+            script_element = pop_script_block(self, blocks)
+            if script_element is None:
+                break
+
+            extra += "%s: function (%s) {\n%s\n},\n" % (
+                script_element.attrib["extra"],
+                script_element.attrib.get("args", ""),
+                script_element.text
+            )
+
+        if extra:
+            extra = "{" + extra + "}"
+
+        element = etree.SubElement(parent, "div", {"class": "playground playground-columns"})
+
+        editor = etree.SubElement(element, "div", {"id": "editor_" + id_base})
+
+        json_viewer = "json_viewer_%s" % id_base
+        json_viewer_parent = json_viewer + "_parent"
+
+        pre = etree.SubElement(etree.SubElement(element, "div"), "pre", {"id": json_viewer_parent})
+        etree.SubElement(pre, "code", {"id": json_viewer, "class": "language-json hljs"}).text = ""
+
+        if match.group("which") == "bezier":
+            preview_class = "BezierPreviewEditor"
+        elif match.group("which") == "easing":
+            preview_class = "KeyframePreviewEditor"
+        elif match.group("which") == "gradient":
+            preview_class = "GradientPreviewEditor"
+
+        script = etree.SubElement(element, "script")
+        script.text = """
+        {preview_class}.stand_alone(document.getElementById("editor_{id}"), (lottie) =>
+        {{
+            var raw_json = JSON.stringify(lottie, undefined, 4);
+            var pretty_json = hljs.highlight("json", raw_json).value;
+            document.getElementById("json_viewer_{id}").innerHTML = pretty_json;
+        }}, {extra});
+        """.format(
+            id=id_base,
+            preview_class=preview_class,
+            extra=extra,
+        )
+
+        return True
+
+
 class LottieExtension(Extension):
     def extendMarkdown(self, md):
         with open(docs_path / "lottie.schema.json") as file:
@@ -1129,6 +1211,7 @@ class LottieExtension(Extension):
         md.parser.blockprocessors.register(LottieBlock(md), "lottie", 175)
         md.parser.blockprocessors.register(SchemaObject(md, schema_data), "schema_object", 175)
         md.parser.blockprocessors.register(SchemaEnum(md, schema_data), "schema_enum", 175)
+        md.parser.blockprocessors.register(EditorExample(md.parser), "editor_example", 175)
 
 
 def makeExtension(**kwargs):
