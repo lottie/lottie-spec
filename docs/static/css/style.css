@@ -53,3 +53,46 @@ g.node.current text {
 g.graph text {
     fill: currentColor;
 }
+
+
+/* embedded editors */
+
+.keyframe-playground {
+    display: flex;
+    flex-flow: column;
+}
+
+.keyframe-playground canvas {
+    border: 1px solid #ccc;
+    max-width: 512px;
+}
+
+.keyframe-preview-container {
+    width: calc(100% - 24px);
+}
+
+.keyframe-preview {
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    position: relative;
+    background-color: black;
+    animation: keyframe-preview 3s infinite;
+}
+
+@keyframes keyframe-preview {
+    0% {left: 0px;}
+    50% {left: 100%;}
+    100% {left: 0px;}
+}
+
+.gradient-preview {
+    height: 32px;
+}
+
+.gradient-editor input
+{
+    vertical-align: middle;
+    margin: 1ex;
+    height: 48px;
+}

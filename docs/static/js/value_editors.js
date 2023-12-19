@@ -505,16 +505,11 @@ class BezierPreviewEditor
 
 class KeyframePreviewEditor
 {
-    constructor(parent, initial, on_change, size = 200, extra = {})
+    constructor(parent, initial, on_change, size = 512, extra = {})
     {
         let container = parent.appendChild(document.createElement("div"));
 
-        container.classList.add("keyframe-preview-container");
-
-        let label = container.appendChild(document.createElement("label"));
-        this.checkbox = label.appendChild(document.createElement("input"));
-        this.checkbox.type = "checkbox";
-        label.appendChild(document.createTextNode(" Hold"));
+        container.classList.add("keyframe-playground");
 
         this.bezier_editor = new BezierEditor(this._on_change.bind(this), size, size);
         container.appendChild(this.bezier_editor.canvas);
@@ -532,13 +527,20 @@ class KeyframePreviewEditor
             true, false
         );
 
+        let label = container.appendChild(document.createElement("label"));
+        this.checkbox = label.appendChild(document.createElement("input"));
+        this.checkbox.type = "checkbox";
+        label.appendChild(document.createTextNode(" Hold"));
+
         if ( extra.foreground )
             this.bezier_editor.draw_foreground = extra.foreground.bind(this.bezier_editor);
 
         this.bezier_editor.draw_frame();
 
 
-        this.preview = container.appendChild(document.createElement("div"));
+        let preview_container = container.appendChild(document.createElement("div"));
+        preview_container.classList.add("keyframe-preview-container");
+        this.preview = preview_container.appendChild(document.createElement("div"));
         this.preview.classList.add("keyframe-preview");
 
         this.hold = !!initial.h;
@@ -618,7 +620,7 @@ class KeyframePreviewEditor
             i: {x: [0.667], y:[1]}
         };
         on_change(initial);
-        return new KeyframePreviewEditor(parent, initial, on_change, 200, extra);
+        return new KeyframePreviewEditor(parent, initial, on_change, 512, extra);
     }
 }
 

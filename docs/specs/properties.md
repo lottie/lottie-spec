@@ -65,6 +65,12 @@ For easing in and out, you move the `x` towards the center, this makes the anima
 }
 ```
 
+<h4>Easing example</h4>
+In the following example, the ball moves left and right, on the background you can see and edit a representation of its easing function.
+
+{editor_example:easing}
+
+
 ## Property types
 
 
