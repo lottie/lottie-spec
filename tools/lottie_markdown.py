@@ -47,36 +47,28 @@ class ReferenceLink:
             type_text.attrib["style"] = "white-space: nowrap;"
         return type_text
 
+    @staticmethod
+    def from_schema(schema: Schema):
+        chunks = list(schema.path.chunks)
+        chunks.pop(0)
 
-def ref_link(ref: str, data: Schema):
-    ref = re.sub("all-([-a-z]+)s", "\\1", ref)
-    path = SchemaPath(ref)
-    path.ensure_defs()
-    link = schema_link(data.get_ref(path))
-    return link
+        group = chunks[0]
+        cls = chunks[1]
 
+        name = schema.get("title", cls)
 
-def schema_link(schema: Schema):
-    chunks = list(schema.path.chunks)
-    chunks.pop(0)
+        if group == "properties":
+            name = name.replace(" Property", "")
 
-    group = chunks[0]
-    cls = chunks[1]
+        link = ReferenceLink(
+            group,
+            cls,
+            name,
+            group,
+            cls
+        )
 
-    name = schema.get("title", cls)
-
-    if group == "properties":
-        name = name.replace(" Property", "")
-
-    link = ReferenceLink(
-        group,
-        cls,
-        name,
-        group,
-        cls
-    )
-
-    return link
+        return link
 
 
 class SchemaString(InlineProcessor):
@@ -115,7 +107,7 @@ class SchemaLink(InlineProcessor):
 
 
 class DocsLink(InlineProcessor):
-    def __init__(self, md, schema_data):
+    def __init__(self, md, schema_data: type_info.TypeSystem):
         super().__init__(r'{link:([^:}]+)(?::([^:}]+))?}', md)
         self.schema_data = schema_data
 
@@ -135,20 +127,20 @@ class DocsLink(InlineProcessor):
         return element
 
     def handleMatch(self, m, data):
-        link = ref_link(m.group(1), self.schema_data).to_element(None, self.md)
+        link = self.schema_data.from_path(m.group(1)).link.to_element(None, self.md)
         if m.group(2):
             link.text = m.group(2)
         return link, m.start(0), m.end(0)
 
 
 class JsonHtmlSerializer:
-    def __init__(self, parent, md, json_data):
+    def __init__(self, parent, md, schema_data: type_info.TypeSystem):
         self.parent = parent
         self.tail = None
         self.encoder = json.JSONEncoder()
         self.parent.text = ""
         self.md = md
-        self.schema = Schema(json_data)
+        self.schema_data = schema_data
 
     def encode(self, json_object, indent, id=None):
         if isinstance(json_object, dict):
@@ -187,7 +179,7 @@ class JsonHtmlSerializer:
         self.encode_item(key, "attr", "#" + child_id)
         self.tail.attrib["id"] = child_id
         if child_id.count("/") == 3:
-            link = ref_link(child_id, self.schema)
+            link = self.schema_data.from_path(child_id).link
             self.tail.tail += " "
             self.tail = etree.SubElement(self.parent, "a")
             self.tail.attrib["href"] = link.url(self.md)
@@ -250,21 +242,25 @@ class JsonHtmlSerializer:
 
 
 class JsonFile(InlineProcessor):
-    def __init__(self, md):
-        super().__init__(r'\{json_file:(?P<path>[^:]+)\}', md)
+    def __init__(self, md, schema_data: type_info.TypeSystem):
+        super().__init__(r'\{json_file(?::(?P<path>[^:]+))?\}', md)
+        self.schema_data = schema_data
 
     def handleMatch(self, match, data):
         pre = etree.Element("pre")
 
-        with open(docs_path / match.group("path")) as file:
-            json_data = json.load(file)
+        if match.group("path"):
+            with open(docs_path / match.group("path")) as file:
+                json_data = json.load(file)
+        else:
+            json_data = self.schema_data.schema.value
 
         # Hack to prevent PrettifyTreeprocessor from messing up indentation
         etree.SubElement(pre, "span")
 
         code = etree.SubElement(pre, "code")
 
-        JsonHtmlSerializer(code, self.md, json_data).encode(json_data, 0, "")
+        JsonHtmlSerializer(code, self.md, self.schema_data).encode(json_data, 0, "")
 
         return pre, match.start(0), match.end(0)
 
@@ -276,7 +272,7 @@ class SchemaObject(BlockProcessor):
     re_fence_start = re.compile(r'^\s*\{schema_object:([^}]+)\}\s*(?:\n|$)')
     re_row = re.compile(r'^\s*(\w+)\s*:\s*(.*)')
 
-    def __init__(self, md, schema_data: Schema):
+    def __init__(self, md, schema_data: type_info.TypeSystem):
         super().__init__(md.parser)
         self.md = md
         self.schema_data = schema_data
@@ -304,7 +300,7 @@ class SchemaObject(BlockProcessor):
     def run(self, parent, blocks):
         object_name = self.test(parent, blocks[0]).group(1)
 
-        type = self.schema_data.type.from_path(object_name)
+        type = self.schema_data.from_path(object_name)
 
         prop_dict = type.all_properties()
 
@@ -361,7 +357,7 @@ class SchemaObject(BlockProcessor):
 
 
 class SchemaInheritance(InlineProcessor):
-    def __init__(self, md, schema_data: Schema):
+    def __init__(self, md, schema_data: type_info.TypeSystem):
         super().__init__(r'^\s*\{schema_inheritance:([^}]+)\}\s*(?:\n|$)', md)
         self.schema_data = schema_data
 
@@ -416,7 +412,7 @@ class SchemaInheritance(InlineProcessor):
 
     def handleMatch(self, match, data):
         object_name = match.group(1)
-        cls = self.schema_data.type.from_path(SchemaPath(object_name))
+        cls = self.schema_data.from_path(SchemaPath(object_name))
         element = self.inheritance_graph(cls)
         return element, match.start(0), match.end(0)
 
@@ -428,7 +424,7 @@ class SchemaEnum(BlockProcessor):
     re_fence_start = re.compile(r'^\s*\{schema_enum:([^}]+)\}\s*(?:\n|$)')
     re_row = re.compile(r'^\s*(\w+)\s*:\s*(.*)')
 
-    def __init__(self, md, schema_data: Schema):
+    def __init__(self, md, schema_data: type_info.TypeSystem):
         super().__init__(md.parser)
         self.md = md
         self.schema_data = schema_data
@@ -439,7 +435,7 @@ class SchemaEnum(BlockProcessor):
     def run(self, parent, blocks):
         enum_name = self.test(parent, blocks[0]).group(1)
         blocks.pop(0)
-        enum_data = self.schema_data.type.from_path("constants/" + enum_name)
+        enum_data = self.schema_data.from_path("constants/" + enum_name)
 
         table = etree.SubElement(parent, "table")
         descriptions = any(v.description for v in enum_data.values)
@@ -485,7 +481,7 @@ class SubTypeTable(InlineProcessor):
     """
     Table of links for `ty` values based on a `all-*s` schema
     """
-    def __init__(self, md, schema_data: Schema):
+    def __init__(self, md, schema_data: type_info.TypeSystem):
         super().__init__(r'\{schema_subtype_table:(?P<path>[^:}]+):(?P<attribute>[^:}]+)\}', md)
         self.schema_data = schema_data
 
@@ -498,7 +494,7 @@ class SubTypeTable(InlineProcessor):
 
         tbody = etree.SubElement(table, "tbody")
 
-        schema_obj = self.schema_data.type.from_path(match.group("path"))
+        schema_obj = self.schema_data.from_path(match.group("path"))
 
         for row in schema_obj.concrete:
             tr = etree.SubElement(tbody, "tr")
@@ -518,9 +514,8 @@ class RawHTML(BlockProcessor):
     """
     headers = ["h%s" % h for h in range(1, 7)]
 
-    def __init__(self, parser, schema_data: Schema, extra_elements):
+    def __init__(self, parser, extra_elements):
         super().__init__(parser)
-        self.schema_data = schema_data
         self.tag_names = set(self.headers + extra_elements)
 
     def test(self, parent: etree.Element, block):
@@ -716,7 +711,7 @@ class LottieBlock(BlockProcessor):
 
 
 class LottiePlaygroundBuilder:
-    def __init__(self, parent, schema_data, width, height, buttons):
+    def __init__(self, parent, schema_data: type_info.TypeSystem, width, height, buttons):
         self.parent = parent
         self.schema_data = schema_data
 
@@ -771,7 +766,7 @@ class LottiePlaygroundBuilder:
             default_value = input.attrib.get("value", "")
 
             input = input_wrapper = etree.Element("select")
-            for value in self.schema_data.type.from_path("constants/"+enum_id).values:
+            for value in self.schema_data.from_path("constants/"+enum_id).values:
                 option = etree.SubElement(input, "option", {"value": str(value.value)})
                 option.text = value.title
                 if str(value.value) == default_value:
@@ -840,7 +835,7 @@ class LottiePlaygroundBuilder:
 
 
 class LottiePlayground(BlockProcessor):
-    def __init__(self, md, schema_data):
+    def __init__(self, md, schema_data: type_info.TypeSystem):
         self.md = md
         self.schema_data = schema_data
         super().__init__(md.parser)
@@ -1068,31 +1063,32 @@ class EditorExample(BlockProcessor):
 class LottieExtension(Extension):
     def extendMarkdown(self, md):
         ts = type_info.TypeSystem.load(docs_path / "lottie.schema.json")
-        schema_data = ts.schema
         for type in ts.types.values():
-            type.link = schema_link(type.schema)
+            if isinstance(type, type_info.ConcreteClass):
+                type.link = ReferenceLink.from_schema(type.target.schema)
+            else:
+                type.link = ReferenceLink.from_schema(type.schema)
 
-        md.inlinePatterns.register(SchemaString(md, schema_data), "schema_string", 175)
-        md.inlinePatterns.register(JsonFile(md), "json_file", 175)
+        md.inlinePatterns.register(SchemaString(md, ts.schema), "schema_string", 175)
+        md.inlinePatterns.register(JsonFile(md, ts), "json_file", 175)
         md.inlinePatterns.register(SchemaLink(md), "schema_link", 175)
-        md.inlinePatterns.register(DocsLink(md, schema_data), "docs_link", 175)
-        md.inlinePatterns.register(SubTypeTable(md, schema_data), "schema_subtype_table", 175)
+        md.inlinePatterns.register(DocsLink(md, ts), "docs_link", 175)
+        md.inlinePatterns.register(SubTypeTable(md, ts), "schema_subtype_table", 175)
         md.inlinePatterns.register(LottieColor(r'{lottie_color:(([^,]+),\s*([^,]+),\s*([^,]+))}', md, 1), 'lottie_color', 175)
-        md.inlinePatterns.register(SchemaInheritance(md, schema_data), "schema_inheritance", 175)
+        md.inlinePatterns.register(SchemaInheritance(md, ts), "schema_inheritance", 175)
 
         md.parser.blockprocessors.register(
             RawHTML(
                 md.parser,
-                schema_data,
                 ["lottie", "lottie-playground"]
             ),
             "raw_heading",
             100
         )
-        md.parser.blockprocessors.register(LottiePlayground(md, schema_data), "lottie-playground", 200)
+        md.parser.blockprocessors.register(LottiePlayground(md, ts), "lottie-playground", 200)
         md.parser.blockprocessors.register(LottieBlock(md), "lottie", 175)
-        md.parser.blockprocessors.register(SchemaObject(md, schema_data), "schema_object", 175)
-        md.parser.blockprocessors.register(SchemaEnum(md, schema_data), "schema_enum", 175)
+        md.parser.blockprocessors.register(SchemaObject(md, ts), "schema_object", 175)
+        md.parser.blockprocessors.register(SchemaEnum(md, ts), "schema_enum", 175)
         md.parser.blockprocessors.register(EditorExample(md.parser), "editor_example", 175)
 
 

@@ -9,4 +9,4 @@ values to jump to the relevant section.
 
 If you want you can also view the [raw schema file](../lottie.schema.json).
 
-{json_file:lottie.schema.json}
+{json_file}
