@@ -7,7 +7,6 @@
 {schema_string:layers/layer/description}
 
 {schema_object:layers/layer}
-EXPAND:#/$defs/helpers/visual-object
 
 The `ty` property defines the specific layer type based on the following values:
 

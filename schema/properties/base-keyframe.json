@@ -16,6 +16,16 @@
                     "title": "Hold",
                     "$ref": "#/$defs/values/int-boolean",
                     "default": 0
+                },
+                "i": {
+                    "title": "In Tangent",
+                    "description": "Easing tangent going into the next keyframe",
+                    "$ref": "#/$defs/properties/easing-handle"
+                },
+                "o": {
+                    "title": "Out Tangent",
+                    "description": "Easing tangent leaving the current keyframe",
+                    "$ref": "#/$defs/properties/easing-handle"
                 }
             }
         },
@@ -33,18 +43,7 @@
                 ]
             },
             "then": {
-                "properties": {
-                    "i": {
-                        "title": "In Tangent",
-                        "description": "Easing tangent going into the next keyframe",
-                        "$ref": "#/$defs/properties/easing-handle"
-                    },
-                    "o": {
-                        "title": "Out Tangent",
-                        "description": "Easing tangent leaving the current keyframe",
-                        "$ref": "#/$defs/properties/easing-handle"
-                    }
-                }
+                "required": ["i", "o"]
             }
         }
     ],

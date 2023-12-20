@@ -5,7 +5,6 @@
 {schema_string:assets/asset/description}
 
 {schema_object:assets/asset}
-EXPAND:#/$defs/helpers/visual-object
 
 
 <h2 id="precomposition">Precomposition</h2>
@@ -13,4 +12,3 @@ EXPAND:#/$defs/helpers/visual-object
 {schema_string:assets/precomposition/description}
 
 {schema_object:assets/precomposition}
-EXPAND:#/$defs/composition/composition

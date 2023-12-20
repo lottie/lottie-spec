@@ -86,7 +86,6 @@ Animatable {link:values/vector}.
 {schema_string:properties/vector-keyframe/description}
 
 {schema_object:properties/vector-keyframe}
-EXPAND:#/$defs/properties/base-keyframe
 
 
 <h3 id="scalar-property">Scalar</h3>
@@ -111,7 +110,6 @@ Animatable 2D {link:values/vector} with optional spatial tangents.
 {schema_string:properties/position-keyframe/description}
 
 {schema_object:properties/position-keyframe}
-EXPAND:#/$defs/properties/base-keyframe
 
 
 <h3 id="bezier-property">Bezier</h3>
@@ -126,7 +124,6 @@ Animatable {link:values/bezier}.
 {schema_string:properties/bezier-keyframe/description}
 
 {schema_object:properties/bezier-keyframe}
-EXPAND:#/$defs/properties/base-keyframe
 
 <h3 id="color-property">Color</h3>
 
@@ -140,4 +137,3 @@ Animatable {link:values/color}.
 {schema_string:properties/color-keyframe/description}
 
 {schema_object:properties/color-keyframe}
-EXPAND:#/$defs/properties/base-keyframe

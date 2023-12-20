@@ -282,7 +282,13 @@ class SchemaObject(BlockProcessor):
         self.schema_data = schema_data
 
     def _base_type(self, type, parent):
-        if isinstance(type, type_info.ConcreteClass):
+        if isinstance(type, list):
+            type_text = etree.SubElement(parent, "span")
+            for t in type:
+                type_child = self._base_type(t, type_text)
+                type_child.tail = " or "
+            type_child.tail = ""
+        elif isinstance(type, type_info.ConcreteClass):
             type_text = type.target.link.to_element(parent, self.md)
         elif isinstance(type, type_info.Type):
             type_text = type.link.to_element(parent, self.md)
@@ -1061,9 +1067,8 @@ class EditorExample(BlockProcessor):
 
 class LottieExtension(Extension):
     def extendMarkdown(self, md):
-        with open(docs_path / "lottie.schema.json") as file:
-            schema_data = Schema(json.load(file))
-        ts = type_info.TypeSystem(schema_data)
+        ts = type_info.TypeSystem.load(docs_path / "lottie.schema.json")
+        schema_data = ts.schema
         for type in ts.types.values():
             type.link = schema_link(type.schema)
 

@@ -1,3 +1,4 @@
+import json
 from .schema import Schema, SchemaPath
 
 
@@ -6,6 +7,7 @@ class TypeSystem:
         self.types = {}
         self.modules = {}
         schema.type = self
+        self.schema = schema
 
         for name, value in (schema / "$defs").items():
             self.modules[name] = Module(self, value)
@@ -18,6 +20,12 @@ class TypeSystem:
             path = SchemaPath(path)
         path.ensure_defs()
         return self.types[str(path)]
+
+    @staticmethod
+    def load(path):
+        with open(path) as file:
+            schema_data = Schema(json.load(file))
+        return TypeSystem(schema_data)
 
 
 class Type:
@@ -43,6 +51,8 @@ class Property(Type):
         self.const = schema.get("const", None)
 
     def resolve_type(self, schema: Schema):
+        if "oneOf" in schema:
+            return [self.resolve_type(choice) for choice in schema / "oneOf"]
         if "$ref" in schema:
             return self.type_system.types[schema["$ref"]]
         return schema.get("type", None)
