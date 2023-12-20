@@ -15,6 +15,7 @@ from markdown.util import HTML_PLACEHOLDER_RE, AtomicString
 from mkdocs.utils import get_relative_url
 
 from schema_tools.schema import Schema, SchemaPath
+from schema_tools import type_info
 
 
 docs_path = Path(__file__).parent.parent / "docs"
@@ -268,147 +269,50 @@ class JsonFile(InlineProcessor):
         return pre, match.start(0), match.end(0)
 
 
-@dataclasses.dataclass
-class SchemaProperty:
-    description: str = ""
-    const: Any = None
-    type: str = ""
-    item_type: str = ""
-    title: str = ""
-
-
 class SchemaObject(BlockProcessor):
     """
     Object property table
     """
     re_fence_start = re.compile(r'^\s*\{schema_object:([^}]+)\}\s*(?:\n|$)')
     re_row = re.compile(r'^\s*(\w+)\s*:\s*(.*)')
-    prop_fields = {f.name for f in dataclasses.fields(SchemaProperty)}
 
     def __init__(self, md, schema_data: Schema):
         super().__init__(md.parser)
         self.md = md
         self.schema_data = schema_data
 
-    def test(self, parent, block):
-        return self.re_fence_start.match(block)
-
-    def _type(self, prop):
-        if "$ref" in prop and "type" not in prop:
-            return prop["$ref"]
-        if "type" in prop:
-            type = prop["type"]
-            if type == "array" and prop.get("items", {}).get("type", "") == "number":
-                return "Vector"
-            return type
-        if "oneOf" in prop:
-            return [self._type(t) for t in prop["oneOf"]]
-        return ""
-
-    def _add_properties(self, schema_props, prop_dict):
-        for name, prop in schema_props.items():
-            data = dict((k, v) for k, v in prop.items() if k in self.prop_fields)
-            data["type"] = self._type(prop)
-            if "title" in prop:
-                data["title"] = prop["title"]
-                if "description" not in prop:
-                    data["description"] = prop["title"]
-            if "items" in prop:
-                data["item_type"] = self._type(prop["items"])
-
-            prop_dict[name] = SchemaProperty(**data)
-
-    def _conditional_properties(self, object, prop_dict, base_list):
-        if "if" in object:
-            self._object_properties(object["then"], prop_dict, base_list)
-            if "else" in object:
-                self._object_properties(object["else"], prop_dict, base_list)
-
-    def _object_properties(self, object, prop_dict, base_list):
-        if "properties" in object:
-            self._add_properties(object["properties"], prop_dict)
-
-        if "allOf" in object:
-            for chunk in object["allOf"]:
-                if "properties" in chunk:
-                    self._add_properties(chunk["properties"], prop_dict)
-                elif "$ref" in chunk:
-                    base_list.append(chunk["$ref"])
-                self._conditional_properties(chunk, prop_dict, base_list)
-
-        self._conditional_properties(object, prop_dict, base_list)
-
-    def _base_link(self, parent, ref):
-        link = ref_link(ref, self.schema_data)
-        return link.to_element(parent, self.md)
-
     def _base_type(self, type, parent):
-        if isinstance(type, list):
-            type_text = etree.SubElement(parent, "span")
-            for t in type:
-                type_child = self._base_type(t, type_text)
-                type_child.tail = " or "
-            type_child.tail = ""
-        elif type.startswith("#/$defs/"):
-            link = ref_link(type, self.schema_data)
-            type_text = link.to_element(parent, self.md)
+        if isinstance(type, type_info.ConcreteClass):
+            type_text = type.target.link.to_element(parent, self.md)
+        elif isinstance(type, type_info.Type):
+            type_text = type.link.to_element(parent, self.md)
         else:
             type_text = etree.SubElement(parent, "code")
             type_text.text = type
 
         return type_text
 
+    def test(self, parent, block):
+        return self.re_fence_start.match(block)
+
     def run(self, parent, blocks):
         object_name = self.test(parent, blocks[0]).group(1)
 
-        schema_data = self.schema_data.get_ref("$defs/" + object_name)
+        type = self.schema_data.type.from_path(object_name)
 
-        prop_dict = {}
-        base_list = []
-        order = []
-        self._object_properties(schema_data, prop_dict, base_list)
+        prop_dict = type.all_properties()
 
-        # Override descriptions if specified from markdown
         rows = blocks.pop(0)
-        for row in rows.split("\n")[1:]:
-            match = self.re_row.match(row)
-            if match:
-                name = match.group(1)
-                if name == "EXPAND":
-                    prop_dict_base = {}
-                    base = match.group(2)
-                    self._object_properties(self.schema_data.get_ref(base), prop_dict_base, [])
-                    try:
-                        base_list.remove(base)
-                    except ValueError:
-                        pass
-                    order += list(prop_dict_base.keys())
-                    prop_dict_base.update(prop_dict)
-                    prop_dict = prop_dict_base
-                elif name == "SKIP":
-                    what = match.group(2)
-                    prop_dict.pop(what, None)
-                    try:
-                        base_list.remove(what)
-                    except ValueError:
-                        pass
-                else:
-                    if match.group(2):
-                        if name not in prop_dict:
-                            raise Exception("Property %s not in %s" % (name, schema_data.path))
-                        prop_dict[name].description = match.group(2)
-                    order.append(name)
 
         div = etree.SubElement(parent, "div")
 
         has_own_props = len(prop_dict)
 
         inheritance = SchemaInheritance(self.md, self.schema_data)
-        inh_cls = inheritance.get_class(schema_data.path)
-        if len(inh_cls.bases):
+        if len(type.bases) or len(type.derived):
             details = etree.SubElement(div, "details")
-            etree.SubElement(details, "summary").text = "Inheritance Diagram for %s" % inh_cls.link.name
-            graph = inheritance.inheritance_graph(inh_cls)
+            etree.SubElement(details, "summary").text = "Inheritance Diagram for %s" % type.title
+            graph = inheritance.inheritance_graph(type)
             details.append(graph)
 
         if has_own_props:
@@ -423,16 +327,12 @@ class SchemaObject(BlockProcessor):
 
             tbody = etree.SubElement(table, "tbody")
 
-            for name in order:
-                if name in prop_dict:
-                    self.prop_row(name, prop_dict.pop(name), tbody)
-
             for name, prop in prop_dict.items():
                 self.prop_row(name, prop, tbody)
 
         return True
 
-    def prop_row(self, name, prop, tbody):
+    def prop_row(self, name, prop: type_info.Property, tbody):
         tr = etree.SubElement(tbody, "tr")
         etree.SubElement(etree.SubElement(tr, "td"), "code").text = name
 
@@ -455,14 +355,6 @@ class SchemaObject(BlockProcessor):
 
 
 class SchemaInheritance(InlineProcessor):
-    @dataclasses.dataclass
-    class Class:
-        node_id: str
-        link: ReferenceLink
-        bases: list
-
-    cache = {}
-
     def __init__(self, md, schema_data: Schema):
         super().__init__(r'^\s*\{schema_inheritance:([^}]+)\}\s*(?:\n|$)', md)
         self.schema_data = schema_data
@@ -475,24 +367,11 @@ class SchemaInheritance(InlineProcessor):
             .replace("xlink:", "")
             .replace("xmlns=", "_xmlns=")
             .replace("font-family", "_ff")
+            .replace("<title>", "<!--")
+            .replace("</title>", "-->")
         )
 
-    def get_class(self, path: SchemaPath):
-        canonical_ref = str(path)
-
-        if canonical_ref not in self.cache:
-            schema = self.schema_data.get_ref(path)
-            cls = self.Class(self.ref_to_id(canonical_ref), schema_link(schema), [])
-            self.cache[canonical_ref] = cls
-            if "allOf" in schema:
-                for base in schema / "allOf":
-                    if "$ref" in base:
-                        cls.bases.append(base.get("$ref"))
-            return cls
-        else:
-            return self.cache[canonical_ref]
-
-    def add_object(self, graph, cls: Class, current: bool):
+    def add_object(self, graph, cls: type_info.Class, current: bool, derived: bool, bases: bool):
         kwargs = {}
 
         if not current:
@@ -501,50 +380,39 @@ class SchemaInheritance(InlineProcessor):
             kwargs["class"] = "current"
 
         graph.node(
-            cls.node_id,
-            cls.link.name,
+            cls.id,
+            cls.title,
             shape="box",
             margin="0",
             fontsize="10pt",
             **kwargs
         )
 
-        for base in cls.bases:
-            base_id = self.add_object_ref(graph, base, False)
-            graph.edge(cls.node_id, base_id, arrowhead="onormal")
+        if bases:
+            for base in cls.bases:
+                base_id = self.add_object(graph, base, False, False, True)
+                graph.edge(cls.id, base_id, arrowhead="onormal")
 
-        return cls.node_id
+        if derived:
+            for base in cls.derived:
+                base_id = self.add_object(graph, base, False, True, False)
+                graph.edge(base_id, cls.id, arrowhead="onormal")
 
-    def add_object_ref(self, graph, object_ref, current: bool):
-        cls = self.get_class(object_ref)
-        return self.add_object(graph, cls, current)
+        return cls.id
 
-    def ref_to_id(self, ref):
-        return ref.replace("#/$defs/", "").replace("/", "-")
-
-    def inheritance_graph(self, cls: Class):
+    def inheritance_graph(self, cls: type_info.Class):
         graph = graphviz.Digraph()
         graph.attr(rankdir="LR")
 
-        self.add_object(graph, cls, True)
+        self.add_object(graph, cls, True, True, True)
 
         return self.graph_to_etree(graph)
 
     def handleMatch(self, match, data):
         object_name = match.group(1)
-        path = SchemaPath(object_name)
-        path.ensure_defs()
-        cls = self.get_class(path)
+        cls = self.schema_data.type.from_path(SchemaPath(object_name))
         element = self.inheritance_graph(cls)
         return element, match.start(0), match.end(0)
-
-
-def enum_values(schema: Schema, name):
-    enum = schema.get_ref(["$defs", "constants", name])
-    data = []
-    for item in enum["oneOf"]:
-        data.append((item["const"], item["title"], item.get("description", "")))
-    return data
 
 
 class SchemaEnum(BlockProcessor):
@@ -564,22 +432,11 @@ class SchemaEnum(BlockProcessor):
 
     def run(self, parent, blocks):
         enum_name = self.test(parent, blocks[0]).group(1)
-
-        enum_data = enum_values(self.schema_data, enum_name)
+        blocks.pop(0)
+        enum_data = self.schema_data.type.from_path("constants/" + enum_name)
 
         table = etree.SubElement(parent, "table")
-        descriptions = {}
-
-        for value, name, description in enum_data:
-            if description:
-                descriptions[str(value)] = description
-
-        # Override descriptions if specified from markdown
-        rows = blocks.pop(0)
-        for row in rows.split("\n")[1:]:
-            match = self.re_row.match(row)
-            if match:
-                descriptions[match.group(0)] = match.group(1)
+        descriptions = any(v.description for v in enum_data.values)
 
         thead = etree.SubElement(etree.SubElement(table, "thead"), "tr")
         etree.SubElement(thead, "th").text = "Value"
@@ -591,12 +448,12 @@ class SchemaEnum(BlockProcessor):
 
         tbody = etree.SubElement(table, "tbody")
 
-        for value, name, _ in enum_data:
+        for value in enum_data.values:
             tr = etree.SubElement(tbody, "tr")
-            etree.SubElement(etree.SubElement(tr, "td"), "code").text = repr(value)
-            etree.SubElement(tr, "td").text = name
+            etree.SubElement(etree.SubElement(tr, "td"), "code").text = repr(value.value)
+            etree.SubElement(tr, "td").text = value.title
             if descriptions:
-                etree.SubElement(tr, "td").text = descriptions.get(str(value), "")
+                etree.SubElement(tr, "td").text = value.description
 
         return True
 
@@ -635,20 +492,15 @@ class SubTypeTable(InlineProcessor):
 
         tbody = etree.SubElement(table, "tbody")
 
-        schema_obj = self.schema_data.get_ref("$defs/" + match.group("path"))
-        schema_types = schema_obj.get_ref("oneOf")
+        schema_obj = self.schema_data.type.from_path(match.group("path"))
 
-        for row in schema_types:
-            ref = row.get("$ref")
-            row = self.schema_data.get_ref(ref)
-
+        for row in schema_obj.concrete:
             tr = etree.SubElement(tbody, "tr")
-            prop_schema = find_property(row, attribute, self.schema_data)
-            etree.SubElement(etree.SubElement(tr, "td"), "code").text = str(prop_schema.get("const"))
+            prop_schema = row.properties[attribute]
+            etree.SubElement(etree.SubElement(tr, "td"), "code").text = repr(prop_schema.const)
 
             td = etree.SubElement(tr, "td")
-            link = ref_link(ref, self.schema_data)
-            link.to_element(td, self.md)
+            row.link.to_element(td, self.md)
 
         return table, match.start(0), match.end(0)
 
@@ -913,10 +765,10 @@ class LottiePlaygroundBuilder:
             default_value = input.attrib.get("value", "")
 
             input = input_wrapper = etree.Element("select")
-            for value, opt_label, _ in enum_values(self.schema_data, enum_id):
-                option = etree.SubElement(input, "option", {"value": str(value)})
-                option.text = opt_label
-                if str(value) == default_value:
+            for value in self.schema_data.type.from_path("constants/"+enum_id).values:
+                option = etree.SubElement(input, "option", {"value": str(value.value)})
+                option.text = value.title
+                if str(value.value) == default_value:
                     option.attrib["selected"] = "selected"
         elif input.tag == "highlight":
             input_wrapper = etree.Element("div", {"class": "highlighted-input"})
@@ -1211,6 +1063,9 @@ class LottieExtension(Extension):
     def extendMarkdown(self, md):
         with open(docs_path / "lottie.schema.json") as file:
             schema_data = Schema(json.load(file))
+        ts = type_info.TypeSystem(schema_data)
+        for type in ts.types.values():
+            type.link = schema_link(type.schema)
 
         md.inlinePatterns.register(SchemaString(md, schema_data), "schema_string", 175)
         md.inlinePatterns.register(JsonFile(md), "json_file", 175)

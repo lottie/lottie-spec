@@ -4,8 +4,6 @@
 
 {schema_string:values/int-boolean/description}
 
-{schema_object:values/int-boolean}
-
 <h2 id="vector">Vector</h2>
 
 Vector data is represented by an array of numbers.
@@ -14,9 +12,6 @@ This is used any time a property with multiple components is needed.
 An example would be a position, which would be represented as an array
 with two numbers, the first corresponding to the _X_ coordinate and the
 second corresponding to the _Y_.
-
-{schema_object:values/vector}
-
 
 <h2 id="color">Color</h2>
 
