@@ -666,13 +666,16 @@ class LottieRenderer:
         return button
 
 
-def get_url(md, path, anchor=None):
+def get_url(md, path, anchor=None, src_uri=True):
     # Mkdocs adds a tree processor to adjust urls, but it won't work with lottie js so we do the same here
     processor = next(proc for proc in md.treeprocessors if proc.__class__.__module__ == 'mkdocs.structure.pages')
     page = processor.files.get_file_from_path(path)
     if not page:
         raise Exception("Page not found at %s" % path)
-    url = get_relative_url(page.src_uri, processor.file.src_uri)
+    if src_uri:
+        url = get_relative_url(page.src_uri, processor.file.src_uri)
+    else:
+        url = get_relative_url(page.url, processor.file.url)
     if anchor is not None:
         url += "#" + anchor
     return url
@@ -690,14 +693,13 @@ class LottieBlock(BlockProcessor):
         raw_string = blocks.pop(0)
         md_element = etree.fromstring(raw_string)
         filename = md_element.attrib.pop("src")
-        lottie_url = get_url(self.md, filename)
         width = md_element.attrib.pop("width", None)
         height = md_element.attrib.pop("height", None)
         buttons = md_element.attrib.pop("buttons", "true") == "true"
         background = md_element.attrib.pop("background", None)
         element = LottieRenderer.render(
-            url=lottie_url,
-            download_file=lottie_url,
+            url=get_url(self.md, filename, src_uri=False),
+            download_file=get_url(self.md, filename, src_uri=True),
             width=width,
             height=height,
             extra_options=json.dumps(md_element.attrib),
