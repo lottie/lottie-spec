@@ -6,6 +6,7 @@ import pathlib
 import argparse
 
 from schema_tools.schema import SchemaPath, Schema
+import lottie_markdown
 
 
 class Validator:
@@ -62,9 +63,10 @@ class Validator:
     def check_links(self, html_path: pathlib.Path):
         checked = set()
         file_cache = {}
+        ts = lottie_markdown.typed_schema(self.root)
 
         for ref in self.expected_refs:
-            link = lottie_markdown.ref_link(ref, self.root)
+            link = ts.from_path(ref).link
             key = (link.page, link.anchor)
             if key in checked:
                 continue
@@ -101,7 +103,6 @@ if __name__ == "__main__":
     validator.validate(data)
 
     if args.html:
-        import lottie_markdown
         import lxml.html
         validator.check_links(args.html)
 

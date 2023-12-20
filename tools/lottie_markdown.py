@@ -1060,14 +1060,19 @@ class EditorExample(BlockProcessor):
         return True
 
 
+def typed_schema(schema: Schema):
+    ts = type_info.TypeSystem(schema)
+    for type in ts.types.values():
+        if isinstance(type, type_info.ConcreteClass):
+            type.link = ReferenceLink.from_schema(type.target.schema)
+        else:
+            type.link = ReferenceLink.from_schema(type.schema)
+    return ts
+
+
 class LottieExtension(Extension):
     def extendMarkdown(self, md):
-        ts = type_info.TypeSystem.load(docs_path / "lottie.schema.json")
-        for type in ts.types.values():
-            if isinstance(type, type_info.ConcreteClass):
-                type.link = ReferenceLink.from_schema(type.target.schema)
-            else:
-                type.link = ReferenceLink.from_schema(type.schema)
+        ts = typed_schema(Schema.load(docs_path / "lottie.schema.json"))
 
         md.inlinePatterns.register(SchemaString(md, ts.schema), "schema_string", 175)
         md.inlinePatterns.register(JsonFile(md, ts), "json_file", 175)
