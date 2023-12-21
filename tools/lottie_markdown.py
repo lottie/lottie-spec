@@ -313,7 +313,7 @@ class SchemaObject(BlockProcessor):
         inheritance = SchemaInheritance(self.md, self.schema_data)
         if len(type.bases) or len(type.derived):
             details = etree.SubElement(div, "details")
-            etree.SubElement(details, "summary").text = "Inheritance Diagram for %s" % type.title
+            etree.SubElement(details, "summary").text = "Composition Diagram for %s" % type.title
             graph = inheritance.inheritance_graph(type)
             details.append(graph)
 
