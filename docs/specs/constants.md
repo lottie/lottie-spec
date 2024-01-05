@@ -26,8 +26,6 @@
 
 {schema_enum:trim-multiple-shapes}
 
-
-
 <lottie-playground example="trim_path.json">
     <form>
         <enum title="Multiple Shapes">trim-multiple-shapes</enum>
@@ -44,3 +42,14 @@
 {schema_string:constants/shape-direction/description}
 
 {schema_enum:shape-direction}
+
+<lottie-playground example="trim_path.json">
+    <form>
+        <enum title="Shape Direction">shape-direction</enum>
+    </form>
+    <json>lottie.layers[0].shapes[1]</json>
+    <script>
+        for ( let shape of lottie.layers[0].shapes )
+            shape.d = Number(data["Shape Direction"]);
+    </script>
+</lottie-playground>
