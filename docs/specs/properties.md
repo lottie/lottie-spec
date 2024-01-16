@@ -20,7 +20,7 @@ until the next keyframe.
 
 <h3 id="easing-handle">Keyframe Easing</h3>
 
-Keyframe easing handles  objects with `x` and `y` attributes, which are numbers within 0 and 1.
+Keyframe easing handles are objects with `x` and `y` attributes, which are numbers within 0 and 1.
 
 {schema_object:properties/easing-handle}
 
@@ -112,14 +112,14 @@ Animatable 2D {link:values/vector} with optional spatial tangents.
 {schema_object:properties/position-keyframe}
 
 
-<h3 id="bezier-property">Bezier</h3>
+<h3 id="bezier-property">Bezier Shape</h3>
 
 Animatable {link:values/bezier}.
 
 {schema_object:properties/bezier-property}
 
 
-<h4 id="bezier-keyframe">Bezier Keyframe</h4>
+<h4 id="bezier-keyframe">Bezier Shape Keyframe</h4>
 
 {schema_string:properties/bezier-keyframe/description}
 

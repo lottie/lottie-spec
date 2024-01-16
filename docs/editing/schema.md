@@ -10,7 +10,7 @@ guidelines to ensure consistency.
 
 ### Object Model Approach
 
-Objects in the schema are organized in a way that simulated an object model.
+Objects in the schema are organized in a way that simulates an object model.
 
 This allows for implementation to have a (non-binding) foundation for their
 internal structure and provides easy organization of the human-readable

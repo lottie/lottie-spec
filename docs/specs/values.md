@@ -25,7 +25,7 @@ for example:
 Note sometimes you might find color values with 4 components (the 4th being alpha)
 but most players ignore the last component.
 
-<h2 id="bezier">Bezier</h2>
+<h2 id="bezier">Bezier Shape</h2>
 
 {schema_string:values/bezier/description}
 
