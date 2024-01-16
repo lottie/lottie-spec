@@ -1,0 +1,18 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "integer",
+    "title": "Shape Direction",
+    "description": "Drawing direction of the shape curve, useful for trim path",
+    "oneOf": [
+        {
+            "title": "Normal",
+            "description": "Usually clockwise",
+            "const": 1
+        },
+        {
+            "title": "Reversed",
+            "description": "Usually counter clockwise",
+            "const": 3
+        }
+    ]
+}

@@ -1,0 +1,61 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Animation",
+    "description": "Top level object, describing the animation",
+    "allOf": [
+        {
+            "$ref": "#/$defs/helpers/visual-object"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "fr": {
+                    "title": "Framerate",
+                    "description": "Framerate in frames per second",
+                    "type": "number"
+                },
+                "ip": {
+                    "title": "In Point",
+                    "description": "Frame the animation starts at (usually 0)",
+                    "type": "number"
+                },
+                "op": {
+                    "title": "Out Point",
+                    "description": "Frame the animation stops/loops at, which makes this the duration in frames when `ip` is 0",
+                    "type": "number"
+                },
+                "w": {
+                    "title": "Width",
+                    "description": "Width of the animation",
+                    "type": "integer"
+                },
+                "h": {
+                    "title": "Height",
+                    "description": "Height of the animation",
+                    "type": "integer"
+                },
+                "assets": {
+                    "title": "Assets",
+                    "type": "array",
+                    "description": "List of assets that can be referenced by layers",
+                    "items": {
+                        "$ref": "#/$defs/assets/all-assets"
+                    }
+                },
+                "markers": {
+                    "title": "Markers",
+                    "description": "Markers defining named sections of the composition.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/helpers/marker"
+                    }
+                }
+            },
+            "required": ["w", "h", "fr", "op", "ip"]
+        },
+        {
+            "$ref": "#/$defs/composition/composition"
+        }
+    ]
+}

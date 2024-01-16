@@ -1,0 +1,31 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Visual Layer",
+    "description": "Layer used to affect visual elements",
+    "allOf": [
+        {
+            "$ref": "#/$defs/layers/layer"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "ks": {
+                    "title": "Transform",
+                    "description": "Layer transform",
+                    "$ref": "#/$defs/helpers/transform"
+                },
+                "ao": {
+                    "title": "Auto Orient",
+                    "$ref": "#/$defs/helpers/int-boolean",
+                    "default": 0,
+                    "description": "If 1, The layer will rotate itself to match its animated position path"
+                }
+            },
+            "required": [
+                "ks"
+            ]
+        }
+    ]
+}
+

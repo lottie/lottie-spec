@@ -1,0 +1,21 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Shape",
+    "description": "Drawable shape",
+    "allOf": [
+        {
+            "$ref": "#/$defs/shapes/shape-element"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "d": {
+                    "title": "Direction",
+                    "description": "Direction the shape is drawn as, mostly relevant when using trim path",
+                    "$ref": "#/$defs/constants/shape-direction"
+                }
+            }
+        }
+    ]
+}

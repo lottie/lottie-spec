@@ -1,0 +1,24 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Shape Style",
+    "allOf": [
+        {
+            "$ref": "#/$defs/shapes/shape-element"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "o": {
+                    "title": "Opacity",
+                    "description": "Opacity, 100 means fully opaque",
+                    "$ref": "#/$defs/properties/value"
+                }
+            },
+            "required": [
+                "o"
+            ]
+        }
+    ]
+}
+

@@ -96,6 +96,29 @@ Specification version: 1.0
 
 ---
 
+Licensee's name: Aidos Sabit
+
+Authorized individual and system identifier: aidosmf@gmail.com
+
+Specification version: 1.0
+
+---
+
+Licensee's name: Alistair Thomson
+
+Authorized individual and system identifier: alistair@lottielab.io
+
+Specification version: 1.0
+
+---
+Licensee's name: Marcus Stenbeck
+
+Authorized individual and system identifier: marcus.stenbeck@gmail.com
+
+Specification version: 1.0
+
+---
+
 Licensee's name: Brandon Wilson
 
 Authorized individual and system identifier: bwils@google.com

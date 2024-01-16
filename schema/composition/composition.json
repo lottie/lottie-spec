@@ -1,0 +1,16 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Composition",
+    "description": "An object that contains a list of layers",
+    "properties": {
+        "layers": {
+            "title": "Layers",
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/layers/all-layers"
+            }
+        }
+    },
+    "required": ["layers"]
+}

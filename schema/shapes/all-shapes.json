@@ -1,0 +1,13 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$comment": "List of valid shapes",
+    "oneOf": [
+        {"$ref": "#/$defs/shapes/ellipse"},
+        {"$ref": "#/$defs/shapes/fill"},
+        {"$ref": "#/$defs/shapes/group"},
+        {"$ref": "#/$defs/shapes/path"},
+        {"$ref": "#/$defs/shapes/rectangle"},
+        {"$ref": "#/$defs/shapes/transform"},
+        {"$ref": "#/$defs/shapes/trim-path"}
+    ]
+}
