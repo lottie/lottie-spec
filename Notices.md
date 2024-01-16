@@ -93,3 +93,11 @@ Licensee's name: Jawish Hameed
 Authorized individual and system identifier: jawish@lottiefiles.com
 
 Specification version: 1.0
+
+---
+
+Licensee's name: Brandon Wilson
+
+Authorized individual and system identifier: bwils@google.com
+
+Specification version: 1.0
