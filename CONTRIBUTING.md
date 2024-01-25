@@ -21,7 +21,6 @@ When proposing or weighing-in on any issue or pull request, consider the
 [Code of Conduct](https://github.com/lottie/lottie-spec/blob/main/8._Code_of_Conduct.md)
 to better understand expected and unacceptable behavior.
 
-
 ## Contributing to Lottie Libraries
 
 A common point of confusion for those who wish to contribute to the Lottie Format is where
@@ -38,7 +37,7 @@ has experience being implemented in a Lottie library.
 
 To allow a library to remain spec compliant while also implementing _proposals_
 and _drafts_, the library's maintainers may request that these new features are
-disabled by default with opt-in option flags or they may simply wait to merge a
+disabled by default with opt-in option flags, or they may simply wait to merge a
 well-tested pull request until the spec proposal is _accepted_.
 
 ## Workflow
@@ -49,33 +48,33 @@ well-tested pull request until the spec proposal is _accepted_.
     * Issues
     * Discussions
 
-2. Regular, documented meetings of the LAC working group, to review and progress proposals 
+2. Regular, documented meetings of the LAC working group, to review and progress proposals
    through the various stages as outlined below.
 
-Members of the community, who are interested in participating in discussions and other work 
-around the Lottie Format, be it the format itself, documentation, libraries, tools or 
+Members of the community, who are interested in participating in discussions and other work
+around the Lottie Format, be it the format itself, documentation, libraries, tools or
 other services built around the format can do so around the repository.
 
-In doing so, members can put forth _proposals_ for the format, which are 
-well reasoned formal recommendations or suggestions put toward consideration by 
+In doing so, members can put forth _proposals_ for the format, which are
+well reasoned formal recommendations or suggestions put toward consideration by
 the community and working-group, aimed at fixing, improving or enhancing the
-Lottie Animation Format. Proposals can be initiated either via issues or pull requests 
-(as detailed below). Any issue raised is considered an RFC, subject to review, 
-comments and deliberation by both community and working-group. An RFC may begin as an 
-issue or PR, and may not initially be reasoned out enough to be considered a formal 
-proposal (see below). However, it will eventually have to be detailed enough to be 
+Lottie Animation Format. Proposals can be initiated either via issues or pull requests
+(as detailed below). Any issue raised is considered an RFC, subject to review,
+comments and deliberation by both community and working-group. An RFC may begin as an
+issue or PR, and may not initially be reasoned out enough to be considered a formal
+proposal (see below). However, it will eventually have to be detailed enough to be
 considered a proposal.
 
 ## Key stakeholders
 
 **Lottie Animation Working Group**
 
-A working group, put together by the LAC, is responsible for guiding the process, 
-moderating discussions, and so forth. The working group will conduct regular meetings to 
+A working group, put together by the LAC, is responsible for guiding the process,
+moderating discussions, and so forth. The working group will conduct regular meetings to
 review proposals, and either advance them through the process or put
 forward recommendations/suggestions for the same.
 
-Relevant details of the working-group, its members and tenure shall be published on 
+Relevant details of the working-group, its members and tenure shall be published on
 the main repository.
 
 **Lottie Sponsors**
@@ -88,25 +87,24 @@ Sponsor organizations shall be transparently documented on the main repository.
 
 **Editors**
 
-Either working-group members or selected contributors responsible to repository maintenance: i.e have write/edit access
+Either working-group members or selected contributors responsible to repository maintenance: i.e. have write/edit access
 to the main repository.
-
 
 ## Classifying Contributions
 
-Contributions can come in the form of issues or pull requests. Contributions through github discussions are not
+Contributions can come in the form of issues or pull requests. Contributions through GitHub discussions are not
 recognized. Discussions may be used for general discussion and brainstorming before it is put forth as a proposal and
 subsequently into the RFC process.
 
 Of contributions, they may be classified as follows:
 
 1. **Contributions that _do not_ change the spec, or interpretation of the spec**  
-   These are issues and PRs largely aimed at improving legibility, fixing editorial errors, 
-   clearing up ambiguities, or adding examples to existing specifications. 
+   These are issues and PRs largely aimed at improving legibility, fixing editorial errors,
+   clearing up ambiguities, or adding examples to existing specifications.
    These may be progressed and merged without much process.
 
 2. **Contributions that _do_ meaningfully change the interpretation of the spec**  
-   These must progress through the stages of RFC, guided by a sponsor until 
+   These must progress through the stages of RFC, guided by a sponsor until
    they are ultimately accepted or rejected.
 
 ## Contribution Stages
@@ -129,7 +127,7 @@ it progresses.
 An RFC at the explainer stage captures a described problem or partially-considered solutions. An explainer does not need
 to meet any entrance criteria. An explainer’s goal is to prove or disprove a problem and guide discussion towards either
 rejection or a preferred solution. An explainer may be an issue or a pull request (though an illustrative pull request
-is preferrable).
+is preferable).
 
 There are no entrance criteria for an explainer. It can simply be an issue, grievance or query.
 
@@ -182,7 +180,7 @@ solution and resolve any concerns through library implementations. **A draft mus
 * Relevant tests and test .json files
 * Compliant implementations:
     * A library or tool of their choosing
-    * Machine readable Lottie-schema as hosted in this repository
+    * Machine-readable Lottie-schema as hosted in this repository
 
 A proposal becomes a draft when the set of problems or drawbacks have been fully considered and accepted or resolved,
 and the solution is deemed desirable. A draft's goal is to complete final spec edits that are ready to be merged and
@@ -203,7 +201,7 @@ Entrance criteria:
 * Complete spec edits, including examples and prose
 * Compliant implementation in a lottie library (fully tested and merged or ready to merge)
 
-A draft is accepted when the working group or editor (in the case of non invasive edits as outlined before) has been
+A draft is accepted when the working group or editor (in the case of non-invasive edits as outlined before) has been
 convinced via implementations and tests that it appropriately handles all edge cases; that the spec changes not only
 precisely describe the new syntax and semantics but include sufficient motivating prose and examples; and that the RFC
 includes edits to any other affected areas of the spec. Once accepted, its sponsor should encourage adoption of the RFC
@@ -223,7 +221,7 @@ progressed after amendments, this avenue should be explored first.
 
 Most rejections occur when an explainer is proven to be unnecessary, is misaligned with the guiding principles, or fails
 to meet the entrance criteria to become a proposal. A proposal may become rejected for similar reasons as well as if it
-fails to reach consensus or loses the confidence of its sponsor. Likewise a draft may encounter unforeseen issues during
+fails to reach consensus or loses the confidence of its sponsor. Likewise, a draft may encounter unforeseen issues during
 implementations which cause it to lose consensus or the confidence of its sponsor.
 
 RFCs which have lost a sponsor will not be rejected immediately, but may become rejected if they fail to attract a new
