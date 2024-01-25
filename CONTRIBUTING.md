@@ -109,7 +109,7 @@ Of contributions, they may be classified as follows:
    These must progress through the stages of RFC, guided by a sponsor until 
    they are ultimately accepted or rejected.
 
-### Contribution Stages
+## Contribution Stages
 
 Once a proposal is raised either via issues or pull request, it is considered to be an RFC.
 
