@@ -124,3 +124,11 @@ Licensee's name: Brandon Wilson
 Authorized individual and system identifier: bwils@google.com
 
 Specification version: 1.0
+
+---
+
+Licensee's name: Naail Abdul Rahman
+
+Authorized individual and system identifier: kudanai@gmail.com
+
+Specification version: 1.0
