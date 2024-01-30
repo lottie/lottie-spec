@@ -3,7 +3,7 @@ site_description: Documentation for the Lottie animation format
 extra:
     lottie_player_version: 5.12.2
 theme:
-    name: cinder
+    name: mkdocs
     custom_dir: tools/theme
     highlightjs: false
 repo_url: https://github.com/lottie-animation-community/lottie-spec
