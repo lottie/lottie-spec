@@ -2,8 +2,7 @@ name: Build Pages
 on:
     push:
         branches:
-            # - main
-            - mf/ui-updates
+            - main
     workflow_dispatch:
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
