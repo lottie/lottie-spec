@@ -1,2 +1,6 @@
 docs/lottie.schema.json
 site/
+__pycache__
+
+# Operating system
+.DS_Store
