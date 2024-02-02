@@ -16,11 +16,6 @@ jobs:
             sudo apt install -yy python3 python3-pip graphviz
             pip install -r tools/requirements.txt
       -
-        name: Build
-        run: |
-            ./tools/schema-merge.py
-            ./tools/mkdocs build -d site
-      -
         name: Validate
         run: |
-            ./tools/schema-validate.py --html site/specs
+            make validate_full
