@@ -30,7 +30,7 @@ docs_serve:$(SOURCE_DIR)/docs/lottie.schema.json
 	$(MKDOCS) serve -f $(SOURCE_DIR)/mkdocs.yml
 
 install_dependencies:
-	$(PIP) install -r $(SOURCE_DIR)/requirements.txt
+	$(PIP) install -r $(SOURCE_DIR)/tools/requirements.txt
 
 validate: $(SOURCE_DIR)/docs/lottie.schema.json
 	$(SOURCE_DIR)/tools/schema-validate.py
