@@ -132,3 +132,11 @@ Licensee's name: Naail Abdul Rahman
 Authorized individual and system identifier: kudanai@gmail.com
 
 Specification version: 1.0
+
+---
+
+Licensee's name: Henry Huck
+
+Authorized individual and system identifier: henry@jitter.video
+
+Specification version: 1.0
