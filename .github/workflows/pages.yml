@@ -32,9 +32,7 @@ jobs:
             pip install -r tools/requirements.txt
       -
         name: Docs
-        run: |
-            ./tools/schema-merge.py
-            ./tools/mkdocs build -d site
+        run: make
       -
         name: Setup Pages
         uses: actions/configure-pages@v4
