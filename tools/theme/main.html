@@ -25,6 +25,44 @@
     <script src="/lottie-spec/static/js/value_editors.js"></script>
     <link rel="stylesheet" href="/lottie-spec/static/css/style.css" />
     <link rel="stylesheet" href="/lottie-spec/static/css/lottie-theme.css" />
+
+    <script>
+        MathJax = {
+            loader: {load: ['input/tex']},
+            //  When page is ready:
+            //    render the document
+            startup: {
+                pageReady() {
+                    MathJax._.mathjax.mathjax.handleRetriesFor(() => MathJax.startup.document.render());
+                }
+            },
+            //  Use dollar signs for in-line delimiters in addition to the usual ones
+            tex: {inlineMath: {'[+]': [['$', '$']]}},
+            //  Override the usual typeset render action with one that generates MathML output
+            options: {
+                renderActions: {
+                    typeset: [
+                        150,
+                        (doc) => {for (math of doc.math) {MathJax.config.renderMathML(math, doc)}},
+                        (math, doc) => MathJax.config.renderMathML(math, doc)
+                    ]
+                }
+            },
+            // The action to use for rendering MathML
+            renderMathML(math, doc) {
+                math.typesetRoot = document.createElement('mjx-container');
+                math.typesetRoot.innerHTML = MathJax.startup.toMML(math.root);
+                math.display && math.typesetRoot.setAttribute('display', 'block');
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js"></script>
+    <style>
+        mjx-container[display="block"] > math {
+            margin: 1em 0;
+        }
+    </style>
+
 {% endblock %}
 
 

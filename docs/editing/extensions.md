@@ -20,6 +20,21 @@ Output:
 
 {schema_string:shapes/graphic-element/description}
 
+### `link`
+
+Links to the relevant section in the specs.
+
+Example:
+
+```
+{link:shapes/ellipse}
+```
+
+Output:
+
+{schema_link:shapes/ellipse}
+
+
 ### `schema_link`
 
 Link to the relevant section in the formatted schema.

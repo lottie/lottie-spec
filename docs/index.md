@@ -22,16 +22,34 @@ Once the draft is complete, there will be an announcement by the
 Lottie Animation Community.
 
 
+## Conventions
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY",
+and "OPTIONAL" in this document are to be interpreted as described in
+BCP 14 [RFC2119] [RFC8174] when, and only when,
+they appear in all capitals, as shown here.
+
+
+## Document Structure
+
+Lottie documents are MUST use JSON [RFC8259] to structure their data.
+The top-level object in a Lottie document MUST be an
+[Animation](./specs/composition.md#animation) object.
+
+Implementation MAY store additional data in the JSON objects.
+
+A machine-readable specification of the JSON structure is available
+as [JSON Schema](./specs/schema.md).
+
+
 ## Where to start
 
-Lottie files use JSON to structure its data so basic JSON knowledge
-is required to understand the specidification.
+Since Lottie uses JSON, basic JSON knowledge is required to understand the specidification.
 
 To understand Lottie data, it's useful to start learning about
 [basic values](./specs/values.md) and [animated properties](./specs/properties.md).
 
 The root object of any Lottie animation is the [Animation](./specs/composition.md#animation) object.
-
-If you want a machine readable specification the [JSON Schema](./specs/schema.md) is also available.
 
 <lottie src="static/logo.json" loop="false" buttons="false" background="none" />
