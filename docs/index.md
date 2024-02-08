@@ -45,7 +45,7 @@ as [JSON Schema](./specs/schema.md).
 
 ## Where to start
 
-Since Lottie uses JSON, basic JSON knowledge is required to understand the specidification.
+Since Lottie uses JSON, basic JSON knowledge is required to understand the specification.
 
 To understand Lottie data, it's useful to start learning about
 [basic values](./specs/values.md) and [animated properties](./specs/properties.md).
