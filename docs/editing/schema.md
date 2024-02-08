@@ -105,6 +105,34 @@ To build a static HTML site run the following:
 
 The output will be in `/site`.
 
+### Makefile
+
+To simplify the build process, there is a makefile that allows you to
+run all the commands above with a single `make` invocation`.
+
+Follows a list of useful `make` targets:
+
+```bash
+# Installs Python packages
+make install_dependencies
+
+# Builds the schema and docs into HTML
+make
+
+# Equivalent to mkdocs serve
+make docs_serve
+
+# Builds only the combined schema
+make lottie.schema.json
+
+# Runs basic schema validation (without rebuilding the HTML)
+make validate
+
+# Runs the full validation, including building the HTML pages
+make validate_full
+```
+
+
 ### Schema Validation
 
 You can validate schema syntax and internal references using
