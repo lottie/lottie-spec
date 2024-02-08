@@ -192,3 +192,53 @@ Output:
     lottie.layers[0].shapes[0].it[0].r.k = data["Roundness"];
     </script>
 </lottie-playground>
+
+## Miscellaneous
+
+### `[RFC]`
+
+Links to a IETF RFC.
+
+Example:
+
+```
+[RFC9402]
+```
+
+Output:
+
+[RFC9402]
+
+
+### BCP14
+
+Automatically highlights keywords from BCP 14 ([RFC2119] [RFC8174]).
+
+Example:
+
+```
+MUST
+```
+
+Output:
+
+MUST
+
+### Math Input
+
+[Mathjax](https://www.mathjax.org/) tags are enabled, this allows embedding $\LaTeX$ code.
+
+Example:
+
+```
+Normal text with inline $\LaTeX$: $\frac{1}{x}$.
+
+$$\sum_{i=1}^n{n\choose i}t^i(1-t)^{n-1}P_i$$
+```
+
+Output:
+
+
+Normal text with inline $\LaTeX$: $\frac{1}{x}$.
+
+$$\sum_{i=1}^n{n\choose i}t^i(1-t)^{n-1}P_i$$

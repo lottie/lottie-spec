@@ -76,7 +76,7 @@ There are several Python scripts that are used in the build process,
 ensure the requirements listed under `/tools/requirements.txt` are
 installed in your Python environment.
 
-> If you facing errors on MacOS - you might need to install `graphviz` [differently]((https://graphviz.org/download/#mac))
+The [graphviz](https://graphviz.org/download/) system package needs to be installed as well.
 
 The first step is to build the combined schema:
 
