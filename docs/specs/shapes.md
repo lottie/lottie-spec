@@ -101,6 +101,8 @@ $$tangent = radius \cdot 0.5519$$
 
 Implementations MAY use elliptical arcs to render an ellipse.
 
+![Ellipse rendering guide](../static/img/ellipse-guide.svg)
+
 
 <h3 id="rectangle">Rectangle</h3>
 
@@ -164,6 +166,8 @@ $$tangent = \frac{rounded}{2}$$
 1. Set in tangent $(-rounded/2, 0)$
 1. Add vertex $(right - rounded, top)$
 1. Set out tangent $(rounded/2, 0)$
+
+![Rectangle rendering guide](../static/img/rect-guide.svg)
 
 
 <h3 id="path">Path</h3>
