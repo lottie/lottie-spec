@@ -105,3 +105,19 @@ canvas.bezier-editor {
     margin: 1ex;
     height: 48px;
 }
+
+/* mathml */
+
+math {
+    margin: 1em 0;
+}
+
+mtd[columnalign=right] {
+    text-align: -webkit-right;
+    text-align: -moz-right;
+}
+
+mtd[columnalign=left] {
+    text-align: -webkit-left;
+    text-align: -moz-left;
+}

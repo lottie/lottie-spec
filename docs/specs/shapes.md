@@ -37,6 +37,22 @@ Drawing instructions will contain the following commands:
 * _set out tangent_: Sets the cubic tangent from the last added vertex.  If omitted, tangents MUST be $(0, 0)$.
 * _lerp_: Linerarly interpolates two points or scalars by a given amount.
 
+
+### Approximating Ellipses with Cubic Bezier
+
+An elliptical quadrant can be approximated by a cubic bezier segment
+with tangents of length $radius \cdot E_t.
+
+Where
+
+$$E_t \approx 0.5519150244935105707435627$$
+
+See [this article](https://spencermortensen.com/articles/bezier-circle/) for the math behind it.
+
+When implementations render elliptical arcs using bezier curves, they SHOULD
+use this constant, a similar approximation, or elliptical arc drawing primitives.
+
+
 <h2 id="graphic-element">Graphic Element</h2>
 
 {schema_string:shapes/graphic-element/description}
@@ -82,8 +98,12 @@ The `ty` property defines the specific element type based on the following value
 
 An ellipse is drawn from the top quandrant point going clockwise:
 
-$$radius = \frac{size}{2}$$
-$$tangent = radius \cdot 0.5519$$
+$$
+\begin{align*}
+radius & = \frac{size}{2} \\
+tangent & = radius \cdot E_t \\
+\end{align*}
+$$
 
 1. Add vertex $(x, y - radius.y)$
 1. Add vertex $(x, y - radius.y)$
@@ -135,10 +155,14 @@ If $r = 0$, then the rectangle is rendered from the top-right going clockwise:
 
 Definitions:
 
-$$left = p.x - \frac{s.x}{2}$$
-$$right = p.x + \frac{s.x}{2}$$
-$$top = p.y - \frac{s.y}{2}$$
-$$bottom = p.y + \frac{s.y}{2}$$
+$$
+\begin{align*}
+left & = p.x - \frac{s.x}{2} \\
+right & = p.x + \frac{s.x}{2} \\
+top & = p.y - \frac{s.y}{2} \\
+bottom & = p.y + \frac{s.y}{2} \\
+\end{align*}
+$$
 
 1. Add vertex $(right, top)$
 1. Add vertex $(right, bottom)$
@@ -147,8 +171,12 @@ $$bottom = p.y + \frac{s.y}{2}$$
 
 If $r > 0$, the rounded corners must be taken into account.
 
-$$rounded = \min\left(\frac{s.x}{2}, \frac{s.y}{2}, r\right)$$
-$$tangent = \frac{rounded}{2}$$
+$$
+\begin{align*}
+rounded & = \min\left(\frac{s.x}{2}, \frac{s.y}{2}, r\right) \\
+tangent & = \frac{rounded}{2} \\
+\end{align*}
+$$
 
 1. Add vertex $(right, top + rounded)$
 1. Set in tangent $(0, -tangent)$
@@ -271,16 +299,16 @@ Rendering trim path can be rather complex.
 Given
 
 $$
-offset =
+\begin{align*}
+offset & =
 \begin{cases}
-\frac{o}{360} - \lfloor \frac{o}{360} \rfloor & o \ge 0 \\\\
+\frac{o}{360} - \lfloor \frac{o}{360} \rfloor & o \ge 0 \\
 \frac{o}{360} - \lceil \frac{o}{360} \rceil & o < 0
-\end{cases}
+\end{cases} \\
+start & = offset + \min\left(1, \max\left(0, \frac{s}{100}\right)\right) \\
+end & = offset + \min\left(1, \max\left(0, \frac{e}{100}\right)\right) \\
+\end{align*}
 $$
-
-$$start = offset + \min\left(1, \max\left(0, \frac{s}{100}\right)\right)$$
-
-$$end = offset + \min\left(1, \max\left(0, \frac{e}{100}\right)\right)$$
 
 To render trim path, implementations MUST consider the actual length of
 each shape (they MAY use approximations). Once the shapes are collected,
@@ -289,14 +317,14 @@ the segment to render is given by the percentages $start$ and $end$.
 If $start$ and $end$ are equal, implementations MUST NOT render any shapes.
 
 If they are equal (implementations MAY consider very similar values as equal),
-the input shape MUST be rendered.
+the input shape MUST be rendered as-is.
 
 When trim path is applied to multiple shapes, the `m` property MUST
 be considered when applying the modifier:
 
-When `m` has a value of `1` (Parallel), each shape MUST considered
+* When `m` has a value of `1` (Parallel), each shape MUST considered
 separately, $start$ and $end$ being applied to each shape.
 
-When `m` has a value of `2` (Sequential), all the shapes MUST be considered
+* When `m` has a value of `2` (Sequential), all the shapes MUST be considered
 as following each other in render order.  $start$ and $end$ refer to the whole
 length created by concatenating each shape.

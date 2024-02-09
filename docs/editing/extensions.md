@@ -226,14 +226,14 @@ MUST
 
 ### Math Input
 
-[Mathjax](https://www.mathjax.org/) tags are enabled, this allows embedding $\LaTeX$ code.
+You can embed $\LaTeX$ math mode code.
 
 Example:
 
 ```
 Normal text with inline $\LaTeX$: $\frac{1}{x}$.
 
-$$\sum_{i=1}^n{n\choose i}t^i(1-t)^{n-1}P_i$$
+$$\sum\limits_{i=1}^n{n\choose i}t^i(1-t)^{n-1}P_i$$
 ```
 
 Output:
@@ -241,4 +241,4 @@ Output:
 
 Normal text with inline $\LaTeX$: $\frac{1}{x}$.
 
-$$\sum_{i=1}^n{n\choose i}t^i(1-t)^{n-1}P_i$$
+$$\sum\limits_{i=1}^n{n\choose i}t^i(1-t)^{n-1}P_i$$
