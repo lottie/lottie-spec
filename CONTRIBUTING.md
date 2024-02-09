@@ -57,8 +57,8 @@ Submissions fall into one of two categories:
 
 1. **Contributions that _do not_ change the specifications, or their interpretation**  
    These are issues and PRs largely aimed at improving legibility, fixing editorial errors,
-   clearing up ambiguities, or adding examples to existing specifications.
-   These may be progressed and merged without much process.
+   clearing up ambiguities, adding examples to existing specifications, or updating the tooling that generates the documentation.
+   These may be progressed and merged without much process and typically only require one approval from a member of the LAC working group.
 
 2. **Contributions that _do_ meaningfully change the specifications**  
    These must progress through the stages of RFC, guided by a sponsor until
