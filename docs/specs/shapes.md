@@ -174,7 +174,7 @@ If $r > 0$, the rounded corners must be taken into account.
 $$
 \begin{align*}
 rounded & = \min\left(\frac{s.x}{2}, \frac{s.y}{2}, r\right) \\
-tangent & = \frac{rounded}{2} \\
+tangent & = rounded \cdot E_t \\
 \end{align*}
 $$
 
