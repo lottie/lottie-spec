@@ -105,6 +105,8 @@ $$
 \begin{align*}
 radius & = \frac{size}{2} \\
 tangent & = radius \cdot E_t \\
+x & = p.x \\
+y & = p.y \\
 \end{align*}
 $$
 
