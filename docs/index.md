@@ -33,7 +33,7 @@ they appear in all capitals, as shown here.
 
 ## Document Structure
 
-Lottie documents are MUST use JSON [RFC8259] to structure their data.
+Lottie documents MUST use JSON [RFC8259] to structure their data.
 The top-level object in a Lottie document MUST be an
 [Animation](./specs/composition.md#animation) object.
 
