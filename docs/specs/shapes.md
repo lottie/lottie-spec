@@ -155,7 +155,6 @@ Implementations MAY use elliptical arcs to render an ellipse.
     </script>
 </lottie-playground>
 
-If $r = 0$, then the rectangle is rendered from the top-right going clockwise:
 
 Definitions:
 
@@ -167,6 +166,8 @@ top & = p.y - \frac{s.y}{2} \\
 bottom & = p.y + \frac{s.y}{2} \\
 \end{align*}
 $$
+
+If $r = 0$, then the rectangle is rendered from the top-right going clockwise:
 
 1. Add vertex $(right, top)$
 1. Add vertex $(right, bottom)$
