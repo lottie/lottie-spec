@@ -103,7 +103,7 @@ An ellipse is drawn from the top quandrant point going clockwise:
 
 $$
 \begin{align*}
-radius & = \frac{size}{2} \\
+radius & = \frac{s}{2} \\
 tangent & = radius \cdot E_t \\
 x & = p.x \\
 y & = p.y \\
