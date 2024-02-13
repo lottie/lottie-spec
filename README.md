@@ -11,5 +11,5 @@ Participation in this group requires signing the
 do by creating a pull request that adds your name, email address, and Community
 Specification License version that you agree to be bound by.
 
-Here is an [example of what that pull request should look like](https://github.com/lottie-animation-community/docs/pull/2).
+Here is an [example of what that pull request should look like](https://github.com/lottie/lottie-spec/pull/9).
 
