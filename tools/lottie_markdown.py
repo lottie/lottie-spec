@@ -1072,6 +1072,37 @@ def typed_schema(schema: Schema):
     return ts
 
 
+class BCP14(InlineProcessor):
+    words = [
+        "SHALL NOT", "MUST NOT", "SHOULD NOT", "NOT RECOMMENDED",
+        "REQUIRED", "SHALL", "MUST", "SHOULD", "RECOMMENDED", "MAY",
+        "OPTIONAL"
+    ]
+
+    def __init__(self, md):
+        super().__init__("|".join(self.words), md)
+
+    def handleMatch(self, match, data):
+        span = etree.Element("strong")
+        span.attrib["class"] = "bcp14"
+        span.text = match.group(0)
+        return span, match.start(0), match.end(0)
+
+
+class RfcLink(InlineProcessor):
+    def __init__(self, md):
+        super().__init__(r"\[(RFC([0-9]+))\]", md)
+
+    def handleMatch(self, match, data):
+        span = etree.Element("span")
+        span.text = "["
+        link = etree.SubElement(span, "a")
+        link.attrib["href"] = "https://www.rfc-editor.org/info/rfc%s" % match.group(2)
+        link.text = match.group(1)
+        link.tail = "]"
+        return span, match.start(0), match.end(0)
+
+
 class LottieExtension(Extension):
     def extendMarkdown(self, md):
         ts = typed_schema(Schema.load(docs_path / "lottie.schema.json"))
@@ -1083,6 +1114,8 @@ class LottieExtension(Extension):
         md.inlinePatterns.register(SubTypeTable(md, ts), "schema_subtype_table", 175)
         md.inlinePatterns.register(LottieColor(r'{lottie_color:(([^,]+),\s*([^,]+),\s*([^,]+))}', md, 1), 'lottie_color', 175)
         md.inlinePatterns.register(SchemaInheritance(md, ts), "schema_inheritance", 175)
+        md.inlinePatterns.register(BCP14(md), "bcp14", 175)
+        md.inlinePatterns.register(RfcLink(md), "rfc", 175)
 
         md.parser.blockprocessors.register(
             RawHTML(

@@ -20,6 +20,21 @@ Output:
 
 {schema_string:shapes/graphic-element/description}
 
+### `link`
+
+Links to the relevant section in the specs.
+
+Example:
+
+```
+{link:shapes/ellipse}
+```
+
+Output:
+
+{schema_link:shapes/ellipse}
+
+
 ### `schema_link`
 
 Link to the relevant section in the formatted schema.
@@ -177,3 +192,53 @@ Output:
     lottie.layers[0].shapes[0].it[0].r.k = data["Roundness"];
     </script>
 </lottie-playground>
+
+## Miscellaneous
+
+### `[RFC]`
+
+Links to a IETF RFC.
+
+Example:
+
+```
+[RFC9402]
+```
+
+Output:
+
+[RFC9402]
+
+
+### BCP14
+
+Automatically highlights keywords from BCP 14 ([RFC2119] [RFC8174]).
+
+Example:
+
+```
+MUST
+```
+
+Output:
+
+MUST
+
+### Math Input
+
+You can embed $\LaTeX$ math mode code.
+
+Example:
+
+```
+Normal text with inline $\LaTeX$: $\frac{1}{x}$.
+
+$$\sum\limits_{i=1}^n{n\choose i}t^i(1-t)^{n-1}P_i$$
+```
+
+Output:
+
+
+Normal text with inline $\LaTeX$: $\frac{1}{x}$.
+
+$$\sum\limits_{i=1}^n{n\choose i}t^i(1-t)^{n-1}P_i$$

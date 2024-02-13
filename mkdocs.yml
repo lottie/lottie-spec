@@ -11,9 +11,8 @@ edit_uri: https://github.com/lottie/lottie-spec/edit/main/docs
 use_directory_urls: true
 site_url: https://lottie.github.io/lottie-spec/
 markdown_extensions:
-    # - md_in_html
     - lottie_markdown
-    # - footnotes
+    - latex_markdown
 extra_css:
     # - /lottie-spec/style/style.css
     # - /lottie-spec/style/lottie-theme.css

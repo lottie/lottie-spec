@@ -7,6 +7,55 @@ The graphical elements are divided in 4 categories:
 * [Styles](#shape-style), that define the visual appearance of shapes
 * [Modifiers](#modifier) alter the curves of the shapes
 
+## Rendering Convention
+
+Shapes defined in this section contain rendering instructions.
+These instructions are used to generate the path as a bezier curve.
+
+Implementations MAY use different algorithms or primitives to render
+the shapes but the result MUST be equivalent to the paths defined here.
+
+Some instructions define named values for clarity and illustrative purposes,
+implementations are not required to have them explicitly defined in
+their rendering process.
+
+When referencing animated properties, the rendering instruction will
+use the same name as in the JSON but it's assumed they refer to their
+value at a given point in time rather than the property itself.
+
+For {link:values/vector} values, $value.x$ and $value.y$ in
+the instructions are equivalent to `value[0]` and `value[1]` respectively.
+
+All paths MUST be closed unless specified otherwise in the rendering instructions.
+
+When instructions call for an equality comparison between two values,
+implementaions MAY consider similar values to be equal to overcome numerical instability.
+
+### Drawing Commands
+
+Drawing instructions will contain the following commands:
+
+* _add vertex_: Adds a vertex to the bezier shape in global coordinates
+* _set in tangent_: Sets the cubic tangent to the last added vertex, with coordinates relative to it.  If omitted, tangents MUST be $(0, 0)$.
+* _set out tangent_: Sets the cubic tangent from the last added vertex, with coordinates relative to it.  If omitted, tangents MUST be $(0, 0)$.
+* _lerp_: Linerarly interpolates two points or scalars by a given amount.
+
+
+### Approximating Ellipses with Cubic Bezier
+
+An elliptical quadrant can be approximated by a cubic bezier segment
+with tangents of length $radius \cdot E_t.
+
+Where
+
+$$E_t \approx 0.5519150244935105707435627$$
+
+See [this article](https://spencermortensen.com/articles/bezier-circle/) for the math behind it.
+
+When implementations render elliptical arcs using bezier curves, they SHOULD
+use this constant, a similar approximation, or elliptical arc drawing primitives.
+
+
 <h2 id="graphic-element">Graphic Element</h2>
 
 {schema_string:shapes/graphic-element/description}
@@ -50,25 +99,34 @@ The `ty` property defines the specific element type based on the following value
     </script>
 </lottie-playground>
 
+An ellipse is drawn from the top quandrant point going clockwise:
 
-<h3 id="path">Path</h3>
+$$
+\begin{align*}
+radius & = \frac{s}{2} \\
+tangent & = radius \cdot E_t \\
+x & = p.x \\
+y & = p.y \\
+\end{align*}
+$$
 
-{schema_string:shapes/path/description}
+1. Add vertex $(x, y - radius.y)$
+1. Set in tangent $(-tangent.x, 0)$
+1. Set out tangent $(tangent.x, 0)$
+1. Add vertex $(x + radius.x, y)$
+1. Set in tangent $(0, -tangent.y)$
+1. Set out tangent $(0, tangent.y)$
+1. Add vertex $(x, y + radius.y)$
+1. Set in tangent $(tangent.x, 0)$
+1. Set out tangent $(-tangent.x, 0)$
+1. Add vertex $(x - radius.x, y)$
+1. Set in tangent $(0, tangent.y)$
+1. Set out tangent $(0, -tangent.y)$
 
-{schema_object:shapes/path}
+Implementations MAY use elliptical arcs to render an ellipse.
 
-<lottie-playground example="path.json">
-    <title>Example</title>
-    <form>
-        <input title="Shape" type="bezier"/>
-    </form>
-    <json>lottie.layers[0].shapes[0].it[0]</json>
-    <script>
-        var shape = lottie.layers[0].shapes[0].it[0];
-        if ( data["Shape"] )
-            shape.ks.k = data["Shape"];
-    </script>
-</lottie-playground>
+![Ellipse rendering guide](../static/img/ellipse-guide.svg)
+
 
 <h3 id="rectangle">Rectangle</h3>
 
@@ -94,6 +152,73 @@ The `ty` property defines the specific element type based on the following value
         data["Width"], data["Height"]
     ];
     lottie.layers[0].shapes[0].it[0].r.k = data["Roundness"];
+    </script>
+</lottie-playground>
+
+
+Definitions:
+
+$$
+\begin{align*}
+left & = p.x - \frac{s.x}{2} \\
+right & = p.x + \frac{s.x}{2} \\
+top & = p.y - \frac{s.y}{2} \\
+bottom & = p.y + \frac{s.y}{2} \\
+\end{align*}
+$$
+
+If $r = 0$, then the rectangle is rendered from the top-right going clockwise:
+
+1. Add vertex $(right, top)$
+1. Add vertex $(right, bottom)$
+1. Add vertex $(left, bottom)$
+1. Add vertex $(left, top)$
+
+If $r > 0$, the rounded corners must be taken into account.
+
+$$
+\begin{align*}
+rounded & = \min\left(\frac{s.x}{2}, \frac{s.y}{2}, r\right) \\
+tangent & = rounded \cdot E_t \\
+\end{align*}
+$$
+
+1. Add vertex $(right, top + rounded)$
+1. Set in tangent $(0, -tangent)$
+1. Add vertex $(right, bottom - rounded)$
+1. Set out tangent $(0, tangent)$
+1. Add vertex $(right - rounded, bottom)$
+1. Set in tangent $(tangent, 0)$
+1. Add vertex $(left + rounded, bottom)$
+1. Set out tangent $(-tangent, 0)$
+1. Add vertex $(left, bottom - rounded)$
+1. Set in tangent $(0, tangent)$
+1. Add vertex $(left, top + rounded)$
+1. Set out tangent $(0, -tangent)$
+1. Add vertex $(left + rounded, top)$
+1. Set in tangent $(-tangent, 0)$
+1. Add vertex $(right - rounded, top)$
+1. Set out tangent $(tangent, 0)$
+
+![Rectangle rendering guide](../static/img/rect-guide.svg)
+
+
+<h3 id="path">Path</h3>
+
+{schema_string:shapes/path/description}
+
+{schema_object:shapes/path}
+
+<lottie-playground example="path.json">
+    <title>Example</title>
+    <form>
+        <input title="Shape" type="bezier"/>
+    </form>
+    <json>lottie.layers[0].shapes[0].it[0]</json>
+    <script>
+        var shape = lottie.layers[0].shapes[0].it[0];
+        if ( data["Shape"] )
+            shape.ks.k = data["Shape"];
     </script>
 </lottie-playground>
 
@@ -170,3 +295,40 @@ The `ty` property defines the specific element type based on the following value
         lottie.layers[0].shapes[4].m = Number(data["Multiple Shapes"]);
     </script>
 </lottie-playground>
+
+When rendering trim path, the order of bezier points MUST be the same as
+rendering instructions given for each shape in this section.
+
+Rendering trim path can be rather complex.
+
+Given
+
+$$
+\begin{align*}
+offset & =
+\begin{cases}
+\frac{o}{360} - \lfloor \frac{o}{360} \rfloor & o \ge 0 \\
+\frac{o}{360} - \lceil \frac{o}{360} \rceil & o < 0
+\end{cases} \\
+start & = offset + \min\left(1, \max\left(0, \frac{\min(s, e)}{100}\right)\right) \\
+end & = offset + \min\left(1, \max\left(0, \frac{\max(s, e)}{100}\right)\right) \\
+\end{align*}
+$$
+
+If $s$ and $e$ are equal, implementations MUST NOT render any shapes.
+
+If $s = 0$ and $e = 1$, the input shape MUST be rendered as-is.
+
+To render trim path, implementations MUST consider the actual length of
+each shape (they MAY use approximations). Once the shapes are collected,
+the segment to render is given by the percentages $start$ and $end$.
+
+When trim path is applied to multiple shapes, the `m` property MUST
+be considered when applying the modifier:
+
+* When `m` has a value of `1` (Parallel), each shape MUST considered
+separately, $start$ and $end$ being applied to each shape.
+
+* When `m` has a value of `2` (Sequential), all the shapes MUST be considered
+as following each other in render order.  $start$ and $end$ refer to the whole
+length created by concatenating each shape.
