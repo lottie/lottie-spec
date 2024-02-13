@@ -13,6 +13,7 @@ site_url: https://lottie.github.io/lottie-spec/
 markdown_extensions:
     - lottie_markdown
     - latex_markdown
+    - def_list
 extra_css:
     # - /lottie-spec/style/style.css
     # - /lottie-spec/style/lottie-theme.css
@@ -29,6 +30,7 @@ nav:
         - specs/assets.md
         - specs/constants.md
         - specs/helpers.md
+        - specs/glossary.md
         #
         - specs/schema.md
     - "Community":
