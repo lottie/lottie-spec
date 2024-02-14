@@ -7,6 +7,37 @@ The graphical elements are divided in 4 categories:
 * [Styles](#shape-style), that define the visual appearance of shapes
 * [Modifiers](#modifier) alter the curves of the shapes
 
+## Shape Rendering Model
+
+The Lottie shape rendering model follows [AfterEffects' Shape Layer](
+https://helpx.adobe.com/after-effects/using/overview-shape-layers-paths-vector.html) semantics.
+
+### Grouping and Ordering Rules
+
+* **shapes** are rendered in reverse order (bottom->top)
+* **groups** offer a scoping mechanism for transforms, styles, and modifiers
+* **transforms** apply to all elements within scope, including group-nested elements
+* **styles** and **modifiers** apply to all preceding shapes within the current scope,
+  including group-nested shapes
+* when **multiple styles** apply to the same shape, the shape is rendered repeatedly for each style,
+  in reverse order
+* when **multiple modifiers** apply to the same shape, they are composed in reverse order
+  (e.g. $Trim(Trim(shape))$)
+* when **multiple transforms** apply to the same shape, they are composed in group (scope) order
+
+### Notes
+
+Certain modifier operations (e.g. sequential $Trim$) may require information about shapes
+from different groups.  In such cases, implementations must defer actual shape rendering until the
+modifier scope has been fully resolved.
+
+Transforms can affect both shapes and styles, e.g. stroke width.
+
+Shapes without an applicable style are not rendered.
+
+Rendering a given shape involves drawing the modified shape with an applicable style and transform:
+ $$Draw(Modify(shape), style, transform)$$
+
 ## Rendering Convention
 
 Shapes defined in this section contain rendering instructions.
@@ -22,7 +53,6 @@ their rendering process.
 When referencing animated properties, the rendering instruction will
 use the same name as in the JSON but it's assumed they refer to their
 value at a given point in time rather than the property itself.
-
 For {link:values/vector} values, $value.x$ and $value.y$ in
 the instructions are equivalent to `value[0]` and `value[1]` respectively.
 
