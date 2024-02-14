@@ -31,12 +31,12 @@ More formally:
   * for each $modifier$, in increasing index order, where $Index(shape) < Index(modifier)$ and
     $shape \in Scope(modifier)$:
     * $shape = modifier(shape)$
-  * for each $modifier$, in increasing index order, where $Index(style) < Index(modifier)$ and
-    $style \in Scope(modifier)$:
-    * $style = modifier(style)$
-  * compute the total transformation by composing all transforms within the shape scope chain:
-    $$T = \prod_{n=0}^{Scope(shape)} Transform(scope_n)$$
-  * $Render(shape, style, T)$
+  * compute the total shape transformation by composing all transforms within the shape scope chain:
+    $$T_{shape} = \prod_{n=0}^{Scope(shape)} Transform(scope_n)$$
+  * compute the total style transformation by composing all transforms within the style scope chain:
+    $$T_{style} = \prod_{n=0}^{Scope(style)} Transform(scope_n)$$
+
+  * $Render(shape \times T_{shape}, style \times T_{style})$
 
 ### Notes
 
@@ -44,7 +44,8 @@ Certain modifier operations (e.g. sequential $Trim$) may require information abo
 from different groups, thus $Render()$ calls cannot always be issued based on single-pass local
 knowledge.
 
-Transforms can affect both shapes and styles (e.g. stroke width).
+Transforms can affect both shapes and styles (e.g. stroke width).  For a given $(shape, style)$,
+the shape and style transforms are not necessarily equal. 
 
 Shapes without an applicable style are not rendered.
 
