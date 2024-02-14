@@ -230,6 +230,13 @@ $$
 
 {schema_object:shapes/group}
 
+A group defines a [[render stack]], elements within a group MUST be
+rendered in reverse order (the first object in the list will appear on
+top of elements further down).
+
+1. Apply the transform
+1. Render Styles and child groups in the transformed [[local coordinates|coordinate system]].
+
 <h3 id="transform">Transform</h3>
 
 {schema_string:shapes/transform/description}
@@ -247,6 +254,9 @@ They modify the group's [[local coordinates|coordinate system]] the same way as 
 {schema_string:shapes/shape-style/description}
 
 {schema_object:shapes/shape-style}
+
+Shapes styles MUST apply their style to the [[collected shapes]] that
+come before them in [[stacking order]].
 
 
 <h3 id="fill">Fill</h3>
@@ -277,6 +287,10 @@ They modify the group's [[local coordinates|coordinate system]] the same way as 
 <h2 id="modifier">Modifiers</h2>
 
 {schema_string:shapes/modifier/description}
+
+Modifiers replace shapes in the [[render stack]] by applying operating
+on the bezier path of to the [[collected shapes]] that
+come before it in [[stacking order]].
 
 
 <h3 id="trim-path">Trim Path</h3>
