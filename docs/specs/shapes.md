@@ -236,6 +236,11 @@ $$
 
 {schema_object:shapes/transform}
 
+Transform shapes MUST always be present in the group and they MUST be
+the last item in the `it` array.
+
+They modify the group's [[local coordinates|coordinate system]] the same way as Layer {link:helpers/transform}.
+
 
 <h2 id="shape-style">Style</h2>
 
