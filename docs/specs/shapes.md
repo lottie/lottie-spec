@@ -9,34 +9,47 @@ The graphical elements are divided in 4 categories:
 
 ## Shape Rendering Model
 
-The Lottie shape rendering model follows [AfterEffects' Shape Layer](
-https://helpx.adobe.com/after-effects/using/overview-shape-layers-paths-vector.html) semantics.
-
 ### Grouping and Ordering Rules
 
 * **shapes** are rendered in reverse order (bottom->top)
-* **groups** offer a scoping mechanism for transforms, styles, and modifiers
-* **transforms** apply to all elements within scope, including group-nested elements
+* **groups** offer a scoping mechanism for transforms, styles, modifiers, and shapes
+* **transforms** change the coordinate system for all elements within their group, and transitively
+  for all other group-nested elements
 * **styles** and **modifiers** apply to all preceding shapes within the current scope,
   including group-nested shapes
 * when **multiple styles** apply to the same shape, the shape is rendered repeatedly for each style,
   in reverse order
 * when **multiple modifiers** apply to the same shape, they are composed in reverse order
   (e.g. $Trim(Trim(shape))$)
-* when **multiple transforms** apply to the same shape, they are composed in group (scope) order
+* when **multiple transforms** apply to the same shape (due to scope nesting), they compos in group
+  nesting order
+
+
+More formally:
+
+* for each $(shape, style)$ tuple, where $Index(shape) < Index(style)$ and $shape \in Scope(style)$:
+  * for each $modifier$, in increasing index order, where $Index(shape) < Index(modifier)$ and
+    $shape \in Scope(modifier)$:
+    * $shape = modifier(shape)$
+  * for each $modifier$, in increasing index order, where $Index(style) < Index(modifier)$ and
+    $style \in Scope(modifier)$:
+    * $style = modifier(style)$
+  * compute the total transformation by composing all transforms within the shape scope chain:
+    $$T = \prod_{n=0}^{Scope(shape)} Transform(scope_n)$$
+  * $Render(shape, style, T)$
 
 ### Notes
 
 Certain modifier operations (e.g. sequential $Trim$) may require information about shapes
-from different groups.  In such cases, implementations must defer actual shape rendering until the
-modifier scope has been fully resolved.
+from different groups, thus $Render()$ calls cannot always be issued based on single-pass local
+knowledge.
 
-Transforms can affect both shapes and styles, e.g. stroke width.
+Transforms can affect both shapes and styles (e.g. stroke width).
 
 Shapes without an applicable style are not rendered.
 
-Rendering a given shape involves drawing the modified shape with an applicable style and transform:
- $$Draw(Modify(shape), style, transform)$$
+The rendering model is based on [AfterEffects' Shape Layer](
+https://helpx.adobe.com/after-effects/using/overview-shape-layers-paths-vector.html) semantics.
 
 ## Rendering Convention
 
