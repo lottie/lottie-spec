@@ -13,7 +13,7 @@ The graphical elements are divided in 4 categories:
 
 * **shapes** are rendered in reverse order (bottom->top)
 * **groups** offer a scoping mechanism for transforms, styles, modifiers, and shapes
-* **transforms** change the coordinate system for all elements within their group, and transitively
+* **transforms** adjust the coordinate system for all elements within their group, and transitively
   for all other group-nested elements
 * **styles** and **modifiers** apply to all preceding shapes within the current scope,
   including group-nested shapes
@@ -23,7 +23,9 @@ The graphical elements are divided in 4 categories:
   (e.g. $Trim(Trim(shape))$)
 * when **multiple transforms** apply to the same shape (due to scope nesting), they compos in group
   nesting order
-
+* **group opacity** (property of the group transform) applies atomically to all elements in scope -
+  i.e. opacity applies to the result of compositing all group content, and not to individual
+  elements
 
 More formally:
 
@@ -40,17 +42,16 @@ More formally:
 
 ### Notes
 
-Certain modifier operations (e.g. sequential $Trim$) may require information about shapes
+1. Certain modifier operations (e.g. sequential $Trim$) may require information about shapes
 from different groups, thus $Render()$ calls cannot always be issued based on single-pass local
 knowledge.
 
-Transforms can affect both shapes and styles (e.g. stroke width).  For a given $(shape, style)$,
+2. Transforms can affect both shapes and styles (e.g. stroke width).  For a given $(shape, style)$,
 the shape and style transforms are not necessarily equal. 
 
-Shapes without an applicable style are not rendered.
+3. Shapes without an applicable style are not rendered.
 
-The rendering model is based on [AfterEffects' Shape Layer](
-https://helpx.adobe.com/after-effects/using/overview-shape-layers-paths-vector.html) semantics.
+4. This rendering model is based on AfterEffects' Shape Layer semantics.
 
 ## Rendering Convention
 
