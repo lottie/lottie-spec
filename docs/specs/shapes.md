@@ -11,21 +11,23 @@ The graphical elements are divided in 4 categories:
 
 ### Grouping and Ordering Rules
 
-* **shapes** are rendered in reverse order (bottom->top)
-* **groups** offer a scoping mechanism for transforms, styles, modifiers, and shapes
-* **transforms** adjust the coordinate system for all elements within their group, and transitively
-  for all other group-nested elements
-* **styles** and **modifiers** apply to all preceding shapes within the current scope,
-  including group-nested shapes
-* when **multiple styles** apply to the same shape, the shape is rendered repeatedly for each style,
-  in reverse order
-* when **multiple modifiers** apply to the same shape, they are composed in reverse order
-  (e.g. $Trim(Trim(shape))$)
-* when **multiple transforms** apply to the same shape (due to scope nesting), they compos in group
-  nesting order
-* **group opacity** (property of the group transform) applies atomically to all elements in scope -
+* **Shapes** are rendered in reverse order, bottom->top. Shapes at the beginning of the array
+  are rendered on top of shapes with larger indices.
+* **Groups** offer a scoping mechanism for transforms, styles, modifiers, and shapes. All group
+  children, including sub-groups and their children, are considered part of the group's scope.
+* **Transforms** adjust the coordinate system for all elements within their group, and transitively
+  for all other group-nested elements.
+* **Styles** and **modifiers** apply to all preceding shapes within the current scope,
+  including subgroup-nested shapes.
+* When **multiple styles** apply to the same shape, the shape is rendered repeatedly for each style,
+  in reverse order.
+* When **multiple modifiers** apply to the same shape, they are composed in reverse order
+  (e.g. $Trim(Trim(shape))$).
+* When **multiple transforms** apply to the same shape due to scope nesting, they compose in group
+  nesting order (transforms are additive).
+* **Group opacity** (property of the group transform) applies atomically to all elements in scope -
   i.e. opacity applies to the result of compositing all group content, and not to individual
-  elements
+  elements.
 
 More formally:
 
