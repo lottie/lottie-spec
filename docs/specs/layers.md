@@ -34,6 +34,11 @@ The `ty` property defines the specific layer type based on the following values:
 
 {schema_object:layers/null-layer}
 
+<h3 id="solid-layer">Solid Layer</h3>
+
+{schema_string:layers/solid-layer/description}
+
+{schema_object:layers/solid-layer}
 
 <h3 id="precomposition-layer">Precomposition Layer</h3>
 

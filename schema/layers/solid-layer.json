@@ -1,0 +1,43 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Solid Layer",
+    "description": "Solid color, rectangle-shaped layer",
+    "allOf": [
+        {
+            "$ref": "#/$defs/layers/visual-layer"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "ty": {
+                    "title": "Type",
+                    "description": "Layer type",
+                    "type": "integer",
+                    "const": 1
+                },
+                "sw": {
+                    "title": "Width",
+                    "description": "Solid rectangle width",
+                    "type": "integer"
+                },
+                "sh": {
+                    "title": "Height",
+                    "description": "Solid rectangle height",
+                    "type": "integer"
+                },
+                "sc": {
+                    "title": "Color",
+                    "description": "",
+                    "$ref": "#/$defs/values/hexcolor"
+                }
+            },
+            "required": [
+                "ty",
+                "sw",
+                "sh",
+                "sc"
+            ]
+        }
+    ]
+}
