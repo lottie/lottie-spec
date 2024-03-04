@@ -28,7 +28,7 @@
                 },
                 "sc": {
                     "title": "Color",
-                    "description": "",
+                    "description": "Solid fill color",
                     "$ref": "#/$defs/values/hexcolor"
                 }
             },
