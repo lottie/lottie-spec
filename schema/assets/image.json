@@ -1,0 +1,32 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Image",
+    "description": "Asset containing an image that can be referenced by layers.",
+    "allOf": [
+        {
+            "$ref": "#/$defs/assets/asset"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "w": {
+                    "title": "Width",
+                    "description": "Width of the image",
+                    "type": "number"
+                },
+                "h": {
+                    "title": "Height",
+                    "description": "Height of the image",
+                    "type": "number"
+                },
+                "p": {
+                    "title": "File Path",
+                    "description": "Path to the image file",
+                    "type": "number"
+                }
+            },
+            "required": ["w", "h", "p"]
+        }
+    ]
+}
