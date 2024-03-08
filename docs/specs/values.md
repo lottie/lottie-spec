@@ -35,4 +35,4 @@ but most players ignore the last component.
 
 <h2 id="data-url">Data URL</h2>
 
-Data URLs are embedded files (such as images) as defined in RFC2397.
+Data URLs are embedded files (such as images) as defined in [RFC2397](https://datatracker.ietf.org/doc/html/rfc2397).
