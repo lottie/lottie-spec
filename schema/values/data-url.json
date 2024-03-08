@@ -1,0 +1,7 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "string",
+    "title": "Data URL",
+    "description": "An embedded data object",
+    "pattern": "^data:([\\w/]+)(;base64)?,(.+)$"
+}

@@ -21,9 +21,22 @@
                     "type": "number"
                 },
                 "p": {
+                    "title": "File Name",
+                    "description": "Name of the image file or a data url",
+                    "oneOf": [
+                        {"type": "string"},
+                        {"$ref": "#/$defs/values/data-url"}
+                    ]
+                },
+                "u": {
                     "title": "File Path",
                     "description": "Path to the image file",
-                    "type": "number"
+                    "type": "string"
+                },
+                "e": {
+                    "title": "Embedded",
+                    "description": "If '1', 'p' is a Data URL",
+                    "$ref": "#/$defs/values/int-boolean"
                 }
             },
             "required": ["w", "h", "p"]

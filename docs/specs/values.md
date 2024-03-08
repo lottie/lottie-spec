@@ -32,3 +32,7 @@ but most players ignore the last component.
 {schema_object:values/bezier}
 
 {editor_example:bezier}
+
+<h2 id="data-url">Data URL</h2>
+
+Data URLs are embedded files (such as images) as defined in RFC2397.
