@@ -7,6 +7,54 @@ The graphical elements are divided in 4 categories:
 * [Styles](#shape-style), that define the visual appearance of shapes
 * [Modifiers](#modifier) alter the curves of the shapes
 
+## Shape Rendering Model
+
+### Grouping and Ordering Rules
+
+* **Shapes** are rendered in reverse order, bottom->top. Shapes at the beginning of the array
+  are rendered on top of shapes with larger indices.
+* **Groups** offer a scoping mechanism for transforms, styles, modifiers, and shapes. All group
+  children, including sub-groups and their children, are considered part of the group's scope.
+* **Transforms** adjust the coordinate system for all elements within their group, and transitively
+  for all other group-nested elements.
+* **Styles** and **modifiers** apply to all preceding shapes within the current scope,
+  including subgroup-nested shapes.
+* When **multiple styles** apply to the same shape, the shape is rendered repeatedly for each style,
+  in reverse order.
+* When **multiple modifiers** apply to the same shape, they are composed in reverse order
+  (e.g. $Trim(Trim(shape))$).
+* When **multiple transforms** apply to the same shape due to scope nesting, they compose in group
+  nesting order (transforms are additive).
+* **Group opacity** (property of the group transform) applies atomically to all elements in scope -
+  i.e. opacity applies to the result of compositing all group content, and not to individual
+  elements.
+
+More formally:
+
+* for each $(shape, style)$ tuple, where $Index(shape) < Index(style)$ and $shape \in Scope(style)$:
+  * for each $modifier$, in increasing index order, where $Index(shape) < Index(modifier)$ and
+    $shape \in Scope(modifier)$:
+    * $shape = modifier(shape)$
+  * compute the total shape transformation by composing all transforms within the shape scope chain:
+    $$T_{shape} = \prod_{n=0}^{Scope(shape)} Transform(scope_n)$$
+  * compute the total style transformation by composing all transforms within the style scope chain:
+    $$T_{style} = \prod_{n=0}^{Scope(style)} Transform(scope_n)$$
+
+  * $Render(shape \times T_{shape}, style \times T_{style})$
+
+### Notes
+
+1. Certain modifier operations (e.g. sequential $Trim$) may require information about shapes
+from different groups, thus $Render()$ calls cannot always be issued based on single-pass local
+knowledge.
+
+2. Transforms can affect both shapes and styles (e.g. stroke width).  For a given $(shape, style)$,
+the shape and style transforms are not necessarily equal. 
+
+3. Shapes without an applicable style are not rendered.
+
+4. This rendering model is based on AfterEffects' Shape Layer semantics.
+
 ## Rendering Convention
 
 Shapes defined in this section contain rendering instructions.
@@ -22,7 +70,6 @@ their rendering process.
 When referencing animated properties, the rendering instruction will
 use the same name as in the JSON but it's assumed they refer to their
 value at a given point in time rather than the property itself.
-
 For {link:values/vector} values, $value.x$ and $value.y$ in
 the instructions are equivalent to `value[0]` and `value[1]` respectively.
 
