@@ -1,0 +1,73 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "PolyStar",
+    "description": "Star or regular polygon",
+    "allOf": [
+        {
+            "$ref": "#/$defs/shapes/shape"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "ty": {
+                    "title": "Shape Type",
+                    "type": "string",
+                    "const": "sr"
+                },
+                "p": {
+                    "title": "Position",
+                    "$ref": "#/$defs/properties/position-property"
+                },
+                "or": {
+                    "title": "Outer Radius",
+                    "$ref": "#/$defs/properties/scalar-property"
+                },
+                "os": {
+                    "title": "Outer Roundness",
+                    "description": "Outer Roundness as a percentage",
+                    "$ref": "#/$defs/properties/scalar-property"
+                },
+                "r": {
+                    "title": "Rotation",
+                    "description": "Rotation, clockwise in degrees",
+                    "$ref": "#/$defs/properties/scalar-property"
+                },
+                "pt": {
+                    "title": "Points",
+                    "$ref": "#/$defs/properties/scalar-property"
+                },
+                "sy": {
+                    "title": "Star Type",
+                    "$ref": "#/$defs/constants/star-type",
+                    "default": 1
+                },
+                "ir": {
+                    "title": "Inner Radius",
+                    "$ref": "#/$defs/properties/scalar-property"
+                },
+                "is": {
+                    "title": "Inner Roundness",
+                    "description": "Inner Roundness as a percentage",
+                    "$ref": "#/$defs/properties/scalar-property"
+                }
+            },
+            "required": [
+                "ty", "or", "os", "pt", "p", "r"
+            ]
+        },
+        {
+            "if": {
+                "properties": {
+                    "sy": {
+                        "const": 1
+                    }
+                }
+            },
+            "then": {
+                "required": ["ir", "is"]
+            }
+        }
+    ]
+}
+
