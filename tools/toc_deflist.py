@@ -9,16 +9,17 @@ from lottie_markdown import get_url
 
 
 class TocDefListTreeProcessor(Treeprocessor):
+    old_nest = toc.nest_toc_tokens
+
     def __init__(self, md):
         super().__init__(md)
         self.extra_toc = []
         # Patch toc.nest_toc_tokens to show glossary terms in the
         # table of contents (Hack)
-        self.old_nest = toc.nest_toc_tokens
-        toc.nest_toc_tokens = self.nest_toc_tokens
+        toc.nest_toc_tokens = self.patched_nest_toc_tokens
 
-    def nest_toc_tokens(self, toc_list):
-        tl = self.old_nest(toc_list + self.extra_toc)
+    def patched_nest_toc_tokens(self, toc_list):
+        tl = TocDefListTreeProcessor.old_nest(toc_list + self.extra_toc)
         self.extra_toc = []
         return tl
 
