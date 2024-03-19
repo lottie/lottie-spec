@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "string",
     "title": "Hex Color",
-    "description": "Color value in hexadecimal format, with either one digit ('#RGB') or two digits ('#RRGGBB') per component",
-    "pattern": "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$",
-    "examples": ["#f0a", "#FF00AA"]
+    "description": "Color value in hexadecimal format, with two digits per component ('#RRGGBB')",
+    "pattern": "^#([a-fA-F0-9]{6})$",
+    "examples": ["#FF00AA"]
 }

@@ -26,10 +26,9 @@ Note sometimes you might find color values with 4 components (the 4th being alph
 but most players ignore the last component.
 
 <h2 id="hexcolor">Hex Color</h2>
-Colors represented as a "#"-prefixed string, with one or two hexadecimal digits per
+Colors represented as a "#"-prefixed string, with two hexadecimal digits per
 RGB component.
 
-* {lottie_hexcolor: #F00}
 * {lottie_hexcolor: #FF8000}
 
 <h2 id="bezier">Bezier Shape</h2>
