@@ -1113,6 +1113,7 @@ class LottieExtension(Extension):
         md.inlinePatterns.register(DocsLink(md, ts), "docs_link", 175)
         md.inlinePatterns.register(SubTypeTable(md, ts), "schema_subtype_table", 175)
         md.inlinePatterns.register(LottieColor(r'{lottie_color:(([^,]+),\s*([^,]+),\s*([^,]+))}', md, 1), 'lottie_color', 175)
+        md.inlinePatterns.register(LottieColor(r'{lottie_hexcolor:\s*(#([a-fA-F0-9]{6}|[a-fA-F0-9]{3}))}', md, -1), 'lottie_hexcolor', 175)
         md.inlinePatterns.register(SchemaInheritance(md, ts), "schema_inheritance", 175)
         md.inlinePatterns.register(BCP14(md), "bcp14", 175)
         md.inlinePatterns.register(RfcLink(md), "rfc", 175)

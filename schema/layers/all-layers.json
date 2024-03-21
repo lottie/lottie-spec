@@ -8,6 +8,9 @@
             "$ref": "#/$defs/layers/null-layer"
         },
         {
+            "$ref": "#/$defs/layers/solid-layer"
+        },
+        {
             "$ref": "#/$defs/layers/shape-layer"
         }
     ]

@@ -25,6 +25,12 @@ for example:
 Note sometimes you might find color values with 4 components (the 4th being alpha)
 but most players ignore the last component.
 
+<h2 id="hexcolor">Hex Color</h2>
+Colors represented as a "#"-prefixed string, with two hexadecimal digits per
+RGB component.
+
+* {lottie_hexcolor: #FF8000}
+
 <h2 id="bezier">Bezier Shape</h2>
 
 {schema_string:values/bezier/description}
