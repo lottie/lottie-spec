@@ -27,6 +27,11 @@ The `ty` property defines the specific layer type based on the following values:
 
 {schema_object:layers/shape-layer}
 
+<h3 id="image-layer">Image Layer</h3>
+
+{schema_string:layers/image-layer/description}
+
+{schema_object:layers/image-layer}
 
 <h3 id="null-layer">Null Layer</h3>
 

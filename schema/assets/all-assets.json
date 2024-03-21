@@ -3,6 +3,9 @@
     "oneOf": [
         {
             "$ref": "#/$defs/assets/precomposition"
+        },
+        {
+            "$ref": "#/$defs/assets/image"
         }
     ]
 }
