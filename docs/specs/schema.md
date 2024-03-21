@@ -9,4 +9,7 @@ values to jump to the relevant section.
 
 If you want you can also view the [raw schema file](../lottie.schema.json).
 
+There is also a [strict schema file](../lottie-strict.schema.json)
+that disallows properties not covered in the specification.
+
 {json_file}
