@@ -1,0 +1,16 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "integer",
+    "title": "Star Type",
+    "description": "Whether a PolyStar is a star or a polygon",
+    "oneOf": [
+        {
+            "title": "Star",
+            "const": 1
+        },
+        {
+            "title": "Polygon",
+            "const": 2
+        }
+    ]
+}

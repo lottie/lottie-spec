@@ -53,3 +53,33 @@
             shape.d = Number(data["Shape Direction"]);
     </script>
 </lottie-playground>
+
+
+<h2 id="star-type">Star Type</h2>
+
+{schema_string:constants/star-type/description}
+
+{schema_enum:star-type}
+
+<lottie-playground example="star.json">
+    <title>Example</title>
+    <form>
+        <enum title="Star Type">star-type</enum>
+    </form>
+    <json>lottie.layers[0].shapes[0].it[0]</json>
+    <script>
+        var star = lottie.layers[0].shapes[0].it[0];
+        star.sy = Number(data["Star Type"]);
+        if ( data["Star Type"] == "1" )
+        {
+            star["ir"] = {"a": 0, "k": 100};
+            star["is"] = {"a": 0, "k": 0};
+        }
+        else
+        {
+            delete star["ir"];
+            delete star["is"];
+        }
+        lottie.layers[0].shapes[0].it[0] = star;
+    </script>
+</lottie-playground>

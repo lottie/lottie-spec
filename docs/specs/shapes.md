@@ -269,6 +269,100 @@ $$
     </script>
 </lottie-playground>
 
+
+<h3 id="polystar">PolyStar</h3>
+
+{schema_string:shapes/polystar/description}
+
+{schema_object:shapes/polystar}
+
+<lottie-playground example="star.json">
+    <title>Example</title>
+    <form>
+        <input title="Position x" type="range" min="0" max="512" value="256"/>
+        <input title="Position y" type="range" min="0" max="512" value="256"/>
+        <input title="Points" type="range" min="3" max="10" value="5"/>
+        <input title="Rotation" type="range" min="0" max="360" value="0"/>
+        <input title="Outer Radius" type="range" min="0" max="300" value="200"/>
+        <input title="Inner Radius" type="range" min="0" max="300" value="100"/>
+        <input title="Outer Roundness" type="range" min="0" max="100" value="0"/>
+        <input title="Inner Roundness" type="range" min="0" max="100" value="0"/>
+        <enum title="Star Type">star-type</enum>
+    </form>
+    <json>lottie.layers[0].shapes[0].it[0]</json>
+    <script>
+        var star = {
+            "ty": "sr",
+            "nm": "PolyStar",
+            "sy": Number(data["Star Type"]),
+            "p": {
+                "a": 0,
+                "k": [data["Position x"], data["Position y"]]
+            },
+            "r": {
+                "a": 0,
+                "k": data["Rotation"]
+            },
+            "pt": {
+                "a": 0,
+                "k": data["Points"]
+            },
+            "or": {
+                "a": 0,
+                "k": data["Outer Radius"]
+            },
+            "os": {
+                "a": 0,
+                "k": data["Outer Roundness"]
+            },
+        };
+        if ( data["Star Type"] == "1" )
+        {
+            star = {
+                ...star,
+                "ir": {
+                    "a": 0,
+                    "k": data["Inner Radius"]
+                },
+                "is": {
+                    "a": 0,
+                    "k": data["Inner Roundness"]
+                },
+            };
+        }
+        lottie.layers[0].shapes[0].it[0] = star;
+    </script>
+</lottie-playground>
+
+
+Definitions:
+
+$$
+\begin{align*}
+points & = \lfloor pt \rceil \\
+\theta  & = \frac{\pi}{points} \\
+\alpha & = \frac{\pi}{180} \cdot r \\
+tan_{out} &= \frac{os \cdot or \cdot 2 \cdot \pi}{points \cdot 400} \\
+tan_{in} &= \frac{is \cdot ir \cdot 2 \cdot \pi}{points \cdot 400} \\
+\end{align*}
+$$
+
+1. For $i$ in $[0, points)$
+    1. Let $\beta = -\frac{\pi}{2} + \alpha + i \cdot 2 \dot \theta$
+    1. Let $V_{out} = (or \cdot \cos(\beta), or \cdot \sin(\beta))$
+    1. Add vertex $p + V_{out}$
+    1. If $or \neq 0$, we need to add bezier tangent
+        1. Let $T_{out} = (V_{out} \cdot \frac{tan_{out}}{or})$
+        1. Set in tangent $V_{out}$
+        1. Set out tangent $-V_{out}$
+    1. If $sy = 1$, we need to add a vertex towards the inner radius to make a star
+        1. Let $V_{in} = (ir \cdot \cos(\beta + \theta), or \cdot \sin(\beta + \theta))$
+        1. Add vertex $p + V_{in}$
+        1. If $ir \neq 0$, we need to add bezier tangent
+            1. Let $T_{in} = (V_{in} \cdot \frac{tan_{in}}{or})$
+            1. Set in tangent $V_{in}$
+            1. Set out tangent $-V_{in}$
+
 <h2 id="grouping">Grouping</h2>
 
 <h3 id="group">Group</h3>
