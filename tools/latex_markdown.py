@@ -32,7 +32,7 @@ class BlockLatex(BlockProcessor):
                 break
             else:
                 code += last_block
-                last_block.pop(0)
+                last_block = blocks.pop(0)
 
         for chunk in code.split("$$\n$$"):
             element = latex2mathml.converter.convert_to_element(chunk, display="block")

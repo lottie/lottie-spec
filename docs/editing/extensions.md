@@ -242,3 +242,18 @@ Output:
 Normal text with inline $\LaTeX$: $\frac{1}{x}$.
 
 $$\sum\limits_{i=1}^n{n\choose i}t^i(1-t)^{n-1}P_i$$
+
+
+### Glossary Terms
+
+Glossary terms can be linked to using Mediawiki-style syntax:
+
+Example:
+
+```
+[[local coordinates]] or [[local coordinates|coordinate system]]
+```
+
+Output:
+
+[[local coordinates]] or [[local coordinates|coordinate system]]

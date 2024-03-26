@@ -6,9 +6,7 @@
 
 {schema_object:helpers/transform}
 
-
 To make the anchor point properly line up with the center of location, `p` and `a` should have the same value.
-
 
 This example allows you to tweak transform attributes and see how the shape changes.
 
@@ -43,6 +41,100 @@ The anchor point is highlighted with an orange dot.
     lottie.layers[1].ks.o.k = data["Opacity"];
     </script>
 </lottie-playground>
+
+Transforms the parent's coordinate system.
+
+When calculating a transform matrix, properties SHOULD be applied as follows:
+
+1. Translate by $-a$
+1. Scale by $\frac{s}{100}$
+1. If $sk \neq 0$:
+    1. Rotate by $-sa$
+    1. Skew x by $\tan(-sk)$
+    1. Rotate by $sa$
+1. Rotate by $-r$
+1. Translate by $p$
+
+Assuming a transform matrix with the following layout, with the labels equivalent to the
+[CSS matrix transform](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/matrix):
+
+$$
+\begin{pmatrix}
+a & b & 0 & 0 \\
+c & d & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+tx & ty & 0 & 1
+\end{pmatrix}
+$$
+
+The final transform is given by:
+
+$$
+\begin{split}
+&
+\begin{pmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+-a.x & -a.y & 0 & 1
+\end{pmatrix}
+
+\times
+
+\begin{pmatrix}
+\frac{s.x}{100} & 0 & 0 & 0 \\
+0 & \frac{s.y}{100} & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+
+
+\times \\ \times &
+
+\begin{pmatrix}
+\cos(-sa) & \sin(-sa) & 0 & 0 \\
+-\sin(-sa) & \cos(-sa) & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+
+\times
+
+\begin{pmatrix}
+1 & \tan(-sk) & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+
+\times
+
+\begin{pmatrix}
+\cos(sa) & \sin(sa) & 0 & 0 \\
+-\sin(sa) & \cos(sa) & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+
+\times \\ \times &
+
+\begin{pmatrix}
+\cos(-r) & \sin(-r) & 0 & 0 \\
+-\sin(-r) & \cos(-r) & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+
+\times
+
+\begin{pmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+p.x & p.y & 0 & 1
+\end{pmatrix}
+\end{split}
+$$
 
 <h2 id="visual-object">Visual Object</h2>
 
