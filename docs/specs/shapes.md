@@ -49,7 +49,7 @@ from different groups, thus $Render()$ calls cannot always be issued based on si
 knowledge.
 
 2. Transforms can affect both shapes and styles (e.g. stroke width).  For a given $(shape, style)$,
-the shape and style transforms are not necessarily equal. 
+the shape and style transforms are not necessarily equal.
 
 3. Shapes without an applicable style are not rendered.
 
@@ -342,8 +342,8 @@ $$
 points & = \lfloor pt \rceil \\
 \theta  & = \frac{\pi}{points} \\
 \alpha & = \frac{\pi}{180} \cdot r \\
-tan_{out} &= \frac{os \cdot or \cdot 2 \cdot \pi}{points \cdot 400} \\
-tan_{in} &= \frac{is \cdot ir \cdot 2 \cdot \pi}{points \cdot 400} \\
+tan_{out} &= \frac{os}{100} \cdot \frac{or \cdot 2 \pi}{points \cdot 4} \\
+tan_{in} &= \frac{is}{100} \cdot \frac{ir \cdot 2 \pi}{points \cdot 4} \\
 \end{align*}
 $$
 
