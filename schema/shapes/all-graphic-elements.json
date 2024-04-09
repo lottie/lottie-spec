@@ -6,6 +6,7 @@
         {"$ref": "#/$defs/shapes/fill"},
         {"$ref": "#/$defs/shapes/group"},
         {"$ref": "#/$defs/shapes/path"},
+        {"$ref": "#/$defs/shapes/polystar"},
         {"$ref": "#/$defs/shapes/rectangle"},
         {"$ref": "#/$defs/shapes/transform"},
         {"$ref": "#/$defs/shapes/trim-path"}
