@@ -8,7 +8,7 @@ SOURCE_DIR = $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 OUTPUT_DIR ?= $(CURDIR)/site
 
 .SUFFIXES:
-.PHONY: all install_dependencies docs docs_serve lottie.schema.json validate validate_links
+.PHONY: all install_dependencies docs docs_serve lottie.schema.json validate validate_full
 
 
 all: docs
