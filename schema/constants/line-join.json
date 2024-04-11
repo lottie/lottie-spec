@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "integer",
+    "title": "Line Join",
+    "description": "Style at a sharp corner of a stoked line",
+    "oneOf": [
+        {
+            "title": "Miter",
+            "const": 1
+        },
+        {
+            "title": "Round",
+            "const": 2
+        },
+        {
+            "title": "Bevel",
+            "const": 3
+        }
+    ]
+}

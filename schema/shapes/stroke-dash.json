@@ -1,0 +1,27 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Stroke Dash",
+    "description": "An item used to described the dashe pattern in a stroked path",
+    "allOf": [
+        {
+            "$ref": "#/$defs/helpers/visual-object"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "n": {
+                    "title": "Dash Type",
+                    "$ref": "#/$defs/constants/stroke-dash-type",
+                    "default": "d"
+                },
+                "v": {
+                    "title": "Length",
+                    "description": "Length of the dash",
+                    "$ref": "#/$defs/properties/scalar-property"
+                }
+            },
+            "required": []
+        }
+    ]
+}
