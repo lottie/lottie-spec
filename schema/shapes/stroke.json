@@ -20,6 +20,7 @@
                 },
                 "c": {
                     "title": "Color",
+                    "description": "Stroke color",
                     "$ref": "#/$defs/properties/color-property"
                 }
             },
