@@ -1,0 +1,33 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Stroke",
+    "description": "Solid stroke",
+    "allOf": [
+        {
+            "$ref": "#/$defs/shapes/shape-style"
+        },
+        {
+            "$ref": "#/$defs/shapes/base-stroke"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "ty": {
+                    "title": "Shape Type",
+                    "type": "string",
+                    "const": "st"
+                },
+                "c": {
+                    "title": "Color",
+                    "description": "Stroke color",
+                    "$ref": "#/$defs/properties/color-property"
+                }
+            },
+            "required": [
+                "ty", "c"
+            ]
+        }
+    ]
+}
+

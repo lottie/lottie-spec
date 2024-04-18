@@ -410,6 +410,78 @@ $$
 </lottie-playground>
 
 
+<h3 id="stroke"><span id="base-stroke">Stroke</span></h3>
+
+{schema_string:shapes/stroke/description}
+
+{schema_object:shapes/stroke}
+
+<lottie-playground example="stroke.json">
+    <title>Example</title>
+    <form>
+        <input title="Red" type="range" min="0" max="1" step="0.01" value="1"/>
+        <input title="Green" type="range" min="0" max="1" step="0.01" value="0.98"/>
+        <input title="Blue" type="range" min="0" max="1" step="0.01" value="0.28"/>
+        <input type="range" min="0" max="100" value="32" title="Width"/>
+        <input title="Opacity" type="range" min="0" max="100" value="100"/>
+        <enum title="Line Cap" value="2">line-cap</enum>
+        <enum title="Line Join" value="2">line-join</enum>
+        <input type="range" min="0" max="10" value="3" title="Miter Limit"/>
+    </form>
+    <json>lottie.layers[0].shapes[2]</json>
+    <script>
+        var shape = lottie.layers[0].shapes[2];
+        shape.c.k = [data["Red"], data["Green"], data["Blue"]];
+        shape.o.k = data["Opacity"];
+        shape.w.k = data["Width"];
+        shape.lc = Number(data["Line Cap"]);
+        shape.lj = Number(data["Line Join"]);
+        shape.ml = data["Miter Limit"];
+        shape.d = undefined;
+    </script>
+</lottie-playground>
+
+
+<h4 id="stroke-dash">Stroke Dashes</h4>
+
+{schema_string:shapes/stroke-dash/description}
+
+{schema_object:shapes/stroke-dash}
+
+<lottie-playground example="stroke.json">
+    <title>Example</title>
+    <form>
+        <input title="Red" type="range" min="0" max="1" step="0.01" value="1"/>
+        <input title="Green" type="range" min="0" max="1" step="0.01" value="0.98"/>
+        <input title="Blue" type="range" min="0" max="1" step="0.01" value="0.28"/>
+        <input type="range" min="0" max="100" value="32" title="Width"/>
+        <input title="Opacity" type="range" min="0" max="100" value="100"/>
+        <enum title="Line Cap" value="2">line-cap</enum>
+        <enum title="Line Join" value="2">line-join</enum>
+        <input type="range" min="0" max="10" value="3" title="Miter Limit"/>
+        <input type="range" min="0" max="512" value="0" title="Dash Offset"/>
+        <input type="range" min="0" max="512" value="30" title="Dash Length"/>
+        <input type="range" min="0" max="512" value="50" title="Dash Gap"/>
+    </form>
+    <json>lottie.layers[0].shapes[2]</json>
+    <script>
+        var shape = lottie.layers[0].shapes[2];
+        shape.c.k = [data["Red"], data["Green"], data["Blue"]];
+        shape.o.k = data["Opacity"];
+        shape.w.k = data["Width"];
+        shape.lc = Number(data["Line Cap"]);
+        shape.lj = Number(data["Line Join"]);
+        shape.ml = data["Miter Limit"];
+        shape.d[0].v.k = data["Dash Offset"];
+        shape.d[1].v.k = data["Dash Length"];
+        shape.d[2].v.k = data["Dash Gap"];
+        var trim = lottie.layers[0].shapes[1];
+        trim.e.k = 100;
+        trim.o.k = 0;
+    </script>
+</lottie-playground>
+
+
 <h2 id="modifier">Modifiers</h2>
 
 {schema_string:shapes/modifier/description}

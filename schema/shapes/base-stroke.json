@@ -1,0 +1,48 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Base Stroke",
+    "description": "Common properties for stroke styles",
+    "allOf": [
+        {
+            "type": "object",
+            "properties": {
+                "lc": {
+                    "title": "Line Cap",
+                    "$ref": "#/$defs/constants/line-cap",
+                    "default": 2
+                },
+                "lj": {
+                    "title": "Line Join",
+                    "$ref": "#/$defs/constants/line-join",
+                    "default": 2
+                },
+                "ml": {
+                    "title": "Miter Limit",
+                    "type": "number",
+                    "default": 0
+                },
+                "ml2": {
+                    "title": "Miter Limit",
+                    "description": "Animatable alternative to ml",
+                    "$ref": "#/$defs/properties/scalar-property"
+                },
+                "w": {
+                    "title": "Width",
+                    "description": "Stroke width",
+                    "$ref": "#/$defs/properties/scalar-property"
+                },
+                "d": {
+                    "title": "Dashes",
+                    "description": "Dashed line definition",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/shapes/stroke-dash"
+                    }
+                }
+            },
+            "required": ["w"]
+        }
+    ]
+}
+

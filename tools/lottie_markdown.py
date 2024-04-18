@@ -1,4 +1,5 @@
 import re
+import sys
 import json
 import inspect
 import dataclasses
@@ -270,7 +271,6 @@ class SchemaObject(BlockProcessor):
     Object property table
     """
     re_fence_start = re.compile(r'^\s*\{schema_object:([^}]+)\}\s*(?:\n|$)')
-    re_row = re.compile(r'^\s*(\w+)\s*:\s*(.*)')
 
     def __init__(self, md, schema_data: type_info.TypeSystem):
         super().__init__(md.parser)
@@ -364,7 +364,7 @@ class SchemaInheritance(InlineProcessor):
     def graph_to_etree(self, graph):
         svg = graph.pipe(encoding='utf-8', format="svg")
         pos = svg.find("<svg")
-        return etree.fromstring(
+        return etree_fromstring(
             svg[pos:]
             .replace("xlink:", "")
             .replace("xmlns=", "_xmlns=")
@@ -507,6 +507,14 @@ class SubTypeTable(InlineProcessor):
         return table, match.start(0), match.end(0)
 
 
+def etree_fromstring(raw_string):
+    try:
+        return etree.fromstring(raw_string)
+    except Exception:
+        sys.stderr.write(raw_string + "\n")
+        raise
+
+
 class RawHTML(BlockProcessor):
     """
     Needlessly complex workaround to allow HTML-style headings `<h1>foo</h1>`
@@ -527,7 +535,7 @@ class RawHTML(BlockProcessor):
         raw_string = self.parser.md.htmlStash.rawHtmlBlocks[index]
         if not raw_string:
             return False
-        element = etree.fromstring(raw_string)
+        element = etree_fromstring(raw_string)
 
         if element.tag not in self.tag_names:
             return False
@@ -691,7 +699,7 @@ class LottieBlock(BlockProcessor):
 
     def run(self, parent, blocks):
         raw_string = blocks.pop(0)
-        md_element = etree.fromstring(raw_string)
+        md_element = etree_fromstring(raw_string)
         filename = md_element.attrib.pop("src")
         width = md_element.attrib.pop("width", None)
         height = md_element.attrib.pop("height", None)
@@ -847,7 +855,7 @@ class LottiePlayground(BlockProcessor):
 
     def run(self, parent, blocks):
         raw_string = blocks.pop(0)
-        md_element: etree.Element = etree.fromstring(raw_string)
+        md_element: etree.Element = etree_fromstring(raw_string)
 
         md_title = md_element.find("./title")
         if md_title is not None:
@@ -992,7 +1000,7 @@ def pop_script_block(block_processor, blocks):
             lines = raw_string.strip().split("\n")
             source = "\n".join(lines[1:-1])
 
-            script_element = etree.fromstring(lines[0] + lines[-1])
+            script_element = etree_fromstring(lines[0] + lines[-1])
             script_element.text = source
             block_processor.parser.md.htmlStash.rawHtmlBlocks.pop(index)
             block_processor.parser.md.htmlStash.rawHtmlBlocks.insert(index, '')
