@@ -133,3 +133,21 @@
 {schema_string:constants/stroke-dash-type/description}
 
 {schema_enum:stroke-dash-type}
+
+
+<h2 id="matte-mode">Matte Mode</h2>
+
+{schema_string:constants/matte-mode/description}
+
+{schema_enum:matte-mode}
+
+<lottie-playground example="matte.json">
+    <title>Example</title>
+    <form>
+        <enum title="Matte Mode" value="1">matte-mode</enum>
+    </form>
+    <json>{...lottie.layers[1], shapes: [], ks: {}}</json>
+    <script>
+        lottie.layers[1].tt = Number(data["Matte Mode"]);
+    </script>
+</lottie-playground>
