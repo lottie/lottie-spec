@@ -132,6 +132,10 @@ class BezierEditor
         this.offset_x = 0;
         this.offset_y = 0;
         this.pad = 0;
+
+        // true: Y is clamped to [0..1]
+        // false: Y is unclammped, and controls can move within the padding area
+        this.clampY = true;
     }
 
     get width()
@@ -341,10 +345,14 @@ class BezierEditor
     _mouse_event_pos(ev)
     {
         let rect = this.canvas.getBoundingClientRect();
+        let minX = this.pad;
+        let maxX = this.width - this.pad;
+        let minY = this.clampY ? this.pad : 0;
+        let maxY = this.width - (this.clampY ? this.pad : 0);
 
         return {
-            x: Math.max(this.pad, Math.min(this.width - this.pad, (ev.clientX - rect.left) * this.canvas.width / rect.width)),
-            y: Math.max(this.pad, Math.min(this.height - this.pad, (ev.clientY - rect.top) * this.canvas.height / rect.height)),
+            x: Math.max(minX, Math.min(maxX, (ev.clientX - rect.left) * this.canvas.width / rect.width)),
+            y: Math.max(minY, Math.min(maxY, (ev.clientY - rect.top) * this.canvas.height / rect.height)),
         };
     }
 
@@ -528,7 +536,11 @@ class KeyframePreviewEditor
 
         this.bezier_editor = new BezierEditor(this._on_change.bind(this), size, size);
         container.appendChild(this.bezier_editor.canvas);
-        this.bezier_editor.pad = this.bezier_editor.radius + 1;
+
+        // Allow supernormal Y
+        this.bezier_editor.clampY = false;
+        this.bezier_editor.pad = this.bezier_editor.radius + 50;
+
         this.bezier_editor.scale_x = this.bezier_editor.width - this.bezier_editor.pad * 2;
         this.bezier_editor.scale_y = -this.bezier_editor.height + this.bezier_editor.pad * 2;
         this.bezier_editor.add_point(0, 0, false).add_out_tan(
