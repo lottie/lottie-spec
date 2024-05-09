@@ -5,6 +5,7 @@
     "description": "An animatable property to represent a position in space",
     "oneOf": [
         {
+            "$comment": "Grouped XY position coordinates",
             "oneOf": [
                 {
                     "$comment": "Not animated",
@@ -44,7 +45,7 @@
             "required": ["a", "k"]
         },
         {
-            "$comment": "Separate XY",
+            "$comment": "Separate XY position coordinates",
             "properties": {
                 "s": {
                     "title": "Separate",
