@@ -42,7 +42,7 @@ nav:
         - governance/8._Code_of_Conduct.md
         - governance/FAQ.md
         - governance/Notices.md
-        - "Contributing": 
+        - "Contributing":
             - governance/CONTRIBUTING.md
             - editing/schema.md
             - editing/extensions.md
