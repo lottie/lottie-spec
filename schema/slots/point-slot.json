@@ -1,0 +1,17 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Point Slot",
+    "description": "Point Slot",
+    "properties": {
+        "t": {
+            "title": "Slot Type",
+            "const": 2
+        },
+        "p": {
+            "title": "Default Property Value",
+            "description": "The starting value of any properties with the slot id",
+            "$ref": "#/$defs/properties/vector-property"
+        }
+    }
+}

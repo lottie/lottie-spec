@@ -39,5 +39,12 @@
             }
         }
     ],
+    "properties": {
+        "sid": {
+            "title": "Slot Id",
+            "description": "Identifier for a property that can be replaced at runtime",
+            "type": "string"
+        }
+    },
     "required": ["a", "k"]
 }

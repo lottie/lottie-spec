@@ -1,0 +1,16 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Undefined Slot",
+    "description": "A slot for an unknwown property type",
+    "properties": {
+        "t": {
+            "title": "Slot Type",
+            "const": 99
+        },
+        "p": {
+            "title": "Default Property Value",
+            "description": "The starting value of any properties with the slot id"
+        }
+    }
+}

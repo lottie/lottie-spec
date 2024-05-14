@@ -1,0 +1,17 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Asset Slot",
+    "description": "Asset Slot",
+    "properties": {
+        "t": {
+            "title": "Slot Type",
+            "const": 50
+        },
+        "p": {
+            "title": "Default Property Value",
+            "description": "The starting value of any properties with the slot id",
+            "$ref": "#/$defs/assets/image"
+        }
+    }
+}

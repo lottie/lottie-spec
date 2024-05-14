@@ -1,0 +1,17 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Color Slot",
+    "description": "Color Slot",
+    "properties": {
+        "t": {
+            "title": "Slot Type",
+            "const": 1
+        },
+        "p": {
+            "title": "Default Property Value",
+            "description": "The starting value of any properties with the slot id",
+            "$ref": "#/$defs/properties/color-property"
+        }
+    }
+}

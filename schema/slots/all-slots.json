@@ -1,0 +1,23 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+        {
+            "$ref": "#/$defs/slots/color-slot"
+        },
+        {
+            "$ref": "#/$defs/slots/scale-slot"
+        },
+        {
+            "$ref": "#/$defs/slots/float-slot"
+        },
+        {
+            "$ref": "#/$defs/slots/asset-slot"
+        },
+        {
+            "$ref": "#/$defs/slots/point-slot"
+        },
+        {
+            "$ref": "#/$defs/slots/undefined-slot"
+        }
+    ]
+}
