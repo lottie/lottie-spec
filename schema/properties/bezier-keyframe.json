@@ -14,7 +14,9 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/$defs/values/bezier"
-                    }
+                    },
+                    "minItems": 1,
+                    "maxItems": 1
                 }
             }
         }
