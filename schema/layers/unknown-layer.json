@@ -1,0 +1,14 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Unknown Layer",
+    "description": "Unknown layer. Layers not defined by the specification are still allowed.",
+    "not": {
+        "properties": {
+            "ty": {
+                "$comment": "Enum must be updated when new layers are added",
+                "enum": [0,1,2,3,4]
+            }
+        }
+    }
+}
