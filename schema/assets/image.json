@@ -23,10 +23,7 @@
                 "p": {
                     "title": "File Name",
                     "description": "Name of the image file or a data url",
-                    "oneOf": [
-                        {"type": "string"},
-                        {"$ref": "#/$defs/values/data-url"}
-                    ]
+                    "type": "string"
                 },
                 "u": {
                     "title": "File Path",
@@ -39,6 +36,20 @@
                     "$ref": "#/$defs/values/int-boolean"
                 }
             },
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "e": 1
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "p": {"$ref": "#/$defs/values/data-url"}
+                        }
+                    }
+                }
+            ],
             "required": ["w", "h", "p"]
         }
     ]
