@@ -139,6 +139,10 @@
 
 {schema_string:constants/matte-mode/description}
 
+The value for Luma is calculated accourding to [Rec.709](https://www.itu.int/rec/R-REC-BT.709) standard:
+
+$$Y = 0.2126 R + 0.7152 G + 0.0722 B$$
+
 {schema_enum:matte-mode}
 
 <lottie-playground example="matte.json">
