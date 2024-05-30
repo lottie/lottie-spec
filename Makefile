@@ -8,7 +8,7 @@ SOURCE_DIR = $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 OUTPUT_DIR ?= $(CURDIR)/site
 
 .SUFFIXES:
-.PHONY: all install_dependencies docs docs_serve lottie.schema.json validate validate_full
+.PHONY: all install_dependencies docs docs_serve lottie.schema.json validate validate_full validate_animations
 
 
 all: docs
@@ -38,3 +38,9 @@ validate: $(SOURCE_DIR)/docs/lottie.schema.json
 
 validate_full:$(OUTPUT_DIR)/index.html
 	$(SOURCE_DIR)/tools/schema-validate.py --html $(OUTPUT_DIR)/specs
+
+validate_animations: $(SOURCE_DIR)/docs/lottie.schema.json
+validate_animations: $(SOURCE_DIR)/tests/validate_animations.test.js
+validate_animations: $(wildcard $(SOURCE_DIR)/tests/**/*.json)
+validate_animations: $(wildcard $(SOURCE_DIR)/docs/static/examples/**/*.json)
+	npm test

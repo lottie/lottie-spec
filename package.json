@@ -1,0 +1,26 @@
+{
+  "name": "lottie-spec",
+  "version": "1.0.0",
+  "description": "This repository is for the development of the Lottie Animation Format.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lottie/lottie-spec.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lottie/lottie-spec/issues"
+  },
+  "homepage": "https://github.com/lottie/lottie-spec#readme",
+  "devDependencies": {
+    "ajv": "^8.14.0",
+    "jest": "^29.7.0"
+  }
+}
