@@ -1,0 +1,21 @@
+{
+    "v": "5.12.2",
+    "fr": 60,
+    "ip": 0,
+    "op": 2100,
+    "w": 1024,
+    "h": 768,
+    "nm": "essential_properties_comp",
+    "ddd": 0,
+    "assets": [
+      {
+        "id": "image_0",
+        "w": 1024,
+        "h": 1024,
+        "p": "MalformedDataUrl",
+        "e": 1,
+        "sid": "ImageSource"
+      }
+    ],
+    "layers": []
+}
