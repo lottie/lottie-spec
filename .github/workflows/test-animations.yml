@@ -1,4 +1,4 @@
-name: Test Schema
+name: Test Animations
 on:
     - push
     - pull_request
