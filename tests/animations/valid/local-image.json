@@ -14,8 +14,7 @@
         "h": 1024,
         "u": "images/",
         "p": "triangle.png",
-        "e": 0,
-        "sid": "ImageSource"
+        "e": 0
       }
     ],
     "layers": []

@@ -13,8 +13,7 @@
         "w": 1024,
         "h": 1024,
         "p": "data:image/jpeg;base64,/InvalidImageBits",
-        "e": 1,
-        "sid": "ImageSource"
+        "e": 1
       }
     ],
     "layers": []
