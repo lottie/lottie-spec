@@ -441,6 +441,7 @@ $$
     </script>
 </lottie-playground>
 
+
 <h4 id="stroke-dash">Stroke Dashes</h4>
 
 {schema_string:shapes/stroke-dash/description}
@@ -486,8 +487,6 @@ $$
 
 {schema_object:shapes/gradient-fill}
 
-Color count is not animatable.
-
 <lottie-playground example="gradient.json">
     <title>Example</title>
     <form>
@@ -521,6 +520,7 @@ Color count is not animatable.
 <h2 id="modifier">Modifiers</h2>
 
 {schema_string:shapes/modifier/description}
+
 
 <h3 id="trim-path">Trim Path</h3>
 

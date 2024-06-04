@@ -148,6 +148,7 @@ Animatable {link:values/gradient}.
 
 {schema_object:properties/gradient-property}
 
+Color count is not animatable.
 
 <h4 id="gradient-keyframe">Gradient Keyframe</h4>
 

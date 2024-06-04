@@ -36,8 +36,10 @@
                 },
                 "a": {
                     "title": "Highlight Angle",
-                    "description": "Highlight Angle, relative to the direction from `s` to `e`",
-                    "$ref": "#/$defs/properties/scalar-property"
+                    "description": "Highlight Angle in clockwise degrees, relative to the direction from `s` to `e`",
+                    "$ref": "#/$defs/properties/scalar-property",
+                    "minimum": 0,
+                    "maximum": 360
                 }
             },
             "required": [

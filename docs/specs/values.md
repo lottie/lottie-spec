@@ -33,7 +33,6 @@ RGB component.
 
 <h2 id="gradient">Gradient</h2>
 
-
 {schema_string:values/gradient/description}
 
 The count of color components is typically specified in a separate field from
