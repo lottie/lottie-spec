@@ -1,0 +1,51 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Gradient Property",
+    "description": "An animatable property that holds a Gradient",
+    "properties": {
+        "p": {
+            "title": "Color count",
+            "type": "number"
+        },
+        "k": {
+            "oneOf": [
+                {
+                    "$comment": "Not animated",
+                    "properties": {
+                        "a": {
+                            "title": "Animated",
+                            "description": "Whether the property is animated",
+                            "$ref": "#/$defs/values/int-boolean",
+                            "const": 0
+                        },
+                        "k": {
+                            "title": "Static value",
+                            "$ref": "#/$defs/values/gradient"
+                        }
+                    }
+                },
+                {
+                    "$comment": "Animated",
+                    "properties": {
+                        "a": {
+                            "title": "Animated",
+                            "description": "Whether the property is animated",
+                            "$ref": "#/$defs/values/int-boolean",
+                            "const": 1
+                        },
+                        "k": {
+                            "type": "array",
+                            "title": "Keyframes",
+                            "description": "Array of keyframes",
+                            "items": {
+                                    "$ref": "#/$defs/properties/gradient-keyframe"
+                                }
+                            }
+                        }
+                }
+            ],
+            "required": ["a", "k"]
+        }
+    }
+}

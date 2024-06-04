@@ -1,0 +1,31 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Gradient",
+    "description": "Gradient fill color",
+    "allOf": [
+        {
+            "$ref": "#/$defs/shapes/shape-style"
+        },
+        {
+            "$ref": "#/$defs/shapes/base-gradient"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "ty": {
+                    "title": "Shape Type",
+                    "type": "string",
+                    "const": "gf"
+                },
+                "r": {
+                    "title": "Fill Rule",
+                    "$ref": "#/$defs/constants/fill-rule"
+                }
+            },
+            "required": [
+                "ty"
+            ]
+        }
+    ]
+}

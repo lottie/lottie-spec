@@ -441,7 +441,6 @@ $$
     </script>
 </lottie-playground>
 
-
 <h4 id="stroke-dash">Stroke Dashes</h4>
 
 {schema_string:shapes/stroke-dash/description}
@@ -481,11 +480,47 @@ $$
     </script>
 </lottie-playground>
 
+<h3 id="gradient-fill"><span id="gradient-fill">Gradient Fill</span></h3>
+
+{schema_string:shapes/gradient-fill/description}
+
+{schema_object:shapes/gradient-fill}
+
+Color count is not animatable.
+
+<lottie-playground example="gradient.json">
+    <title>Example</title>
+    <form>
+        <input title="Start X" type="range" min="0" max="512"  value="256"/>
+        <input title="Start Y" type="range" min="0" max="512"  value="496"/>
+        <input title="End X" type="range" min="0" max="512"  value="256"/>
+        <input title="End Y" type="range" min="0" max="512"  value="16"/>
+        <enum title="Type" value="1">gradient-type</enum>
+        <input title="Highlight" type="range" min="0" max="100"  value="0"/>
+        <input title="Highlight Angle" type="range" min="0" max="360"  value="0"/>
+    </form>
+    <json>lottie.layers[1].shapes[0].it[1]</json>
+    <script>
+    var gradient = lottie.layers[1].shapes[0].it[1];
+    var start_marker = lottie.layers[0].shapes[1].it[1];
+    var end_marker = lottie.layers[0].shapes[0].it[1];
+    gradient.s.k = start_marker.p.k = [data["Start X"], data["Start Y"]];
+    gradient.e.k = end_marker.p.k = [data["End X"], data["End Y"]];
+    gradient.t = Number(data["Type"]);
+    gradient.h.k = data["Highlight"];
+    gradient.a.k = data["Highlight Angle"];
+    </script>
+</lottie-playground>
+
+<h3 id="gradient-stroke"><span id="gradient-stroke">Gradient Stroke</span></h3>
+
+{schema_string:shapes/gradient-stroke/description}
+
+{schema_object:shapes/gradient-stroke}
 
 <h2 id="modifier">Modifiers</h2>
 
 {schema_string:shapes/modifier/description}
-
 
 <h3 id="trim-path">Trim Path</h3>
 

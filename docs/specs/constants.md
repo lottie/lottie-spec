@@ -133,3 +133,9 @@
 {schema_string:constants/stroke-dash-type/description}
 
 {schema_enum:stroke-dash-type}
+
+<h2 id="gradient-type">Gradient Type</h2>
+
+{schema_string:constants/gradient-type/description}
+
+{schema_enum:gradient-type}

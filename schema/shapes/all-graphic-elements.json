@@ -4,6 +4,8 @@
     "oneOf": [
         {"$ref": "#/$defs/shapes/ellipse"},
         {"$ref": "#/$defs/shapes/fill"},
+        {"$ref": "#/$defs/shapes/gradient-fill"},
+        {"$ref": "#/$defs/shapes/gradient-stroke"},
         {"$ref": "#/$defs/shapes/group"},
         {"$ref": "#/$defs/shapes/path"},
         {"$ref": "#/$defs/shapes/polystar"},

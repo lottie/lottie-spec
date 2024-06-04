@@ -1,0 +1,11 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "title": "Gradient",
+    "description": "A flat list of color components followed by optional transparency components. A color component is [offset, red, green, blue]. A transperency component is [offset, transparency]. All values are between 0 and 1",
+    "items": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+    }
+}

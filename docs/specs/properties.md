@@ -141,3 +141,16 @@ Animatable {link:values/color}.
 {schema_string:properties/color-keyframe/description}
 
 {schema_object:properties/color-keyframe}
+
+<h3 id="gradient-property">Gradient</h3>
+
+Animatable {link:values/gradient}.
+
+{schema_object:properties/gradient-property}
+
+
+<h4 id="gradient-keyframe">Gradient Keyframe</h4>
+
+{schema_string:properties/gradient-keyframe/description}
+
+{schema_object:properties/gradient-keyframe}
