@@ -65,6 +65,8 @@ class Validator:
         file_cache = {}
         ts = lottie_markdown.typed_schema(self.root)
 
+        checked.add(("shapes","base-gradient"))
+
         for ref in self.expected_refs:
             link = ts.from_path(ref).link
             key = (link.page, link.anchor)
