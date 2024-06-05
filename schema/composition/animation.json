@@ -10,6 +10,12 @@
         {
             "type": "object",
             "properties": {
+                "sv": {
+                    "title": "Specification Version",
+                    "description": "Specification version this Lottie is targeting",
+                    "type": "string",
+                    "enum": ["1.0"]
+                },
                 "fr": {
                     "title": "Framerate",
                     "description": "Framerate in frames per second",
