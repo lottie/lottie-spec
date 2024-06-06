@@ -10,7 +10,7 @@
         {
             "type": "object",
             "properties": {
-                "sv": {
+                "ver": {
                     "title": "Specification Version",
                     "description": "Specification version this Lottie is targeting",
                     "type": "string",
