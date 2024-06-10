@@ -11,7 +11,12 @@
                 "s": {
                     "title": "Value",
                     "description": "Value at this keyframe.",
-                    "$ref": "#/$defs/values/bezier"
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/values/bezier"
+                    },
+                    "minItems": 1,
+                    "maxItems": 1
                 }
             }
         }

@@ -37,6 +37,10 @@ The `y` axis represents the value interpolation factor, a value of 0
 represents the value at the current keyframe, a value of 1 represents the
 value at the next keyframe.
 
+Unlike `x` values, `y` values are not clamped to `[0 .. 1]`.  Supernormal `y`
+values allow the interpolated value to overshoot (extrapolate) beyond the
+specified keyframe values range.
+
 When you use easing you have two easing handles for the keyframe:
 
 `o` is the "out" handle, and is the first one in the bezier, determines the curve

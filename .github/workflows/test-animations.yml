@@ -1,0 +1,22 @@
+name: Test Animations
+on:
+    - push
+    - pull_request
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Setup
+        run: |
+            sudo apt update -q
+            sudo apt install -yy python3 python3-pip graphviz
+            pip install -r tools/requirements.txt
+            npm install
+      -
+        name: Validate Animations
+        run: |
+            make validate_animations
