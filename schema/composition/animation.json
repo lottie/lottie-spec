@@ -12,9 +12,9 @@
             "properties": {
                 "ver": {
                     "title": "Specification Version",
-                    "description": "Specification version this Lottie is targeting",
-                    "type": "string",
-                    "enum": ["1.0"]
+                    "description": "Specification version this Lottie is targeting. This is a 6 digit number with version components encoded as `MMmmpp`, with `MM` being major version, `mm` being minor and `pp` being patch.",
+                    "type": "integer",
+                    "minimum": 10000
                 },
                 "fr": {
                     "title": "Framerate",
