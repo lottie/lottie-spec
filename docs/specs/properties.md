@@ -115,6 +115,12 @@ Animatable 2D {link:values/vector} with optional spatial tangents.
 
 {schema_object:properties/position-keyframe}
 
+<div id="separated-position"></div>
+<h4 id="separatable-position-property">Separatable Position</h4>
+
+{schema_string:properties/separatable-position-property/description}
+
+{schema_object:properties/separated-position}
 
 <h3 id="bezier-property">Bezier Shape</h3>
 

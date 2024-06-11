@@ -5,62 +5,39 @@
     "description": "An animatable property to represent a position in space",
     "oneOf": [
         {
-            "$comment": "Grouped XY position coordinates",
-            "oneOf": [
-                {
-                    "$comment": "Not animated",
-                    "properties": {
-                        "a": {
-                            "title": "Animated",
-                            "description": "Whether the property is animated",
-                            "$ref": "#/$defs/values/int-boolean",
-                            "const": 0
-                        },
-                        "k": {
-                            "title": "Static value",
-                            "$ref": "#/$defs/values/vector"
-                        }
-                    }
+            "$comment": "Not animated",
+            "properties": {
+                "a": {
+                    "title": "Animated",
+                    "description": "Whether the property is animated",
+                    "$ref": "#/$defs/values/int-boolean",
+                    "const": 0
                 },
-                {
-                    "$comment": "Animated",
-                    "properties": {
-                        "a": {
-                            "title": "Animated",
-                            "description": "Whether the property is animated",
-                            "$ref": "#/$defs/values/int-boolean",
-                            "const": 1
-                        },
-                        "k": {
-                            "type": "array",
-                            "title": "Keyframes",
-                            "description": "Array of keyframes",
-                            "items": {
-                                    "$ref": "#/$defs/properties/position-keyframe"
-                            }
-                        }
-                    }
+                "k": {
+                    "title": "Static value",
+                    "$ref": "#/$defs/values/vector"
                 }
-            ],
-            "required": ["a", "k"]
+            }
         },
         {
-            "$comment": "Separate XY position coordinates",
+            "$comment": "Animated",
             "properties": {
-                "s": {
-                    "title": "Separate",
-                    "description": "Whether the position has seperate xy values",
-                    "type": "boolean",
-                    "const": true
+                "a": {
+                    "title": "Animated",
+                    "description": "Whether the property is animated",
+                    "$ref": "#/$defs/values/int-boolean",
+                    "const": 1
                 },
-                "x": {
-                    "$ref": "#/$defs/properties/scalar-property"
-                },
-                "y": {
-                    "$ref": "#/$defs/properties/scalar-property"
+                "k": {
+                    "type": "array",
+                    "title": "Keyframes",
+                    "description": "Array of keyframes",
+                    "items": {
+                        "$ref": "#/$defs/properties/position-keyframe"
+                    }
                 }
-            },
-            "required": ["s", "x", "y"]
+            }
         }
-    ]
+    ],
+    "required": ["a", "k"]
 }
