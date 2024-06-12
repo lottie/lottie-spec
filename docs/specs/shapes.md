@@ -506,8 +506,19 @@ $$
     gradient.s.k = start_marker.p.k = [data["Start X"], data["Start Y"]];
     gradient.e.k = end_marker.p.k = [data["End X"], data["End Y"]];
     gradient.t = Number(data["Type"]);
-    gradient.h.k = data["Highlight"];
-    gradient.a.k = data["Highlight Angle"];
+    if (gradient.t === 2) {
+        gradient.h = {
+            a: 0, 
+            k: data["Highlight"]
+        };
+        gradient.a = {
+            a: 0, 
+            k: data["Highlight Angle"]
+        };
+    } else {
+        delete gradient.h;
+        delete gradient.a;
+    }
     </script>
 </lottie-playground>
 
@@ -516,6 +527,41 @@ $$
 {schema_string:shapes/gradient-stroke/description}
 
 {schema_object:shapes/gradient-stroke}
+
+<lottie-playground example="gradient-stroke.json">
+    <title>Example</title>
+    <form>
+        <input title="Start X" type="range" min="0" max="512"  value="256"/>
+        <input title="Start Y" type="range" min="0" max="512"  value="496"/>
+        <input title="End X" type="range" min="0" max="512"  value="256"/>
+        <input title="End Y" type="range" min="0" max="512"  value="16"/>
+        <enum title="Type" value="1">gradient-type</enum>
+        <input title="Highlight" type="range" min="0" max="100"  value="0"/>
+        <input title="Highlight Angle" type="range" min="0" max="360"  value="0"/>
+    </form>
+    <json>lottie.layers[1].shapes[1]</json>
+    <script>
+    var gradient = lottie.layers[1].shapes[1];
+    var start_marker = lottie.layers[0].shapes[1].it[1];
+    var end_marker = lottie.layers[0].shapes[0].it[1];
+    gradient.s.k = start_marker.p.k = [data["Start X"], data["Start Y"]];
+    gradient.e.k = end_marker.p.k = [data["End X"], data["End Y"]];
+    gradient.t = Number(data["Type"]);
+    if (gradient.t === 2) {
+        gradient.h = {
+            a: 0, 
+            k: data["Highlight"]
+        };
+        gradient.a = {
+            a: 0, 
+            k: data["Highlight Angle"]
+        };
+    } else {
+        delete gradient.h;
+        delete gradient.a;
+    }
+    </script>
+</lottie-playground>
 
 <h2 id="modifier">Modifiers</h2>
 

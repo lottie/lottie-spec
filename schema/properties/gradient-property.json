@@ -5,7 +5,7 @@
     "description": "An animatable property that holds a Gradient",
     "properties": {
         "p": {
-            "title": "Color count",
+            "title": "Color stop count",
             "type": "number"
         },
         "k": {

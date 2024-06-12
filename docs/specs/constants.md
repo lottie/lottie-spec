@@ -139,3 +139,15 @@
 {schema_string:constants/gradient-type/description}
 
 {schema_enum:gradient-type}
+
+<lottie-playground example="gradient.json">
+    <title>Example</title>
+    <form>
+        <enum title="Type" value="1">gradient-type</enum>
+    </form>
+    <json>lottie.layers[1].shapes[0].it[1]</json>
+    <script>
+    var gradient = lottie.layers[1].shapes[0].it[1];
+    gradient.t = Number(data["Type"]);
+    </script>
+</lottie-playground>

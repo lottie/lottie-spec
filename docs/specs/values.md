@@ -33,15 +33,12 @@ RGB component.
 
 <h2 id="gradient">Gradient</h2>
 
-{schema_string:values/gradient/description}
+The gradient appearance is specified in terms of color stops and opacity stops.
+Color stops are defined as `(position, color)` tuples, where the position is a normalized `[0..1]`value along the gradient axis `[startpoint -> endpoint]`, and the color is 3 floats representing the RGB components. Transparency (opacity) stops are defined as `(position, color)` tuples, where position is similar to color stops' position.
 
-The count of color components is typically specified in a separate field from
-the gradient values. Any remaining values after reaching the specified count of
-color components are transparency components.
+All color and opacity stops are stored sequentially by ascending offsets in a flattened float array (color stops followed by opacity stops), with 4 floats per color stop and 2 floats per opacity stops. Thus, given color stops and opacity stops, the expected size for the gradient data array is `4 * Nc + 2 * No`.
 
-The offset is expressed as a percentage between start (0) and end (1).
-
-Components must be arranged in ascending offset order. 
+The color stop count is typically specified in a separate field from the gradient values, while the count of opacity stops can be inferred from the data array length: `No = (length - 4 * Nc)/2`.
 
 <h3>Gradient without transparency</h3>
 
@@ -72,8 +69,8 @@ the array will look like the following:
 
 <h3>Gradient with transparency</h3>
 
-Transparency components are added at the end. Transparency components may or may
-not match the count and offset of color components.
+Transparency stops are added at the end. Transparency stops may or may
+not match the count and offset of color stops.
 
 So assume the same colors as before, but opacity of 80% for the first color and 100% for the other two.
 
