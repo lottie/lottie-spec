@@ -12,6 +12,11 @@ The `ty` property defines the specific layer type based on the following values:
 
 {schema_subtype_table:layers/all-layers:ty}
 
+The `st` property specifies a start time offset, while `sr` defines a time stretch factor,
+to be applied when evaluating animated properties pertaining to the layer:
+
+$t\prime = \dfrac{t}{stretch} - start$
+
 <h3 id="visual-layer">Visual Layer</h3>
 
 {schema_string:layers/visual-layer/description}
