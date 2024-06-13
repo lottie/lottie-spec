@@ -56,3 +56,9 @@ The anchor point is highlighted with an orange dot.
 {schema_string:helpers/marker/description}
 
 {schema_object:helpers/marker}
+
+<h2 id="mask">Mask</h2>
+
+{schema_string:helpers/mask/description}
+
+{schema_object:helpers/mask}
