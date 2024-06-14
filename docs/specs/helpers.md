@@ -88,3 +88,20 @@ where the product operator is determined by [`mode`](../constants/#mask-mode).
 Then the final layer coverage (alpha channel) is
 
 $$C_{layer}\prime = C_{layer} \cdot C_{cumulative}$$
+
+<lottie-playground example="mask.json">
+    <title>Example</title>
+    <form>
+        <input type="range" min="0" max="100" value="100" title="Opacity"/>
+        <input type="range" min="-40" max="40" value="0" title="Expansion"/>
+        <input type="checkbox" title="Invert"/>
+    </form>
+    <json>lottie.layers[1].masksProperties[0]</json>
+    <script>
+        let mask = lottie.layers[1].masksProperties[0];
+        mask.o.k = Number(data["Opacity"]);
+        mask.x.k = Number(data["Expansion"]);
+        mask.inv = data["Invert"];
+    </script>
+</lottie-playground>
+

@@ -298,6 +298,26 @@
                             "lj": 1,
                             "ml": 4,
                             "bm": 0,
+                            "d": [
+                                {
+                                    "n": "d",
+                                    "nm": "dash",
+                                    "v": {
+                                        "a": 0,
+                                        "k": 10,
+                                        "ix": 1
+                                    }
+                                },
+                                {
+                                    "n": "o",
+                                    "nm": "offset",
+                                    "v": {
+                                        "a": 0,
+                                        "k": 0,
+                                        "ix": 7
+                                    }
+                                }
+                            ],
                             "nm": "Stroke 1",
                             "mn": "ADBE Vector Graphic - Stroke",
                             "hd": false
