@@ -23,21 +23,6 @@
             "title": "Intersect",
             "const": "i",
             "description": "Mask coverage is intersected (Source-In blending)."
-        },
-        {
-            "title": "Lighten",
-            "const": "l",
-            "description": "Mask coverage is blended using the Lighten operator."
-        },
-        {
-            "title": "Darken",
-            "const": "d",
-            "description": "Mask coverage is blended using the Darken operator."
-        },
-        {
-            "title": "Difference",
-            "const": "f",
-            "description": "Mask coverage is blended using the Difference operator."
         }
     ]
 }

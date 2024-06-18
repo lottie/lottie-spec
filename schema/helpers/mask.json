@@ -6,11 +6,6 @@
     "allOf": [
         {
             "properties": {
-                "inv": {
-                    "title": "Inverted",
-                    "type": "boolean",
-                    "default": false
-                },
                 "mode": {
                     "title": "Mode",
                     "$ref": "#/$defs/constants/mask-mode",
@@ -18,17 +13,19 @@
                 },
                 "o": {
                     "title": "Opacity",
-                    "$ref": "#/$defs/properties/scalar-property"
+                    "description": "Mask opacity, as a percentage [0..100].",
+                    "$ref": "#/$defs/properties/scalar-property",
+                    "default": 100
                 },
                 "pt": {
                     "title": "Shape",
+                    "description": "Mask shape.",
                     "$ref": "#/$defs/properties/bezier-property"
-                },
-                "x": {
-                    "title": "Expansion",
-                    "$ref": "#/$defs/properties/scalar-property"
                 }
-            }
+            },
+            "required": [
+                "pt"
+            ]
         }
     ]
 }

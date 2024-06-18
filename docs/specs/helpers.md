@@ -67,7 +67,7 @@ Masks provide single-channel coverage information (alpha channel) that modulates
 content.
 
 When multiple masks are specified, they are combined (blended) into a single coverage buffer,
-in order, based on the [`mode`](../constants/#mask-mode) operator.
+in order, based on the [`mode`](constants.md#mask-mode) operator.
 
 Masks are specified in terms of a `Path` plus additional properties.  For a given mask path,
 the coverage $C_{path}$ is $1$ inside the path, $0$ outside the path, and possibly in the $[0..1]$
@@ -84,7 +84,7 @@ and the cumulative coverage for all masks is
 
 $$C_{cumulative} = \prod_{k=1}^{n} C_k$$
 
-where the product operator is determined by [`mode`](../constants/#mask-mode).
+where the product operator is determined by [`mode`](constants.md#mask-mode).
 Then the final layer coverage (alpha channel) is
 
 $$C_{layer}\prime = C_{layer} \cdot C_{cumulative}$$
@@ -93,15 +93,11 @@ $$C_{layer}\prime = C_{layer} \cdot C_{cumulative}$$
     <title>Example</title>
     <form>
         <input type="range" min="0" max="100" value="100" title="Opacity"/>
-        <input type="range" min="-40" max="40" value="0" title="Expansion"/>
-        <input type="checkbox" title="Invert"/>
     </form>
     <json>lottie.layers[1].masksProperties[0]</json>
     <script>
         let mask = lottie.layers[1].masksProperties[0];
         mask.o.k = Number(data["Opacity"]);
-        mask.x.k = Number(data["Expansion"]);
-        mask.inv = data["Invert"];
     </script>
 </lottie-playground>
 

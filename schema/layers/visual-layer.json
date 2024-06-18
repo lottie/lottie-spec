@@ -21,11 +21,6 @@
                     "default": 0,
                     "description": "If 1, the layer will rotate itself to match its animated position path"
                 },
-                "hasMask": {
-                    "title": "Has Masks",
-                    "description": "Whether the layer has masks.",
-                    "type": "boolean"
-                },
                 "masksProperties": {
                     "title": "Masks",
                     "description": "Optional array of masks for the layer.",
