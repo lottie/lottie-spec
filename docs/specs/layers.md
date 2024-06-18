@@ -12,11 +12,6 @@ The `ty` property defines the specific layer type based on the following values:
 
 {schema_subtype_table:layers/all-layers:ty}
 
-The `st` property specifies a start time offset, while `sr` defines a time stretch factor,
-to be applied when evaluating animated properties pertaining to the layer:
-
-$t\prime = \dfrac{t}{stretch} - start$
-
 <h3 id="visual-layer">Visual Layer</h3>
 
 {schema_string:layers/visual-layer/description}
@@ -55,3 +50,12 @@ $t\prime = \dfrac{t}{stretch} - start$
 {schema_string:layers/precomposition-layer/description}
 
 {schema_object:layers/precomposition-layer}
+
+The `st` property specifies a start time offset, while `sr` defines a time stretch factor,
+to be applied when evaluating animated properties pertaining to the layer:
+
+$$t\prime = \dfrac{t}{stretch} - start$$
+
+`sr` values less than $1$ increase the layer playback speed, while values greater than $1$
+decrease it ("stretching" the layer timeline).
+
