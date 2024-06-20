@@ -46,5 +46,10 @@
             "type": "string"
         }
     },
-    "required": ["a", "k"]
+    "if": {
+        "required": ["sid"]
+    },
+    "else": {
+        "required": ["a", "k"]
+    }
 }

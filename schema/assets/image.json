@@ -55,7 +55,12 @@
                     }
                 }
             ],
-            "required": ["w", "h", "p"]
+            "if": {
+                "required": ["sid"]
+            },
+            "else": {
+                "required": ["w", "h", "p"]
+            }
         }
     ]
 }
