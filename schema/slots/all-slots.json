@@ -11,7 +11,7 @@
             "$ref": "#/$defs/slots/float-slot"
         },
         {
-            "$ref": "#/$defs/slots/asset-slot"
+            "$ref": "#/$defs/slots/file-asset-slot"
         },
         {
             "$ref": "#/$defs/slots/point-slot"

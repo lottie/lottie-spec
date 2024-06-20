@@ -1,8 +1,8 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
-    "title": "Asset Slot",
-    "description": "Asset Slot",
+    "title": "File Asset Slot",
+    "description": "File Asset Slot",
     "properties": {
         "t": {
             "title": "Slot Type",

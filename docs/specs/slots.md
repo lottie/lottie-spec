@@ -18,9 +18,9 @@ Slots are used to replace property values during runtime. Properties that can be
 
 {schema_object:slots/float-slot}
 
-<h3 id="asset-slot">Asset Slot</h3>
+<h3 id="file-asset-slot">File Asset Slot</h3>
 
-{schema_object:slots/asset-slot}
+{schema_object:slots/file-asset-slot}
 
 <h3 id="undefined-slot">Undefined Slot</h3>
 
