@@ -9,7 +9,7 @@
                 "mode": {
                     "title": "Mode",
                     "$ref": "#/$defs/constants/mask-mode",
-                    "default": "a"
+                    "default": "i"
                 },
                 "o": {
                     "title": "Opacity",
