@@ -19,7 +19,7 @@
                 },
                 "pt": {
                     "title": "Shape",
-                    "description": "Mask shape.",
+                    "description": "Mask shape",
                     "$ref": "#/$defs/properties/bezier-property"
                 }
             },
