@@ -3,15 +3,22 @@
     "type": "object",
     "title": "Float Slot",
     "description": "Float Slot",
-    "properties": {
-        "t": {
-            "title": "Slot Type",
-            "const": 4
+    "allOf": [
+        {
+            "$ref": "#/$defs/slots/slot"
         },
-        "p": {
-            "title": "Default Property Value",
-            "description": "The starting value of any properties with the slot id",
-            "$ref": "#/$defs/properties/scalar-property"
+        {   
+            "properties": {
+                "t": {
+                    "title": "Slot Type",
+                    "const": 4
+                },
+                "p": {
+                    "title": "Default Property Value",
+                    "description": "The starting value of any properties with the slot id",
+                    "$ref": "#/$defs/properties/scalar-property"
+                }
+            }
         }
-    }
+    ]
 }

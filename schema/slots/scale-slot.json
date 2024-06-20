@@ -3,15 +3,22 @@
     "type": "object",
     "title": "Scale Slot",
     "description": "Scale Slot",
-    "properties": {
-        "t": {
-            "title": "Slot Type",
-            "const": 3
+    "allOf": [
+        {
+            "$ref": "#/$defs/slots/slot"
         },
-        "p": {
-            "title": "Default Property Value",
-            "description": "The starting value of any properties with the slot id",
-            "$ref": "#/$defs/properties/vector-property"
+        {   
+            "properties": {
+                "t": {
+                    "title": "Slot Type",
+                    "const": 3
+                },
+                "p": {
+                    "title": "Default Property Value",
+                    "description": "The starting value of any properties with the slot id",
+                    "$ref": "#/$defs/properties/vector-property"
+                }
+            }
         }
-    }
+    ]
 }

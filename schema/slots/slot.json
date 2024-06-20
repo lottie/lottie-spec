@@ -1,0 +1,15 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Slot",
+    "description": "Common properties for all slots",
+    "properties": {
+        "t": {
+            "title": "Slot Type"
+        },
+        "p": {
+            "title": "Default Property Value",
+            "description": "The starting value of any properties with the slot id"
+        }
+    }
+}

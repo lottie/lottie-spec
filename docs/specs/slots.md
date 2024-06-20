@@ -1,6 +1,8 @@
-# Slots
+<h1 id="slot">Slots</h1>
 
 Slots are used to replace property values during runtime. Properties that can be replaced will have an `sid` attribute that will correspond to the slot key entry. Players that support slots must also expose an API that applications can use to replace values during runtime.
+
+{schema_object:slots/slot}
 
 <h3 id="color-slot">Color Slot</h3>
 
