@@ -11,20 +11,22 @@
         },
         {
             "title": "Alpha",
-            "description": "The layer's opacity will affect the masked layer (showing opaque areas)",
+            "description": "The masked layer opacity is modulated by the track matte layer opacity",
             "const": 1
         },
         {
             "title": "Inverted Alpha",
-            "description": "The layer's opacity will affect the masked layer (showing transparent areas)",
+            "description": "The masked layer opacity is modulated by the inverted track matte layer opacity",
             "const": 2
         },
         {
             "title": "Luma",
+            "description": "The masked layer opacity is modulated by the track matte layer luminance",
             "const": 3
         },
         {
             "title": "Inverted Luma",
+            "description": "The masked layer opacity is modulated by the inverted track matte layer luminance",
             "const": 4
         }
     ]

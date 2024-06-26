@@ -25,7 +25,7 @@ A matte allows using a layer as a mask for another layer.
 
 The way it works is the layer defining the mask has a `tt` attribute with the
 appropriate [value](constants.md#matte-mode).
-The layer being masked is indicated by the `tp` attribute, which has the index of the layer that is being masked.
+The layer being masked is indicated by the `tp` attribute, which has the index (`ind`) of the layer that is being masked.
 
 In this example there's a layer with a rectangle and a star being masked by an ellipse:
 
