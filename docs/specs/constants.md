@@ -128,6 +128,29 @@
     </script>
 </lottie-playground>
 
+<h2 id="mask-mode">Mask Mode</h2>
+
+{schema_string:constants/mask-mode/description}
+
+{schema_enum:mask-mode}
+
+<lottie-playground example="masks.json">
+    <title>Example</title>
+    <form>
+        <enum title="Mask Mode" value="a">mask-mode</enum>
+        <input type="range" min="0" max="100" value="100" title="Mask1 Opacity"/>
+        <input type="range" min="0" max="100" value="100" title="Mask2 Opacity"/>
+    </form>
+    <json>lottie.layers[1].masksProperties[1]</json>
+    <script>
+        let mask1 = lottie.layers[1].masksProperties[0];
+        let mask2 = lottie.layers[1].masksProperties[1];
+        mask1.o.k = Number(data["Mask1 Opacity"]);
+        mask2.o.k = Number(data["Mask2 Opacity"]);
+        mask2.mode = data["Mask Mode"];
+    </script>
+</lottie-playground>
+
 <h2 id="stroke-dash-type">Stroke Dash Type</h2>
 
 {schema_string:constants/stroke-dash-type/description}

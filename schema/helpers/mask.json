@@ -1,0 +1,31 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Mask",
+    "description": "Mask for layer content.",
+    "allOf": [
+        {
+            "properties": {
+                "mode": {
+                    "title": "Mode",
+                    "$ref": "#/$defs/constants/mask-mode",
+                    "default": "i"
+                },
+                "o": {
+                    "title": "Opacity",
+                    "description": "Mask opacity, as a percentage [0..100].",
+                    "$ref": "#/$defs/properties/scalar-property",
+                    "default": 100
+                },
+                "pt": {
+                    "title": "Shape",
+                    "description": "Mask shape",
+                    "$ref": "#/$defs/properties/bezier-property"
+                }
+            },
+            "required": [
+                "pt"
+            ]
+        }
+    ]
+}
