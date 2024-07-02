@@ -20,12 +20,6 @@
             "description": "Y Position",
             "$ref": "#/$defs/properties/scalar-property"
         }
-        ,
-        "z": {
-            "title": "Y Position",
-            "description": "Y Position",
-            "$ref": "#/$defs/properties/scalar-property"
-        }
     },
     "required": ["s", "x", "y"]
 }
