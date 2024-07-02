@@ -50,6 +50,14 @@
                     "items": {
                         "$ref": "#/$defs/helpers/marker"
                     }
+                },
+                "slots": {
+                    "title": "Slots",
+                    "description": "Dictionary of slot ids that can be referenced to change properties at run time",
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/$defs/slots/all-slots"
+                    }
                 }
             },
             "required": ["w", "h", "fr", "op", "ip"]
