@@ -40,6 +40,11 @@
                     "title": "Start Time",
                     "type": "number",
                     "default": 0
+                },
+                "tm": {
+                    "title": "Time Remap",
+                    "description": "Timeline remap function",
+                    "$ref": "#/$defs/properties/scalar-property"
                 }
             },
             "required": [
