@@ -1,0 +1,50 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Base Gradient",
+    "description": "Common properties for gradients",
+    "allOf": [
+        {
+            "type": "object",
+            "properties": {
+                "g": {
+                    "title": "Colors",
+                    "description": "Gradient colors",
+                    "$ref": "#/$defs/properties/gradient-property"
+                },
+                "s": {
+                    "title": "Start Point",
+                    "description": "Starting point for the gradient",
+                    "$ref": "#/$defs/properties/position-property"
+                },
+                "e": {
+                    "title": "End Point",
+                    "description": "End point for the gradient",
+                    "$ref": "#/$defs/properties/position-property"
+                },
+                "t": {
+                    "title": "Gradient Type",
+                    "description": "Type of the gradient",
+                    "$ref": "#/$defs/constants/gradient-type"
+                },
+                "h": {
+                    "title": "Highlight Length",
+                    "description": "Highlight Length, as a percentage between `s` and `e`",
+                    "$ref": "#/$defs/properties/scalar-property",
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "a": {
+                    "title": "Highlight Angle",
+                    "description": "Highlight Angle in clockwise degrees, relative to the direction from `s` to `e`",
+                    "$ref": "#/$defs/properties/scalar-property",
+                    "minimum": 0,
+                    "maximum": 360
+                }
+            },
+            "required": [
+                "s", "e", "g", "t"
+            ]
+        }
+    ]
+}
