@@ -1,12 +1,12 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
-    "title": "Separed Position",
+    "title": "Split Position",
     "description": "An animatable position where x and y are definied and animated separately.",
     "properties": {
         "s": {
-            "title": "Separate",
-            "description": "Whether the position has seperate xy values",
+            "title": "Split",
+            "description": "Whether the position has split values",
             "type": "boolean",
             "const": true
         },
@@ -16,6 +16,12 @@
             "$ref": "#/$defs/properties/scalar-property"
         },
         "y": {
+            "title": "Y Position",
+            "description": "Y Position",
+            "$ref": "#/$defs/properties/scalar-property"
+        }
+        ,
+        "z": {
             "title": "Y Position",
             "description": "Y Position",
             "$ref": "#/$defs/properties/scalar-property"

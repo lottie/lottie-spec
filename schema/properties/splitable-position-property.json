@@ -1,16 +1,16 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
-    "title": "Separatable Position Property",
-    "description": "An animatable position where x and y can be definied and animated separately.",
+    "title": "Splitable Position Property",
+    "description": "An animatable position where position values may be defined and animated separately.",
     "oneOf": [
         {
             "$comment": "Grouped XY position coordinates",
             "$ref": "#/$defs/properties/position-property"
         },
         {
-            "$comment": "Separate XY position coordinates",
-            "$ref": "#/$defs/properties/separated-position"
+            "$comment": "Split XY position coordinates",
+            "$ref": "#/$defs/properties/split-position"
         }
     ]
 }
