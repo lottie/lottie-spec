@@ -95,8 +95,8 @@ join_parts(json_data, input_dir, root_path)
 schema = Schema(json_data)
 ts = type_info.TypeSystem(schema)
 
-# add_unknown_object(json_data, ["layers", "all-layers"])
-# add_unknown_object(json_data, ["shapes", "all-graphic-elements"])
+add_unknown_object(json_data, ["layers", "all-layers"])
+add_unknown_object(json_data, ["shapes", "all-graphic-elements"])
 
 os.makedirs(output_path.parent, exist_ok=True)
 
