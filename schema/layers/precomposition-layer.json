@@ -43,7 +43,7 @@
                 },
                 "tm": {
                     "title": "Time Remap",
-                    "description": "Timeline remap function",
+                    "description": "Timeline remap function (frame index -> time in seconds)",
                     "$ref": "#/$defs/properties/scalar-property"
                 }
             },
