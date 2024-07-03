@@ -40,7 +40,7 @@
                 {
                     "if": {
                         "properties": {
-                            "e": 1
+                            "e": {"const": 1}
                         }
                     },
                     "then": {
