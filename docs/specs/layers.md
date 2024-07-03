@@ -51,6 +51,8 @@ The `ty` property defines the specific layer type based on the following values:
 
 {schema_object:layers/precomposition-layer}
 
+<h4 id="precomposition-time-stretch">Time Stretch</h4>
+
 The `st` property specifies a start time offset, while `sr` defines a time stretch factor,
 to be applied when evaluating animated properties pertaining to the layer:
 
@@ -70,6 +72,8 @@ decrease it ("stretching" the layer timeline).
         layer.sr =  Number(data["Time Stretch"]);
     </script>
 </lottie-playground>
+
+<h4 id="precomposition-time-remap">Time Remap</h4>
 
 The `tm` property specifies a time remap function, which offers full control over the precomp
 timeline.  It maps the current layer time (in the frame index $[in..out]$ domain) to a precomp
@@ -138,9 +142,10 @@ When both time stretch (`sr`) and time remap (`tm`) are specified, time stretch 
                 'c': false
             },
         ];
+        const sample_index = data["Time Remap"];
         const precomp_layer = lottie.layers[1];
-        precomp_layer.tm = time_maps[data["Time Remap"]];
+        precomp_layer.tm = time_maps[sample_index];
         const time_shape = lottie.layers[0].shapes[1].it[0];
-        time_shape.ks.k = time_paths[data["Time Remap"]];
+        time_shape.ks.k = time_paths[sample_index];
     </script>
 </lottie-playground>
