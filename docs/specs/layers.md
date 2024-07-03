@@ -75,10 +75,12 @@ decrease it ("stretching" the layer timeline).
 
 <h4 id="precomposition-time-remap">Time Remap</h4>
 
-The `tm` property specifies a time remap function, which offers full control over the precomp
-timeline (subset, speedup/slowdown, reverse, frame-freeze, or any other arbitrary transformation).
-It maps the current layer time (in the frame index $[ip \ldots op]$ domain) to a precomp time expressed
-in seconds, and evaluates all animatable precomp properties based on the new time value:
+The `tm` property specifies a time remap function as an animatable property, allowing full control
+over the precomp timeline (subset, speedup/slowdown, reverse, frame-freeze, or any other arbitrary
+transformation).
+
+It maps the current layer time (in the frame index $[ip \ldots op]$ domain) to a precomp time
+expressed in seconds, and evaluates all animatable precomp properties based on the new time value:
 
 $$tm \colon \left[ip \ldots op\right] \mapsto seconds$$
 $$t\prime = tm(t) \cdot FPS$$
@@ -94,9 +96,12 @@ When both time stretch (`sr`) and time remap (`tm`) are specified, time stretch 
     <form>
         <select title="Time Remap">
             <option value="0">Linear</option>
-            <option value="1">Easing 1</option>
-            <option value="2">Easing 2</option>
-            <option value="3">Easing-Reverse</option>
+            <option value="1">Reverse</option>
+            <option value="2">Subset</option>
+            <option value="3">Discrete</option>
+            <option value="4">Easing 1</option>
+            <option value="5">Easing 2</option>
+            <option value="6">Easing-Reverse</option>
         </select>
     </form>
     <json>lottie.layers[1].tm</json>
@@ -105,6 +110,21 @@ When both time stretch (`sr`) and time remap (`tm`) are specified, time stretch 
             { 'a': 1, k: [
                 { 't':   0, 's': [ 0], 'o': { 'x': [0], 'y': [0]}, 'i': { 'x': [1], 'y': [1] }},
                 { 't': 600, 's': [10] }
+            ]},
+            { 'a': 1, k: [
+                { 't':   0, 's': [10], 'o': { 'x': [0], 'y': [0]}, 'i': { 'x': [1], 'y': [1] }},
+                { 't': 600, 's': [ 0] }
+            ]},
+            { 'a': 1, k: [
+                { 't':   0, 's': [3], 'o': { 'x': [0], 'y': [0]}, 'i': { 'x': [1], 'y': [1] }},
+                { 't': 600, 's': [7] }
+            ]},
+            { 'a': 1, k: [
+                { 't':   0, 's': [ 0.0], 'o': { 'x': [0], 'y': [0]}, 'i': { 'x': [1], 'y': [1] }, 'h': 1 },
+                { 't': 150, 's': [ 2.5], 'o': { 'x': [0], 'y': [0]}, 'i': { 'x': [1], 'y': [1] }, 'h': 1 },
+                { 't': 300, 's': [ 5.0], 'o': { 'x': [0], 'y': [0]}, 'i': { 'x': [1], 'y': [1] }, 'h': 1 },
+                { 't': 450, 's': [ 7.5], 'o': { 'x': [0], 'y': [0]}, 'i': { 'x': [1], 'y': [1] }, 'h': 1 },
+                { 't': 600, 's': [10.0] }
             ]},
             { 'a': 1, k: [
                 { 't':   0, 's': [ 0], 'o': { 'x': [0], 'y': [0.5]}, 'i': { 'x': [0.5], 'y': [1] }},
@@ -125,6 +145,21 @@ When both time stretch (`sr`) and time remap (`tm`) are specified, time stretch 
                 'v': [[-250, 50], [250, -50]],
                 'o': [[   0,  0], [  0,   0]],
                 'i': [[   0,  0], [  0,   0]],
+                'c': false
+            }, {
+                'v': [[250, 50], [-250, -50]],
+                'o': [[  0,  0], [   0,   0]],
+                'i': [[  0,  0], [   0,   0]],
+                'c': false
+            }, {
+                'v': [[250, 20], [-250, -20]],
+                'o': [[  0,  0], [   0,   0]],
+                'i': [[  0,  0], [   0,   0]],
+                'c': false
+            }, {
+                'v': [[-250, 50], [-125, 50], [-125, 25], [0, 25], [0, 0], [125, 0], [125, -25], [250, -25]],
+                'o': [[   0,  0], [  0,   0], [   0,  0], [0,  0], [0, 0], [  0, 0], [  0,   0], [  0,   0]],
+                'i': [[   0,  0], [  0,   0], [   0,  0], [0,  0], [0, 0], [  0, 0], [  0,   0], [  0,   0]],
                 'c': false
             }, {
                 'v': [[-250,  50], [ 250, -50]],
