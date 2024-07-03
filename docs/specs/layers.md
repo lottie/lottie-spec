@@ -76,9 +76,9 @@ decrease it ("stretching" the layer timeline).
 <h4 id="precomposition-time-remap">Time Remap</h4>
 
 The `tm` property specifies a time remap function, which offers full control over the precomp
-timeline.  It maps the current layer time (in the frame index $[in..out]$ domain) to a precomp
-time expressed in seconds, and evaluates all animatable precomp properties based on the new
-time value:
+timeline (subset, speedup/slowdown, reverse, frame-freeze, or any other arbitrary transformation).
+It maps the current layer time (in the frame index $[ip \ldots op]$ domain) to a precomp time expressed
+in seconds, and evaluates all animatable precomp properties based on the new time value:
 
 $$tm \colon \left[ip \ldots op\right] \mapsto seconds$$
 $$t\prime = tm(t) \cdot FPS$$
