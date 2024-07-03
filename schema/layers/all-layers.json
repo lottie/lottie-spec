@@ -15,9 +15,6 @@
         },
         {
             "$ref": "#/$defs/layers/shape-layer"
-        },
-        {
-            "$ref": "#/$defs/layers/unknown-layer"
         }
     ]
 }

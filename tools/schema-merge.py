@@ -4,6 +4,8 @@ import json
 import pathlib
 import argparse
 
+from schema_tools.schema import SchemaPath, Schema
+from schema_tools import type_info
 
 def join_parts(
     json_data: dict,
@@ -30,7 +32,34 @@ def join_parts(
 
     return json_data
 
+def add_unknown_object(
+    json_data: dict,
+    path_parts
+):
+    objects = ts.from_path(SchemaPath("#/$defs/" + "/".join(path_parts)))
 
+    types = []
+
+    for ele in objects.concrete:
+        types.append(ele.properties['ty'].const)
+    
+    unknown_object = {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "title": "Unknown types",
+        "description": "Unknown types. Types not defined by the specification are still allowed.",
+        "not": {
+            "properties": {
+                "ty": {
+                    "$comment": "enum list is dynamically generated",
+                    "enum": types
+                }
+            }
+        }
+    }
+    
+    json_data["$defs"][path_parts[0]][path_parts[1]]["oneOf"].append(unknown_object)
+    
 root = pathlib.Path(__file__).absolute().parent.parent
 
 parser = argparse.ArgumentParser(description="Joins JSON schema in a single file")
@@ -62,6 +91,12 @@ with open(root_path) as file:
     json_data = json.load(file)
 
 join_parts(json_data, input_dir, root_path)
+
+schema = Schema(json_data)
+ts = type_info.TypeSystem(schema)
+
+# add_unknown_object(json_data, ["layers", "all-layers"])
+# add_unknown_object(json_data, ["shapes", "all-graphic-elements"])
 
 os.makedirs(output_path.parent, exist_ok=True)
 

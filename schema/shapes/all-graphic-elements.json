@@ -10,7 +10,6 @@
         {"$ref": "#/$defs/shapes/rectangle"},
         {"$ref": "#/$defs/shapes/stroke"},
         {"$ref": "#/$defs/shapes/transform"},
-        {"$ref": "#/$defs/shapes/trim-path"},
-        {"$ref": "#/$defs/shapes/unknown-shape"}
+        {"$ref": "#/$defs/shapes/trim-path"}
     ]
 }
