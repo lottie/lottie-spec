@@ -80,7 +80,8 @@ timeline.  It maps the current layer time (in the frame index $[in..out]$ domain
 time expressed in seconds, and evaluates all animatable precomp properties based on the new
 time value:
 
-$$t\prime = TM(t) * FPS$$
+$$tm \colon \left[ip \ldots op\right] \mapsto seconds$$
+$$t\prime = tm(t) \cdot FPS$$
 
 Note: the global frame rate factor $FPS$ ([Animation](composition.md#Animation) `fr` property) is
 required to convert back into the frame index domain.
