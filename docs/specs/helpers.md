@@ -56,3 +56,48 @@ The anchor point is highlighted with an orange dot.
 {schema_string:helpers/marker/description}
 
 {schema_object:helpers/marker}
+
+<h2 id="mask">Mask</h2>
+
+{schema_string:helpers/mask/description}
+
+{schema_object:helpers/mask}
+
+Masks provide single-channel coverage information (alpha channel) that modulates the layer's
+content.
+
+When multiple masks are specified, they are combined (blended) into a single coverage buffer,
+in order, based on the [`mode`](constants.md#mask-mode) operator.
+
+Masks are specified in terms of a `Path` plus additional properties.  For a given mask path,
+the coverage $C_{path}$ is $1$ inside the path, $0$ outside the path, and possibly in the $[0..1]$
+range along the path edges (anti-aliasing).
+
+The coverage for a given `Mask` is
+
+$$C = \begin{cases}{lr}
+  C_{path} \cdot opacity, & \text{when } inv = false \\
+  C_{path}^{-1} \cdot opacity, & \text{when } inv = true \\
+\end{cases}$$
+
+and the cumulative coverage for all masks is
+
+$$C_{cumulative} = \prod_{k=1}^{n} C_k$$
+
+where the product operator is determined by [`mode`](constants.md#mask-mode).
+Then the final layer coverage (alpha channel) is
+
+$$C_{layer}\prime = C_{layer} \cdot C_{cumulative}$$
+
+<lottie-playground example="mask.json">
+    <title>Example</title>
+    <form>
+        <input type="range" min="0" max="100" value="100" title="Opacity"/>
+    </form>
+    <json>lottie.layers[1].masksProperties[0]</json>
+    <script>
+        let mask = lottie.layers[1].masksProperties[0];
+        mask.o.k = Number(data["Opacity"]);
+    </script>
+</lottie-playground>
+

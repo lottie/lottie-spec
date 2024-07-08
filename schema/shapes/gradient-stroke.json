@@ -1,0 +1,30 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Gradient Stroke",
+    "description": "Gradient stroke",
+    "allOf": [
+        {
+            "$ref": "#/$defs/shapes/shape-style"
+        },
+        {
+            "$ref": "#/$defs/shapes/base-stroke"
+        },
+        {
+            "$ref": "#/$defs/shapes/base-gradient"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "ty": {
+                    "title": "Shape Type",
+                    "type": "string",
+                    "const": "gs"
+                }
+            },
+            "required": [
+                "ty"
+            ]
+        }
+    ]
+}
