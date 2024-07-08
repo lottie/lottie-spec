@@ -1,8 +1,8 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
-    "title": "Unknown layer types",
-    "description": "Unknown layer types. Types not defined by the specification are still allowed.",
+    "title": "Unknown shape types",
+    "description": "Unknown shape types. Types not defined by the specification are still allowed.",
     "properties": {
         "ty": {
             "not": {

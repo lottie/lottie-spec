@@ -32,19 +32,19 @@ def join_parts(
 
     return json_data
 
-def add_unknown_object(
-    json_data: dict,
-    path_parts
+def add_vals_to_unknown_object(
+    objects,
+    unknown_type_dict: dict
 ):
-    objects = ts.from_path(SchemaPath("#/$defs/" + "/".join(path_parts)))
-
     types = []
 
     for ele in objects.concrete:
-        types.append(ele.properties['ty'].const)
+        type = ele.properties['ty'].const
+        if type is not None:
+            types.append(type)
     
-    json_data["$defs"]["layers"]["unknown-layer"]["properties"]["ty"]["not"]["enum"] = types
-        
+    unknown_type_dict["properties"]["ty"]["not"]["enum"] = types
+    
 root = pathlib.Path(__file__).absolute().parent.parent
 
 parser = argparse.ArgumentParser(description="Joins JSON schema in a single file")
@@ -80,8 +80,14 @@ join_parts(json_data, input_dir, root_path)
 schema = Schema(json_data)
 ts = type_info.TypeSystem(schema)
 
-add_unknown_object(json_data, ["layers", "all-layers"])
-# add_unknown_object(json_data, ["shapes", "all-graphic-elements"])
+add_vals_to_unknown_object(
+    ts.from_path(SchemaPath("#/$defs/layers/all-layers")),
+    json_data["$defs"]["layers"]["unknown-layer"]
+)
+add_vals_to_unknown_object(
+    ts.from_path(SchemaPath("#/$defs/shapes/all-graphic-elements")),
+    json_data["$defs"]["shapes"]["unknown-shape"]
+)
 
 os.makedirs(output_path.parent, exist_ok=True)
 
