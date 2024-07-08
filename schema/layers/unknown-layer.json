@@ -1,0 +1,14 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Unknown types",
+    "description": "Unknown types. Types not defined by the specification are still allowed.",
+    "properties": {
+        "ty": {
+            "$comment": "enum list is dynamically generated",
+            "not": {
+                "enum": [0,1,2,3,4,5,6,7,8]
+            }
+        }
+    }
+}
