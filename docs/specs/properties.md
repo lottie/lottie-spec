@@ -15,8 +15,12 @@ Their structure depends on whether it's animated or not:
 
 {schema_object:properties/base-keyframe}
 
+Keyframe arrays MUST be stored in order of ascending frame number.
+
 If `h` is present and it's 1, you don't need `i` and `o`, as the property will keep the same value
 until the next keyframe.
+
+If the first keyframe occurs after the start of the animation, the initial property value will be from the first keyframe. Similarly if the last keyframe is before the end of the animation, the last keyframe value will be held until the end.
 
 <h3 id="easing-handle">Keyframe Easing</h3>
 
