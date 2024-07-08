@@ -15,7 +15,7 @@ Their structure depends on whether it's animated or not:
 
 {schema_object:properties/base-keyframe}
 
-Keyframe arrays MUST be stored in order of ascending frame number.
+Keyframe arrays MUST be stored in order of strictly ascending `t` frame number. Two keyframes cannot have the same `t` value.
 
 If `h` is present and it's 1, you don't need `i` and `o`, as the property will keep the same value
 until the next keyframe.
