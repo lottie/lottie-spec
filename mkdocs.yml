@@ -31,6 +31,7 @@ nav:
         - specs/helpers.md
         #
         - specs/schema.md
+        - validator/index.md
     - "Community":
         - governance/0._CS_Contributor_License_Agreement.md
         - governance/1._Community_Specification_License-v1.md
