@@ -8,6 +8,9 @@
             "$ref": "#/$defs/assets/asset"
         },
         {
+            "$ref": "#/$defs/helpers/slottable-object"
+        },
+        {
             "type": "object",
             "properties": {
                 "w": {
@@ -34,11 +37,6 @@
                     "title": "Embedded",
                     "description": "If '1', 'p' is a Data URL",
                     "$ref": "#/$defs/values/int-boolean"
-                },
-                "sid": {
-                    "title": "Slot Id",
-                    "description": "Identifier for a property that can be replaced at runtime",
-                    "type": "string"
                 }
             },
             "allOf": [

@@ -1,0 +1,13 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Slot",
+    "description": "Defines a property value that will be set to all matched properties",
+    "properties": {
+        "p": {
+            "title": "Property Value",
+            "description": "Property Value"
+        }
+    },
+    "required": ["p"]
+}

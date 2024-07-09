@@ -27,7 +27,6 @@ nav:
         - specs/layers.md
         - specs/shapes.md
         - specs/assets.md
-        - specs/slots.md
         - specs/constants.md
         - specs/helpers.md
         #

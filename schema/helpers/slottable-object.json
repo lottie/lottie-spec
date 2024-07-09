@@ -1,0 +1,13 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Slottable Object",
+    "description": "Object that may have it's value replaced with a slot value",
+    "properties": {
+        "sid": {
+            "title": "Slot Id",
+            "description": "Identifier to look up the slot",
+            "type": "string"
+        }
+    }
+}

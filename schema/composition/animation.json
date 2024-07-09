@@ -53,10 +53,10 @@
                 },
                 "slots": {
                     "title": "Slots",
-                    "description": "Dictionary of slot ids that can be referenced to change properties at run time",
+                    "description": "Dictionary of slot ids that that will replace matching properties.",
                     "type": "object",
                     "additionalProperties": {
-                        "$ref": "#/$defs/slots/all-slots"
+                        "$ref": "#/$defs/helpers/slot"
                     }
                 }
             },

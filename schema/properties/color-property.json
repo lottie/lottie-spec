@@ -3,6 +3,11 @@
     "type": "object",
     "title": "Color Property",
     "description": "An animatable property that holds a Color",
+    "allOf": [
+        {
+            "$ref": "#/$defs/helpers/slottable-property"
+        }
+    ],
     "oneOf": [
         {
             "$comment": "Not animated",
@@ -38,18 +43,5 @@
                     }
                 }
         }
-    ],
-    "properties": {
-        "sid": {
-            "title": "Slot Id",
-            "description": "Identifier for a property that can be replaced at runtime",
-            "type": "string"
-        }
-    },
-    "if": {
-        "required": ["sid"]
-    },
-    "else": {
-        "required": ["a", "k"]
-    }
+    ]
 }

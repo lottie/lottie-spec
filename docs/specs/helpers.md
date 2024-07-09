@@ -56,3 +56,22 @@ The anchor point is highlighted with an orange dot.
 {schema_string:helpers/marker/description}
 
 {schema_object:helpers/marker}
+
+<h2 id="slots">Slots</h2>
+
+Slots are a way to define a property value once and use the value in multiple
+properties. Slot definitions are in a dictionary, the slot definition key is the
+key that is used to match all properties with an `sid` field to the same key for
+replacement.
+
+<h3 id="slot">Slot</h3>
+
+{schema_string:helpers/slot/description}
+
+{schema_object:helpers/slot}
+
+<h3 id="slottable-property">Slotabble Property</h3>
+
+{schema_string:helpers/slottable-property/description}
+
+{schema_object:helpers/slottable-property}
