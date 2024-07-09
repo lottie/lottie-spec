@@ -8,6 +8,13 @@ import argparse
 from schema_tools.schema import SchemaPath, Schema
 import lottie_markdown
 
+# By default, tool expects a link for all schema files.
+# This is generally true, but may not always be the case
+unneededLinks = [
+    ("shapes","base-gradient"),
+    ("layers","unknown-layer"),
+    ("shapes","unknown-shape")
+]
 
 class Validator:
     def __init__(self):
@@ -65,7 +72,8 @@ class Validator:
         file_cache = {}
         ts = lottie_markdown.typed_schema(self.root)
 
-        checked.add(("shapes","base-gradient"))
+        for link in unneededLinks:
+            checked.add(link)
 
         for ref in self.expected_refs:
             link = ts.from_path(ref).link
