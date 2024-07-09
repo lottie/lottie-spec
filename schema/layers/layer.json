@@ -30,11 +30,6 @@
                     "description": "Must be the `ind` property of another layer",
                     "type": "integer"
                 },
-                "sr": {
-                    "title": "Time Stretch",
-                    "type": "number",
-                    "default": 1
-                },
                 "ip": {
                     "title": "In Point",
                     "description": "Frame when the layer becomes visible",
@@ -44,11 +39,6 @@
                     "title": "Out Point",
                     "description": "Frame when the layer becomes invisible",
                     "type": "number"
-                },
-                "st": {
-                    "title": "Start Time",
-                    "type": "number",
-                    "default": 0
                 }
             },
             "required": ["ty", "st", "ip", "op"]

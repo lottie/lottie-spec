@@ -36,17 +36,13 @@
                     "$ref": "#/$defs/values/vector",
                     "items": {
                         "type": "number",
-                        "default": 0,
-                        "minimum": 0,
-                        "maximum": 1
+                        "default": 0
                     },
                     "minItems": 1
                 },
                 {
                     "type": "number",
-                    "default": 0,
-                    "minimum": 0,
-                    "maximum": 1
+                    "default": 0
                 }
             ]
         }

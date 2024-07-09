@@ -19,7 +19,7 @@
                     "title": "Auto Orient",
                     "$ref": "#/$defs/values/int-boolean",
                     "default": 0,
-                    "description": "If 1, The layer will rotate itself to match its animated position path"
+                    "description": "If 1, the layer will rotate itself to match its animated position path"
                 },
                 "tt": {
                     "title": "Matte Mode",
@@ -30,6 +30,14 @@
                     "title": "Matte Parent",
                     "type": "integer",
                     "description": "Index of the layer used as matte, if omitted assume the layer above the current one"
+                },
+                "masksProperties": {
+                    "title": "Masks",
+                    "description": "Optional array of masks for the layer.",
+                    "type" : "array",
+                    "items": {
+                      "$ref": "#/$defs/helpers/mask"
+                    }
                 }
             },
             "required": [

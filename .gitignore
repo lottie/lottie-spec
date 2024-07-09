@@ -1,6 +1,7 @@
 docs/lottie.schema.json
 site/
 __pycache__
+node_modules
 
 # Operating system
 .DS_Store

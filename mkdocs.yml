@@ -43,5 +43,6 @@ nav:
         - governance/FAQ.md
         - governance/Notices.md
         - "Contributing":
+            - governance/CONTRIBUTING.md
             - editing/schema.md
             - editing/extensions.md

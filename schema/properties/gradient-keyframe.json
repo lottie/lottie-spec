@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
-    "title": "Shape Keyframe",
+    "title": "Gradient Keyframe",
     "allOf": [
         {
             "$ref": "#/$defs/properties/base-keyframe"
@@ -11,12 +11,7 @@
                 "s": {
                     "title": "Value",
                     "description": "Value at this keyframe.",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/$defs/values/bezier"
-                    },
-                    "minItems": 1,
-                    "maxItems": 1
+                    "$ref": "#/$defs/values/gradient"
                 }
             }
         }

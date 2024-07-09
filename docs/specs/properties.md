@@ -15,8 +15,12 @@ Their structure depends on whether it's animated or not:
 
 {schema_object:properties/base-keyframe}
 
+Keyframe arrays MUST be stored in order of strictly ascending `t` frame number. Two keyframes cannot have the same `t` value.
+
 If `h` is present and it's 1, you don't need `i` and `o`, as the property will keep the same value
 until the next keyframe.
+
+If the first keyframe occurs after the start of the animation, the initial property value will be from the first keyframe. Similarly if the last keyframe is before the end of the animation, the last keyframe value will be held until the end.
 
 <h3 id="easing-handle">Keyframe Easing</h3>
 
@@ -36,6 +40,10 @@ a value of 1 is the time of the next keyframe.
 The `y` axis represents the value interpolation factor, a value of 0
 represents the value at the current keyframe, a value of 1 represents the
 value at the next keyframe.
+
+Unlike `x` values, `y` values are not clamped to `[0 .. 1]`.  Supernormal `y`
+values allow the interpolated value to overshoot (extrapolate) beyond the
+specified keyframe values range.
 
 When you use easing you have two easing handles for the keyframe:
 
@@ -137,3 +145,17 @@ Animatable {link:values/color}.
 {schema_string:properties/color-keyframe/description}
 
 {schema_object:properties/color-keyframe}
+
+<h3 id="gradient-property">Gradient</h3>
+
+Animatable {link:values/gradient}.
+
+{schema_object:properties/gradient-property}
+
+Color count is not animatable.
+
+<h4 id="gradient-keyframe">Gradient Keyframe</h4>
+
+{schema_string:properties/gradient-keyframe/description}
+
+{schema_object:properties/gradient-keyframe}

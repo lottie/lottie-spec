@@ -869,7 +869,7 @@ class LottiePlayground(BlockProcessor):
         builder = LottiePlaygroundBuilder(parent, self.schema_data, width=width, height=height, buttons=buttons)
 
         md_form = md_element.find("./form")
-        if md_form:
+        if md_form is not None:
             for input in md_form:
                 if not input.attrib.get("title", ""):
                     input.attrib["title"] = input.attrib["name"]
