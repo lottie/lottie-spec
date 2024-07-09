@@ -4,12 +4,15 @@
     "oneOf": [
         {"$ref": "#/$defs/shapes/ellipse"},
         {"$ref": "#/$defs/shapes/fill"},
+        {"$ref": "#/$defs/shapes/gradient-fill"},
+        {"$ref": "#/$defs/shapes/gradient-stroke"},
         {"$ref": "#/$defs/shapes/group"},
         {"$ref": "#/$defs/shapes/path"},
         {"$ref": "#/$defs/shapes/polystar"},
         {"$ref": "#/$defs/shapes/rectangle"},
         {"$ref": "#/$defs/shapes/stroke"},
         {"$ref": "#/$defs/shapes/transform"},
-        {"$ref": "#/$defs/shapes/trim-path"}
+        {"$ref": "#/$defs/shapes/trim-path"},
+        {"$ref": "#/$defs/shapes/unknown-shape"}
     ]
 }
