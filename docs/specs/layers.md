@@ -33,11 +33,23 @@ In this example there's a layer with a rectangle and a star being masked by an e
 <lottie-playground example="matte.json">
     <title>Example</title>
     <form>
+        <input type="checkbox" checked="checked" title="Enable Matte"/>
         <enum title="Matte Mode" value="1">matte-mode</enum>
     </form>
     <json>{...lottie.layers[1], shapes: [], ks: {}}</json>
     <script>
-        lottie.layers[1].tt = Number(data["Matte Mode"]);
+        if ( data["Enable Matte"] )
+        {
+            lottie.layers[1].tt = Number(data["Matte Mode"]);
+            lottie.layers[1].tp = 1;
+            lottie.layers[0].td = 1;
+        }
+        else
+        {
+            lottie.layers[1].tt = undefined;
+            lottie.layers[1].tp = undefined;
+            lottie.layers[0].td = undefined;
+        }
     </script>
 </lottie-playground>
 
