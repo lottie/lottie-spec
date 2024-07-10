@@ -70,11 +70,33 @@ replacement.
 
 {schema_object:helpers/slot}
 
+<h3 id="slottable-object">Slotabble Object</h3>
+
+{schema_string:helpers/slottable-object/description}
+
+{schema_object:helpers/slottable-object}
+
 <h3 id="slottable-property">Slotabble Property</h3>
 
 {schema_string:helpers/slottable-property/description}
 
 {schema_object:helpers/slottable-property}
+
+<lottie-playground example="slots.json">
+    <form>
+        <input title="Scale X" type="range" min="0" value="100" max="200"/>
+        <input title="Scale Y" type="range" min="0" value="100" max="200"/>
+        <input title="Rotation" type="range" min="-360" value="0" max="360"/>
+        <input title="Opacity" type="range" min="0" value="100" max="100"/>
+    </form>
+    <json>lottie.slots</json>
+    <script>
+    lottie.slots.rotation.p.k = data["Rotation"];
+    lottie.slots.opacity.p.k = data["Opacity"];
+    lottie.slots.scale.p.k[0] = data["Scale X"];
+    lottie.slots.scale.p.k[1] = data["Scale Y"];
+    </script>
+</lottie-playground>
 
 <h2 id="mask">Mask</h2>
 
