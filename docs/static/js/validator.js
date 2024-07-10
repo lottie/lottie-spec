@@ -32,7 +32,7 @@ function patch_docs_links(schema, url, name, docs_name, within_properties)
         if ( Array.isArray(schema) )
         {
             for ( let item of schema )
-                patch_docs_links(item, url, name);
+                patch_docs_links(item, url, name, docs_name);
         }
         else
         {
