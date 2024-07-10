@@ -1,6 +1,8 @@
 full_page: 1
 disable_toc: 1
 
+# Lottie Validator
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/8.16.0/ajv2020.min.js" integrity="sha512-OunSQfwE+NRzXE6jEJfFCyVkFQgMOk+oxD34iU8Xc21cUYfFH5TKBc7Z3RqKC4EW1tlllWIIOdq2Kf5F/5wKOw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="/lottie-spec/static/js/validator.js"></script>
 
@@ -27,8 +29,9 @@ textarea {
 </div>
 <div id="validator-container" class="hidden">
     <textarea id="input-text">{"-ip": 0, "op": 10, "w": 10, "h": 10, "fr": 60, "layers": [{
-"ty": 4,  "ip": 0, "op": 10, "st": 1, "ks": {"a": {"a":0, "k": "a"}}, "shapes": [
-{"ty": "el"}
+"ty": 4,  "ip": 0, "op": 10, "-st": 1, "ks": {"-a": {"a":0, "k": "a"}}, "shapes": [
+{"ty": "el"},
+{"ty": "??"}
 ]
 }, {"ty": 123}
 
@@ -103,7 +106,7 @@ function validate_string(value)
         {
             let link = td.appendChild(document.createElement("a"));
             link.setAttribute("href", error.docs);
-            link.appendChild(document.createTextNode(error.name));
+            link.appendChild(document.createTextNode(error.docs_name));
         }
     }
 }
