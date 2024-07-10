@@ -29,7 +29,7 @@ textarea {
 </div>
 <div id="validator-container" class="hidden">
     <textarea id="input-text">{"-ip": 0, "op": 10, "w": 10, "h": 10, "fr": 60, "layers": [{
-"ty": 4,  "ip": 0, "op": 10, "-st": 1, "ks": {"-a": {"a":0, "k": "a"}}, "shapes": [
+"ty": 4,  "ip": 0, "op": 10, "-st": 1, "ks": {"a": {"a":0, "k": "a"}}, "shapes": [
 {"ty": "el"},
 {"ty": "??"}
 ]
