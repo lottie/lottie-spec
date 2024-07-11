@@ -100,13 +100,13 @@ function validate_string(value)
         tr.classList.add(error.type == "error" ? "danger" : error.type);
         tr.appendChild(document.createElement("td")).appendChild(document.createTextNode(error.path));
         tr.appendChild(document.createElement("td")).appendChild(document.createTextNode(error.type));
-        tr.appendChild(document.createElement("td")).appendChild(document.createTextNode(error.name + " " + error.message));
+        tr.appendChild(document.createElement("td")).appendChild(document.createTextNode(error.message));
         let td = tr.appendChild(document.createElement("td"));
         if ( error.docs )
         {
             let link = td.appendChild(document.createElement("a"));
             link.setAttribute("href", error.docs);
-            link.appendChild(document.createTextNode(error.docs_name));
+            link.appendChild(document.createTextNode(error.name));
         }
     }
 }

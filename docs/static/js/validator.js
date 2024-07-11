@@ -165,7 +165,7 @@ function kebab_to_title(kebab)
 }
 
 
-function custom_discriminator(propname)
+function custom_discriminator(propname, fail_unknown)
 {
     function validate_fn(schema, data, parent_schema, data_cxt)
     {
@@ -180,7 +180,7 @@ function custom_discriminator(propname)
         {
             validate_fn.errors = [{
                 message: `has unknown '${propname}' value ` + JSON.stringify(value),
-                type: "warning",
+                type: fail_unknown ? "error" : "warning",
                 instancePath: data_cxt.instancePath,
                 parentSchema: parent_schema,
             }];
@@ -216,13 +216,11 @@ class Validator
                 if ( sub_schema.type && obj != "base-gradient" )
                 {
                     obj_docs += "#" + obj;
-                    obj_name = kebab_to_title(obj);
+                    obj_name = sub_schema.title || kebab_to_title(obj);
                 }
                 patch_docs_links(sub_schema, obj_docs, obj_name, obj_name);
             }
         }
-        console.log(this.schema);
-
         let schema_id = this.schema["$id"];
         this._patch_ty_schema(schema_id, "layers", "all-layers");
         this._patch_ty_schema(schema_id, "shapes", "all-graphic-elements");
@@ -245,11 +243,11 @@ class Validator
                 {keyword: ["_docs", "_name", "_docs_name"]},
                 {
                     keyword: "ty_oneof",
-                    validate: custom_discriminator("ty"),
+                    validate: custom_discriminator("ty", false),
                 },
                 {
                     keyword: "prop_oneof",
-                    validate: custom_discriminator("a"),
+                    validate: custom_discriminator("a", true),
                 },
                 {
                     keyword: "warn_extra_props",
@@ -299,7 +297,7 @@ class Validator
             }
         }
         this.defs[category][all].ty_oneof = found;
-        this.defs[category][all].oneOf = undefined;
+        delete this.defs[category][all].oneOf;
 
         return found;
     }
@@ -322,7 +320,7 @@ class Validator
                 id: id + "/prop_oneof/" + schema.prop_oneof.length + "/schema",
             });
         }
-        schema.oneOf = undefined;
+        delete schema.oneOf;
     }
 
     validate(string)
@@ -357,13 +355,14 @@ class Validator
         console.log(error);
         return {
             type: error.type ?? "error",
-            message: error.message,
+            message: (error.parentSchema?._name ?? "Value") + " " + error.message,
             path: prefix + (error.instancePath ?? ""),
-            name: error.parentSchema?._name ?? "Value",
-            docs_name: error.parentSchema?._docs_name ?? "Value",
+            name: error.parentSchema?._docs_name ?? "Value",
             docs: error.parentSchema?._docs,
         };
     }
-
 }
 
+
+if ( typeof module !== undefined )
+    module.exports = {Validator: Validator};
