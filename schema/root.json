@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://lottie.github.io/lottie-spec/specs/schema/000100",
+    "$id": "https://lottie.github.io/lottie-spec/specs/schema/0.1.0",
     "$ref": "#/$defs/composition/animation",
     "$version": 100
 }
