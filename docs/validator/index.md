@@ -18,6 +18,60 @@ textarea {
 #error-out td:first-child {
     font-family: monospace;
 }
+.tabs {
+    display: flex;
+    gap: 5px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.tabs li {
+    display: flex;
+}
+.tabs a {
+    border-radius: 5px 5px 0 0;
+    padding: 10px;
+    text-decoration: none !important;
+    background-color: #ccc;
+}
+.tabs a:not(.active) {
+    cursor: pointer;
+}
+.tabs a.active, .tab-content {
+    background-color: #eee;
+}
+.tab-content {
+    padding: 1em;
+}
+.tab-content input {
+    width: 100%;
+}
+
+.validate-button {
+    margin: 1em auto 0;
+    display: block;
+}
+
+#tab-content-upload {
+    border: 1px solid black;
+    margin: 20px auto;
+    padding: 60px;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 5px;
+    position: relative;
+    background: #fff;
+}
+
+#tab-content-upload input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    left: 0px;
+    top: 0px;
+    cursor: pointer;
+}
 
 </style>
 
@@ -28,15 +82,33 @@ textarea {
     Could not load the JSON schema.
 </div>
 <div id="validator-container" class="hidden">
-    <textarea id="input-text">{"-ip": 0, "op": 10, "w": 10, "h": 10, "fr": 60, "layers": [{
-"ty": 4,  "ip": 0, "op": 10, "-st": 1, "ks": {"a": {"a":0, "k": "a"}}, "shapes": [
-{"ty": "el"},
-{"ty": "??"}
-]
-}, {"ty": 123}
-
-]}</textarea>
-    <button onclick="validate_string(document.getElementById('input-text').value)">Validate</button>
+    <ul class="tabs">
+        <li>
+            <a class="active" id="tab-head-url" onclick="tab_click(this)">Validate by URL</a>
+        </li>
+        <li>
+            <a id="tab-head-upload" onclick="tab_click(this)">Validate by File Upload</a>
+        </li>
+        <li>
+            <a id="tab-head-text" onclick="tab_click(this)">Validate by Direct Input</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div id="tab-content">
+            <div id="tab-content-url">
+                <input id="input-url" type="url" placeholder="Lottie URL" />
+                <button class="validate-button" onclick="validate_string(document.getElementById('input-text').value)">Validate</button>
+            </div>
+            <div id="tab-content-upload" class="hidden">
+                <p>Drop a JSON file or click to browse</p>
+                <input id="input-file" type="file" accept="application/json" onchange="on_file_input(event)" />
+            </div>
+            <div id="tab-content-text" class="hidden">
+                    <textarea id="input-text"></textarea>
+                <button class="validate-button" onclick="validate_string(document.getElementById('input-text').value)">Validate</button>
+            </div>
+        </div>
+    </div>
 </div>
 <table id="error-out" class="hidden">
     <thead>
@@ -74,15 +146,10 @@ function on_load_ok(schema_obj)
     validator = new Validator(ajv2020.Ajv2020, schema_obj);
     hide_element(document.getElementById("system-loading"));
     show_element(document.getElementById("validator-container"));
-
-    // TODO remove
-    validate_string(document.getElementById('input-text').value);
 }
 
-function validate_string(value)
+function show_errors(errors)
 {
-    var errors = validator.validate(value);
-
     var container = document.getElementById("error-out");
     container.classList.remove("table-striped");
     if ( errors.length == 0 )
@@ -111,6 +178,49 @@ function validate_string(value)
     }
 }
 
+function validate_string(value)
+{
+    show_errors(validator.validate(value));
+}
+
+function on_file_input(ev)
+{
+    const files = ev.target.files;
+    if ( files.length > 0 )
+    {
+        show_errors([]);
+        validate_file(files[0]);
+    }
+    else
+    {
+        show_errors([{
+            "type": "error",
+            "message": "No file selected"
+        }]);
+    }
+}
+
+function validate_file(file)
+{
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        validate_string(e.target.result);
+    };
+    reader.onerror = e => show_errors([{
+        "type": "error",
+        "message": "Could not load file"
+    }])
+    reader.readAsText(file);
+}
+
+function validate_url(url)
+{
+    fetch(url).then(r => r.text()).then(validate_string).catch(e => show_errors([{
+        type: "error",
+        message: "Failed to load from URL",
+    }]));
+}
+
 function initialize()
 {
     fetch("/lottie-spec/lottie.schema.json").then(response => {
@@ -118,6 +228,23 @@ function initialize()
             throw new Error("Request failed");
         return response.json();
     }).then(json => on_load_ok(json)).catch(e => on_load_error(e));
+}
+
+function tab_click(tab)
+{
+    let id = tab.id.replace("head", "content");
+    document.querySelectorAll("#tab-content > div").forEach(element => {
+        if ( element.id == id )
+            show_element(element);
+        else
+            hide_element(element);
+    });
+    document.querySelectorAll(".tabs a").forEach(element => {
+        if ( element !== tab )
+            element.classList.remove("active");
+        else
+            element.classList.add("active");
+    })
 }
 
 

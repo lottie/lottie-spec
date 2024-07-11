@@ -251,8 +251,7 @@ class Validator
                 this._patch_property_schema(pschema, schema_id + "#/$defs/properties/" + pname);
         }
 
-        this.prop_map = prop_map; /// TODO remove
-        this.prop_map.finalize();
+        prop_map.finalize();
 
         this.validator = new AjvClass({
             allErrors: true,
@@ -351,8 +350,7 @@ class Validator
         } catch(e) {
             return [{
                 type: "error",
-                name: "Document",
-                message: "is not a valid JSON file",
+                message: "Document is not a valid JSON file",
             }];
         }
 
@@ -371,8 +369,6 @@ class Validator
 
     _cleaned_error(error, prefix="")
     {
-        /// TODO remove
-        console.log(error);
         return {
             type: error.type ?? "error",
             message: (error.parentSchema?._name ?? "Value") + " " + error.message,
