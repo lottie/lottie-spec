@@ -348,10 +348,16 @@ class Validator
         try {
             data = JSON.parse(string);
         } catch(e) {
-            return [{
-                type: "error",
-                message: "Document is not a valid JSON file",
-            }];
+            return [
+                {
+                    type: "error",
+                    message: "Document is not a valid JSON file",
+                },
+                {
+                    type: "error",
+                    message: e.message,
+                }
+            ];
         }
 
         let errors = [];

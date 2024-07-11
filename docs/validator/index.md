@@ -165,7 +165,7 @@ function show_errors(errors)
     {
         let tr = body.appendChild(document.createElement("tr"));
         tr.classList.add(error.type == "error" ? "danger" : error.type);
-        tr.appendChild(document.createElement("td")).appendChild(document.createTextNode(error.path));
+        tr.appendChild(document.createElement("td")).appendChild(document.createTextNode(error.path ?? ""));
         tr.appendChild(document.createElement("td")).appendChild(document.createTextNode(error.type));
         tr.appendChild(document.createElement("td")).appendChild(document.createTextNode(error.message));
         let td = tr.appendChild(document.createElement("td"));
@@ -180,7 +180,14 @@ function show_errors(errors)
 
 function validate_string(value)
 {
-    show_errors(validator.validate(value));
+    var errors = validator.validate(value);
+    if ( errors.length == 0 )
+        errors = [{
+            type: "success",
+            message: "Validation successful with no warnings"
+        }];
+    show_errors(errors);
+
 }
 
 function on_file_input(ev)
