@@ -1,0 +1,17 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Slottable Property",
+    "description": "Property that may have it's value replaced with a slot value",
+    "allOf": [
+        {
+            "$ref": "#/$defs/helpers/slottable-object"
+        }
+    ],
+    "if": {
+        "required": ["sid"]
+    },
+    "else": {
+        "required": ["a", "k"]
+    }
+}

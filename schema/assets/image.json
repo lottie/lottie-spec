@@ -8,6 +8,9 @@
             "$ref": "#/$defs/assets/asset"
         },
         {
+            "$ref": "#/$defs/helpers/slottable-object"
+        },
+        {
             "type": "object",
             "properties": {
                 "w": {
@@ -50,7 +53,12 @@
                     }
                 }
             ],
-            "required": ["w", "h", "p"]
+            "if": {
+                "required": ["sid"]
+            },
+            "else": {
+                "required": ["w", "h", "p"]
+            }
         }
     ]
 }
