@@ -55,6 +55,110 @@ function patch_docs_links(schema, url, name, docs_name, within_properties)
     }
 }
 
+class PropertyList
+{
+    constructor(schema)
+    {
+        this.properties = new Set();
+        this.references = new Set();
+        this.schema = schema;
+        this.resolved = false;
+        this.skip = false;
+    }
+
+    valid()
+    {
+        return !this.skip && (this.properties.size > 0 || this.references.size > 1);
+    }
+}
+
+class PropertyMap
+{
+    constructor()
+    {
+        this.map = new Map();
+    }
+
+    create(id, schema)
+    {
+        var map = new PropertyList(schema);
+        this.map[id] = map;
+        return map;
+    }
+
+    finalize()
+    {
+        for ( let prop_list of this.map.values() )
+        {
+            if ( prop_list.valid() )
+                prop_list.schema.warn_extra_props = this._get_all_props(prop_list);
+        }
+    }
+
+    _get_all_props(prop_list)
+    {
+        if ( !prop_list.resolved )
+        {
+            prop_list.resolved = true;
+            for ( let ref of prop_list.references )
+                for ( let prop of this.get_all_props(ref) )
+                    prop_list.properties.add(prop);
+        }
+
+        return prop_list.properties;
+    }
+
+    get_all_props(id)
+    {
+        return this.map.get(id);
+    }
+}
+
+function extract_all_properties(schema, id, prop_list, prop_map)
+{
+    if ( typeof schema != "object" || schema === null )
+        return;
+
+    if ( Array.isArray(schema) )
+    {
+        for ( let i = 0; i < schema.length; i++ )
+            extract_all_properties(schema[i], id + `/${i}`, prop_list, prop_map);
+
+        return;
+    }
+
+    for ( let [name, sub_schema] of Object.entries(schema) )
+    {
+        if ( name == "properties" )
+        {
+            for ( let [prop_name, prop] of Object.entries(sub_schema) )
+            {
+                prop_list.properties.add(prop_name);
+                let prop_id = "/properties/" + prop_name;
+                extract_all_properties(prop, prop_id, prop_map.create(id, prop), prop_map);
+            }
+        }
+        else if ( name == "oneOf" )
+        {
+            for ( let i = 0; i < sub_schema.length; i++ )
+            {
+                let oneof_id = "/oneOf/" + i;
+                let oneof_schema = sub_schema[i];
+                extract_all_properties(oneof_schema, oneof_id, prop_map.create(id, oneof_schema), prop_map);
+            }
+        }
+        else if ( name == "additionalProperties" )
+        {
+            prop_list.skip = true;
+        }
+        else if ( name != "not" )
+        {
+            extract_all_properties(sub_schema, id + "/" + name, prop_list, prop_map);
+        }
+    }
+}
+
+
 function kebab_to_title(kebab)
 {
     return kebab.split("-").map(chunk => chunk.charAt(0).toUpperCase() + chunk.substring(1).toLowerCase()).join(" ");
@@ -128,6 +232,10 @@ class Validator
                 this._patch_property_schema(pschema, schema_id + "#/$defs/properties/" + pname);
         }
 
+        var prop_map = new PropertyMap();
+        this.prop_map = prop_map;
+        extract_all_properties(this.defs, "#/$defs", new PropertyList(), prop_map);
+
         this.validator = new AjvClass({
             allErrors: true,
             verbose: true,
@@ -142,6 +250,31 @@ class Validator
                 {
                     keyword: "prop_oneof",
                     validate: custom_discriminator("a"),
+                },
+                {
+                    keyword: "warn_extra_props",
+                    validate: function warn_extra_props(schema, data, parent_schema, data_cxt)
+                    {
+                        warn_extra_props.errors = [];
+
+                        if ( typeof data != "object" || data === null )
+                            return true;
+
+                        for ( let prop of Object.keys(data) )
+                        {
+                            if ( !schema.has(prop) )
+                            {
+                                warn_extra_props.errors.push({
+                                    message: `has unknown property '${prop}'`,
+                                    type: "warning",
+                                    instancePath: data_cxt.instancePath,
+                                    parentSchema: parent_schema,
+                                });
+                            }
+                        }
+
+                        return warn_extra_props.errors.length == 0;
+                    },
                 }
             ],
             schemas: [this.schema]
