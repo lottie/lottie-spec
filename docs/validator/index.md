@@ -111,13 +111,17 @@ function validate_string(value)
     }
 }
 
+function initialize()
+{
+    fetch("/lottie-spec/lottie.schema.json").then(response => {
+        if ( !response.ok )
+            throw new Error("Request failed");
+        return response.json();
+    }).then(json => on_load_ok(json)).catch(e => on_load_error(e));
+}
+
 
 var validator;
-
-fetch("/lottie-spec/lottie.schema.json").then(response => {
-    if ( !response.ok )
-        throw new Error("Request failed");
-    return response.json();
-}).then(json => on_load_ok(json)).catch(e => on_load_error(e));
+initialize();
 
 </script>

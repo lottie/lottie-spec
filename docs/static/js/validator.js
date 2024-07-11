@@ -77,20 +77,21 @@ class PropertyMap
     constructor()
     {
         this.map = new Map();
+        this.all_references = new Set();
     }
 
     create(id, schema)
     {
         var map = new PropertyList(schema);
-        this.map[id] = map;
+        this.map.set(id, map);
         return map;
     }
 
     finalize()
     {
-        for ( let prop_list of this.map.values() )
+        for ( let [name, prop_list] of this.map )
         {
-            if ( prop_list.valid() )
+            if ( prop_list.valid() && !this.all_references.has(name) )
                 prop_list.schema.warn_extra_props = this._get_all_props(prop_list);
         }
     }
@@ -110,50 +111,65 @@ class PropertyMap
 
     get_all_props(id)
     {
-        return this.map.get(id);
-    }
-}
-
-function extract_all_properties(schema, id, prop_list, prop_map)
-{
-    if ( typeof schema != "object" || schema === null )
-        return;
-
-    if ( Array.isArray(schema) )
-    {
-        for ( let i = 0; i < schema.length; i++ )
-            extract_all_properties(schema[i], id + `/${i}`, prop_list, prop_map);
-
-        return;
+        return this._get_all_props(this.map.get(id));
     }
 
-    for ( let [name, sub_schema] of Object.entries(schema) )
+    extract_all_properties(schema, id, prop_list, referencing_base)
     {
-        if ( name == "properties" )
+        if ( typeof schema != "object" || schema === null )
+            return;
+
+        if ( Array.isArray(schema) )
         {
-            for ( let [prop_name, prop] of Object.entries(sub_schema) )
+            for ( let i = 0; i < schema.length; i++ )
+                this.extract_all_properties(schema[i], id + `/${i}`, prop_list, false);
+
+            return;
+        }
+
+        for ( let [name, sub_schema] of Object.entries(schema) )
+        {
+            if ( name == "properties" )
             {
-                prop_list.properties.add(prop_name);
-                let prop_id = "/properties/" + prop_name;
-                extract_all_properties(prop, prop_id, prop_map.create(id, prop), prop_map);
+                for ( let [prop_name, prop] of Object.entries(sub_schema) )
+                {
+                    prop_list.properties.add(prop_name);
+                    let prop_id = id + "/properties/" + prop_name;
+                    this.extract_all_properties(prop, prop_id, this.create(prop_id, prop), false);
+                }
             }
-        }
-        else if ( name == "oneOf" )
-        {
-            for ( let i = 0; i < sub_schema.length; i++ )
+            else if ( name == "oneOf" )
             {
-                let oneof_id = "/oneOf/" + i;
-                let oneof_schema = sub_schema[i];
-                extract_all_properties(oneof_schema, oneof_id, prop_map.create(id, oneof_schema), prop_map);
+                for ( let i = 0; i < sub_schema.length; i++ )
+                {
+                    let oneof_id = id + "/oneOf/" + i;
+                    let oneof_schema = sub_schema[i];
+                    this.extract_all_properties(oneof_schema, oneof_id, this.create(oneof_id, oneof_schema), false);
+                }
             }
-        }
-        else if ( name == "additionalProperties" )
-        {
-            prop_list.skip = true;
-        }
-        else if ( name != "not" )
-        {
-            extract_all_properties(sub_schema, id + "/" + name, prop_list, prop_map);
+            else if ( name == "allOf" )
+            {
+                for ( let i = 0; i < sub_schema.length; i++ )
+                {
+                    let oneof_id = id + "/allOf/" + i;
+                    let oneof_schema = sub_schema[i];
+                    this.extract_all_properties(oneof_schema, oneof_id, prop_list, true);
+                }
+            }
+            else if ( name == "additionalProperties" )
+            {
+                prop_list.skip = true;
+            }
+            else if ( name == "$ref" )
+            {
+                prop_list.references.add(sub_schema);
+                if ( referencing_base )
+                    this.all_references.add(sub_schema);
+            }
+            else if ( name != "not" )
+            {
+                this.extract_all_properties(sub_schema, id + "/" + name, prop_list, false);
+            }
         }
     }
 }
@@ -205,6 +221,8 @@ class Validator
     {
         this.schema = schema_json;
         this.defs = this.schema["$defs"];
+        var prop_map = new PropertyMap();
+
         for ( let [cat, sub_schemas] of Object.entries(this.defs) )
         {
             let cat_docs = `/lottie-spec/specs/${cat}/`;
@@ -219,6 +237,9 @@ class Validator
                     obj_name = sub_schema.title || kebab_to_title(obj);
                 }
                 patch_docs_links(sub_schema, obj_docs, obj_name, obj_name);
+
+                let id = `#/$defs/${cat}/${obj}`;
+                prop_map.extract_all_properties(sub_schema, id, prop_map.create(id, sub_schema), false);
             }
         }
         let schema_id = this.schema["$id"];
@@ -230,9 +251,8 @@ class Validator
                 this._patch_property_schema(pschema, schema_id + "#/$defs/properties/" + pname);
         }
 
-        var prop_map = new PropertyMap();
-        this.prop_map = prop_map;
-        extract_all_properties(this.defs, "#/$defs", new PropertyList(), prop_map);
+        this.prop_map = prop_map; /// TODO remove
+        this.prop_map.finalize();
 
         this.validator = new AjvClass({
             allErrors: true,
@@ -364,5 +384,5 @@ class Validator
 }
 
 
-if ( typeof module !== undefined )
+if ( typeof module !== "undefined" )
     module.exports = {Validator: Validator};
