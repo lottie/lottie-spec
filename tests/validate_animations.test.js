@@ -8,7 +8,7 @@ const INVALID_ANIMATIONS_DIR = './tests/animations/invalid/';
 const EXAMPLES_DIR = './docs/static/examples/';
 
 const ajv = new Ajv({
-    strict: false
+    keywords:[{keyword:"$version"}]
 });
 const validate = ajv.compile(schema);
 
