@@ -43,8 +43,11 @@ textarea {
 .tab-content {
     padding: 1em;
 }
-.tab-content input {
+.tab-content input:not([type="checkbox"]) {
     width: 100%;
+}
+.tab-content label {
+    display: block;
 }
 
 .validate-button {
@@ -73,6 +76,11 @@ textarea {
     cursor: pointer;
 }
 
+#error-out.hide-warning-property .warning-property,
+#error-out.hide-warning-type .warning-type {
+    display: none;
+}
+
 </style>
 
 <div id="system-loading">
@@ -92,6 +100,9 @@ textarea {
         <li>
             <a id="tab-head-text" onclick="tab_click(this)">Validate by Direct Input</a>
         </li>
+        <li>
+            <a id="tab-head-options" onclick="tab_click(this)">Options</a>
+        </li>
     </ul>
     <div class="tab-content">
         <div id="tab-content">
@@ -104,8 +115,12 @@ textarea {
                 <input id="input-file" type="file" accept="application/json" onchange="on_file_input(event)" />
             </div>
             <div id="tab-content-text" class="hidden">
-                    <textarea id="input-text"></textarea>
+                <textarea id="input-text"></textarea>
                 <button class="validate-button" onclick="validate_string(document.getElementById('input-text').value)">Validate</button>
+            </div>
+            <div id="tab-content-options" class="hidden">
+                <label><input type="checkbox" id="check-warning-type" onchange="update_filters()" checked="checked"> Warn about unknown object types</input></label>
+                <label><input type="checkbox" id="check-warning-property" onchange="update_filters()" checked="checked"> Warn about unknown properties</input></label>
             </div>
         </div>
     </div>
@@ -165,6 +180,8 @@ function show_errors(errors)
     {
         let tr = body.appendChild(document.createElement("tr"));
         tr.classList.add(error.type == "error" ? "danger" : error.type);
+        if ( error.type == "warning" )
+            tr.classList.add("warning-" + error.warning);
         tr.appendChild(document.createElement("td")).appendChild(document.createTextNode(error.path ?? ""));
         tr.appendChild(document.createElement("td")).appendChild(document.createTextNode(error.type));
         tr.appendChild(document.createElement("td")).appendChild(document.createTextNode(error.message));
@@ -187,7 +204,6 @@ function validate_string(value)
             message: "Validation successful with no warnings"
         }];
     show_errors(errors);
-
 }
 
 function on_file_input(ev)
@@ -235,6 +251,7 @@ function initialize()
             throw new Error("Request failed");
         return response.json();
     }).then(json => on_load_ok(json)).catch(e => on_load_error(e));
+    update_filters();
 }
 
 function tab_click(tab)
@@ -252,6 +269,18 @@ function tab_click(tab)
         else
             element.classList.add("active");
     })
+}
+
+function update_filters()
+{
+    let container = document.getElementById("error-out");
+    for ( let type of ["property", "type"] )
+    {
+        if ( document.getElementById("check-warning-" + type).checked )
+            container.classList.remove("hide-warning-" + type)
+        else
+            container.classList.add("hide-warning-" + type)
+    }
 }
 
 

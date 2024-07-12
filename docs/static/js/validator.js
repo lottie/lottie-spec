@@ -197,6 +197,7 @@ function custom_discriminator(propname, fail_unknown)
             validate_fn.errors = [{
                 message: `has unknown '${propname}' value ` + JSON.stringify(value),
                 type: fail_unknown ? "error" : "warning",
+                warning: "type",
                 instancePath: data_cxt.instancePath,
                 parentSchema: parent_schema,
             }];
@@ -284,6 +285,7 @@ class Validator
                                 warn_extra_props.errors.push({
                                     message: `has unknown property '${prop}'`,
                                     type: "warning",
+                                    warning: "property",
                                     instancePath: data_cxt.instancePath,
                                     parentSchema: parent_schema,
                                 });
@@ -377,6 +379,7 @@ class Validator
     {
         return {
             type: error.type ?? "error",
+            warning: error.warning,
             message: (error.parentSchema?._name ?? "Value") + " " + error.message,
             path: prefix + (error.instancePath ?? ""),
             name: error.parentSchema?._docs_name ?? "Value",
