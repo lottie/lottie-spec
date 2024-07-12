@@ -73,8 +73,8 @@ class Validator:
     def check_version(self, schema: Schema):
         versionNumber = schema["$version"]
         
-        majorVersion = math.floor(versionNumber / 10000)
-        minorVersion = math.floor((versionNumber % 10000) / 100)
+        majorVersion = versionNumber // 10000
+        minorVersion = (versionNumber % 10000) // 100
         patchVersion = versionNumber % 100
         
         versionString = f'{majorVersion}.{minorVersion}.{patchVersion}'
