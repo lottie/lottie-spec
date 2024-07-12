@@ -1,9 +1,6 @@
 import re
 import sys
 import json
-import inspect
-import dataclasses
-from typing import Any
 from pathlib import Path
 import xml.etree.ElementTree as etree
 
@@ -11,7 +8,6 @@ import graphviz
 from markdown.extensions import Extension
 from markdown.inlinepatterns import InlineProcessor
 from markdown.blockprocessors import BlockProcessor
-from markdown.preprocessors import Preprocessor
 from markdown.util import HTML_PLACEHOLDER_RE, AtomicString
 from mkdocs.utils import get_relative_url
 
@@ -158,7 +154,7 @@ class JsonHtmlSerializer:
             raise TypeError(json_object)
 
     def encode_item(self, json_object, hljs_type, href=None):
-        span = etree.Element("span", {"class": "hljs-"+hljs_type})
+        span = etree.Element("span", {"class": "hljs-" + hljs_type})
         span.text = self.encoder.encode(json_object)
 
         if href:
@@ -304,7 +300,7 @@ class SchemaObject(BlockProcessor):
 
         prop_dict = type.all_properties()
 
-        rows = blocks.pop(0)
+        blocks.pop(0)
 
         div = etree.SubElement(parent, "div")
 
@@ -776,7 +772,7 @@ class LottiePlaygroundBuilder:
             default_value = input.attrib.get("value", "")
 
             input = input_wrapper = etree.Element("select")
-            for value in self.schema_data.from_path("constants/"+enum_id).values:
+            for value in self.schema_data.from_path("constants/" + enum_id).values:
                 option = etree.SubElement(input, "option", {"value": str(value.value)})
                 option.text = value.title
                 if str(value.value) == default_value:
@@ -811,7 +807,6 @@ class LottiePlaygroundBuilder:
             );
             """.format(
                 pg=input_wrapper.attrib["id"],
-                id=id_base,
                 initial=input.attrib.get("value", "null"),
                 anim_id=self.anim_id,
             )
@@ -1038,7 +1033,7 @@ class EditorExample(BlockProcessor):
 
         element = etree.SubElement(parent, "div", {"class": "playground playground-columns"})
 
-        editor = etree.SubElement(element, "div", {"id": "editor_" + id_base})
+        etree.SubElement(element, "div", {"id": "editor_" + id_base})
 
         json_viewer = "json_viewer_%s" % id_base
         json_viewer_parent = json_viewer + "_parent"
