@@ -157,6 +157,27 @@
 
 {schema_enum:stroke-dash-type}
 
+<h2 id="matte-mode">Matte Mode</h2>
+
+{schema_string:constants/matte-mode/description}
+
+The value for Luma is calculated accourding to [Rec.709](https://www.itu.int/rec/R-REC-BT.709) standard:
+
+$$Y = 0.2126 R + 0.7152 G + 0.0722 B$$
+
+{schema_enum:matte-mode}
+
+<lottie-playground example="matte.json">
+    <title>Example</title>
+    <form>
+        <enum title="Matte Mode" value="1">matte-mode</enum>
+    </form>
+    <json>{...lottie.layers[1], shapes: [], ks: {}}</json>
+    <script>
+        lottie.layers[1].tt = Number(data["Matte Mode"]);
+    </script>
+</lottie-playground>
+
 <h2 id="gradient-type">Gradient Type</h2>
 
 {schema_string:constants/gradient-type/description}

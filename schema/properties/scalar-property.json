@@ -3,6 +3,11 @@
     "type": "object",
     "title": "Scalar Property",
     "description": "An animatable property that holds a float",
+    "allOf": [
+        {
+            "$ref": "#/$defs/helpers/slottable-property"
+        }
+    ],
     "oneOf": [
         {
             "$comment": "Not animated",
@@ -39,5 +44,11 @@
             }
         }
     ],
-    "required": ["a", "k"]
+    "properties": {
+        "sid": {
+            "title": "Slot Id",
+            "description": "Identifier for a property that can be replaced at runtime",
+            "type": "string"
+        }
+    }
 }

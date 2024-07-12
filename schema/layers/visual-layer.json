@@ -21,6 +21,16 @@
                     "default": 0,
                     "description": "If 1, the layer will rotate itself to match its animated position path"
                 },
+                "tt": {
+                    "title": "Matte Mode",
+                    "$ref": "#/$defs/constants/matte-mode",
+                    "description": "Defines the track matte mode for the layer"
+                },
+                "tp": {
+                    "title": "Matte Parent",
+                    "type": "integer",
+                    "description": "Index of the layer used as matte, if omitted assume the layer above the current one"
+                },
                 "masksProperties": {
                     "title": "Masks",
                     "description": "Optional array of masks for the layer.",

@@ -3,6 +3,11 @@
     "type": "object",
     "title": "Color Property",
     "description": "An animatable property that holds a Color",
+    "allOf": [
+        {
+            "$ref": "#/$defs/helpers/slottable-property"
+        }
+    ],
     "oneOf": [
         {
             "$comment": "Not animated",
@@ -38,6 +43,5 @@
                     }
                 }
         }
-    ],
-    "required": ["a", "k"]
+    ]
 }

@@ -1,0 +1,33 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "integer",
+    "title": "Matte Mode",
+    "description": "How a layer should mask another layer",
+    "oneOf": [
+        {
+            "title": "Normal",
+            "description": "The layer is not used as a track matte",
+            "const": 0
+        },
+        {
+            "title": "Alpha",
+            "description": "The masked layer opacity is modulated by the track matte layer opacity",
+            "const": 1
+        },
+        {
+            "title": "Inverted Alpha",
+            "description": "The masked layer opacity is modulated by the inverted track matte layer opacity",
+            "const": 2
+        },
+        {
+            "title": "Luma",
+            "description": "The masked layer opacity is modulated by the track matte layer luminance",
+            "const": 3
+        },
+        {
+            "title": "Inverted Luma",
+            "description": "The masked layer opacity is modulated by the inverted track matte layer luminance",
+            "const": 4
+        }
+    ]
+}
