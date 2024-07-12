@@ -33,7 +33,7 @@
                     "title": "Keyframes",
                     "description": "Array of keyframes",
                     "items": {
-                            "$ref": "#/$defs/properties/position-keyframe"
+                        "$ref": "#/$defs/properties/position-keyframe"
                     }
                 }
             }
