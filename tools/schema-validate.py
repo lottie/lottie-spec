@@ -4,6 +4,7 @@ import sys
 import json
 import pathlib
 import argparse
+import math
 
 from schema_tools.schema import SchemaPath, Schema
 import lottie_markdown
@@ -26,6 +27,7 @@ class Validator:
 
     def validate(self, schema_root):
         self.root = Schema(schema_root, None)
+        self.check_version(self.root)
         self.collect_defs(self.root / "$defs")
         self.validate_recursive(self.root)
         for unused in (self.expected_refs - self.valid_refs):
@@ -67,6 +69,18 @@ class Validator:
                 self.expected_refs.add(str(child.path))
             else:
                 self.collect_defs(child)
+
+    def check_version(self, schema: Schema):
+        versionNumber = schema["$version"]
+        
+        majorVersion = math.floor(versionNumber / 10000)
+        minorVersion = math.floor((versionNumber % 10000) / 100)
+        patchVersion = versionNumber % 100
+        
+        versionString = f'{majorVersion}.{minorVersion}.{patchVersion}'
+        
+        if versionString not in schema["$id"]:
+            self.error(schema, "Mismatched URI version - expected: %s" % versionString)
 
     def check_links(self, html_path: pathlib.Path):
         checked = set()
