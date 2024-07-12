@@ -1,2 +1,5 @@
 [flake8]
-max-line-length = 128
+# E227 missing whitespace around bitwise or shift operator
+# W504 line break after binary operator
+ignore = E227,W504
+max-line-length = 150

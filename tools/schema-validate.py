@@ -11,10 +11,11 @@ import lottie_markdown
 # By default, tool expects a link for all schema files.
 # This is generally true, but may not always be the case
 unneededLinks = [
-    ("shapes","base-gradient"),
-    ("layers","unknown-layer"),
-    ("shapes","unknown-shape")
+    ("shapes", "base-gradient"),
+    ("layers", "unknown-layer"),
+    ("shapes", "unknown-shape")
 ]
+
 
 class Validator:
     def __init__(self):
@@ -118,4 +119,3 @@ if __name__ == "__main__":
 
     if validator.has_error:
         sys.exit(1)
-
