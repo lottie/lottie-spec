@@ -3,6 +3,11 @@
     "type": "object",
     "title": "Position Property",
     "description": "An animatable property to represent a position in space",
+    "allOf": [
+        {
+            "$ref": "#/$defs/helpers/slottable-property"
+        }
+    ],
     "oneOf": [
         {
             "$comment": "Not animated",
@@ -14,7 +19,8 @@
                     "const": 0
                 },
                 "k": {
-                    "title": "Static value",
+                    "title": "Value",
+                    "description": "Static Value",
                     "$ref": "#/$defs/values/vector"
                 }
             }
