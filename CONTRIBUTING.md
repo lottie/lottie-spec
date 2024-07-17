@@ -4,6 +4,14 @@ This repository contains the specification text as well as Pull Requests with su
 
 When proposing or weighing-in on any issue or pull request, consider the [Code of Conduct](https://github.com/lottie/lottie-spec/blob/main/8._Code_of_Conduct.md) to better understand expected and unacceptable behavior.
 
+## Scope
+
+The scope of this Working Group is to specify the format of the Lottie Animation Format, both
+the allowed JSON structure, the semantics of that structure, and how such Lottie files are to be
+rendered. The definition of the correct rendering will be specified by a combination of verbiage
+in the written specification and by exemplar Lottie files and their desired renderings.
+
+
 ## Workflow
 
 1. The primary workflow is centered around the [main repository](https://github.com/lottie/lottie-spec/),
