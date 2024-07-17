@@ -10,7 +10,7 @@ following documents located at
 
 (b) Community Specification Governance Policy 1.0 [Governance.md](Governance.md)
 
-(c) Community Specification Contribution Policy 1.0 (6.\_Contributing.md)
+(c) Community Specification Contribution Policy 1.0 [CONTRIBUTING.md](CONTRIBUTING.md)
 
 (d) Community Specification Code of Conduct (8.\_Code_of_Conduct.md)
 
