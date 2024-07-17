@@ -7,7 +7,7 @@ All work here is guided by the [Community Specification License](1._Community_Sp
 ## CLA
 
 Participation in this group requires signing the
-[Contributor License Agreement](0._CS_Contributor_License_Agreement.md), which you can
+[Contributor License Agreement](Notices.md), which you can
 do by creating a pull request that adds your name, email address, and Community
 Specification License version that you agree to be bound by.
 
