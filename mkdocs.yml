@@ -33,7 +33,6 @@ nav:
         - specs/schema.md
     - "Community":
         - governance/Community_Specification_License-v1.md
-        - governance/3._Notices.md
         - governance/4._License.md
         - governance/5._Governance.md
         - governance/6._Contributing.md
