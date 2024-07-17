@@ -38,7 +38,6 @@ nav:
         - governance/Code_of_Conduct.md
         - governance/License.md
         - governance/Notices.md
-        - governance/FAQ.md
         - "Contributing":
             - governance/CONTRIBUTING.md
             - editing/schema.md
