@@ -12,7 +12,7 @@ following documents located at
 
 (c) Community Specification Contribution Policy 1.0 [CONTRIBUTING.md](CONTRIBUTING.md)
 
-(d) Community Specification Code of Conduct (8.\_Code_of_Conduct.md)
+(d) Community Specification Code of Conduct [Code_of_Conduct.md](Code_of_Conduct.md)
 
 In addition, for source code contributions, I certify that:
 

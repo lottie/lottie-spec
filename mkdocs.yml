@@ -32,12 +32,13 @@ nav:
         #
         - specs/schema.md
     - "Community":
-        - governance/Community_Specification_License-v1.md
-        - governance/License.md
+        - governance/index.md
         - governance/Governance.md
+        - governance/Community_Specification_License-v1.md
         - governance/Code_of_Conduct.md
-        - governance/FAQ.md
+        - governance/License.md
         - governance/Notices.md
+        - governance/FAQ.md
         - "Contributing":
             - governance/CONTRIBUTING.md
             - editing/schema.md
