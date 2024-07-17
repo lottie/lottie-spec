@@ -6,8 +6,7 @@ By making a Contribution to this repository, I agree to the terms of the
 following documents located at
 [https://github.com/CommunitySpecification/1.0](https://github.com/CommunitySpecification/1.0):
 
-(a) Community Specification License 1.0
-(0.\_Community_Specification_License-v1.md)
+(a) Community Specification License 1.0 (Community_Specification_License-v1.md)[Community_Specification_License-v1.md]
 
 (b) Community Specification Governance Policy 1.0 (5.\_Governance.md)
 
