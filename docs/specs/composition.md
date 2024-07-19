@@ -15,8 +15,8 @@ guidelines:
 with previous versions of the specification.
 * Minor version updates typically add new functionality and SHOULD NOT
 contain breaking changes.
-* Patch version updates typically make minor changes to already existing
-functionality.
+* Patch version updates typically make minor changes or clarifiactions to
+already existing functionality.
 
 #### Authoring Tools
 
