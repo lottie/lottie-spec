@@ -4,7 +4,6 @@ import sys
 import json
 import pathlib
 import argparse
-import math
 
 from schema_tools.schema import SchemaPath, Schema
 import lottie_markdown
