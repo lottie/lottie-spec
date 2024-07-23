@@ -11,13 +11,12 @@ edit_uri: https://github.com/lottie/lottie-spec/edit/main/docs
 use_directory_urls: true
 site_url: https://lottie.github.io/lottie-spec/
 markdown_extensions:
+    - attr_list
     - lottie_markdown
     - latex_markdown
 extra_css:
     # - /lottie-spec/style/style.css
     # - /lottie-spec/style/lottie-theme.css
-plugins:
-    - search
 nav:
     - "Home" : index.md
     - "Format":
@@ -42,3 +41,10 @@ nav:
             - governance/CONTRIBUTING.md
             - editing/schema.md
             - editing/extensions.md
+plugins:
+    - search
+    - print-site:
+        add_print_site_banner: true
+        enumerate_headings_depth: 3
+        exclude:
+          - governance/Notices.md

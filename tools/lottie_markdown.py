@@ -722,7 +722,7 @@ class LottiePlaygroundBuilder:
         self.schema_data = schema_data
 
         self.element = etree.SubElement(parent, "div")
-        self.element.attrib["class"] = "playground"
+        self.element.attrib["class"] = "playground print-site-plugin-ignore"
 
         self.renderer = LottieRenderer(
             parent=self.element, width=width, height=height,
@@ -855,6 +855,7 @@ class LottiePlayground(BlockProcessor):
         md_title = md_element.find("./title")
         if md_title is not None:
             md_title.tag = "p"
+            md_title.attrib["class"] = "print-site-plugin-ignore"
             parent.append(md_title)
 
         width = md_element.attrib.pop("width", None)
@@ -1031,7 +1032,7 @@ class EditorExample(BlockProcessor):
         if extra:
             extra = "{" + extra + "}"
 
-        element = etree.SubElement(parent, "div", {"class": "playground playground-columns"})
+        element = etree.SubElement(parent, "div", {"class": "playground playground-columns print-site-plugin-ignore"})
 
         etree.SubElement(element, "div", {"id": "editor_" + id_base})
 

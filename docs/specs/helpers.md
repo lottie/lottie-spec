@@ -11,8 +11,10 @@ To make the anchor point properly line up with the center of location, `p` and `
 
 
 This example allows you to tweak transform attributes and see how the shape changes.
+{: .print-site-plugin-ignore }
 
 The anchor point is highlighted with an orange dot.
+{: .print-site-plugin-ignore }
 
 <lottie-playground example="transform.json">
     <form>
