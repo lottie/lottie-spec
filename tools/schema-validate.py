@@ -71,13 +71,13 @@ class Validator:
 
     def check_version(self, schema: Schema):
         versionNumber = schema["$version"]
-        
+
         majorVersion = versionNumber // 10000
         minorVersion = (versionNumber % 10000) // 100
         patchVersion = versionNumber % 100
-        
+
         versionString = f'{majorVersion}.{minorVersion}.{patchVersion}'
-        
+
         if versionString not in schema["$id"]:
             self.error(schema, "Mismatched URI version - expected: %s" % versionString)
 
