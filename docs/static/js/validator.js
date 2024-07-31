@@ -1,4 +1,4 @@
-function extraxt_schema_ty(schema)
+function extract_schema_ty(schema)
 {
     if ( !schema )
         return;
@@ -17,7 +17,7 @@ function extraxt_schema_ty(schema)
         {
             for ( let sub_schema of schema[prop] )
             {
-                let ty = extraxt_schema_ty(sub_schema);
+                let ty = extract_schema_ty(sub_schema);
                 if ( ty !== undefined )
                     return ty;
             }
@@ -252,6 +252,11 @@ class Validator
                 this._patch_property_schema(pschema, schema_id + "#/$defs/properties/" + pname);
         }
 
+        this.schema["$defs"].assets["all-assets"] = {
+            "type": "object",
+            "asset_oneof": schema_id,
+        };
+
         prop_map.finalize();
 
         this.validator = new AjvClass({
@@ -268,6 +273,30 @@ class Validator
                 {
                     keyword: "prop_oneof",
                     validate: custom_discriminator("a", true),
+                },
+                {
+                    keyword: "asset_oneof",
+                    validate: function validate_asset(schema, data, parent_schema, data_cxt)
+                    {
+                        validate_asset.errors = [];
+
+                        if ( typeof data != "object" || data === null )
+                            return true;
+
+                        var target_schema;
+
+                        if ( "layers" in data )
+                            target_schema = this.getSchema(schema + "#/$defs/assets/precomposition");
+                        else
+                            target_schema = this.getSchema(schema + "#/$defs/assets/image");
+
+                        if ( !target_schema(data, data_cxt) )
+                        {
+                            validate_asset.errors = target_schema.errors;
+                            return false;
+                        }
+                        return true;
+                    },
                 },
                 {
                     keyword: "warn_extra_props",
@@ -308,7 +337,7 @@ class Validator
         let found = {};
         for ( let [name, sub_schema] of Object.entries(this.defs[category]) )
         {
-            let ty = extraxt_schema_ty(sub_schema);
+            let ty = extract_schema_ty(sub_schema);
             if ( ty !== undefined )
             {
                 let id = `${id_base}#/$defs/${category}/${name}`;
