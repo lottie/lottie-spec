@@ -14,6 +14,8 @@ textarea {
     display: block;
     width: 100%;
     min-height: 500px;
+    font-family: monospace;
+    tab-size: 4;
 }
 #error-out td:first-child {
     font-family: monospace;
