@@ -2,7 +2,8 @@
 
 This repository contains the specification text as well as Pull Requests with suggested improvements and contributions.
 
-When proposing or weighing-in on any issue or pull request, consider the [Code of Conduct](https://github.com/lottie/lottie-spec/blob/main/8._Code_of_Conduct.md) to better understand expected and unacceptable behavior.
+When proposing or weighing-in on any issue or pull request, consider the [Code of Conduct](Code_of_Conduct.md) to better understand expected and unacceptable behavior.
+
 
 ## Workflow
 

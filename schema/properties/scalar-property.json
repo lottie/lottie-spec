@@ -19,7 +19,8 @@
                     "const": 0
                 },
                 "k": {
-                    "title": "Static value",
+                    "title": "Value",
+                    "description": "Static Value",
                     "type": "number"
                 }
             }
@@ -43,12 +44,5 @@
                 }
             }
         }
-    ],
-    "properties": {
-        "sid": {
-            "title": "Slot Id",
-            "description": "Identifier for a property that can be replaced at runtime",
-            "type": "string"
-        }
-    }
+    ]
 }

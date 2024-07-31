@@ -17,8 +17,11 @@ Their structure depends on whether it's animated or not:
 
 Keyframe arrays MUST be stored in order of strictly ascending `t` frame number. Two keyframes cannot have the same `t` value.
 
-If `h` is present and it's 1, you don't need `i` and `o`, as the property will keep the same value
-until the next keyframe.
+All keyframes MUST have an `i` and `o` value, unless-
+
+* It is the last keyframe in the sequence OR
+* `h` is present and it's 1, as the property will keep the same value until the
+next keyframe.
 
 If the first keyframe occurs after the start of the animation, the initial property value will be from the first keyframe. Similarly if the last keyframe is before the end of the animation, the last keyframe value will be held until the end.
 
@@ -119,6 +122,12 @@ Animatable 2D {link:values/vector} with optional spatial tangents.
 
 {schema_object:properties/position-keyframe}
 
+<div id="split-position"></div>
+<h4 id="splitable-position-property">Split Position</h4>
+
+{schema_string:properties/splitable-position-property/description}
+
+{schema_object:properties/split-position}
 
 <h3 id="bezier-property">Bezier Shape</h3>
 

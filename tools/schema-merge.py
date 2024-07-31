@@ -7,6 +7,7 @@ import argparse
 from schema_tools.schema import SchemaPath, Schema
 from schema_tools import type_info
 
+
 def join_parts(
     json_data: dict,
     path: pathlib.Path,
@@ -32,6 +33,7 @@ def join_parts(
 
     return json_data
 
+
 def add_vals_to_unknown_object(
     objects,
     unknown_type_dict: dict
@@ -42,9 +44,10 @@ def add_vals_to_unknown_object(
         type = ele.properties['ty'].const
         if type is not None:
             types.append(type)
-    
+
     unknown_type_dict["properties"]["ty"]["not"]["enum"] = types
-    
+
+
 root = pathlib.Path(__file__).absolute().parent.parent
 
 parser = argparse.ArgumentParser(description="Joins JSON schema in a single file")

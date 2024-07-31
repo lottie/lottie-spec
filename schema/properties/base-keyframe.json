@@ -28,23 +28,6 @@
                     "$ref": "#/$defs/properties/easing-handle"
                 }
             }
-        },
-        {
-            "if": {
-                "oneOf": [
-                    {
-                        "properties": {
-                            "h": { "const": 0  }
-                        }
-                    },
-                    {
-                        "not": {"required": ["h"]}
-                    }
-                ]
-            },
-            "then": {
-                "required": ["i", "o"]
-            }
         }
     ],
     "required": ["t"]

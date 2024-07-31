@@ -1,0 +1,21 @@
+name: Lint
+on:
+    - push
+    - pull_request
+jobs:
+  pep8:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Setup
+        run: |
+            sudo apt update -q
+            sudo apt install -yy python3 python3-pip
+            pip install flake8
+      -
+        name: Check code style
+        run: |
+            cd tools && flake8
