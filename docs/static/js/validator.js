@@ -144,7 +144,8 @@ class PropertyMap
                 {
                     let oneof_id = id + "/oneOf/" + i;
                     let oneof_schema = sub_schema[i];
-                    this.extract_all_properties(oneof_schema, oneof_id, this.create(oneof_id, oneof_schema), false);
+                    let oneof_list = id.endsWith("-property") ? prop_list : this.create(oneof_id, oneof_schema);
+                    this.extract_all_properties(oneof_schema, oneof_id, oneof_list, false);
                 }
             }
             else if ( name == "allOf" )
