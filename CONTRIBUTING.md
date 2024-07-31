@@ -191,12 +191,16 @@ it will request comments on the draft specification from stakeholders.
 
 New features and changed can be introduced based on the feedback but most new contributions should target a following version.
 
+When the target version is an increase in the major version, LAC guarantees that this stage will last a minimum of 3 weeks before moving forward to the next stage.
+
 
 ### Feature freeze
 
 After all the comments have been addressed and accepted into the specifications, the draft version goes into feature freeze
 where no new features should be introduced. The LAC working group will still accept fixes that clarify ambiguities, correct mistakes, or otherwise
 don't change compliance requirements.
+
+When the target version is an increase in the major version, LAC guarantees that this stage will last a minimum of one week before publishing the specifications.
 
 ### Published
 
