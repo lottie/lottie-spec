@@ -252,6 +252,7 @@ class Validator
             if ( pname.endsWith("-property") )
                 this._patch_property_schema(pschema, schema_id + "#/$defs/properties/" + pname);
         }
+        this.defs.properties["base-keyframe"].keyframe = true;
 
         this.schema["$defs"].assets["all-assets"] = {
             "type": "object",
@@ -300,6 +301,53 @@ class Validator
                     },
                 },
                 {
+                    keyword: "keyframe",
+                    validate: function validate_keyframe(schema, data, parent_schema, data_cxt)
+                    {
+                        validate_keyframe.errors = [];
+
+                        var require_io = true;
+                        if ( data.h )
+                            require_io = false;
+
+                        var index = data_cxt.parentData.indexOf(data);
+                        if ( index == data_cxt.parentData.length )
+                            require_io = false;
+
+                        if ( require_io )
+                        {
+                            for ( var prop of "io" )
+                            {
+                                if ( !("i" in data) )
+                                {
+                                    validate_keyframe.errors.push({
+                                        message: `must have required property 'i'`,
+                                        type: "error",
+                                        instancePath: data_cxt.instancePath,
+                                        parentSchema: parent_schema,
+                                    });
+                                }
+                            }
+                        }
+
+                        if ( index > 0 )
+                        {
+                            var prev_kf = data_cxt.parentData[index-1];
+                            if ( typeof prev_kf == "object" && typeof prev_kf.t == "number" && typeof data.t == "number" && data.t <= prev_kf.t )
+                            {
+                                validate_keyframe.errors.push({
+                                    message: `keyframe 't' must be strictly increasing`,
+                                    type: "error",
+                                    instancePath: data_cxt.instancePath,
+                                    parentSchema: parent_schema,
+                                });
+                            }
+                        }
+
+                        return validate_keyframe.errors.length == 0;
+                    }
+                },
+                {
                     keyword: "warn_extra_props",
                     validate: function warn_extra_props(schema, data, parent_schema, data_cxt)
                     {
@@ -324,7 +372,7 @@ class Validator
 
                         return warn_extra_props.errors.length == 0;
                     },
-                }
+                },
             ],
             schemas: [this.schema]
         });
