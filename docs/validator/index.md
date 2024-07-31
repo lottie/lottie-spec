@@ -122,7 +122,7 @@ textarea {
             </div>
             <div id="tab-content-options" class="hidden">
                 <label><input type="checkbox" id="check-warning-type" onchange="update_filters()" checked="checked"> Warn about unknown object types</input></label>
-                <label><input type="checkbox" id="check-warning-property" onchange="update_filters()" checked="checked"> Warn about unknown properties</input></label>
+                <label><input type="checkbox" id="check-warning-property" onchange="update_filters()"> Warn about unknown properties</input></label>
             </div>
         </div>
     </div>
