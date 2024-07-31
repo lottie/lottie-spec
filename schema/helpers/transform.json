@@ -14,7 +14,7 @@
                 "p": {
                     "title": "Position",
                     "description": "Position / Translation",
-                    "$ref": "#/$defs/properties/splitable-position-property"
+                    "$ref": "#/$defs/properties/splittable-position-property"
                 },
                 "r": {
                     "title": "Rotation",
