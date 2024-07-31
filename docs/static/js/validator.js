@@ -311,7 +311,7 @@ class Validator
                             require_io = false;
 
                         var index = data_cxt.parentData.indexOf(data);
-                        if ( index == data_cxt.parentData.length )
+                        if ( index == data_cxt.parentData.length - 1 )
                             require_io = false;
 
                         if ( require_io )
