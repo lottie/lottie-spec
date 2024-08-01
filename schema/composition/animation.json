@@ -20,7 +20,7 @@
                     "title": "Framerate",
                     "description": "Framerate in frames per second",
                     "type": "number",
-                    "minimum": 0
+                    "exclusiveMinimum": 0
                 },
                 "ip": {
                     "title": "In Point",
