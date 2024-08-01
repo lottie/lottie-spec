@@ -201,10 +201,10 @@ function validate_string(value)
 {
     var errors = validator.validate(value);
     if ( !errors.some(e => e.type == "error") )
-        errors = [{
+        errors.unshift({
             type: "success",
             message: "Validation successful with no errors"
-        }];
+        });
     show_errors(errors);
 }
 
