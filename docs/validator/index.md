@@ -200,10 +200,10 @@ function show_errors(errors)
 function validate_string(value)
 {
     var errors = validator.validate(value);
-    if ( errors.length == 0 )
+    if ( !errors.some(e => e.type == "error") )
         errors = [{
             type: "success",
-            message: "Validation successful with no warnings"
+            message: "Validation successful with no errors"
         }];
     show_errors(errors);
 }
