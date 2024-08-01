@@ -258,7 +258,7 @@ class Validator
         }
         this.defs.properties["base-keyframe"].keyframe = true;
 
-        this.schema["$defs"].assets["all-assets"] = {
+        this.defs.assets["all-assets"] = {
             "type": "object",
             "asset_oneof": schema_id,
         };
@@ -303,6 +303,10 @@ class Validator
                         }
                         return true;
                     },
+                },
+                {
+                    keyword: "splitpos_oneof",
+                    validate: custom_discriminator("s", false, false),
                 },
                 {
                     keyword: "keyframe",
@@ -410,6 +414,18 @@ class Validator
         if ( id.endsWith("gradient-property") )
         {
             return this._patch_property_schema(schema.properties.k, id + "/properties/k");
+        }
+
+
+        if ( id.endsWith("splittable-position-property") )
+        {
+            delete schema.oneOf;
+            schema.splitpos_oneof = {
+                [true]: {id: this.schema["$id"] + "#/$defs/properties/split-position"},
+                [false]: {id: this.schema["$id"] + "#/$defs/properties/position-property"},
+            };
+
+            return;
         }
 
         schema.prop_oneof = [];
