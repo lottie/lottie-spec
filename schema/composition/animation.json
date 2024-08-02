@@ -19,7 +19,8 @@
                 "fr": {
                     "title": "Framerate",
                     "description": "Framerate in frames per second",
-                    "type": "number"
+                    "type": "number",
+                    "exclusiveMinimum": 0
                 },
                 "ip": {
                     "title": "In Point",
@@ -34,12 +35,14 @@
                 "w": {
                     "title": "Width",
                     "description": "Width of the animation",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "h": {
                     "title": "Height",
                     "description": "Height of the animation",
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "assets": {
                     "title": "Assets",
