@@ -9,7 +9,7 @@
             "properties": {
                 "nm": {
                     "title": "Name",
-                    "description": "Name, as seen from editors and the like",
+                    "description": "Human readable name, as seen from editors and the like",
                     "type": "string"
                 }
             },
