@@ -462,7 +462,14 @@ class Validator
 
         let errors = [];
         if ( !this._validate_internal(data) )
-            errors = this._validate_internal.errors.map(e => this._cleaned_error(e));
+            errors = this._validate_internal.errors
+                .map(e => this._cleaned_error(e))
+                .map(e => {
+                    return {
+                        ...e,
+                        pathNames: this._get_friendly_name(e.path, data)
+                    }
+                });
 
         return errors.sort((a, b) => {
             if ( a.path < b.path )
@@ -483,6 +490,30 @@ class Validator
             name: error.parentSchema?._docs_name ?? "Value",
             docs: error.parentSchema?._docs,
         };
+    }
+
+    _get_friendly_name(path, data)
+    {
+        const pathParts = path.split('/');
+
+        const names = [];
+        for (const pathPart of pathParts) {
+          if (pathPart === '#' || pathPart === '') {
+            continue;
+          }
+      
+          data = data[pathPart];
+      
+          if (!data) {
+            break;
+          }
+      
+          if (data.nm) {
+            names.push(data.nm);
+          }
+        }
+      
+        return names.join(' > ');
     }
 }
 
