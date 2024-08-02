@@ -44,7 +44,15 @@ nav:
 plugins:
     - search
     - print-site:
-        add_print_site_banner: true
+        add_table_of_contents: false
         enumerate_headings_depth: 3
         exclude:
+          - governance/index.md
+          - governance/Governance.md
+          - governance/Community_Specification_License-v1.md
+          - governance/Code_of_Conduct.md
+          - governance/License.md
           - governance/Notices.md
+          - governance/CONTRIBUTING.md
+          - editing/schema.md
+          - editing/extensions.md
