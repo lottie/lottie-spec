@@ -131,6 +131,7 @@ textarea {
     <thead>
         <tr>
             <th>Path</th>
+            <th>Named Path</th>
             <th>Severity</th>
             <th>Message</th>
             <th>Docs</th>
@@ -185,6 +186,7 @@ function show_errors(errors)
         if ( error.type == "warning" )
             tr.classList.add("warning-" + error.warning);
         tr.appendChild(document.createElement("td")).appendChild(document.createTextNode(error.path ?? ""));
+        tr.appendChild(document.createElement("td")).appendChild(document.createTextNode(error.path_names ? error.path_names.map(n => n ?? "(unnamed)").join(' > ') : ""));
         tr.appendChild(document.createElement("td")).appendChild(document.createTextNode(error.type));
         tr.appendChild(document.createElement("td")).appendChild(document.createTextNode(error.message));
         let td = tr.appendChild(document.createElement("td"));

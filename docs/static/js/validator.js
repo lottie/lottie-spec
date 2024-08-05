@@ -462,7 +462,8 @@ class Validator
 
         let errors = [];
         if ( !this._validate_internal(data) )
-            errors = this._validate_internal.errors.map(e => this._cleaned_error(e));
+            errors = this._validate_internal.errors
+                .map(e => this._cleaned_error(e, data));
 
         return errors.sort((a, b) => {
             if ( a.path < b.path )
@@ -473,8 +474,27 @@ class Validator
         });
     }
 
-    _cleaned_error(error, prefix="")
+    _cleaned_error(error, data, prefix="")
     {
+        const path_parts = error.instancePath.split('/');
+
+        const path_names = [];
+        for (const path_part of path_parts)
+        {
+            if (path_part === '#' || path_part === '')
+                continue;
+      
+            data = data[path_part];
+        
+            if (!data)
+                break;
+      
+            // Every layer with a type may be named
+            // Push a null value if it doesn't exist so display code can handle
+            if (data.ty)
+                path_names.push(data.nm);
+        }
+
         return {
             type: error.type ?? "error",
             warning: error.warning,
@@ -482,6 +502,7 @@ class Validator
             path: prefix + (error.instancePath ?? ""),
             name: error.parentSchema?._docs_name ?? "Value",
             docs: error.parentSchema?._docs,
+            path_names,
         };
     }
 }
