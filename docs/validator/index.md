@@ -110,7 +110,7 @@ textarea {
         <div id="tab-content">
             <div id="tab-content-url">
                 <input id="input-url" type="url" placeholder="Lottie URL" />
-                <button class="validate-button" onclick="validate_string(document.getElementById('input-text').value)">Validate</button>
+                <button class="validate-button" onclick="validate_url(document.getElementById('input-url').value)">Validate</button>
             </div>
             <div id="tab-content-upload" class="hidden">
                 <p>Drop a JSON file or click to browse</p>
