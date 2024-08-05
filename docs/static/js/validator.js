@@ -467,7 +467,7 @@ class Validator
                 .map(e => {
                     return {
                         ...e,
-                        pathNames: this._get_friendly_name(e.path, data)
+                        pathNames: this._get_friendly_path_names(e.path, data)
                     }
                 });
 
@@ -492,7 +492,7 @@ class Validator
         };
     }
 
-    _get_friendly_name(path, data)
+    _get_friendly_path_names(path, data)
     {
         const pathParts = path.split('/');
 
@@ -508,12 +508,12 @@ class Validator
             break;
           }
       
-          if (data.nm) {
+          if (data.ty) {
             names.push(data.nm);
           }
         }
       
-        return names.join(' > ');
+        return names;
     }
 }
 
