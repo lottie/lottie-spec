@@ -463,13 +463,7 @@ class Validator
         let errors = [];
         if ( !this._validate_internal(data) )
             errors = this._validate_internal.errors
-                .map(e => this._cleaned_error(e))
-                .map(e => {
-                    return {
-                        ...e,
-                        path_names: this._get_friendly_path_names(e.path, data)
-                    }
-                });
+                .map(e => this._cleaned_error(e, data));
 
         return errors.sort((a, b) => {
             if ( a.path < b.path )
@@ -480,23 +474,11 @@ class Validator
         });
     }
 
-    _cleaned_error(error, prefix="")
+    _cleaned_error(error, data, prefix="")
     {
-        return {
-            type: error.type ?? "error",
-            warning: error.warning,
-            message: (error.parentSchema?._name ?? "Value") + " " + error.message,
-            path: prefix + (error.instancePath ?? ""),
-            name: error.parentSchema?._docs_name ?? "Value",
-            docs: error.parentSchema?._docs,
-        };
-    }
+        const path_parts = error.instancePath.split('/');
 
-    _get_friendly_path_names(path, data)
-    {
-        const path_parts = path.split('/');
-
-        const names = [];
+        const path_names = [];
         for (const path_part of path_parts)
         {
             if (path_part === '#' || path_part === '')
@@ -510,10 +492,18 @@ class Validator
             // Every layer with a type may be named
             // Push a null value if it doesn't exist so display code can handle
             if (data.ty)
-                names.push(data.nm);
+                path_names.push(data.nm);
         }
-      
-        return names;
+
+        return {
+            type: error.type ?? "error",
+            warning: error.warning,
+            message: (error.parentSchema?._name ?? "Value") + " " + error.message,
+            path: prefix + (error.instancePath ?? ""),
+            name: error.parentSchema?._docs_name ?? "Value",
+            docs: error.parentSchema?._docs,
+            path_names,
+        };
     }
 }
 
