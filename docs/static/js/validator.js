@@ -497,20 +497,20 @@ class Validator
         const pathParts = path.split('/');
 
         const names = [];
-        for (const pathPart of pathParts) {
-          if (pathPart === '#' || pathPart === '') {
-            continue;
-          }
+        for (const pathPart of pathParts)
+        {
+            if (pathPart === '#' || pathPart === '')
+                continue;
       
-          data = data[pathPart];
+            data = data[pathPart];
+        
+            if (!data)
+                break;
       
-          if (!data) {
-            break;
-          }
-      
-          if (data.ty) {
-            names.push(data.nm);
-          }
+            // Every layer with a type may be named
+            // Push a null value if it doesn't exist so display code can handle
+            if (data.ty)
+                names.push(data.nm);
         }
       
         return names;
