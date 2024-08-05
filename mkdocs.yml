@@ -47,6 +47,8 @@ plugins:
         add_table_of_contents: false
         enumerate_headings_depth: 3
         exclude:
+          - editing/schema.md
+          - editing/extensions.md
           - governance/index.md
           - governance/Governance.md
           - governance/Community_Specification_License-v1.md
@@ -54,5 +56,4 @@ plugins:
           - governance/License.md
           - governance/Notices.md
           - governance/CONTRIBUTING.md
-          - editing/schema.md
-          - editing/extensions.md
+          - validator/index.md
