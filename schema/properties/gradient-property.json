@@ -9,6 +9,9 @@
             "type": "number"
         },
         "k": {
+            "type": "object",
+            "title": "Gradient stops",
+            "description": "Animatable vector representing the gradient stops",
             "oneOf": [
                 {
                     "$comment": "Not animated",

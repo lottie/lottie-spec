@@ -313,6 +313,9 @@ class SchemaObject(BlockProcessor):
             graph = inheritance.inheritance_graph(type)
             details.append(graph)
 
+        if not has_own_props and blocks and (block_to_html(self, blocks[0]) or "").startswith("<tr"):
+            has_own_props = True
+
         if has_own_props:
             table = etree.SubElement(div, "table")
             thead = etree.SubElement(etree.SubElement(table, "thead"), "tr")
@@ -327,6 +330,20 @@ class SchemaObject(BlockProcessor):
 
             for name, prop in prop_dict.items():
                 self.prop_row(name, prop, tbody)
+
+            # Append any trailing <tr> to the table
+            last_tr = -1
+            for i, block in enumerate(blocks):
+                if block == "":
+                    continue
+                next_html = block_to_html(self, block)
+                if not next_html or not next_html.startswith("<tr"):
+                    break
+                last_tr = i
+                tbody.append(etree_fromstring(next_html))
+
+            for i in range(last_tr + 1):
+                blocks.pop(0)
 
         return True
 
@@ -982,6 +999,14 @@ class LottieColor(InlineProcessor):
             code.text = "[%s]" % ", ".join("%.3g" % x for x in comp)
 
         return span, match.start(0), match.end(0)
+
+
+def block_to_html(block_processor, block):
+    match = HTML_PLACEHOLDER_RE.match(block)
+    if match:
+        index = int(match.group(1))
+        return block_processor.parser.md.htmlStash.rawHtmlBlocks[index]
+    return None
 
 
 def pop_script_block(block_processor, blocks):
