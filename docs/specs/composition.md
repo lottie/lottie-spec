@@ -12,11 +12,11 @@ The Lottie specification version number uses a semantic versioning system,
 tools implementing the specification SHOULD consider the following
 guidelines:
 
-* Major version signal the possibiliry of breaking changes that are not compatible
+* Major version signal the possibility of breaking changes that are not compatible
 with previous versions of the specification.
 * Minor version updates typically add new functionality but do not
 contain breaking changes for existing features.
-* Patch version updates typically make minor changes or clarifiactions to
+* Patch version updates typically make minor changes or clarifications to
 already existing functionality.
 
 #### Authoring Tools
@@ -29,7 +29,7 @@ major versions.
 
 #### Animation Players
 
-Players SHOULD determine what major versions they support and handle brekaing
+Players SHOULD determine what major versions they support and handle breaking
 changes across supported major versions. Players SHOULD be able to handle
 animations that specify both newer and older versions of the Lottie
 specification and SHOULD issue a warning if:
