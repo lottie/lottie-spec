@@ -80,6 +80,7 @@ An RFC in the Explainer stage captures a described problem or partially-consider
 An explainer does not need to meet any entrance criteria. An Explainer may be an issue or a pull request (though an illustrative pull request is preferable).
 
 #### Entrance criteria
+
 * A well defined problem or use case. 
 * Identification of potential concerns, challenges, and drawbacks.
 
