@@ -221,6 +221,15 @@ function custom_discriminator(propname, fail_unknown, default_value=undefined)
     return validate_fn;
 }
 
+function patch_schema_enum(schema)
+{
+    if ( "oneOf" in schema )
+    {
+        schema.enum_oneof = schema.oneOf;
+        delete schema.oneOf;
+    }
+}
+
 class Validator
 {
     constructor(AjvClass, schema_json)
@@ -257,6 +266,9 @@ class Validator
                 this._patch_property_schema(pschema, schema_id + "#/$defs/properties/" + pname);
         }
         this.defs.properties["base-keyframe"].keyframe = true;
+
+        for ( let enum_schema of Object.values(this.defs.constants) )
+            patch_schema_enum(enum_schema);
 
         this.defs.assets["all-assets"] = {
             "type": "object",
@@ -354,6 +366,24 @@ class Validator
 
                         return validate_keyframe.errors.length == 0;
                     }
+                },
+                {
+                    keyword: "enum_oneof",
+                    validate: function validate_enum(schema, data, parent_schema, data_cxt)
+                    {
+                        validate_enum.errors = [];
+                        for ( let value of schema )
+                            if ( value.const === data )
+                                return true;
+
+                        validate_enum.errors.push({
+                            message: `${data} is not a valid enumeration value`,
+                            type: "error",
+                            instancePath: data_cxt.instancePath,
+                            parentSchema: parent_schema,
+                        });
+                        return false;
+                    },
                 },
                 {
                     keyword: "warn_extra_props",
