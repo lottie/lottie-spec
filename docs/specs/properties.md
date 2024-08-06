@@ -190,12 +190,6 @@ Animatable {link:values/color}.
 Animatable {link:values/gradient}.
 
 {schema_object:properties/gradient-property}
-<tr><td>`a`</td><td>{link:values/int-boolean}</td><td>Animated</td><td>Whether the property is animated</td></tr>
-<tr><td>`k`</td>
-<td>{link:values/gradient} or `array`</td>
-<td>Value or Keyframes</td>
-<td>When it's not animated, `k` will contain the value directly. When animated, `k` will be an array of keyframes.</td>
-</tr>
 
 Color count is not animatable.
 
