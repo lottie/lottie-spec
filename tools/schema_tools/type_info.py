@@ -52,6 +52,9 @@ class Property(Type):
 
     def resolve_type(self, schema: Schema):
         if "oneOf" in schema:
+            local_type = schema.get("type", None)
+            if local_type is not None:
+                return local_type
             return [self.resolve_type(choice) for choice in schema / "oneOf"]
         if "$ref" in schema:
             return self.type_system.types[schema["$ref"]]
