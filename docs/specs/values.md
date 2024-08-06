@@ -90,7 +90,7 @@ It's the same array as the case without transparency but with the following valu
 | `1`       | Offset of the 3rd color (`1` means at the end) |
 | `1`       | Alpha component for the 3rd color |
 
-<h3>Gradient Example</h3>
+<h3 class="print-site-plugin-ignore">Gradient Example</h3>
 
 {editor_example:gradient}
 

@@ -28,6 +28,7 @@ appropriate [value](constants.md#matte-mode).
 The layer being masked is indicated by the `tp` attribute, which has the index (`ind`) of the layer that is being masked.
 
 In this example there's a layer with a rectangle and a star being masked by an ellipse:
+{: .print-site-plugin-ignore }
 
 
 <lottie-playground example="matte.json">
