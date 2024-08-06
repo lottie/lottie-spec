@@ -104,4 +104,4 @@ It's the same array as the case without transparency but with the following valu
 
 <h2 id="data-url">Data URL</h2>
 
-Data URLs are embedded files (such as images) as defined in [RFC2397](https://datatracker.ietf.org/doc/html/rfc2397).
+Data URLs are embedded files (such as images) as defined in [RFC2397].
