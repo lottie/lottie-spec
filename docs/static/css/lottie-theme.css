@@ -111,3 +111,7 @@ a:hover {
   text-decoration: none;
   background-color: #006a5f;
 }
+
+.container {
+  width: fit-content;
+}
