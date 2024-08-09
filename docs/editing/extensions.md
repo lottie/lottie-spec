@@ -293,6 +293,8 @@ Output:
 
 Shows an inline preview of a lottie gradient (with alpha).
 
+Alpha stop offsets need to match the color stop offsets.
+
 Example:
 
 ```
