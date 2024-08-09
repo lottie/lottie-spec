@@ -275,6 +275,12 @@ class Validator
             "asset_oneof": schema_id,
         };
 
+        for ( let layer_type of ["image-layer", "precomposition-layer"])
+        {
+            let layer_schema = this.defs.layers[layer_type];
+            layer_schema.allOf[1].properties.refId.reference_asset = true;
+        }
+
         prop_map.finalize();
 
         this.validator = new AjvClass({
@@ -380,6 +386,33 @@ class Validator
                             message: `${data} is not a valid enumeration value`,
                             type: "error",
                             instancePath: data_cxt.instancePath,
+                            parentSchema: parent_schema,
+                        });
+                        return false;
+                    },
+                },
+                {
+                    keyword: "reference_asset",
+                    validate: function validate_asset_reference(schema, data, parent_schema, data_ctx)
+                    {
+                        validate_asset_reference.errors = [];
+
+                        if ( Array.isArray(data_ctx.rootData.assets) )
+                        {
+                            for ( let asset of data_ctx.rootData.assets )
+                            {
+                                if ( asset.id === data )
+                                {
+                                    // TODO: Validate asset type?
+                                    return true;
+                                }
+                            }
+                        }
+
+                        validate_asset_reference.errors.push({
+                            message: `${JSON.stringify(data)} is not a valid asset id`,
+                            type: "error",
+                            instancePath: data_ctx.instancePath,
                             parentSchema: parent_schema,
                         });
                         return false;
