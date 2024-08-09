@@ -242,3 +242,63 @@ Output:
 Normal text with inline $\LaTeX$: $\frac{1}{x}$.
 
 $$\sum\limits_{i=1}^n{n\choose i}t^i(1-t)^{n-1}P_i$$
+
+
+### `lottie_color`
+
+Shows an inline preview of a lottie color array.
+
+Example:
+
+```
+{lottie_color:1, 0.5, 0}
+```
+
+Output:
+
+{lottie_color:1, 0.5, 0}
+
+
+### `lottie_hexcolor`
+
+Shows an inline preview of a color from hex code.
+
+Example:
+
+```
+{lottie_hexcolor:#FF8000}
+```
+
+Output:
+
+{lottie_hexcolor:#FF8000}
+
+
+### `lottie_gradient`
+
+Shows an inline preview of a lottie gradient (without alpha).
+
+Example:
+
+```
+{lottie_gradient:0, 0.16, 0.18, 0.46, 0.5, 0.2, 0.31, 0.69, 1, 0.77, 0.85, 0.96}
+```
+
+Output:
+
+{lottie_gradient:0, 0.16, 0.18, 0.46, 0.5, 0.2, 0.31, 0.69, 1, 0.77, 0.85, 0.96}
+
+
+### `lottie_gradient_alpha`
+
+Shows an inline preview of a lottie gradient (with alpha).
+
+Example:
+
+```
+{lottie_gradient_alpha:0, 0.16, 0.18, 0.46, 0.5, 0.2, 0.31, 0.69, 1, 0.77, 0.85, 0.96, 0, 0.8, 0.5, 0.2, 1, 1}
+```
+
+Output:
+
+{lottie_gradient_alpha:0, 0.16, 0.18, 0.46, 0.5, 0.2, 0.31, 0.69, 1, 0.77, 0.85, 0.96, 0, 0.8, 0.5, 0.2, 1, 1}
