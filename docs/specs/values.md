@@ -50,22 +50,22 @@ So let's say you want these colors:
 
 the array will look like the following:
 
-`[0, 0.16, 0.18, 0.46, 0.5, 0.2, 0.31, 0.69, 1, 0.77, 0.85, 0.96]`
+{lottie_gradient:0, 0.16, 0.18, 0.46, 0.5, 0.2, 0.31, 0.69, 1, 0.77, 0.85, 0.96}
 
 | Value     | Description |
 |-----------|---|
 | `0`       | Offset of the 1st color (`0` means at the start) |
-| `0.16`   | Red component for the 1st color |
-| `0.18`   | Green component for the 1st color |
-| `0.46`   | Blue component for the 1st color |
+| `0.16`    | Red component for the 1st color |
+| `0.18`    | Green component for the 1st color |
+| `0.46`    | Blue component for the 1st color |
 | `0.5`     | Offset of the 2nd color (`0.5` means half way) |
-| `0.2`   | Red component for the 2nd color |
-| `0.31`   | Green component for the 2nd color |
+| `0.2`     | Red component for the 2nd color |
+| `0.31`    | Green component for the 2nd color |
 | `0.69`    | Blue component for the 2nd color |
 | `1`       | Offset of the 3rd color (`1` means at the end) |
-| `0.77`   | Red component for the 3rd color |
-| `0.85`   | Green component for the 3rd color |
-| `0.96`   | Blue component for the 3rd color |
+| `0.77`    | Red component for the 3rd color |
+| `0.85`    | Green component for the 3rd color |
+| `0.96`    | Blue component for the 3rd color |
 
 <h3>Gradient with transparency</h3>
 
@@ -76,7 +76,7 @@ So assume the same colors as before, but opacity of 80% for the first color and 
 
 The array will look like this:
 
-`[0, 0.16, 0.18, 0.46, 0.5, 0.2, 0.31, 0.69, 1, 0.77, 0.85, 0.96, 0, 0.8, 0.5, 1, 1, 1]`
+{lottie_gradient_alpha:0, 0.16, 0.18, 0.46, 0.5, 0.2, 0.31, 0.69, 1, 0.77, 0.85, 0.96, 0, 0.8, 0.5, 0.2, 1, 1}
 
 It's the same array as the case without transparency but with the following values added at the end:
 
@@ -86,7 +86,7 @@ It's the same array as the case without transparency but with the following valu
 | `0`       | Offset of the 1st color (`0` means at the start) |
 | `0.8`     | Alpha component for the 1st color |
 | `0.5`     | Offset of the 2nd color (`0.5` means half way) |
-| `1`       | Alpha component for the 2nd color |
+| `0.2`     | Alpha component for the 2nd color |
 | `1`       | Offset of the 3rd color (`1` means at the end) |
 | `1`       | Alpha component for the 3rd color |
 

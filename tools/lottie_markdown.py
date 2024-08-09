@@ -980,7 +980,6 @@ class LottieColor(InlineProcessor):
 
     def handleMatch(self, match, data):
         span = etree.Element("span")
-        span.attrib["style"] = "font-family: right"
 
         if self.mult == -1:
             hex = match.group(1)
@@ -997,6 +996,62 @@ class LottieColor(InlineProcessor):
             code.text = hex
         else:
             code.text = "[%s]" % ", ".join("%.3g" % x for x in comp)
+
+        return span, match.start(0), match.end(0)
+
+
+class LottieGradient(InlineProcessor):
+    def __init__(self, pattern, md, alpha):
+        super().__init__(pattern, md)
+        self.alpha = alpha
+
+    def handleMatch(self, match, data):
+        span = etree.Element("span")
+
+        values = list(map(float, match.group(1).split(",")))
+
+        stops = []
+
+        if self.alpha:
+            n_colors = len(values) // 6
+            split = n_colors * 4
+            for i in range(n_colors):
+                color_i = i * 4
+                alpha_i = split + i * 2
+                stops.append([
+                    values[color_i],
+                    values[color_i + 1], values[color_i + 2], values[color_i + 3],
+                    values[alpha_i + 1]
+                ])
+        else:
+            n_colors = len(values) // 4
+            for i in range(n_colors):
+                color_i = i * 4
+                stops.append([
+                    values[color_i],
+                    values[color_i + 1], values[color_i + 2], values[color_i + 3],
+                    1
+                ])
+
+        css_grad = ",".join(
+            "rgba(%s, %s, %s, %s) %s%%" % (
+                v[1] * 255,
+                v[2] * 255,
+                v[3] * 255,
+                v[4],
+                v[0] * 100,
+            )
+            for v in stops
+        )
+
+        etree.SubElement(span, "code").text = "[%s]" % match.group(1)
+
+        alpha_bg = etree.SubElement(span, "div")
+        alpha_bg.attrib["class"] = "alpha-checkered"
+
+        color = etree.SubElement(alpha_bg, "div")
+        color.attrib["style"] = css_style(background="linear-gradient(90deg, %s)" % css_grad)
+        color.attrib["class"] = "gradient-preview"
 
         return span, match.start(0), match.end(0)
 
@@ -1146,6 +1201,8 @@ class LottieExtension(Extension):
         md.inlinePatterns.register(SchemaInheritance(md, ts), "schema_inheritance", 175)
         md.inlinePatterns.register(BCP14(md), "bcp14", 175)
         md.inlinePatterns.register(RfcLink(md), "rfc", 175)
+        md.inlinePatterns.register(LottieGradient(r'{lottie_gradient:((?:[^,]+\s*,?\s*)+)}', md, False), 'lottie_gradient', 175)
+        md.inlinePatterns.register(LottieGradient(r'{lottie_gradient_alpha:((?:[^,]+\s*,?\s*)+)}', md, True), 'lottie_gradient_alpha', 175)
 
         md.parser.blockprocessors.register(
             RawHTML(
