@@ -60,10 +60,9 @@ Assuming a transform matrix with the following layout, with the labels equivalen
 
 $$
 \begin{pmatrix}
-a & b & 0 & 0 \\
-c & d & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-tx & ty & 0 & 1
+a & b & 0 \\
+c & d & 0 \\
+e & f & 1
 \end{pmatrix}
 $$
 
@@ -73,65 +72,58 @@ $$
 \begin{split}
 &
 \begin{pmatrix}
-1 & 0 & 0 & 0 \\
-0 & 1 & 0 & 0 \\
-0 & 0 & 1 & 0 \\
--a.x & -a.y & 0 & 1
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+-a.x & -a.y & 1
 \end{pmatrix}
 
 \times
 
 \begin{pmatrix}
-\frac{s.x}{100} & 0 & 0 & 0 \\
-0 & \frac{s.y}{100} & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
+\frac{s.x}{100} & 0 & 0 \\
+0 & \frac{s.y}{100} & 0 \\
+0 & 0 & 1
 \end{pmatrix}
 
 
 \times \\ \times &
 
 \begin{pmatrix}
-\cos(-sa) & \sin(-sa) & 0 & 0 \\
--\sin(-sa) & \cos(-sa) & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
+\cos(-sa) & \sin(-sa) & 0 \\
+-\sin(-sa) & \cos(-sa)& 0 \\
+0 & 0 & 1
 \end{pmatrix}
 
 \times
 
 \begin{pmatrix}
-1 & \tan(-sk) & 0 & 0 \\
-0 & 1 & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
+1 & \tan(-sk) & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
 \end{pmatrix}
 
 \times
 
 \begin{pmatrix}
-\cos(sa) & \sin(sa) & 0 & 0 \\
--\sin(sa) & \cos(sa) & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
+\cos(sa) & \sin(sa) & 0 \\
+-\sin(sa) & \cos(sa) & 0 \\
+0 & 0 & 1
 \end{pmatrix}
 
 \times \\ \times &
 
 \begin{pmatrix}
-\cos(-r) & \sin(-r) & 0 & 0 \\
--\sin(-r) & \cos(-r) & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
+\cos(-r) & \sin(-r) & 0 \\
+-\sin(-r) & \cos(-r) & 0 \\
+0 & 0 & 1
 \end{pmatrix}
 
 \times
 
 \begin{pmatrix}
-1 & 0 & 0 & 0 \\
-0 & 1 & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-p.x & p.y & 0 & 1
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+p.x & p.y & 1
 \end{pmatrix}
 \end{split}
 $$
