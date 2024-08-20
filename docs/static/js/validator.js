@@ -230,6 +230,11 @@ function patch_schema_enum(schema)
     }
 }
 
+function keyframe_has_t(kf)
+{
+    return typeof kf == "object" && typeof kf.t == "number";
+}
+
 class Validator
 {
     constructor(AjvClass, schema_json)
@@ -359,14 +364,30 @@ class Validator
                         if ( index > 0 )
                         {
                             var prev_kf = data_cxt.parentData[index-1];
-                            if ( typeof prev_kf == "object" && typeof prev_kf.t == "number" && typeof data.t == "number" && data.t <= prev_kf.t )
+                            if ( keyframe_has_t(prev_kf) && typeof data.t == "number" )
                             {
-                                validate_keyframe.errors.push({
-                                    message: `keyframe 't' must be strictly increasing`,
-                                    type: "error",
-                                    instancePath: data_cxt.instancePath,
-                                    parentSchema: parent_schema,
-                                });
+                                if ( data.t < prev_kf.t )
+                                {
+                                    validate_keyframe.errors.push({
+                                        message: `keyframe 't' must be in ascending order`,
+                                        type: "error",
+                                        instancePath: data_cxt.instancePath,
+                                        parentSchema: parent_schema,
+                                    });
+                                }
+                                else if ( data.t == prev_kf.t && index > 1 )
+                                {
+                                    var prev_prev = data_cxt.parentData[index-2];
+                                    if ( keyframe_has_t(prev_prev) && data.t == prev_prev.t )
+                                    {
+                                        validate_keyframe.errors.push({
+                                            message: `there can be at most 2 keyframes with the same 't' value`,
+                                            type: "error",
+                                            instancePath: data_cxt.instancePath,
+                                            parentSchema: parent_schema,
+                                        });
+                                    }
+                                }
                             }
                         }
 
