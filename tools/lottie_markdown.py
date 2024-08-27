@@ -1,8 +1,6 @@
 import re
+import sys
 import json
-import inspect
-import dataclasses
-from typing import Any
 from pathlib import Path
 import xml.etree.ElementTree as etree
 
@@ -10,7 +8,6 @@ import graphviz
 from markdown.extensions import Extension
 from markdown.inlinepatterns import InlineProcessor
 from markdown.blockprocessors import BlockProcessor
-from markdown.preprocessors import Preprocessor
 from markdown.util import HTML_PLACEHOLDER_RE, AtomicString
 from mkdocs.utils import get_relative_url
 
@@ -157,7 +154,7 @@ class JsonHtmlSerializer:
             raise TypeError(json_object)
 
     def encode_item(self, json_object, hljs_type, href=None):
-        span = etree.Element("span", {"class": "hljs-"+hljs_type})
+        span = etree.Element("span", {"class": "hljs-" + hljs_type})
         span.text = self.encoder.encode(json_object)
 
         if href:
@@ -270,7 +267,6 @@ class SchemaObject(BlockProcessor):
     Object property table
     """
     re_fence_start = re.compile(r'^\s*\{schema_object:([^}]+)\}\s*(?:\n|$)')
-    re_row = re.compile(r'^\s*(\w+)\s*:\s*(.*)')
 
     def __init__(self, md, schema_data: type_info.TypeSystem):
         super().__init__(md.parser)
@@ -304,7 +300,7 @@ class SchemaObject(BlockProcessor):
 
         prop_dict = type.all_properties()
 
-        rows = blocks.pop(0)
+        blocks.pop(0)
 
         div = etree.SubElement(parent, "div")
 
@@ -316,6 +312,9 @@ class SchemaObject(BlockProcessor):
             etree.SubElement(details, "summary").text = "Composition Diagram for %s" % type.title
             graph = inheritance.inheritance_graph(type)
             details.append(graph)
+
+        if not has_own_props and blocks and (block_to_html(self, blocks[0]) or "").startswith("<tr"):
+            has_own_props = True
 
         if has_own_props:
             table = etree.SubElement(div, "table")
@@ -331,6 +330,20 @@ class SchemaObject(BlockProcessor):
 
             for name, prop in prop_dict.items():
                 self.prop_row(name, prop, tbody)
+
+            # Append any trailing <tr> to the table
+            last_tr = -1
+            for i, block in enumerate(blocks):
+                if block == "":
+                    continue
+                next_html = block_to_html(self, block)
+                if not next_html or not next_html.startswith("<tr"):
+                    break
+                last_tr = i
+                tbody.append(etree_fromstring(next_html))
+
+            for i in range(last_tr + 1):
+                blocks.pop(0)
 
         return True
 
@@ -364,7 +377,7 @@ class SchemaInheritance(InlineProcessor):
     def graph_to_etree(self, graph):
         svg = graph.pipe(encoding='utf-8', format="svg")
         pos = svg.find("<svg")
-        return etree.fromstring(
+        return etree_fromstring(
             svg[pos:]
             .replace("xlink:", "")
             .replace("xmlns=", "_xmlns=")
@@ -507,6 +520,14 @@ class SubTypeTable(InlineProcessor):
         return table, match.start(0), match.end(0)
 
 
+def etree_fromstring(raw_string):
+    try:
+        return etree.fromstring(raw_string)
+    except Exception:
+        sys.stderr.write(raw_string + "\n")
+        raise
+
+
 class RawHTML(BlockProcessor):
     """
     Needlessly complex workaround to allow HTML-style headings `<h1>foo</h1>`
@@ -527,7 +548,7 @@ class RawHTML(BlockProcessor):
         raw_string = self.parser.md.htmlStash.rawHtmlBlocks[index]
         if not raw_string:
             return False
-        element = etree.fromstring(raw_string)
+        element = etree_fromstring(raw_string)
 
         if element.tag not in self.tag_names:
             return False
@@ -691,7 +712,7 @@ class LottieBlock(BlockProcessor):
 
     def run(self, parent, blocks):
         raw_string = blocks.pop(0)
-        md_element = etree.fromstring(raw_string)
+        md_element = etree_fromstring(raw_string)
         filename = md_element.attrib.pop("src")
         width = md_element.attrib.pop("width", None)
         height = md_element.attrib.pop("height", None)
@@ -718,7 +739,7 @@ class LottiePlaygroundBuilder:
         self.schema_data = schema_data
 
         self.element = etree.SubElement(parent, "div")
-        self.element.attrib["class"] = "playground"
+        self.element.attrib["class"] = "playground print-site-plugin-ignore"
 
         self.renderer = LottieRenderer(
             parent=self.element, width=width, height=height,
@@ -768,7 +789,7 @@ class LottiePlaygroundBuilder:
             default_value = input.attrib.get("value", "")
 
             input = input_wrapper = etree.Element("select")
-            for value in self.schema_data.from_path("constants/"+enum_id).values:
+            for value in self.schema_data.from_path("constants/" + enum_id).values:
                 option = etree.SubElement(input, "option", {"value": str(value.value)})
                 option.text = value.title
                 if str(value.value) == default_value:
@@ -803,7 +824,6 @@ class LottiePlaygroundBuilder:
             );
             """.format(
                 pg=input_wrapper.attrib["id"],
-                id=id_base,
                 initial=input.attrib.get("value", "null"),
                 anim_id=self.anim_id,
             )
@@ -847,11 +867,12 @@ class LottiePlayground(BlockProcessor):
 
     def run(self, parent, blocks):
         raw_string = blocks.pop(0)
-        md_element: etree.Element = etree.fromstring(raw_string)
+        md_element: etree.Element = etree_fromstring(raw_string)
 
         md_title = md_element.find("./title")
         if md_title is not None:
             md_title.tag = "p"
+            md_title.attrib["class"] = "print-site-plugin-ignore"
             parent.append(md_title)
 
         width = md_element.attrib.pop("width", None)
@@ -861,7 +882,7 @@ class LottiePlayground(BlockProcessor):
         builder = LottiePlaygroundBuilder(parent, self.schema_data, width=width, height=height, buttons=buttons)
 
         md_form = md_element.find("./form")
-        if md_form:
+        if md_form is not None:
             for input in md_form:
                 if not input.attrib.get("title", ""):
                     input.attrib["title"] = input.attrib["name"]
@@ -959,7 +980,6 @@ class LottieColor(InlineProcessor):
 
     def handleMatch(self, match, data):
         span = etree.Element("span")
-        span.attrib["style"] = "font-family: right"
 
         if self.mult == -1:
             hex = match.group(1)
@@ -980,6 +1000,70 @@ class LottieColor(InlineProcessor):
         return span, match.start(0), match.end(0)
 
 
+class LottieGradient(InlineProcessor):
+    def __init__(self, pattern, md, alpha):
+        super().__init__(pattern, md)
+        self.alpha = alpha
+
+    def handleMatch(self, match, data):
+        span = etree.Element("span")
+
+        values = list(map(float, match.group(1).split(",")))
+
+        stops = []
+
+        if self.alpha:
+            n_colors = len(values) // 6
+            split = n_colors * 4
+            for i in range(n_colors):
+                color_i = i * 4
+                alpha_i = split + i * 2
+                stops.append([
+                    values[color_i],
+                    values[color_i + 1], values[color_i + 2], values[color_i + 3],
+                    values[alpha_i + 1]
+                ])
+        else:
+            n_colors = len(values) // 4
+            for i in range(n_colors):
+                color_i = i * 4
+                stops.append([
+                    values[color_i],
+                    values[color_i + 1], values[color_i + 2], values[color_i + 3],
+                    1
+                ])
+
+        css_grad = ",".join(
+            "rgba(%s, %s, %s, %s) %s%%" % (
+                v[1] * 255,
+                v[2] * 255,
+                v[3] * 255,
+                v[4],
+                v[0] * 100,
+            )
+            for v in stops
+        )
+
+        etree.SubElement(span, "code").text = "[%s]" % match.group(1)
+
+        alpha_bg = etree.SubElement(span, "div")
+        alpha_bg.attrib["class"] = "alpha-checkered"
+
+        color = etree.SubElement(alpha_bg, "div")
+        color.attrib["style"] = css_style(background="linear-gradient(90deg, %s)" % css_grad)
+        color.attrib["class"] = "gradient-preview"
+
+        return span, match.start(0), match.end(0)
+
+
+def block_to_html(block_processor, block):
+    match = HTML_PLACEHOLDER_RE.match(block)
+    if match:
+        index = int(match.group(1))
+        return block_processor.parser.md.htmlStash.rawHtmlBlocks[index]
+    return None
+
+
 def pop_script_block(block_processor, blocks):
     script_match = HTML_PLACEHOLDER_RE.match(blocks[0])
     if script_match:
@@ -992,7 +1076,7 @@ def pop_script_block(block_processor, blocks):
             lines = raw_string.strip().split("\n")
             source = "\n".join(lines[1:-1])
 
-            script_element = etree.fromstring(lines[0] + lines[-1])
+            script_element = etree_fromstring(lines[0] + lines[-1])
             script_element.text = source
             block_processor.parser.md.htmlStash.rawHtmlBlocks.pop(index)
             block_processor.parser.md.htmlStash.rawHtmlBlocks.insert(index, '')
@@ -1028,9 +1112,9 @@ class EditorExample(BlockProcessor):
         if extra:
             extra = "{" + extra + "}"
 
-        element = etree.SubElement(parent, "div", {"class": "playground playground-columns"})
+        element = etree.SubElement(parent, "div", {"class": "playground playground-columns print-site-plugin-ignore"})
 
-        editor = etree.SubElement(element, "div", {"id": "editor_" + id_base})
+        etree.SubElement(element, "div", {"id": "editor_" + id_base})
 
         json_viewer = "json_viewer_%s" % id_base
         json_viewer_parent = json_viewer + "_parent"
@@ -1113,9 +1197,12 @@ class LottieExtension(Extension):
         md.inlinePatterns.register(DocsLink(md, ts), "docs_link", 175)
         md.inlinePatterns.register(SubTypeTable(md, ts), "schema_subtype_table", 175)
         md.inlinePatterns.register(LottieColor(r'{lottie_color:(([^,]+),\s*([^,]+),\s*([^,]+))}', md, 1), 'lottie_color', 175)
+        md.inlinePatterns.register(LottieColor(r'{lottie_hexcolor:\s*(#([a-fA-F0-9]{6}|[a-fA-F0-9]{3}))}', md, -1), 'lottie_hexcolor', 175)
         md.inlinePatterns.register(SchemaInheritance(md, ts), "schema_inheritance", 175)
         md.inlinePatterns.register(BCP14(md), "bcp14", 175)
         md.inlinePatterns.register(RfcLink(md), "rfc", 175)
+        md.inlinePatterns.register(LottieGradient(r'{lottie_gradient:((?:[^,]+\s*,?\s*)+)}', md, False), 'lottie_gradient', 175)
+        md.inlinePatterns.register(LottieGradient(r'{lottie_gradient_alpha:((?:[^,]+\s*,?\s*)+)}', md, True), 'lottie_gradient_alpha', 175)
 
         md.parser.blockprocessors.register(
             RawHTML(

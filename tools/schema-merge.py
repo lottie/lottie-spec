@@ -4,6 +4,9 @@ import json
 import pathlib
 import argparse
 
+from schema_tools.schema import SchemaPath, Schema
+from schema_tools import type_info
+
 
 def join_parts(
     json_data: dict,
@@ -29,6 +32,20 @@ def join_parts(
     json_data["$defs"] = defs
 
     return json_data
+
+
+def add_vals_to_unknown_object(
+    objects,
+    unknown_type_dict: dict
+):
+    types = []
+
+    for ele in objects.concrete:
+        type = ele.properties['ty'].const
+        if type is not None:
+            types.append(type)
+
+    unknown_type_dict["properties"]["ty"]["not"]["enum"] = types
 
 
 root = pathlib.Path(__file__).absolute().parent.parent
@@ -62,6 +79,18 @@ with open(root_path) as file:
     json_data = json.load(file)
 
 join_parts(json_data, input_dir, root_path)
+
+schema = Schema(json_data)
+ts = type_info.TypeSystem(schema)
+
+add_vals_to_unknown_object(
+    ts.from_path(SchemaPath("#/$defs/layers/all-layers")),
+    json_data["$defs"]["layers"]["unknown-layer"]
+)
+add_vals_to_unknown_object(
+    ts.from_path(SchemaPath("#/$defs/shapes/all-graphic-elements")),
+    json_data["$defs"]["shapes"]["unknown-shape"]
+)
 
 os.makedirs(output_path.parent, exist_ok=True)
 

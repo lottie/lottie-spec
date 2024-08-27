@@ -1,0 +1,24 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Splittable Position Property",
+    "description": "An animatable position where position values may be defined and animated separately.",
+    "oneOf": [
+        {
+            "$comment": "Grouped XY position coordinates",
+            "$ref": "#/$defs/properties/position-property",
+            "properties": {
+                "s": {
+                    "title": "Split",
+                    "description": "Whether the position has split values",
+                    "type": "boolean",
+                    "const": false
+                }
+            }
+        },
+        {
+            "$comment": "Split XY position coordinates",
+            "$ref": "#/$defs/properties/split-position"
+        }
+    ]
+}

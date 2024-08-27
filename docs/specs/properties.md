@@ -15,8 +15,15 @@ Their structure depends on whether it's animated or not:
 
 {schema_object:properties/base-keyframe}
 
-If `h` is present and it's 1, you don't need `i` and `o`, as the property will keep the same value
-until the next keyframe.
+Keyframe arrays MUST be stored in order of strictly ascending `t` frame number. Two keyframes cannot have the same `t` value.
+
+All keyframes MUST have an `i` and `o` value, unless-
+
+* It is the last keyframe in the sequence OR
+* `h` is present and it's 1, as the property will keep the same value until the
+next keyframe.
+
+If the first keyframe occurs after the start of the animation, the initial property value will be from the first keyframe. Similarly if the last keyframe is before the end of the animation, the last keyframe value will be held until the end.
 
 <h3 id="easing-handle">Keyframe Easing</h3>
 
@@ -36,6 +43,10 @@ a value of 1 is the time of the next keyframe.
 The `y` axis represents the value interpolation factor, a value of 0
 represents the value at the current keyframe, a value of 1 represents the
 value at the next keyframe.
+
+Unlike `x` values, `y` values are not clamped to `[0 .. 1]`.  Supernormal `y`
+values allow the interpolated value to overshoot (extrapolate) beyond the
+specified keyframe values range.
 
 When you use easing you have two easing handles for the keyframe:
 
@@ -65,8 +76,9 @@ For easing in and out, you move the `x` towards the center, this makes the anima
 }
 ```
 
-<h4>Easing example</h4>
+<h4 class="print-site-plugin-ignore">Easing example</h4>
 In the following example, the ball moves left and right, on the background you can see and edit a representation of its easing function.
+{: .print-site-plugin-ignore }
 
 {editor_example:easing}
 
@@ -79,6 +91,12 @@ In the following example, the ball moves left and right, on the background you c
 Animatable {link:values/vector}.
 
 {schema_object:properties/vector-property}
+<tr><td>`a`</td><td>{link:values/int-boolean}</td><td>Animated</td><td>Whether the property is animated</td></tr>
+<tr><td>`k`</td>
+<td>{link:values/vector} or `array`</td>
+<td>Value or Keyframes</td>
+<td>When it's not animated, `k` will contain the value directly. When animated, `k` will be an array of keyframes.</td>
+</tr>
 
 
 <h4 id="vector-keyframe">Vector Keyframe</h4>
@@ -96,6 +114,12 @@ Note that when animated it uses {link:properties/vector-keyframe:Vector Keyframe
 so instead of scalars keyframes have arrays with a single values.
 
 {schema_object:properties/scalar-property}
+<tr><td>`a`</td><td>{link:values/int-boolean}</td><td>Animated</td><td>Whether the property is animated</td></tr>
+<tr><td>`k`</td>
+<td>`number` or `array`</td>
+<td>Value or Keyframes</td>
+<td>When it's not animated, `k` will contain the value directly. When animated, `k` will be an array of keyframes.</td>
+</tr>
 
 
 <h3 id="position-property">Position</h3>
@@ -103,6 +127,12 @@ so instead of scalars keyframes have arrays with a single values.
 Animatable 2D {link:values/vector} with optional spatial tangents.
 
 {schema_object:properties/position-property}
+<tr><td>`a`</td><td>{link:values/int-boolean}</td><td>Animated</td><td>Whether the property is animated</td></tr>
+<tr><td>`k`</td>
+<td>{link:values/vector} or `array`</td>
+<td>Value or Keyframes</td>
+<td>When it's not animated, `k` will contain the value directly. When animated, `k` will be an array of keyframes.</td>
+</tr>
 
 
 <h4 id="position-keyframe">Position Keyframe</h4>
@@ -111,12 +141,24 @@ Animatable 2D {link:values/vector} with optional spatial tangents.
 
 {schema_object:properties/position-keyframe}
 
+<div id="split-position"></div>
+<h4 id="splittable-position-property">Split Position</h4>
+
+{schema_string:properties/splittable-position-property/description}
+
+{schema_object:properties/split-position}
 
 <h3 id="bezier-property">Bezier Shape</h3>
 
 Animatable {link:values/bezier}.
 
 {schema_object:properties/bezier-property}
+<tr><td>`a`</td><td>{link:values/int-boolean}</td><td>Animated</td><td>Whether the property is animated</td></tr>
+<tr><td>`k`</td>
+<td>{link:values/bezier} or `array`</td>
+<td>Value or Keyframes</td>
+<td>When it's not animated, `k` will contain the value directly. When animated, `k` will be an array of keyframes.</td>
+</tr>
 
 
 <h4 id="bezier-keyframe">Bezier Shape Keyframe</h4>
@@ -130,6 +172,12 @@ Animatable {link:values/bezier}.
 Animatable {link:values/color}.
 
 {schema_object:properties/color-property}
+<tr><td>`a`</td><td>{link:values/int-boolean}</td><td>Animated</td><td>Whether the property is animated</td></tr>
+<tr><td>`k`</td>
+<td>{link:values/color} or `array`</td>
+<td>Value or Keyframes</td>
+<td>When it's not animated, `k` will contain the value directly. When animated, `k` will be an array of keyframes.</td>
+</tr>
 
 
 <h4 id="color-keyframe">Color Keyframe</h4>
@@ -137,3 +185,23 @@ Animatable {link:values/color}.
 {schema_string:properties/color-keyframe/description}
 
 {schema_object:properties/color-keyframe}
+
+<h3 id="gradient-property">Gradient</h3>
+
+Animatable {link:values/gradient}.
+
+{schema_object:properties/gradient-property}
+<tr><td>`k.a`</td><td>{link:values/int-boolean}</td><td>Animated</td><td>Whether the property is animated</td></tr>
+<tr><td>`k.k`</td>
+<td>{link:values/gradient} or `array`</td>
+<td>Value or Keyframes</td>
+<td>When it's not animated, `k` will contain the value directly. When animated, `k` will be an array of keyframes.</td>
+</tr>
+
+Color count is not animatable.
+
+<h4 id="gradient-keyframe">Gradient Keyframe</h4>
+
+{schema_string:properties/gradient-keyframe/description}
+
+{schema_object:properties/gradient-keyframe}

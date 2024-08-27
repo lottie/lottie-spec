@@ -4,17 +4,14 @@
     "title": "Asset",
     "allOf": [
         {
+            "$ref": "#/$defs/helpers/visual-object"
+        },
+        {
             "type": "object",
             "properties": {
                 "id": {
                     "title": "ID",
                     "description": "Unique identifier used by layers when referencing this asset",
-                    "type": "string",
-                    "default": ""
-                },
-                "nm": {
-                    "title": "Name",
-                    "description": "Human readable name",
                     "type": "string"
                 }
             },

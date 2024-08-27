@@ -2,7 +2,8 @@
 
 This repository contains the specification text as well as Pull Requests with suggested improvements and contributions.
 
-When proposing or weighing-in on any issue or pull request, consider the [Code of Conduct](https://github.com/lottie/lottie-spec/blob/main/8._Code_of_Conduct.md) to better understand expected and unacceptable behavior.
+When proposing or weighing-in on any issue or pull request, consider the [Code of Conduct](Code_of_Conduct.md) to better understand expected and unacceptable behavior.
+
 
 ## Workflow
 
@@ -79,6 +80,7 @@ An RFC in the Explainer stage captures a described problem or partially-consider
 An explainer does not need to meet any entrance criteria. An Explainer may be an issue or a pull request (though an illustrative pull request is preferable).
 
 #### Entrance criteria
+
 * A well defined problem or use case. 
 * Identification of potential concerns, challenges, and drawbacks.
 
@@ -161,3 +163,53 @@ Should a new addition be made to the Lottie specifications or a Lottie library f
 Libraries seek to be compliant, which means they might discourage changes that cause them to behave differently from the specifications. However, they also encourage pull requests for changes that accompany an RFC _Proposal_ or _Draft_. Proposals won't be _Accepted_ until it has experience being implemented in a Lottie library.
 
 To allow a library to remain compliant to the specifications while also implementing _Proposals_ and _Drafts_, the library's maintainers may request that these new features are disabled by default with opt-in options, or they may simply wait to merge a well-tested pull request until the Proposal is _Accepted_.
+
+
+## Specification Release Process
+
+The file format specifications are published using a semantic versioning system.
+
+Each published version of the specifications is identified by a unique sequence of major, minor, and patch numbers, following these guidelines:
+
+* Increasing the major version number signals the possibility of breaking changes and significant incompatibilities.
+* Increasing the minor version number happens when new features are introduced, but existing features should not be changed in an incompatible way.
+* The patch version is used to publish minor changes that improve the clarity of the specifications without introducing new functionality.
+
+Each version through a release process consisting of multiple stages to ensure all stakeholders have a say before a new version of the specification is published.
+
+Different versions of the specification might be in different release stages at any given time.
+
+### Active Development
+
+This is the initial stage, new features and proposals are welcome.
+
+Whether or not backwards-incompatible changes are accepted depends on the target version as described above.
+
+
+### Requesting Comments
+
+Once the LAC working group has reached a consensus that the specification is ready to start the publishing process,
+it will request comments on the draft specification from stakeholders.
+
+New features and changed can be introduced based on the feedback but most new contributions should target a following version.
+
+When the target version is an increase in the major version, LAC guarantees that this stage will last a minimum of 3 weeks before moving forward to the next stage.
+
+
+### Feature freeze
+
+After all the comments have been addressed and accepted into the specifications, the draft version goes into feature freeze
+where no new features should be introduced. The LAC working group will still accept fixes that clarify ambiguities, correct mistakes, or otherwise
+don't change compliance requirements.
+
+When the target version is an increase in the major version, LAC guarantees that this stage will last a minimum of one week before publishing the specifications.
+
+### Published
+
+When the LAC working group is confident no more work is needed to release a version of the specifications, a final vote is performed to approve
+the specifications for publishing.
+
+If consensus is reached, then the version is published and can no longer be changed in any way.
+Any further work should target a higher version number. Errata should be published as a new version of the specifications with increased patch number.
+
+If consensus is not reached, the version goes back to the *Active Development* stage.

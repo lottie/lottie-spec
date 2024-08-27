@@ -3,6 +3,11 @@
     "type": "object",
     "title": "Scalar Property",
     "description": "An animatable property that holds a float",
+    "allOf": [
+        {
+            "$ref": "#/$defs/helpers/slottable-property"
+        }
+    ],
     "oneOf": [
         {
             "$comment": "Not animated",
@@ -14,7 +19,8 @@
                     "const": 0
                 },
                 "k": {
-                    "title": "Static value",
+                    "title": "Value",
+                    "description": "Static Value",
                     "type": "number"
                 }
             }
@@ -38,6 +44,5 @@
                 }
             }
         }
-    ],
-    "required": ["a", "k"]
+    ]
 }

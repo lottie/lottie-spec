@@ -5,10 +5,19 @@
             "$ref": "#/$defs/layers/precomposition-layer"
         },
         {
+            "$ref": "#/$defs/layers/image-layer"
+        },
+        {
             "$ref": "#/$defs/layers/null-layer"
         },
         {
+            "$ref": "#/$defs/layers/solid-layer"
+        },
+        {
             "$ref": "#/$defs/layers/shape-layer"
+        },
+        {
+            "$ref": "#/$defs/layers/unknown-layer"
         }
     ]
 }

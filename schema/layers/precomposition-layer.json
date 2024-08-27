@@ -30,6 +30,21 @@
                     "title": "Height",
                     "description": "Height of the clipping rect",
                     "type": "integer"
+                },
+                "sr": {
+                    "title": "Time Stretch",
+                    "type": "number",
+                    "default": 1
+                },
+                "st": {
+                    "title": "Start Time",
+                    "type": "number",
+                    "default": 0
+                },
+                "tm": {
+                    "title": "Time Remap",
+                    "description": "Timeline remap function (frame index -> time in seconds)",
+                    "$ref": "#/$defs/properties/scalar-property"
                 }
             },
             "required": [

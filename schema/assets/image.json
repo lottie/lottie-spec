@@ -1,0 +1,65 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Image",
+    "description": "Asset containing an image that can be referenced by layers.",
+    "allOf": [
+        {
+            "$ref": "#/$defs/assets/asset"
+        },
+        {
+            "$ref": "#/$defs/helpers/slottable-object"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "w": {
+                    "title": "Width",
+                    "description": "Width of the image",
+                    "type": "number"
+                },
+                "h": {
+                    "title": "Height",
+                    "description": "Height of the image",
+                    "type": "number"
+                },
+                "p": {
+                    "title": "File Name",
+                    "description": "Name of the image file or a data url",
+                    "type": "string"
+                },
+                "u": {
+                    "title": "File Path",
+                    "description": "Path to the image file",
+                    "type": "string"
+                },
+                "e": {
+                    "title": "Embedded",
+                    "description": "If '1', 'p' is a Data URL",
+                    "$ref": "#/$defs/values/int-boolean"
+                }
+            },
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "e": {"const": 1}
+                        },
+                        "required": ["e"]
+                    },
+                    "then": {
+                        "properties": {
+                            "p": {"$ref": "#/$defs/values/data-url"}
+                        }
+                    }
+                }
+            ],
+            "if": {
+                "required": ["sid"]
+            },
+            "else": {
+                "required": ["w", "h", "p"]
+            }
+        }
+    ]
+}
