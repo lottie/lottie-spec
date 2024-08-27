@@ -44,7 +44,7 @@ The anchor point is highlighted with an orange dot.
 
 Transforms the parent's coordinate system.
 
-When calculating a transform matrix, properties SHOULD be applied as follows:
+When calculating the final transform, properties MUST be applied as follows:
 
 1. Translate by $-a$
 1. Scale by $\frac{s}{100}$
@@ -55,8 +55,10 @@ When calculating a transform matrix, properties SHOULD be applied as follows:
 1. Rotate by $-r$
 1. Translate by $p$
 
+Steps that have no effect MAY be skipped.
+
 Assuming a transform matrix with the following layout, with the labels equivalent to the
-[CSS matrix transform](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/matrix):
+[CSS matrix transform](https://drafts.csswg.org/css-transforms/#MatrixDefined):
 
 $$
 \begin{pmatrix}
@@ -66,7 +68,7 @@ e & f & 1
 \end{pmatrix}
 $$
 
-The final transform is given by:
+The final transform is given by chaining transform matrices for each transform step:
 
 $$
 \begin{split}
@@ -127,6 +129,18 @@ p.x & p.y & 1
 \end{pmatrix}
 \end{split}
 $$
+
+Note that if the transform matrix is transposed compared to the above:
+
+$$
+\begin{pmatrix}
+a & c & e \\
+b & d & f \\
+0 & 0 & 1
+\end{pmatrix}
+$$
+
+The operations need to be chained using right multiplication instead of left multiplication.
 
 <h2 id="visual-object">Visual Object</h2>
 
