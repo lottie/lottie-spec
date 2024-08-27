@@ -4,6 +4,8 @@ local coordinates
 :   The local coordinate system is the coordinate system of the current
     group or layer, with the X coordinate increasing towards the right
     and the Y coordinate increasing towards the bottom.
+    Without any transforms, the point $(0, 0)$ corresponds with the top-left
+    corner of the viewport.
 render stack
 :   A render stack is a list if rendering primitive to be drawn in inverse
     stack order. A render stack can contain child stacks.
