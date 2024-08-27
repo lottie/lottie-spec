@@ -27,7 +27,7 @@ useful for applying the same transform animation to a group of layers).
 When the `parent` property points to another layer, the referencing layer's current transformation
 matrix (CTM) is composed with the parent CTM:
 
-$$CTM(child) = Transform(child) \times CTM(parent)$$
+$$CTM(child) = CTM(parent) \times Transform(child)$$
 
 Parenting is transitive, and reference cycles are not allowed (undefined behavior).
 
