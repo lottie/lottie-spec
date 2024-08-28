@@ -304,3 +304,18 @@ Example:
 Output:
 
 {lottie_gradient_alpha:0, 0.16, 0.18, 0.46, 0.5, 0.2, 0.31, 0.69, 1, 0.77, 0.85, 0.96, 0, 0.8, 0.5, 0.2, 1, 1}
+
+
+### Glossary Terms
+
+Glossary terms can be linked to using Mediawiki-style syntax:
+
+Example:
+
+```
+[[local coordinates]] or [[local coordinates|coordinate system]]
+```
+
+Output:
+
+[[local coordinates]] or [[local coordinates|coordinate system]]

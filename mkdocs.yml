@@ -14,6 +14,8 @@ markdown_extensions:
     - attr_list
     - lottie_markdown
     - latex_markdown
+    - def_list
+    - toc_deflist
 extra_css:
     # - /lottie-spec/style/style.css
     # - /lottie-spec/style/lottie-theme.css
@@ -28,6 +30,7 @@ nav:
         - specs/assets.md
         - specs/constants.md
         - specs/helpers.md
+        - specs/glossary.md
         #
         - specs/schema.md
         - validator/index.md
