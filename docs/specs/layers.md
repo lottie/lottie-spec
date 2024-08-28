@@ -18,6 +18,33 @@ The `ty` property defines the specific layer type based on the following values:
 
 {schema_object:layers/visual-layer}
 
+#### Parenting
+
+Layer parenting offers a way to connect layers such that the movement of one layer (child) follows
+the movement of another (parent). Multiple child layers can reference the same parent (this is
+useful for applying the same transform animation to a group of layers).
+
+When the `parent` property points to another layer, the referencing layer's current transformation
+matrix (CTM) is composed with the parent CTM:
+
+$$CTM(child) = CTM(parent) \times Transform(child)$$
+
+Parenting is transitive, and reference cycles are not allowed (undefined behavior).
+
+
+#### Hidden Layers
+
+The hidden flag `hd` determines whether a layer is rendered: hidden layers are not rendered as
+part of the normal layer tree, but their properties and content are evaluated when used as a
+reference target in other contexts.
+
+Specifically, hidden layers
+
+* contribute to a layer's total transform when used as a `parent`
+* contribute to a layer's track matte when used as a matte source
+
+`hd` only affects the layer for which it is defined, it does not transitively apply to other
+referencing layers.
 
 #### Mattes
 

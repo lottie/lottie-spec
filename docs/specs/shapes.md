@@ -113,6 +113,7 @@ The `ty` property defines the specific element type based on the following value
 
 {schema_subtype_table:shapes/all-graphic-elements:ty}
 
+Hidden shapes (`hd: True`) are ignored, and do not contribute to rendering nor modifier operations.
 
 <h2 id="shape">Shapes</h2>
 
