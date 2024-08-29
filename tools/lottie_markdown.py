@@ -5,9 +5,11 @@ from pathlib import Path
 import xml.etree.ElementTree as etree
 
 import graphviz
+from markdown import Markdown
 from markdown.extensions import Extension
 from markdown.inlinepatterns import InlineProcessor
 from markdown.blockprocessors import BlockProcessor
+from markdown.preprocessors import Preprocessor
 from markdown.util import HTML_PLACEHOLDER_RE, AtomicString
 from mkdocs.utils import get_relative_url
 
@@ -687,9 +689,13 @@ class LottieRenderer:
         return button
 
 
+def get_page_processor(md):
+    return next(proc for proc in md.treeprocessors if proc.__class__.__module__ == 'mkdocs.structure.pages')
+
+
 def get_url(md, path, anchor=None, src_uri=True):
     # Mkdocs adds a tree processor to adjust urls, but it won't work with lottie js so we do the same here
-    processor = next(proc for proc in md.treeprocessors if proc.__class__.__module__ == 'mkdocs.structure.pages')
+    processor = get_page_processor(md)
     page = processor.files.get_file_from_path(path)
     if not page:
         raise Exception("Page not found at %s" % path)
@@ -700,6 +706,18 @@ def get_url(md, path, anchor=None, src_uri=True):
     if anchor is not None:
         url += "#" + anchor
     return url
+
+
+class BaseUrl(Preprocessor):
+    def __init__(self, md):
+        super().__init__(md)
+        self.base_url = None
+
+    def run(self, lines):
+        if self.base_url is None:
+            pages = get_page_processor(self.md)
+            self.base_url = pages.config["site_url"]
+        return list(map(lambda l: l.replace("{{url}}", self.base_url), lines))
 
 
 class LottieBlock(BlockProcessor):
@@ -1188,7 +1206,7 @@ class RfcLink(InlineProcessor):
 
 
 class LottieExtension(Extension):
-    def extendMarkdown(self, md):
+    def extendMarkdown(self, md: Markdown):
         ts = typed_schema(Schema.load(docs_path / "lottie.schema.json"))
 
         md.inlinePatterns.register(SchemaString(md, ts.schema), "schema_string", 175)
@@ -1217,6 +1235,8 @@ class LottieExtension(Extension):
         md.parser.blockprocessors.register(SchemaObject(md, ts), "schema_object", 175)
         md.parser.blockprocessors.register(SchemaEnum(md, ts), "schema_enum", 175)
         md.parser.blockprocessors.register(EditorExample(md.parser), "editor_example", 175)
+
+        md.preprocessors.register(BaseUrl(md), "base_url", 1000)
 
 
 def makeExtension(**kwargs):

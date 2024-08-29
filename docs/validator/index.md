@@ -4,7 +4,7 @@ disable_toc: 1
 # Lottie Validator
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/8.16.0/ajv2020.min.js" integrity="sha512-OunSQfwE+NRzXE6jEJfFCyVkFQgMOk+oxD34iU8Xc21cUYfFH5TKBc7Z3RqKC4EW1tlllWIIOdq2Kf5F/5wKOw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="/lottie-spec/static/js/validator.js"></script>
+<script src="{{url}}/js/validator.js"></script>
 
 <style>
 .hidden {
@@ -161,7 +161,7 @@ function on_load_error(err)
 
 function on_load_ok(schema_obj)
 {
-    validator = new Validator(ajv2020.Ajv2020, schema_obj);
+    validator = new Validator(ajv2020.Ajv2020, schema_obj, base_url);
     hide_element(document.getElementById("system-loading"));
     show_element(document.getElementById("validator-container"));
 }
@@ -250,7 +250,7 @@ function validate_url(url)
 
 function initialize()
 {
-    fetch("/lottie-spec/lottie.schema.json").then(response => {
+    fetch(base_url + "/lottie.schema.json").then(response => {
         if ( !response.ok )
             throw new Error("Request failed");
         return response.json();
