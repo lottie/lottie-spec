@@ -58,3 +58,5 @@ plugins:
           - governance/Notices.md
           - governance/CONTRIBUTING.md
           - validator/index.md
+    - mike:
+        version_selector: true

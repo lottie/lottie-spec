@@ -27,8 +27,10 @@
     <link href="{{ 'css/lottie-theme.css'|url }}" rel="stylesheet">
 
     <script>
-        const base_url = "{{ ''|url }}";
+        var base_url = {{ base_url | tojson }};
     </script>
+    <script src="{{ 'js/version-select.js'|url }}"></script>
+    <link href="{{ 'css/version-select.css'|url }}" rel="stylesheet">
 
 {% endblock %}
 
