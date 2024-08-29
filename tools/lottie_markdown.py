@@ -717,7 +717,7 @@ class BaseUrl(Preprocessor):
         if self.base_url is None:
             pages = get_page_processor(self.md)
             self.base_url = pages.config["site_url"]
-        return list(map(lambda l: l.replace("{{url}}", self.base_url), lines))
+        return list(map(lambda line: line.replace("{{url}}", self.base_url), lines))
 
 
 class LottieBlock(BlockProcessor):
