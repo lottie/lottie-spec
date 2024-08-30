@@ -48,8 +48,12 @@ window.addEventListener("DOMContentLoaded", function() {
   }
 
   fetch(ABS_BASE_URL + "../versions.json").then((response) => {
+    if ( response.status != 200 )
+      return [];
     return response.json();
   }).then((versions) => {
+    if ( versions.length == 0 )
+      return;
     var realVersion = versions.find(function(i) {
       return i.version === CURRENT_VERSION ||
              i.aliases.includes(CURRENT_VERSION);
