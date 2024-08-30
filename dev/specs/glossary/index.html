@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentation for the Lottie animation format">
+    
+    <link rel="canonical" href="https://lottie.github.io/lottie-spec/dev/specs/glossary/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Glossary - Lottie Specs</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+     
+
+    
+    <link href="../../css/print-site-enum-headings1.css" rel="stylesheet">
+    <link href="../../css/print-site-enum-headings2.css" rel="stylesheet">
+    <link href="../../css/print-site-enum-headings3.css" rel="stylesheet">
+    <link href="../../css/print-site.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+    
+     
+
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.js'></script>
+
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="../../js/lottie_raw_utils.js"></script>
+    <script src="../../js/value_editors.js"></script>
+    <link href="../../css/style.css" rel="stylesheet">
+    <link href="../../css/lottie-theme.css" rel="stylesheet">
+
+    <script>
+        var base_url = "../..";
+    </script>
+    <script src="../../js/version-select.js"></script>
+    <link href="../../css/version-select.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="../..">Lottie Specs</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Format <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../values/">Values</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../properties/">Properties</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../composition/">Composition</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../layers/">Layers</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../shapes/">Shapes</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../assets/">Assets</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../constants/">Enumerations</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../helpers/">Helpers</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Glossary</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../schema/">JSON Schema</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../validator/">Lottie Validator</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Community <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../governance/">Lottie Animation Format Documentation</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Governance/">Community Specification Governance Policy 1.0</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Community_Specification_License-v1/">Community Specification License 1.0</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Code_of_Conduct/">Contributor Covenant Code of Conduct</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/License/">Licenses</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Notices/">Notices</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Contributing</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../governance/CONTRIBUTING/">Lottie Format Specification Contribution Guide</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../editing/schema/">Adding to the Schema</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../editing/extensions/">Markdown Extensions</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../helpers/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../schema/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/lottie/lottie-spec/edit/main/docs/specs/glossary.md"><i class="fab fa-github"></i> Edit on GitHub</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#glossary">Glossary</a></li>
+            <li class="second-level"><a href="#local-coordinates">local coordinates</a></li>
+                
+            <li class="second-level"><a href="#render-stack">render stack</a></li>
+                
+            <li class="second-level"><a href="#stacking-order">stacking order</a></li>
+                
+            <li class="second-level"><a href="#the-order-in-which-objects-appear-in-the-render-stack">The order in which objects appear in the [[render stack]].</a></li>
+                
+            <li class="second-level"><a href="#collected-shapes">collected shapes</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="glossary">Glossary</h1>
+<dl>
+<dt id="local-coordinates"><a href="#local-coordinates">local coordinates</a></dt>
+<dd>The local coordinate system is the coordinate system of the current
+group or layer, with the X coordinate increasing towards the right
+and the Y coordinate increasing towards the bottom.
+Without any transforms, the point <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math> corresponds with the top-left
+corner of the viewport.</dd>
+<dt id="render-stack"><a href="#render-stack">render stack</a></dt>
+<dd>A render stack is a list if rendering primitive to be drawn in inverse
+stack order. A render stack can contain child stacks.</dd>
+<dt id="stacking-order"><a href="#stacking-order">stacking order</a></dt>
+<dd>
+<dl>
+<dt id="the-order-in-which-objects-appear-in-the-render-stack"><a href="#the-order-in-which-objects-appear-in-the-render-stack">The order in which objects appear in the <a href="./#render-stack">render stack</a>.</a></dt>
+<dt id="collected-shapes"><a href="#collected-shapes">collected shapes</a></dt>
+<dd>When collecting shapes for a rendering operation, implementations <strong class="bcp14">MUST</strong>
+traverse the <a href="./#render-stack">render stack</a> in reverse order.
+All <a href="../shapes/#shape">Shapes</a> encountered in the stack traversal <strong class="bcp14">MUST</strong>
+be included, until the beginning of the stack is reached or a <a href="../shapes/#modifier">Modifier</a>
+is encountered. If a <a href="../shapes/#modifier">Modifier</a> is found, it <strong class="bcp14">MUST</strong> be applied to
+its own <em>collected shapes</em> and the output added to the shape collection.</dd>
+</dl>
+</dd>
+</dl></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+    <hr/>
+
+      </footer>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+      <!-- default is to include highlightjs -->
+    
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../js/print-site.js"></script>
+    <script src="../../search/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                if ( block.classList.length != 0 )
+                    hljs.highlightBlock(block);
+            });
+        });
+    </script>
+
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

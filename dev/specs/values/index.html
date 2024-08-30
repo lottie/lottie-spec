@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentation for the Lottie animation format">
+    
+    <link rel="canonical" href="https://lottie.github.io/lottie-spec/dev/specs/values/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Values - Lottie Specs</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+     
+
+    
+    <link href="../../css/print-site-enum-headings1.css" rel="stylesheet">
+    <link href="../../css/print-site-enum-headings2.css" rel="stylesheet">
+    <link href="../../css/print-site-enum-headings3.css" rel="stylesheet">
+    <link href="../../css/print-site.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+    
+     
+
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.js'></script>
+
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="../../js/lottie_raw_utils.js"></script>
+    <script src="../../js/value_editors.js"></script>
+    <link href="../../css/style.css" rel="stylesheet">
+    <link href="../../css/lottie-theme.css" rel="stylesheet">
+
+    <script>
+        var base_url = "../..";
+    </script>
+    <script src="../../js/version-select.js"></script>
+    <link href="../../css/version-select.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="../..">Lottie Specs</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Format <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li class="active">
+    <a href="./">Values</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../properties/">Properties</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../composition/">Composition</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../layers/">Layers</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../shapes/">Shapes</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../assets/">Assets</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../constants/">Enumerations</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../helpers/">Helpers</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../glossary/">Glossary</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../schema/">JSON Schema</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../validator/">Lottie Validator</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Community <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../governance/">Lottie Animation Format Documentation</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Governance/">Community Specification Governance Policy 1.0</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Community_Specification_License-v1/">Community Specification License 1.0</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Code_of_Conduct/">Contributor Covenant Code of Conduct</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/License/">Licenses</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Notices/">Notices</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Contributing</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../governance/CONTRIBUTING/">Lottie Format Specification Contribution Guide</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../editing/schema/">Adding to the Schema</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../editing/extensions/">Markdown Extensions</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../..">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../properties/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/lottie/lottie-spec/edit/main/docs/specs/values.md"><i class="fab fa-github"></i> Edit on GitHub</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#values">Values</a></li>
+            <li class="second-level"><a href="#int-boolean">Integer Boolean</a></li>
+                
+            <li class="second-level"><a href="#vector">Vector</a></li>
+                
+            <li class="second-level"><a href="#color">Color</a></li>
+                
+            <li class="second-level"><a href="#hexcolor">Hex Color</a></li>
+                
+            <li class="second-level"><a href="#gradient">Gradient</a></li>
+                
+                <li class="third-level"><a href="#gradient-without-transparency">Gradient without transparency</a></li>
+                <li class="third-level"><a href="#gradient-with-transparency">Gradient with transparency</a></li>
+                <li class="third-level"><a href="#gradient-example">Gradient Example</a></li>
+            <li class="second-level"><a href="#bezier">Bezier Shape</a></li>
+                
+            <li class="second-level"><a href="#data-url">Data URL</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="values">Values</h1>
+<h2 id="int-boolean">Integer Boolean</h2>
+<p></p>
+<p><span>Represents boolean values as an integer. `0` is false, `1` is true.</span></p>
+<h2 id="vector">Vector</h2>
+<p></p>
+<p>Vector data is represented by an array of numbers.
+This is used any time a property with multiple components is needed.</p>
+<p>An example would be a position, which would be represented as an array
+with two numbers, the first corresponding to the <em>X</em> coordinate and the
+second corresponding to the <em>Y</em>.</p>
+<h2 id="color">Color</h2>
+<p></p>
+<p>Colors are <a href="#vector">Vectors</a> with values between 0 and 1 for the RGB components.</p>
+<p>for example:</p>
+<ul>
+<li><span><span class="color-preview" style="background-color:#ff0000;"></span><code>[1, 0, 0]</code></span></li>
+<li><span><span class="color-preview" style="background-color:#ff8000;"></span><code>[1, 0.5, 0]</code></span></li>
+</ul>
+<p>Note sometimes you might find color values with 4 components (the 4th being alpha)
+but most players ignore the last component.</p>
+<h2 id="hexcolor">Hex Color</h2>
+<p></p>
+<p>Colors represented as a "#"-prefixed string, with two hexadecimal digits per
+RGB component.</p>
+<ul>
+<li><span><span class="color-preview" style="background-color:#FF8000;"></span><code>#FF8000</code></span></li>
+</ul>
+<h2 id="gradient">Gradient</h2>
+<p></p>
+<p>The gradient appearance is specified in terms of color stops and opacity stops.
+Color stops are defined as <code>(position, color)</code> tuples, where the position is a normalized <code>[0..1]</code>value along the gradient axis <code>[startpoint -&gt; endpoint]</code>, and the color is 3 floats representing the RGB components. Transparency (opacity) stops are defined as <code>(position, color)</code> tuples, where position is similar to color stops' position.</p>
+<p>All color and opacity stops are stored sequentially by ascending offsets in a flattened float array (color stops followed by opacity stops), with 4 floats per color stop and 2 floats per opacity stops. Thus, given color stops and opacity stops, the expected size for the gradient data array is <code>4 * Nc + 2 * No</code>.</p>
+<p>The color stop count is typically specified in a separate field from the gradient values, while the count of opacity stops can be inferred from the data array length: <code>No = (length - 4 * Nc)/2</code>.</p>
+<h3 id="gradient-without-transparency">Gradient without transparency</h3>
+<p></p>
+<p>So let's say you want these colors:</p>
+<ul>
+<li><span><span class="color-preview" style="background-color:#292e75;"></span><code>[0.16, 0.18, 0.46]</code></span></li>
+<li><span><span class="color-preview" style="background-color:#334fb0;"></span><code>[0.2, 0.31, 0.69]</code></span></li>
+<li><span><span class="color-preview" style="background-color:#c4d9f5;"></span><code>[0.77, 0.85, 0.96]</code></span></li>
+</ul>
+<p>the array will look like the following:</p>
+<p><span><code>[0, 0.16, 0.18, 0.46, 0.5, 0.2, 0.31, 0.69, 1, 0.77, 0.85, 0.96]</code><div class="alpha-checkered"><div class="gradient-preview" style="background:linear-gradient(90deg, rgba(40.800000000000004, 45.9, 117.30000000000001, 1) 0.0%,rgba(51.0, 79.05, 175.95, 1) 50.0%,rgba(196.35, 216.75, 244.79999999999998, 1) 100.0%);"></div></div></span></p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>Offset of the 1st color (<code>0</code> means at the start)</td>
+</tr>
+<tr>
+<td><code>0.16</code></td>
+<td>Red component for the 1st color</td>
+</tr>
+<tr>
+<td><code>0.18</code></td>
+<td>Green component for the 1st color</td>
+</tr>
+<tr>
+<td><code>0.46</code></td>
+<td>Blue component for the 1st color</td>
+</tr>
+<tr>
+<td><code>0.5</code></td>
+<td>Offset of the 2nd color (<code>0.5</code> means half way)</td>
+</tr>
+<tr>
+<td><code>0.2</code></td>
+<td>Red component for the 2nd color</td>
+</tr>
+<tr>
+<td><code>0.31</code></td>
+<td>Green component for the 2nd color</td>
+</tr>
+<tr>
+<td><code>0.69</code></td>
+<td>Blue component for the 2nd color</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>Offset of the 3rd color (<code>1</code> means at the end)</td>
+</tr>
+<tr>
+<td><code>0.77</code></td>
+<td>Red component for the 3rd color</td>
+</tr>
+<tr>
+<td><code>0.85</code></td>
+<td>Green component for the 3rd color</td>
+</tr>
+<tr>
+<td><code>0.96</code></td>
+<td>Blue component for the 3rd color</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gradient-with-transparency">Gradient with transparency</h3>
+<p></p>
+<p>Transparency stops are added at the end. Transparency stops may or may
+not match the count and offset of color stops.</p>
+<p>So assume the same colors as before, but opacity of 80% for the first color and 100% for the other two.</p>
+<p>The array will look like this:</p>
+<p><span><code>[0, 0.16, 0.18, 0.46, 0.5, 0.2, 0.31, 0.69, 1, 0.77, 0.85, 0.96, 0, 0.8, 0.5, 0.2, 1, 1]</code><div class="alpha-checkered"><div class="gradient-preview" style="background:linear-gradient(90deg, rgba(40.800000000000004, 45.9, 117.30000000000001, 0.8) 0.0%,rgba(51.0, 79.05, 175.95, 0.2) 50.0%,rgba(196.35, 216.75, 244.79999999999998, 1.0) 100.0%);"></div></div></span></p>
+<p>It's the same array as the case without transparency but with the following values added at the end:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>Offset of the 1st color (<code>0</code> means at the start)</td>
+</tr>
+<tr>
+<td><code>0.8</code></td>
+<td>Alpha component for the 1st color</td>
+</tr>
+<tr>
+<td><code>0.5</code></td>
+<td>Offset of the 2nd color (<code>0.5</code> means half way)</td>
+</tr>
+<tr>
+<td><code>0.2</code></td>
+<td>Alpha component for the 2nd color</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>Offset of the 3rd color (<code>1</code> means at the end)</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>Alpha component for the 3rd color</td>
+</tr>
+</tbody>
+</table>
+<h3 class="print-site-plugin-ignore" id="gradient-example">Gradient Example</h3>
+<p></p>
+<div class="playground playground-columns print-site-plugin-ignore">
+<div id="editor_29"></div>
+<div>
+<pre id="json_viewer_29_parent"><code class="language-json hljs" id="json_viewer_29">
+</code></pre>
+</div>
+<script>
+        GradientPreviewEditor.stand_alone(document.getElementById("editor_29"), (lottie) =>
+        {
+            var raw_json = JSON.stringify(lottie, undefined, 4);
+            var pretty_json = hljs.highlight("json", raw_json).value;
+            document.getElementById("json_viewer_29").innerHTML = pretty_json;
+        }, );
+        </script>
+</div>
+<h2 id="bezier">Bezier Shape</h2>
+<p></p>
+<p><span>Cubic polybezier</span></p>
+<div>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Title</th>
+<th>Description <a class="schema-link" href="../schema/#/$defs/values/bezier" title="View Schema"><i class="fas fa-file-code"></i></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>c</code></td>
+<td><code>boolean</code></td>
+<td>
+<p>Closed</p>
+</td>
+<td>
+<p>Closed</p>
+</td>
+</tr>
+<tr>
+<td><code>i</code></td>
+<td><code>array</code> of <a href="./#vector">Vector</a></td>
+<td>
+<p>In Tangents</p>
+</td>
+<td>
+<p>Array of points, each point is an array of coordinates.
+These points are along the <code>in</code> tangents relative to the corresponding <code>v</code>.</p>
+</td>
+</tr>
+<tr>
+<td><code>o</code></td>
+<td><code>array</code> of <a href="./#vector">Vector</a></td>
+<td>
+<p>Out Tangents</p>
+</td>
+<td>
+<p>Array of points, each point is an array of coordinates.
+These points are along the <code>out</code> tangents relative to the corresponding <code>v</code>.</p>
+</td>
+</tr>
+<tr>
+<td><code>v</code></td>
+<td><code>array</code> of <a href="./#vector">Vector</a></td>
+<td>
+<p>Vertices</p>
+</td>
+<td>
+<p>Array of points, each point is an array of coordinates.
+These points are along the bezier path</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="playground playground-columns print-site-plugin-ignore">
+<div id="editor_30"></div>
+<div>
+<pre id="json_viewer_30_parent"><code class="language-json hljs" id="json_viewer_30">
+</code></pre>
+</div>
+<script>
+        BezierPreviewEditor.stand_alone(document.getElementById("editor_30"), (lottie) =>
+        {
+            var raw_json = JSON.stringify(lottie, undefined, 4);
+            var pretty_json = hljs.highlight("json", raw_json).value;
+            document.getElementById("json_viewer_30").innerHTML = pretty_json;
+        }, );
+        </script>
+</div>
+<h2 id="data-url">Data URL</h2>
+<p></p>
+<p>Data URLs are embedded files (such as images) as defined in <span>[<a href="https://www.rfc-editor.org/info/rfc2397">RFC2397</a>]</span>.</p></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+    <hr/>
+
+      </footer>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+      <!-- default is to include highlightjs -->
+    
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../js/print-site.js"></script>
+    <script src="../../search/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                if ( block.classList.length != 0 )
+                    hljs.highlightBlock(block);
+            });
+        });
+    </script>
+
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

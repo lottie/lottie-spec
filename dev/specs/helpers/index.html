@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentation for the Lottie animation format">
+    
+    <link rel="canonical" href="https://lottie.github.io/lottie-spec/dev/specs/helpers/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Helpers - Lottie Specs</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+     
+
+    
+    <link href="../../css/print-site-enum-headings1.css" rel="stylesheet">
+    <link href="../../css/print-site-enum-headings2.css" rel="stylesheet">
+    <link href="../../css/print-site-enum-headings3.css" rel="stylesheet">
+    <link href="../../css/print-site.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+    
+     
+
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.js'></script>
+
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="../../js/lottie_raw_utils.js"></script>
+    <script src="../../js/value_editors.js"></script>
+    <link href="../../css/style.css" rel="stylesheet">
+    <link href="../../css/lottie-theme.css" rel="stylesheet">
+
+    <script>
+        var base_url = "../..";
+    </script>
+    <script src="../../js/version-select.js"></script>
+    <link href="../../css/version-select.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="../..">Lottie Specs</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Format <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../values/">Values</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../properties/">Properties</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../composition/">Composition</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../layers/">Layers</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../shapes/">Shapes</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../assets/">Assets</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../constants/">Enumerations</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Helpers</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../glossary/">Glossary</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../schema/">JSON Schema</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../validator/">Lottie Validator</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Community <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../governance/">Lottie Animation Format Documentation</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Governance/">Community Specification Governance Policy 1.0</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Community_Specification_License-v1/">Community Specification License 1.0</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Code_of_Conduct/">Contributor Covenant Code of Conduct</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/License/">Licenses</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Notices/">Notices</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Contributing</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../governance/CONTRIBUTING/">Lottie Format Specification Contribution Guide</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../editing/schema/">Adding to the Schema</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../editing/extensions/">Markdown Extensions</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../constants/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../glossary/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/lottie/lottie-spec/edit/main/docs/specs/helpers.md"><i class="fab fa-github"></i> Edit on GitHub</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#helpers">Helpers</a></li>
+            <li class="second-level"><a href="#transform">Transform</a></li>
+                
+            <li class="second-level"><a href="#visual-object">Visual Object</a></li>
+                
+            <li class="second-level"><a href="#marker">Marker</a></li>
+                
+            <li class="second-level"><a href="#slots">Slots</a></li>
+                
+                <li class="third-level"><a href="#slot">Slot</a></li>
+                <li class="third-level"><a href="#slottable-object">Slotabble Object</a></li>
+                <li class="third-level"><a href="#slottable-property">Slotabble Property</a></li>
+            <li class="second-level"><a href="#mask">Mask</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="helpers">Helpers</h1>
+<h2 id="transform">Transform</h2>
+<p></p>
+<p><span>Layer transform</span></p>
+<div>
+<details>
+<summary>Composition Diagram for Transform</summary>
+<svg _xmlns="http://www.w3.org/2000/svg" height="44pt" viewBox="0.00 0.00 187.00 44.00" width="187pt">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 40)">
+
+<polygon fill="white" points="-4,4 -4,-40 183,-40 183,4 -4,4" stroke="transparent"></polygon>
+
+<g class="node current" id="node1">
+
+<polygon fill="none" points="179,-36 125,-36 125,0 179,0 179,-36" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="152" y="-15.5">Transform</text>
+</g>
+
+<g class="node" id="node2">
+
+<g id="a_node2"><a href="../shapes/#transform" title="Transform Shape">
+<polygon fill="none" points="89,-36 0,-36 0,0 89,0 89,-36" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="44.5" y="-15.5">Transform Shape</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge1">
+
+<path d="M89.02,-18C97.56,-18 106.43,-18 114.71,-18" fill="none" stroke="black"></path>
+<polygon fill="none" points="114.8,-21.5 124.8,-18 114.8,-14.5 114.8,-21.5" stroke="black"></polygon>
+</g>
+</g>
+</svg></details>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Title</th>
+<th>Description <a class="schema-link" href="../schema/#/$defs/helpers/transform" title="View Schema"><i class="fas fa-file-code"></i></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>a</code></td>
+<td><a href="../properties/#position-property">Position</a></td>
+<td>
+<p>Anchor Point</p>
+</td>
+<td>
+<p>Anchor point: a position (relative to its parent) around which transformations are applied (ie: center for rotation / scale)</p>
+</td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td><a href="../properties/#splittable-position-property">Splittable Position</a></td>
+<td>
+<p>Position</p>
+</td>
+<td>
+<p>Position / Translation</p>
+</td>
+</tr>
+<tr>
+<td><code>r</code></td>
+<td><a href="../properties/#scalar-property">Scalar</a></td>
+<td>
+<p>Rotation</p>
+</td>
+<td>
+<p>Rotation in degrees, clockwise</p>
+</td>
+</tr>
+<tr>
+<td><code>s</code></td>
+<td><a href="../properties/#vector-property">Vector</a></td>
+<td>
+<p>Scale</p>
+</td>
+<td>
+<p>Scale factor, <code>[100, 100]</code> for no scaling</p>
+</td>
+</tr>
+<tr>
+<td><code>o</code></td>
+<td><a href="../properties/#scalar-property">Scalar</a></td>
+<td>
+<p>Opacity</p>
+</td>
+<td>
+<p>Opacity</p>
+</td>
+</tr>
+<tr>
+<td><code>sk</code></td>
+<td><a href="../properties/#scalar-property">Scalar</a></td>
+<td>
+<p>Skew</p>
+</td>
+<td>
+<p>Skew amount as an angle in degrees</p>
+</td>
+</tr>
+<tr>
+<td><code>sa</code></td>
+<td><a href="../properties/#scalar-property">Scalar</a></td>
+<td>
+<p>Skew Axis</p>
+</td>
+<td>
+<p>Direction along which skew is applied, in degrees (<code>0</code> skews along the X axis, <code>90</code> along the Y axis)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>To make the anchor point properly line up with the center of location, <code>p</code> and <code>a</code> should have the same value.</p>
+<p class="print-site-plugin-ignore">This example allows you to tweak transform attributes and see how the shape changes.</p>
+<p class="print-site-plugin-ignore">The anchor point is highlighted with an orange dot.</p>
+<div class="playground print-site-plugin-ignore">
+<table class="table-plain" style="width: 100%">
+<tr>
+<td style="white-space: pre"><label>Anchor X</label> </td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="12" max="512" min="0" name="Anchor X" oninput="lottie_player_12.reload();document.getElementById('playground_12_1_span').innerText = event.target.value;" title="Anchor X" type="range" value="256" />
+        <span id="playground_12_1_span">256</span></td>
+</tr>
+<tr>
+<td style="white-space: pre"><label>Anchor Y</label> </td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="12" max="512" min="0" name="Anchor Y" oninput="lottie_player_12.reload();document.getElementById('playground_12_2_span').innerText = event.target.value;" title="Anchor Y" type="range" value="256" />
+        <span id="playground_12_2_span">256</span></td>
+</tr>
+<tr>
+<td style="white-space: pre"><label>Position X</label> </td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="12" max="512" min="0" name="Position X" oninput="lottie_player_12.reload();document.getElementById('playground_12_3_span').innerText = event.target.value;" title="Position X" type="range" value="256" />
+        <span id="playground_12_3_span">256</span></td>
+</tr>
+<tr>
+<td style="white-space: pre"><label>Position Y</label> </td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="12" max="512" min="0" name="Position Y" oninput="lottie_player_12.reload();document.getElementById('playground_12_4_span').innerText = event.target.value;" title="Position Y" type="range" value="256" />
+        <span id="playground_12_4_span">256</span></td>
+</tr>
+<tr>
+<td style="white-space: pre"><label>Scale X</label> </td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="12" max="200" min="0" name="Scale X" oninput="lottie_player_12.reload();document.getElementById('playground_12_5_span').innerText = event.target.value;" title="Scale X" type="range" value="100" />
+        <span id="playground_12_5_span">100</span></td>
+</tr>
+<tr>
+<td style="white-space: pre"><label>Scale Y</label> </td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="12" max="200" min="0" name="Scale Y" oninput="lottie_player_12.reload();document.getElementById('playground_12_6_span').innerText = event.target.value;" title="Scale Y" type="range" value="100" />
+        <span id="playground_12_6_span">100</span></td>
+</tr>
+<tr>
+<td style="white-space: pre"><label>Rotation</label> </td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="12" max="360" min="-360" name="Rotation" oninput="lottie_player_12.reload();document.getElementById('playground_12_7_span').innerText = event.target.value;" title="Rotation" type="range" value="0" />
+        <span id="playground_12_7_span">0</span></td>
+</tr>
+<tr>
+<td style="white-space: pre"><label>Skew</label> </td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="12" max="360" min="0" name="Skew" oninput="lottie_player_12.reload();document.getElementById('playground_12_8_span').innerText = event.target.value;" title="Skew" type="range" value="0" />
+        <span id="playground_12_8_span">0</span></td>
+</tr>
+<tr>
+<td style="white-space: pre"><label>Skew Angle</label> </td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="12" max="360" min="0" name="Skew Angle" oninput="lottie_player_12.reload();document.getElementById('playground_12_9_span').innerText = event.target.value;" title="Skew Angle" type="range" value="0" />
+        <span id="playground_12_9_span">0</span></td>
+</tr>
+<tr>
+<td style="white-space: pre"><label>Opacity</label> </td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="12" max="100" min="0" name="Opacity" oninput="lottie_player_12.reload();document.getElementById('playground_12_10_span').innerText = event.target.value;" title="Opacity" type="range" value="100" />
+    <span id="playground_12_10_span">100</span></td>
+</tr>
+</table>
+<div class="playground-columns">
+<div class="animation-container animation-container-alpha">
+<div id="lottie_target_12"></div>
+</div>
+<div class="json-parent" id="playground_12_11_parent">
+<pre><code class="language-json hljs" id="playground_12_11">
+</code></pre>
+</div>
+<script>
+        var lottie_player_12 = new PlaygroundPlayer(
+            12,
+            'playground_12_11',
+            'lottie_target_12',
+            {"v": "5.7.1", "ip": 0, "op": 180, "nm": "Animation", "mn": "{a3bb98c7-d0dd-4484-b6da-74a0e70eaf2f}", "fr": 60, "w": 512, "h": 512, "assets": [], "layers": [{"ddd": 0, "ty": 4, "ind": 2, "st": 0, "ip": 0, "op": 180, "nm": "Anchor", "mn": "{04f9b742-3603-49fa-9552-ea04de1a3f33}", "ks": {"a": {"a": 0, "k": [256, 256]}, "p": {"a": 0, "k": [256, 256]}, "s": {"a": 0, "k": [100, 100]}, "r": {"a": 0, "k": 0}, "o": {"a": 0, "k": 100}}, "shapes": [{"ty": "el", "nm": "Ellipse", "mn": "{4251e46a-bb13-464b-913c-e67c44a218da}", "p": {"a": 0, "k": [256, 256]}, "s": {"a": 0, "k": [32, 32]}}, {"ty": "fl", "nm": "Fill", "mn": "{7d3070ed-88a3-41aa-a62e-7db8df1bd312}", "o": {"a": 0, "k": 100}, "c": {"a": 0, "k": [0.9411764705882353, 0.11372549019607843, 0.0392156862745098]}, "r": 1}]}, {"ddd": 0, "ty": 4, "ind": 1, "st": 0, "ip": 0, "op": 180, "nm": "Transformed", "mn": "{d00298c4-66b4-4ae4-a730-22c1eb85c188}", "ks": {"a": {"a": 0, "k": [256, 256]}, "p": {"a": 0, "k": [256, 256]}, "s": {"a": 0, "k": [100, 100]}, "r": {"a": 0, "k": 0}, "o": {"a": 0, "k": 100}, "sk": {"a": 0, "k": 0}, "sa": {"a": 0, "k": 0}}, "shapes": [{"ty": "rc", "nm": "Rectangle 1", "mn": "{bf8ad877-113b-4df8-a2e2-3bb4af32edf7}", "p": {"a": 0, "k": [252.75223880597017, 250.60298507462684]}, "s": {"a": 0, "k": [319.8089552238806, 330.98507462686564]}, "r": {"a": 0, "k": 0}}, {"ty": "fl", "nm": "Fill 1", "mn": "{b9040dc8-0753-4a6e-b5f1-d508d17bbd4f}", "o": {"a": 0, "k": 100}, "c": {"a": 0, "k": [0.19607843137254902, 0.3137254901960784, 0.6901960784313725]}, "r": 1}]}, {"ddd": 0, "ty": 4, "ind": 0, "st": 0, "ip": 0, "op": 180, "nm": "Reference", "mn": "{8f351be7-8a51-4310-9dc3-59ed21594815}", "ks": {"a": {"a": 0, "k": [256, 256]}, "p": {"a": 0, "k": [256, 256]}, "s": {"a": 0, "k": [100, 100]}, "r": {"a": 0, "k": 0}, "o": {"a": 0, "k": 100}}, "shapes": [{"ty": "rc", "nm": "Rectangle", "mn": "{cb4f7b74-bed1-493b-a0e6-01b00566aedd}", "p": {"a": 0, "k": [252.75223880597017, 250.60298507462684]}, "s": {"a": 0, "k": [319.8089552238806, 330.98507462686564]}, "r": {"a": 0, "k": 0}}, {"ty": "fl", "nm": "Fill", "mn": "{05064670-7e14-4141-89c1-e0f0f3a1c57d}", "o": {"a": 0, "k": 100}, "c": {"a": 0, "k": [0.1607843137254902, 0.1843137254901961, 0.4588235294117647]}, "r": 1}]}], "meta": {"g": "Glaxnimate 0.4.6-32-gb62899be"}},
+            function (lottie, data)
+            {
+                
+    lottie.layers[0].ks.p.k[0] = data["Anchor X"];
+    lottie.layers[1].ks.a.k[0] = data["Anchor X"];
+    lottie.layers[0].ks.p.k[1] = data["Anchor Y"];
+    lottie.layers[1].ks.a.k[1] = data["Anchor Y"];
+    lottie.layers[1].ks.p.k[0] = data["Position X"];
+    lottie.layers[1].ks.p.k[1] = data["Position Y"];
+    lottie.layers[1].ks.s.k[0] = data["Scale X"];
+    lottie.layers[1].ks.s.k[1] = data["Scale Y"];
+    lottie.layers[1].ks.r.k = data["Rotation"];
+    lottie.layers[1].ks.sk.k = data["Skew"];
+    lottie.layers[1].ks.sa.k = data["Skew Angle"];
+    lottie.layers[1].ks.o.k = data["Opacity"];
+    this.json_viewer_contents = lottie.layers[1].ks;
+            },
+            {}
+        );
+        </script>
+</div>
+</div>
+<p>Transforms the parent's coordinate system.</p>
+<p>When calculating the final transform, properties <strong class="bcp14">MUST</strong> be applied as follows:</p>
+<ol>
+<li>Translate by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>&#x02212;</mo><mi>a</mi></mrow></math>
+</li>
+<li>Scale by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mfrac><mrow><mi>s</mi></mrow><mrow><mn>100</mn></mrow></mfrac></mrow></math>
+</li>
+<li>If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>s</mi><mi>k</mi><mo>&#x02260;</mo><mn>0</mn></mrow></math>:<ol>
+<li>Rotate by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>&#x02212;</mo><mi>s</mi><mi>a</mi></mrow></math>
+</li>
+<li>Skew x by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>tan</mi><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mi>s</mi><mi>k</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
+</li>
+<li>Rotate by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>s</mi><mi>a</mi></mrow></math>
+</li>
+</ol>
+</li>
+<li>Rotate by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>&#x02212;</mo><mi>r</mi></mrow></math>
+</li>
+<li>Translate by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>p</mi></mrow></math>
+</li>
+</ol>
+<p>Steps that have no effect <strong class="bcp14">MAY</strong> be skipped.</p>
+<p>Assuming a transform matrix with the following layout, with the labels equivalent to the
+<a href="https://drafts.csswg.org/css-transforms/#MatrixDefined">CSS matrix transform</a>:</p>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>&#x00028;</mo><mtable><mtr><mtd><mi>a</mi></mtd><mtd><mi>b</mi></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mi>c</mi></mtd><mtd><mi>d</mi></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mi>e</mi></mtd><mtd><mi>f</mi></mtd><mtd><mn>1</mn></mtd></mtr></mtable><mo>&#x00029;</mo></mrow></math>
+<p>The final transform is given by chaining transform matrices for each transform step:</p>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtable columnspacing="0em" displaystyle="true" rowspacing="3pt"><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mi></mi><mo>&#x00028;</mo><mtable><mtr><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mo>&#x02212;</mo><mi>a</mi><mo>&#x0002E;</mo><mi>x</mi></mtd><mtd><mo>&#x02212;</mo><mi>a</mi><mo>&#x0002E;</mo><mi>y</mi></mtd><mtd><mn>1</mn></mtd></mtr></mtable><mo>&#x00029;</mo><mi>&#x000D7;</mi><mo>&#x00028;</mo><mtable><mtr><mtd><mfrac><mrow><mi>s</mi><mo>&#x0002E;</mo><mi>x</mi></mrow><mrow><mn>100</mn></mrow></mfrac></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mfrac><mrow><mi>s</mi><mo>&#x0002E;</mo><mi>y</mi></mrow><mrow><mn>100</mn></mrow></mfrac></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd></mtr></mtable><mo>&#x00029;</mo><mi>&#x000D7;</mi></mtd></mtr><mtr><mtd columnalign="right"><mi>&#x000D7;</mi></mtd><mtd columnalign="left"><mi></mi><mo>&#x00028;</mo><mtable><mtr><mtd><mi>cos</mi><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mi>s</mi><mi>a</mi><mo stretchy="false">&#x00029;</mo></mtd><mtd><mi>sin</mi><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mi>s</mi><mi>a</mi><mo stretchy="false">&#x00029;</mo></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mo>&#x02212;</mo><mi>sin</mi><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mi>s</mi><mi>a</mi><mo stretchy="false">&#x00029;</mo></mtd><mtd><mi>cos</mi><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mi>s</mi><mi>a</mi><mo stretchy="false">&#x00029;</mo></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd></mtr></mtable><mo>&#x00029;</mo><mi>&#x000D7;</mi><mo>&#x00028;</mo><mtable><mtr><mtd><mn>1</mn></mtd><mtd><mi>tan</mi><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mi>s</mi><mi>k</mi><mo stretchy="false">&#x00029;</mo></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd></mtr></mtable><mo>&#x00029;</mo><mi>&#x000D7;</mi><mo>&#x00028;</mo><mtable><mtr><mtd><mi>cos</mi><mo stretchy="false">&#x00028;</mo><mi>s</mi><mi>a</mi><mo stretchy="false">&#x00029;</mo></mtd><mtd><mi>sin</mi><mo stretchy="false">&#x00028;</mo><mi>s</mi><mi>a</mi><mo stretchy="false">&#x00029;</mo></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mo>&#x02212;</mo><mi>sin</mi><mo stretchy="false">&#x00028;</mo><mi>s</mi><mi>a</mi><mo stretchy="false">&#x00029;</mo></mtd><mtd><mi>cos</mi><mo stretchy="false">&#x00028;</mo><mi>s</mi><mi>a</mi><mo stretchy="false">&#x00029;</mo></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd></mtr></mtable><mo>&#x00029;</mo><mi>&#x000D7;</mi></mtd></mtr><mtr><mtd columnalign="right"><mi>&#x000D7;</mi></mtd><mtd columnalign="left"><mi></mi><mo>&#x00028;</mo><mtable><mtr><mtd><mi>cos</mi><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mi>r</mi><mo stretchy="false">&#x00029;</mo></mtd><mtd><mi>sin</mi><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mi>r</mi><mo stretchy="false">&#x00029;</mo></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mo>&#x02212;</mo><mi>sin</mi><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mi>r</mi><mo stretchy="false">&#x00029;</mo></mtd><mtd><mi>cos</mi><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mi>r</mi><mo stretchy="false">&#x00029;</mo></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd></mtr></mtable><mo>&#x00029;</mo><mi>&#x000D7;</mi><mo>&#x00028;</mo><mtable><mtr><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mi>p</mi><mo>&#x0002E;</mo><mi>x</mi></mtd><mtd><mi>p</mi><mo>&#x0002E;</mo><mi>y</mi></mtd><mtd><mn>1</mn></mtd></mtr></mtable><mo>&#x00029;</mo></mtd></mtr></mtable></mrow></math>
+<p>Note that if the transform matrix is transposed compared to the above:</p>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>&#x00028;</mo><mtable><mtr><mtd><mi>a</mi></mtd><mtd><mi>c</mi></mtd><mtd><mi>e</mi></mtd></mtr><mtr><mtd><mi>b</mi></mtd><mtd><mi>d</mi></mtd><mtd><mi>f</mi></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd></mtr></mtable><mo>&#x00029;</mo></mrow></math>
+<p>The operations need to be chained using right multiplication instead of left multiplication.</p>
+<h2 id="visual-object">Visual Object</h2>
+<p></p>
+<p><span></span></p>
+<div>
+<details>
+<summary>Composition Diagram for Visual Object</summary>
+<svg _xmlns="http://www.w3.org/2000/svg" height="746pt" viewBox="0.00 0.00 471.00 746.00" width="471pt">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 742)">
+
+<polygon fill="white" points="-4,4 -4,-742 467,-742 467,4 -4,4" stroke="transparent"></polygon>
+
+<g class="node current" id="node1">
+
+<polygon fill="none" points="463,-468 396,-468 396,-432 463,-432 463,-468" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="429.5" y="-447.5">Visual Object</text>
+</g>
+
+<g class="node" id="node2">
+
+<g id="a_node2"><a href="../assets/#asset" title="Asset">
+<polygon fill="none" points="343.5,-630 289.5,-630 289.5,-594 343.5,-594 343.5,-630" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="316.5" y="-609.5">Asset</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge3">
+
+<path d="M330.02,-593.73C349.59,-565.17 387.53,-509.8 410.18,-476.74" fill="none" stroke="black"></path>
+<polygon fill="none" points="413.09,-478.68 415.86,-468.45 407.32,-474.72 413.09,-478.68" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node3">
+
+<g id="a_node3"><a href="../assets/#precomposition" title="Precomposition">
+<polygon fill="none" points="232,-684 153,-684 153,-648 232,-648 232,-684" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="192.5" y="-663.5">Precomposition</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge1">
+
+<path d="M232.1,-648.91C247.45,-642.12 264.99,-634.36 280.02,-627.71" fill="none" stroke="black"></path>
+<polygon fill="none" points="281.75,-630.77 289.48,-623.52 278.92,-624.37 281.75,-630.77" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node4">
+
+<g id="a_node4"><a href="../assets/#image" title="Image">
+<polygon fill="none" points="219.5,-630 165.5,-630 165.5,-594 219.5,-594 219.5,-630" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="192.5" y="-609.5">Image</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge2">
+
+<path d="M219.67,-612C237.04,-612 260.07,-612 279.2,-612" fill="none" stroke="black"></path>
+<polygon fill="none" points="279.37,-615.5 289.37,-612 279.37,-608.5 279.37,-615.5" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node5">
+
+<g id="a_node5"><a href="../composition/#animation" title="Animation">
+<polygon fill="none" points="343.5,-522 289.5,-522 289.5,-486 343.5,-486 343.5,-522" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="316.5" y="-501.5">Animation</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge4">
+
+<path d="M343.52,-491.34C356.35,-485.1 372.13,-477.42 386.6,-470.38" fill="none" stroke="black"></path>
+<polygon fill="none" points="388.42,-473.39 395.88,-465.87 385.36,-467.1 388.42,-473.39" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node6">
+
+<g id="a_node6"><a href="../layers/#layer" title="Layer">
+<polygon fill="none" points="343.5,-468 289.5,-468 289.5,-432 343.5,-432 343.5,-468" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="316.5" y="-447.5">Layer</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge11">
+
+<path d="M343.52,-450C356.11,-450 371.53,-450 385.78,-450" fill="none" stroke="black"></path>
+<polygon fill="none" points="385.88,-453.5 395.88,-450 385.88,-446.5 385.88,-453.5" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node7">
+
+<g id="a_node7"><a href="../layers/#visual-layer" title="Visual Layer">
+<polygon fill="none" points="224.5,-576 160.5,-576 160.5,-540 224.5,-540 224.5,-576" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="192.5" y="-555.5">Visual Layer</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge10">
+
+<path d="M209.18,-539.76C224.5,-522.52 248.95,-496.46 273,-477 275.51,-474.97 278.19,-472.95 280.93,-471" fill="none" stroke="black"></path>
+<polygon fill="none" points="282.92,-473.88 289.23,-465.37 278.99,-468.09 282.92,-473.88" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node8">
+
+<g id="a_node8"><a href="../layers/#precomposition-layer" title="Precomposition Layer">
+<polygon fill="none" points="112,-738 0,-738 0,-702 112,-702 112,-738" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="56" y="-717.5">Precomposition Layer</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge5">
+
+<path d="M101.88,-701.99C105.61,-699.35 109.06,-696.36 112,-693 145.29,-654.9 116.64,-624.7 148,-585 149.39,-583.24 150.92,-581.57 152.56,-579.98" fill="none" stroke="black"></path>
+<polygon fill="none" points="154.84,-582.64 160.3,-573.57 150.37,-577.25 154.84,-582.64" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node9">
+
+<g id="a_node9"><a href="../layers/#solid-layer" title="Solid Layer">
+<polygon fill="none" points="85,-684 27,-684 27,-648 85,-648 85,-684" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="56" y="-663.5">Solid Layer</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge6">
+
+<path d="M85.03,-655.69C94.26,-651.44 104.16,-645.87 112,-639 133.69,-619.99 127.28,-605.06 148,-585 149.27,-583.77 150.61,-582.56 152,-581.39" fill="none" stroke="black"></path>
+<polygon fill="none" points="154.5,-583.88 160.33,-575.04 150.26,-578.31 154.5,-583.88" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node10">
+
+<g id="a_node10"><a href="../layers/#null-layer" title="Null Layer">
+<polygon fill="none" points="83.5,-630 28.5,-630 28.5,-594 83.5,-594 83.5,-630" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="56" y="-609.5">Null Layer</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge7">
+
+<path d="M83.57,-601.33C102.78,-593.62 129.08,-583.06 150.9,-574.3" fill="none" stroke="black"></path>
+<polygon fill="none" points="152.29,-577.52 160.26,-570.54 149.68,-571.02 152.29,-577.52" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node11">
+
+<g id="a_node11"><a href="../layers/#image-layer" title="Image Layer">
+<polygon fill="none" points="88.5,-576 23.5,-576 23.5,-540 88.5,-540 88.5,-576" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="56" y="-555.5">Image Layer</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge8">
+
+<path d="M88.53,-558C106.92,-558 130.31,-558 150.16,-558" fill="none" stroke="black"></path>
+<polygon fill="none" points="150.16,-561.5 160.16,-558 150.16,-554.5 150.16,-561.5" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node12">
+
+<g id="a_node12"><a href="../layers/#shape-layer" title="Shape Layer">
+<polygon fill="none" points="88.5,-522 23.5,-522 23.5,-486 88.5,-486 88.5,-522" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="56" y="-501.5">Shape Layer</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge9">
+
+<path d="M88.53,-516.66C107.08,-524.11 130.74,-533.61 150.7,-541.62" fill="none" stroke="black"></path>
+<polygon fill="none" points="149.58,-544.94 160.16,-545.42 152.19,-538.44 149.58,-544.94" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node13">
+
+<g id="a_node13"><a href="../shapes/#graphic-element" title="Graphic Element">
+<polygon fill="none" points="360,-360 273,-360 273,-324 360,-324 360,-360" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="316.5" y="-339.5">Graphic Element</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge26">
+
+<path d="M336.08,-360.08C354.25,-377.75 382.08,-404.83 402.45,-424.66" fill="none" stroke="black"></path>
+<polygon fill="none" points="400.25,-427.4 409.86,-431.86 405.13,-422.38 400.25,-427.4" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node14">
+
+<g id="a_node14"><a href="../shapes/#shape" title="Shape">
+<polygon fill="none" points="219.5,-414 165.5,-414 165.5,-378 219.5,-378 219.5,-414" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="192.5" y="-393.5">Shape</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge16">
+
+<path d="M219.67,-384.42C232.89,-378.56 249.39,-371.26 264.96,-364.37" fill="none" stroke="black"></path>
+<polygon fill="none" points="266.76,-367.4 274.49,-360.15 263.93,-361 266.76,-367.4" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node15">
+
+<g id="a_node15"><a href="../shapes/#polystar" title="PolyStar">
+<polygon fill="none" points="83,-468 29,-468 29,-432 83,-432 83,-468" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="56" y="-447.5">PolyStar</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge12">
+
+<path d="M83.25,-439.46C103.99,-431.13 133.14,-419.43 155.96,-410.27" fill="none" stroke="black"></path>
+<polygon fill="none" points="157.34,-413.49 165.31,-406.51 154.73,-406.99 157.34,-413.49" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node16">
+
+<g id="a_node16"><a href="../shapes/#ellipse" title="Ellipse">
+<polygon fill="none" points="83,-414 29,-414 29,-378 83,-378 83,-414" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="56" y="-393.5">Ellipse</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge13">
+
+<path d="M83.25,-396C103.71,-396 132.36,-396 155.04,-396" fill="none" stroke="black"></path>
+<polygon fill="none" points="155.31,-399.5 165.31,-396 155.31,-392.5 155.31,-399.5" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node17">
+
+<g id="a_node17"><a href="../shapes/#path" title="Path">
+<polygon fill="none" points="83,-360 29,-360 29,-324 83,-324 83,-360" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="56" y="-339.5">Path</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge14">
+
+<path d="M83.25,-352.54C103.99,-360.87 133.14,-372.57 155.96,-381.73" fill="none" stroke="black"></path>
+<polygon fill="none" points="154.73,-385.01 165.31,-385.49 157.34,-378.51 154.73,-385.01" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node18">
+
+<g id="a_node18"><a href="../shapes/#rectangle" title="Rectangle">
+<polygon fill="none" points="83,-306 29,-306 29,-270 83,-270 83,-306" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="56" y="-285.5">Rectangle</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge15">
+
+<path d="M83.06,-297.42C92.84,-301.77 103.6,-307.64 112,-315 133.69,-334.01 127.28,-348.94 148,-369 150.71,-371.63 153.73,-374.13 156.86,-376.47" fill="none" stroke="black"></path>
+<polygon fill="none" points="155.11,-379.51 165.33,-382.28 159.06,-373.73 155.11,-379.51" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node19">
+
+<g id="a_node19"><a href="../shapes/#transform" title="Transform Shape">
+<polygon fill="none" points="237,-360 148,-360 148,-324 237,-324 237,-360" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="192.5" y="-339.5">Transform Shape</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge17">
+
+<path d="M237.2,-342C245.46,-342 254.19,-342 262.7,-342" fill="none" stroke="black"></path>
+<polygon fill="none" points="262.92,-345.5 272.92,-342 262.92,-338.5 262.92,-345.5" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node20">
+
+<g id="a_node20"><a href="../shapes/#group" title="Group">
+<polygon fill="none" points="219.5,-306 165.5,-306 165.5,-270 219.5,-270 219.5,-306" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="192.5" y="-285.5">Group</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge18">
+
+<path d="M219.67,-299.58C232.89,-305.44 249.39,-312.74 264.96,-319.63" fill="none" stroke="black"></path>
+<polygon fill="none" points="263.93,-323 274.49,-323.85 266.76,-316.6 263.93,-323" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node21">
+
+<g id="a_node21"><a href="../shapes/#modifier" title="Modifier">
+<polygon fill="none" points="219.5,-252 165.5,-252 165.5,-216 219.5,-216 219.5,-252" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="192.5" y="-231.5">Modifier</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge20">
+
+<path d="M219.67,-247.72C225.73,-251.56 231.89,-256.05 237,-261 257.72,-281.06 252.38,-294.83 273,-315 273.91,-315.89 274.86,-316.77 275.84,-317.64" fill="none" stroke="black"></path>
+<polygon fill="none" points="273.74,-320.44 283.74,-323.94 278.11,-314.97 273.74,-320.44" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node22">
+
+<g id="a_node22"><a href="../shapes/#trim-path" title="Trim Path">
+<polygon fill="none" points="83,-252 29,-252 29,-216 83,-216 83,-252" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="56" y="-231.5">Trim Path</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge19">
+
+<path d="M83.25,-234C103.71,-234 132.36,-234 155.04,-234" fill="none" stroke="black"></path>
+<polygon fill="none" points="155.31,-237.5 165.31,-234 155.31,-230.5 155.31,-237.5" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node23">
+
+<g id="a_node23"><a href="../shapes/#shape-style" title="Shape Style">
+<polygon fill="none" points="223,-144 162,-144 162,-108 223,-108 223,-144" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="192.5" y="-123.5">Shape Style</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge25">
+
+<path d="M204.45,-144.21C213.86,-160.34 227.39,-184.72 237,-207 257.04,-253.46 241.85,-275.13 273,-315 273.39,-315.5 273.79,-315.98 274.19,-316.47" fill="none" stroke="black"></path>
+<polygon fill="none" points="272.02,-319.23 281.62,-323.7 276.9,-314.21 272.02,-319.23" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node24">
+
+<g id="a_node24"><a href="../shapes/#fill" title="Fill">
+<polygon fill="none" points="83,-198 29,-198 29,-162 83,-162 83,-198" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="56" y="-177.5">Fill</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge21">
+
+<path d="M83.25,-169.46C102.83,-161.6 129.91,-150.73 152.08,-141.83" fill="none" stroke="black"></path>
+<polygon fill="none" points="153.59,-144.99 161.56,-138.02 150.98,-138.5 153.59,-144.99" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node25">
+
+<g id="a_node25"><a href="../shapes/#stroke" title="Stroke">
+<polygon fill="none" points="83,-144 29,-144 29,-108 83,-108 83,-144" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="56" y="-123.5">Stroke</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge22">
+
+<path d="M83.25,-126C102.66,-126 129.42,-126 151.48,-126" fill="none" stroke="black"></path>
+<polygon fill="none" points="151.56,-129.5 161.56,-126 151.56,-122.5 151.56,-129.5" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node26">
+
+<g id="a_node26"><a href="../shapes/#gradient-stroke" title="Gradient Stroke">
+<polygon fill="none" points="97,-90 15,-90 15,-54 97,-54 97,-90" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="56" y="-69.5">Gradient Stroke</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge23">
+
+<path d="M97.35,-88.2C114.69,-95.16 134.88,-103.27 152.11,-110.18" fill="none" stroke="black"></path>
+<polygon fill="none" points="151.28,-113.62 161.86,-114.1 153.89,-107.13 151.28,-113.62" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node27">
+
+<g id="a_node27"><a href="../shapes/#gradient-fill" title="Gradient">
+<polygon fill="none" points="83,-36 29,-36 29,0 83,0 83,-36" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="56" y="-15.5">Gradient</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge24">
+
+<path d="M83.22,-28.66C92.69,-33.07 103.2,-38.65 112,-45 133.83,-60.76 155,-82.78 170,-99.88" fill="none" stroke="black"></path>
+<polygon fill="none" points="167.67,-102.53 176.85,-107.83 172.98,-97.96 167.67,-102.53" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node28">
+
+<g id="a_node28"><a href="../shapes/#stroke-dash" title="Stroke Dash">
+<polygon fill="none" points="348,-306 285,-306 285,-270 348,-270 348,-306" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="316.5" y="-285.5">Stroke Dash</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge27">
+
+<path d="M348.33,-304.73C352.55,-307.81 356.59,-311.25 360,-315 388.76,-346.68 408.65,-392.66 419.31,-421.95" fill="none" stroke="black"></path>
+<polygon fill="none" points="416.07,-423.29 422.7,-431.56 422.67,-420.96 416.07,-423.29" stroke="black"></polygon>
+</g>
+</g>
+</svg></details>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Title</th>
+<th>Description <a class="schema-link" href="../schema/#/$defs/helpers/visual-object" title="View Schema"><i class="fas fa-file-code"></i></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nm</code></td>
+<td><code>string</code></td>
+<td>
+<p>Name</p>
+</td>
+<td>
+<p>Human readable name, as seen from editors and the like</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="marker">Marker</h2>
+<p></p>
+<p><span>Defines named portions of the composition.</span></p>
+<div>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Title</th>
+<th>Description <a class="schema-link" href="../schema/#/$defs/helpers/marker" title="View Schema"><i class="fas fa-file-code"></i></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cm</code></td>
+<td><code>string</code></td>
+<td>
+<p>Comment</p>
+</td>
+<td>
+<p>Comment</p>
+</td>
+</tr>
+<tr>
+<td><code>tm</code></td>
+<td><code>number</code></td>
+<td>
+<p>Time</p>
+</td>
+<td>
+<p>Time</p>
+</td>
+</tr>
+<tr>
+<td><code>dr</code></td>
+<td><code>number</code></td>
+<td>
+<p>Duration</p>
+</td>
+<td>
+<p>Duration</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="slots">Slots</h2>
+<p></p>
+<p>Slots are a way to define a property value once and use the value in multiple
+properties. Slot definitions are in a dictionary, the slot definition key is the
+key that is used to match all properties with an <code>sid</code> field to the same key for
+replacement.</p>
+<h3 id="slot">Slot</h3>
+<p></p>
+<p><span>Defines a property value that will be set to all matched properties</span></p>
+<div>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Title</th>
+<th>Description <a class="schema-link" href="../schema/#/$defs/helpers/slot" title="View Schema"><i class="fas fa-file-code"></i></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>p</code></td>
+<td><code></code></td>
+<td>
+<p>Property Value</p>
+</td>
+<td>
+<p>Property Value</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="slottable-object">Slotabble Object</h3>
+<p></p>
+<p><span>Object that may have it's value replaced with a slot value</span></p>
+<div>
+<details>
+<summary>Composition Diagram for Slottable Object</summary>
+<svg _xmlns="http://www.w3.org/2000/svg" height="206pt" viewBox="0.00 0.00 343.00 206.00" width="343pt">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 202)">
+
+<polygon fill="white" points="-4,4 -4,-202 339,-202 339,4 -4,4" stroke="transparent"></polygon>
+
+<g class="node current" id="node1">
+
+<polygon fill="none" points="335,-144 253,-144 253,-108 335,-108 335,-144" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="294" y="-123.5">Slottable Object</text>
+</g>
+
+<g class="node" id="node2">
+
+<g id="a_node2"><a href="../assets/#image" title="Image">
+<polygon fill="none" points="197.5,-171 143.5,-171 143.5,-135 197.5,-135 197.5,-171" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="170.5" y="-150.5">Image</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge1">
+
+<path d="M197.56,-147.21C210.72,-144.28 227.14,-140.64 242.63,-137.19" fill="none" stroke="black"></path>
+<polygon fill="none" points="243.63,-140.56 252.63,-134.97 242.11,-133.72 243.63,-140.56" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node3">
+
+<g id="a_node3"><a href="./#slottable-property" title="Slottable Property">
+<polygon fill="none" points="217,-117 124,-117 124,-81 217,-81 217,-117" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="170.5" y="-96.5">Slottable Property</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge6">
+
+<path d="M217.09,-109.13C225.51,-111 234.35,-112.97 242.89,-114.86" fill="none" stroke="black"></path>
+<polygon fill="none" points="242.23,-118.3 252.75,-117.06 243.75,-111.47 242.23,-118.3" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node4">
+
+<g id="a_node4"><a href="../properties/#scalar-property" title="Scalar Property">
+<polygon fill="none" points="83.5,-198 4.5,-198 4.5,-162 83.5,-162 83.5,-198" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="44" y="-177.5">Scalar Property</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge2">
+
+<path d="M74.82,-161.73C79.27,-158.87 83.79,-155.9 88,-153 104.48,-141.67 107.38,-137.12 124,-126 125.66,-124.89 127.37,-123.77 129.1,-122.66" fill="none" stroke="black"></path>
+<polygon fill="none" points="131.28,-125.43 137.9,-117.15 127.56,-119.49 131.28,-125.43" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node5">
+
+<g id="a_node5"><a href="../properties/#vector-property" title="Vector Property">
+<polygon fill="none" points="83.5,-144 4.5,-144 4.5,-108 83.5,-108 83.5,-144" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="44" y="-123.5">Vector Property</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge3">
+
+<path d="M83.71,-117.61C93.24,-115.54 103.63,-113.28 113.79,-111.08" fill="none" stroke="black"></path>
+<polygon fill="none" points="114.8,-114.44 123.83,-108.9 113.31,-107.6 114.8,-114.44" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node6">
+
+<g id="a_node6"><a href="../properties/#position-property" title="Position Property">
+<polygon fill="none" points="88,-90 0,-90 0,-54 88,-54 88,-90" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="44" y="-69.5">Position Property</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge4">
+
+<path d="M88.19,-81.37C96.47,-83.16 105.25,-85.07 113.86,-86.93" fill="none" stroke="black"></path>
+<polygon fill="none" points="113.32,-90.4 123.84,-89.1 114.81,-83.56 113.32,-90.4" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node7">
+
+<g id="a_node7"><a href="../properties/#color-property" title="Color Property">
+<polygon fill="none" points="81.5,-36 6.5,-36 6.5,0 81.5,0 81.5,-36" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="44" y="-15.5">Color Property</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge5">
+
+<path d="M74.21,-36.2C78.83,-39.13 83.56,-42.13 88,-45 103.12,-54.75 119.69,-65.69 133.92,-75.15" fill="none" stroke="black"></path>
+<polygon fill="none" points="132.18,-78.2 142.44,-80.83 136.06,-72.37 132.18,-78.2" stroke="black"></polygon>
+</g>
+</g>
+</svg></details>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Title</th>
+<th>Description <a class="schema-link" href="../schema/#/$defs/helpers/slottable-object" title="View Schema"><i class="fas fa-file-code"></i></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sid</code></td>
+<td><code>string</code></td>
+<td>
+<p>Slot Id</p>
+</td>
+<td>
+<p>Identifier to look up the slot</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="slottable-property">Slotabble Property</h3>
+<p></p>
+<p><span>Property that may have it's value replaced with a slot value</span></p>
+<div>
+<details>
+<summary>Composition Diagram for Slottable Property</summary>
+<svg _xmlns="http://www.w3.org/2000/svg" height="206pt" viewBox="0.00 0.00 343.00 206.00" width="343pt">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 202)">
+
+<polygon fill="white" points="-4,4 -4,-202 339,-202 339,4 -4,4" stroke="transparent"></polygon>
+
+<g class="node current" id="node1">
+
+<polygon fill="none" points="217,-117 124,-117 124,-81 217,-81 217,-117" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="170.5" y="-96.5">Slottable Property</text>
+</g>
+
+<g class="node" id="node2">
+
+<g id="a_node2"><a href="./#slottable-object" title="Slottable Object">
+<polygon fill="none" points="335,-117 253,-117 253,-81 335,-81 335,-117" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="294" y="-96.5">Slottable Object</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge1">
+
+<path d="M217.09,-99C225.42,-99 234.15,-99 242.61,-99" fill="none" stroke="black"></path>
+<polygon fill="none" points="242.75,-102.5 252.75,-99 242.75,-95.5 242.75,-102.5" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node3">
+
+<g id="a_node3"><a href="../properties/#scalar-property" title="Scalar Property">
+<polygon fill="none" points="83.5,-198 4.5,-198 4.5,-162 83.5,-162 83.5,-198" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="44" y="-177.5">Scalar Property</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge2">
+
+<path d="M74.21,-161.8C78.83,-158.87 83.56,-155.87 88,-153 103.12,-143.25 119.69,-132.31 133.92,-122.85" fill="none" stroke="black"></path>
+<polygon fill="none" points="136.06,-125.63 142.44,-117.17 132.18,-119.8 136.06,-125.63" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node4">
+
+<g id="a_node4"><a href="../properties/#vector-property" title="Vector Property">
+<polygon fill="none" points="83.5,-144 4.5,-144 4.5,-108 83.5,-108 83.5,-144" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="44" y="-123.5">Vector Property</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge3">
+
+<path d="M83.71,-117.61C93.24,-115.54 103.63,-113.28 113.79,-111.08" fill="none" stroke="black"></path>
+<polygon fill="none" points="114.8,-114.44 123.83,-108.9 113.31,-107.6 114.8,-114.44" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node5">
+
+<g id="a_node5"><a href="../properties/#position-property" title="Position Property">
+<polygon fill="none" points="88,-90 0,-90 0,-54 88,-54 88,-90" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="44" y="-69.5">Position Property</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge4">
+
+<path d="M88.19,-81.37C96.47,-83.16 105.25,-85.07 113.86,-86.93" fill="none" stroke="black"></path>
+<polygon fill="none" points="113.32,-90.4 123.84,-89.1 114.81,-83.56 113.32,-90.4" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node6">
+
+<g id="a_node6"><a href="../properties/#color-property" title="Color Property">
+<polygon fill="none" points="81.5,-36 6.5,-36 6.5,0 81.5,0 81.5,-36" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="44" y="-15.5">Color Property</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge5">
+
+<path d="M74.21,-36.2C78.83,-39.13 83.56,-42.13 88,-45 103.12,-54.75 119.69,-65.69 133.92,-75.15" fill="none" stroke="black"></path>
+<polygon fill="none" points="132.18,-78.2 142.44,-80.83 136.06,-72.37 132.18,-78.2" stroke="black"></polygon>
+</g>
+</g>
+</svg></details>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Title</th>
+<th>Description <a class="schema-link" href="../schema/#/$defs/helpers/slottable-property" title="View Schema"><i class="fas fa-file-code"></i></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sid</code></td>
+<td><code>string</code></td>
+<td>
+<p>Slot Id</p>
+</td>
+<td>
+<p>Identifier to look up the slot</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="playground print-site-plugin-ignore">
+<table class="table-plain" style="width: 100%">
+<tr>
+<td style="white-space: pre"><label>Scale X</label> </td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="13" max="200" min="0" name="Scale X" oninput="lottie_player_13.reload();document.getElementById('playground_13_1_span').innerText = event.target.value;" title="Scale X" type="range" value="100" />
+        <span id="playground_13_1_span">100</span></td>
+</tr>
+<tr>
+<td style="white-space: pre"><label>Scale Y</label> </td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="13" max="200" min="0" name="Scale Y" oninput="lottie_player_13.reload();document.getElementById('playground_13_2_span').innerText = event.target.value;" title="Scale Y" type="range" value="100" />
+        <span id="playground_13_2_span">100</span></td>
+</tr>
+<tr>
+<td style="white-space: pre"><label>Rotation</label> </td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="13" max="360" min="-360" name="Rotation" oninput="lottie_player_13.reload();document.getElementById('playground_13_3_span').innerText = event.target.value;" title="Rotation" type="range" value="0" />
+        <span id="playground_13_3_span">0</span></td>
+</tr>
+<tr>
+<td style="white-space: pre"><label>Opacity</label> </td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="13" max="100" min="0" name="Opacity" oninput="lottie_player_13.reload();document.getElementById('playground_13_4_span').innerText = event.target.value;" title="Opacity" type="range" value="100" />
+    <span id="playground_13_4_span">100</span></td>
+</tr>
+</table>
+<div class="playground-columns">
+<div class="animation-container animation-container-alpha">
+<div id="lottie_target_13"></div>
+</div>
+<div class="json-parent" id="playground_13_5_parent">
+<pre><code class="language-json hljs" id="playground_13_5">
+</code></pre>
+</div>
+<script>
+        var lottie_player_13 = new PlaygroundPlayer(
+            13,
+            'playground_13_5',
+            'lottie_target_13',
+            {"v": "5.12.2", "fr": 29.9700012207031, "ip": 0, "op": 900.000036657751, "w": 512, "h": 512, "nm": "SlotDemo", "ddd": 0, "assets": [], "layers": [{"ddd": 0, "ind": 1, "ty": 4, "nm": "Shape Layer 1", "sr": 1, "ks": {"o": {"a": 0, "k": 100, "ix": 11}, "r": {"a": 0, "k": 0, "ix": 10}, "p": {"a": 0, "k": [256, 256, 0], "ix": 2, "l": 2}, "a": {"a": 0, "k": [0, 0, 0], "ix": 1, "l": 2}, "s": {"a": 0, "k": [100, 100, 100], "ix": 6, "l": 2}}, "ao": 0, "shapes": [{"ty": "gr", "it": [{"ty": "sr", "sy": 2, "d": 1, "pt": {"a": 0, "k": 3, "ix": 3}, "p": {"a": 0, "k": [0, 0], "ix": 4}, "r": {"a": 0, "k": 0, "ix": 5}, "or": {"a": 0, "k": 100, "ix": 7}, "os": {"a": 0, "k": 0, "ix": 9}, "ix": 1, "nm": "Polystar Path 1", "mn": "ADBE Vector Shape - Star", "hd": false}, {"ty": "st", "c": {"a": 0, "k": [0.271324008119, 0.323676015816, 0.880510995902, 1], "ix": 3}, "o": {"a": 0, "k": 100, "ix": 4}, "w": {"a": 0, "k": 6, "ix": 5}, "lc": 1, "lj": 1, "ml": 4, "bm": 0, "nm": "Stroke 1", "mn": "ADBE Vector Graphic - Stroke", "hd": false}, {"ty": "tr", "p": {"a": 0, "k": [-128, 128], "ix": 2}, "a": {"a": 0, "k": [0, 0], "ix": 1}, "s": {"a": 0, "k": [100, 100], "ix": 3, "sid": "scale"}, "r": {"a": 0, "k": 0, "ix": 6, "sid": "rotation"}, "o": {"a": 0, "k": 100, "ix": 7, "sid": "opacity"}, "sk": {"a": 0, "k": 0, "ix": 4}, "sa": {"a": 0, "k": 0, "ix": 5}, "nm": "Transform"}], "nm": "Polystar 2", "np": 3, "cix": 2, "bm": 0, "ix": 1, "mn": "ADBE Vector Group", "hd": false}, {"ty": "gr", "it": [{"d": 1, "ty": "el", "s": {"a": 0, "k": [149.971, 150], "ix": 2}, "p": {"a": 0, "k": [0, 0], "ix": 3}, "nm": "Ellipse Path 1", "mn": "ADBE Vector Shape - Ellipse", "hd": false}, {"ty": "st", "c": {"a": 0, "k": [0.271324008119, 0.323676015816, 0.880510995902, 1], "ix": 3}, "o": {"a": 0, "k": 100, "ix": 4}, "w": {"a": 0, "k": 6, "ix": 5}, "lc": 1, "lj": 1, "ml": 4, "bm": 0, "nm": "Stroke 1", "mn": "ADBE Vector Graphic - Stroke", "hd": false}, {"ty": "tr", "p": {"a": 0, "k": [128, -128], "ix": 2}, "a": {"a": 0, "k": [0, 0], "ix": 1}, "s": {"a": 0, "k": [100, 100], "ix": 3, "sid": "scale"}, "r": {"a": 0, "k": 0, "ix": 6, "sid": "rotation"}, "o": {"a": 0, "k": 100, "ix": 7, "sid": "opacity"}, "sk": {"a": 0, "k": 0, "ix": 4}, "sa": {"a": 0, "k": 0, "ix": 5}, "nm": "Transform"}], "nm": "Ellipse 1", "np": 3, "cix": 2, "bm": 0, "ix": 2, "mn": "ADBE Vector Group", "hd": false}, {"ty": "gr", "it": [{"ty": "sr", "sy": 1, "d": 1, "pt": {"a": 0, "k": 5, "ix": 3}, "p": {"a": 0, "k": [0, 0], "ix": 4}, "r": {"a": 0, "k": 0, "ix": 5}, "ir": {"a": 0, "k": 50, "ix": 6}, "is": {"a": 0, "k": 0, "ix": 8}, "or": {"a": 0, "k": 100, "ix": 7}, "os": {"a": 0, "k": 0, "ix": 9}, "ix": 1, "nm": "Polystar Path 1", "mn": "ADBE Vector Shape - Star", "hd": false}, {"ty": "fl", "c": {"a": 0, "k": [0.271324008119, 0.323676015816, 0.880510995902, 1], "ix": 4}, "o": {"a": 0, "k": 100, "ix": 5}, "r": 1, "bm": 0, "nm": "Fill 1", "mn": "ADBE Vector Graphic - Fill", "hd": false}, {"ty": "tr", "p": {"a": 0, "k": [128, 128], "ix": 2}, "a": {"a": 0, "k": [0, 0], "ix": 1}, "s": {"a": 0, "k": [100, 100], "ix": 3, "sid": "scale"}, "r": {"a": 0, "k": 0, "ix": 6, "sid": "rotation"}, "o": {"a": 0, "k": 100, "ix": 7, "sid": "opacity"}, "sk": {"a": 0, "k": 0, "ix": 4}, "sa": {"a": 0, "k": 0, "ix": 5}, "nm": "Transform"}], "nm": "Polystar 1", "np": 3, "cix": 2, "bm": 0, "ix": 3, "mn": "ADBE Vector Group", "hd": false}, {"ty": "gr", "it": [{"ty": "rc", "d": 1, "s": {"a": 0, "k": [150, 150], "ix": 2}, "p": {"a": 0, "k": [0, 0], "ix": 3}, "r": {"a": 0, "k": 0, "ix": 4}, "nm": "Rectangle Path 1", "mn": "ADBE Vector Shape - Rect", "hd": false}, {"ty": "fl", "c": {"a": 0, "k": [0.271324008119, 0.323676015816, 0.880510995902, 1], "ix": 4}, "o": {"a": 0, "k": 100, "ix": 5}, "r": 1, "bm": 0, "nm": "Fill 1", "mn": "ADBE Vector Graphic - Fill", "hd": false}, {"ty": "tr", "p": {"a": 0, "k": [-128, -128], "ix": 2}, "a": {"a": 0, "k": [0, 0], "ix": 1}, "s": {"a": 0, "k": [100, 100], "ix": 3, "sid": "scale"}, "r": {"a": 0, "k": 0, "ix": 6, "sid": "rotation"}, "o": {"a": 0, "k": 100, "ix": 7, "sid": "opacity"}, "sk": {"a": 0, "k": 0, "ix": 4}, "sa": {"a": 0, "k": 0, "ix": 5}, "nm": "Transform"}], "nm": "Rectangle 1", "np": 3, "cix": 2, "bm": 0, "ix": 4, "mn": "ADBE Vector Group", "hd": false}], "ip": 0, "op": 900.000036657751, "st": 0, "ct": 1, "bm": 0}], "markers": [], "props": {}, "slots": {"rotation": {"p": {"a": 0, "k": 0}}, "opacity": {"p": {"a": 0, "k": 100}}, "scale": {"p": {"a": 0, "k": [100, 100]}}}},
+            function (lottie, data)
+            {
+                
+    lottie.slots.rotation.p.k = data["Rotation"];
+    lottie.slots.opacity.p.k = data["Opacity"];
+    lottie.slots.scale.p.k[0] = data["Scale X"];
+    lottie.slots.scale.p.k[1] = data["Scale Y"];
+    this.json_viewer_contents = lottie.slots;
+            },
+            {}
+        );
+        </script>
+</div>
+</div>
+<h2 id="mask">Mask</h2>
+<p></p>
+<p><span>Mask for layer content.</span></p>
+<div>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Title</th>
+<th>Description <a class="schema-link" href="../schema/#/$defs/helpers/mask" title="View Schema"><i class="fas fa-file-code"></i></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td><a href="../constants/#mask-mode">Mask Mode</a></td>
+<td>
+<p>Mode</p>
+</td>
+<td>
+<p>Mode</p>
+</td>
+</tr>
+<tr>
+<td><code>o</code></td>
+<td><a href="../properties/#scalar-property">Scalar</a></td>
+<td>
+<p>Opacity</p>
+</td>
+<td>
+<p>Mask opacity, as a percentage [0..100].</p>
+</td>
+</tr>
+<tr>
+<td><code>pt</code></td>
+<td><a href="../properties/#bezier-property">Bezier</a></td>
+<td>
+<p>Shape</p>
+</td>
+<td>
+<p>Mask shape</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Masks provide single-channel coverage information (alpha channel) that modulates the layer's
+content.</p>
+<p>When multiple masks are specified, they are combined (blended) into a single coverage buffer,
+in order, based on the <a href="../constants/#mask-mode"><code>mode</code></a> operator.</p>
+<p>Masks are specified in terms of a <code>Path</code> plus additional properties.  For a given mask path,
+the coverage <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>C</mi><mrow><mi>p</mi><mi>a</mi><mi>t</mi><mi>h</mi></mrow></msub></mrow></math> is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>1</mn></mrow></math> inside the path, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>0</mn></mrow></math> outside the path, and possibly in the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>&#x0002E;</mo><mi>.1</mi><mo stretchy="false">]</mo></mrow></math>
+range along the path edges (anti-aliasing).</p>
+<p>The coverage for a given <code>Mask</code> is</p>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi><mo>&#x0003D;</mo><mrow><mo fence="true" form="prefix" stretchy="true">&#x0007B;</mo><mtable><mtr><mtd columnalign="left"><msub><mi>C</mi><mrow><mi>p</mi><mi>a</mi><mi>t</mi><mi>h</mi></mrow></msub><mi>&#x000B7;</mi><mi>o</mi><mi>p</mi><mi>a</mi><mi>c</mi><mi>i</mi><mi>t</mi><mi>y</mi><mo>&#x0002C;</mo></mtd><mtd columnalign="left"><mtext>when&#x000A0;</mtext><mi>i</mi><mi>n</mi><mi>v</mi><mo>&#x0003D;</mo><mi>f</mi><mi>a</mi><mi>l</mi><mi>s</mi><mi>e</mi></mtd></mtr><mtr><mtd columnalign="left"><msubsup><mi>C</mi><mrow><mi>p</mi><mi>a</mi><mi>t</mi><mi>h</mi></mrow><mrow><mo>&#x02212;</mo><mn>1</mn></mrow></msubsup><mi>&#x000B7;</mi><mi>o</mi><mi>p</mi><mi>a</mi><mi>c</mi><mi>i</mi><mi>t</mi><mi>y</mi><mo>&#x0002C;</mo></mtd><mtd columnalign="left"><mtext>when&#x000A0;</mtext><mi>i</mi><mi>n</mi><mi>v</mi><mo>&#x0003D;</mo><mi>t</mi><mi>r</mi><mi>u</mi><mi>e</mi></mtd></mtr></mtable></mrow></mrow></math>
+<p>and the cumulative coverage for all masks is</p>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>C</mi><mrow><mi>c</mi><mi>u</mi><mi>m</mi><mi>u</mi><mi>l</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>v</mi><mi>e</mi></mrow></msub><mo>&#x0003D;</mo><msubsup><mo>&#x0220F;</mo><mrow><mi>k</mi><mo>&#x0003D;</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></msubsup><msub><mi>C</mi><mi>k</mi></msub></mrow></math>
+<p>where the product operator is determined by <a href="../constants/#mask-mode"><code>mode</code></a>.
+Then the final layer coverage (alpha channel) is</p>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>C</mi><mrow><mi>l</mi><mi>a</mi><mi>y</mi><mi>e</mi><mi>r</mi></mrow></msub><mi>&#x02032;</mi><mo>&#x0003D;</mo><msub><mi>C</mi><mrow><mi>l</mi><mi>a</mi><mi>y</mi><mi>e</mi><mi>r</mi></mrow></msub><mi>&#x000B7;</mi><msub><mi>C</mi><mrow><mi>c</mi><mi>u</mi><mi>m</mi><mi>u</mi><mi>l</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>v</mi><mi>e</mi></mrow></msub></mrow></math>
+<p class="print-site-plugin-ignore">Example</p>
+<div class="playground print-site-plugin-ignore">
+<table class="table-plain" style="width: 100%">
+<tr>
+<td style="white-space: pre"><label>Opacity</label> </td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="14" max="100" min="0" name="Opacity" oninput="lottie_player_14.reload();document.getElementById('playground_14_1_span').innerText = event.target.value;" title="Opacity" type="range" value="100" />
+    <span id="playground_14_1_span">100</span></td>
+</tr>
+</table>
+<div class="playground-columns">
+<div class="animation-container animation-container-alpha">
+<div id="lottie_target_14"></div>
+</div>
+<div class="json-parent" id="playground_14_2_parent">
+<pre><code class="language-json hljs" id="playground_14_2">
+</code></pre>
+</div>
+<script>
+        var lottie_player_14 = new PlaygroundPlayer(
+            14,
+            'playground_14_2',
+            'lottie_target_14',
+            {"v": "5.12.0", "fr": 60, "ip": 0, "op": 601, "w": 500, "h": 500, "nm": "test3", "ddd": 0, "assets": [], "layers": [{"ddd": 0, "ind": 1, "ty": 4, "nm": "Shape Layer 2", "sr": 1, "ks": {"o": {"a": 0, "k": 100, "ix": 11}, "r": {"a": 0, "k": 0, "ix": 10}, "p": {"a": 0, "k": [250, 250, 0], "ix": 2, "l": 2}, "a": {"a": 0, "k": [0, 0, 0], "ix": 1, "l": 2}, "s": {"a": 0, "k": [100, 100, 100], "ix": 6, "l": 2}}, "ao": 0, "shapes": [{"ind": 0, "ty": "sh", "ix": 1, "ks": {"a": 0, "k": {"i": [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], "o": [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], "v": [[0, -200], [86.603, -50], [173.205, 100], [0, 100], [-173.205, 100], [-86.603, -50]], "c": true}, "ix": 2}, "nm": "Path 1", "mn": "ADBE Vector Shape - Group", "hd": false}, {"ty": "st", "c": {"a": 0, "k": [1, 0, 0, 1], "ix": 3}, "o": {"a": 0, "k": 100, "ix": 4}, "w": {"a": 0, "k": 2, "ix": 5}, "lc": 1, "lj": 1, "ml": 4, "bm": 0, "d": [{"n": "d", "nm": "dash", "v": {"a": 0, "k": 10, "ix": 1}}, {"n": "o", "nm": "offset", "v": {"a": 0, "k": 0, "ix": 7}}], "nm": "Stroke 1", "mn": "ADBE Vector Graphic - Stroke", "hd": false}], "ip": 0, "op": 601, "st": 0, "ct": 1, "bm": 0}, {"ddd": 0, "ind": 2, "ty": 4, "nm": "Shape Layer 1", "sr": 1, "ks": {"o": {"a": 0, "k": 100, "ix": 11}, "r": {"a": 0, "k": 0, "ix": 10}, "p": {"a": 0, "k": [250, 250, 0], "ix": 2, "l": 2}, "a": {"a": 0, "k": [0, 0, 0], "ix": 1, "l": 2}, "s": {"a": 0, "k": [100, 100, 100], "ix": 6, "l": 2}}, "ao": 0, "hasMask": true, "masksProperties": [{"inv": false, "mode": "a", "pt": {"a": 0, "k": {"i": [[0, 0], [0, 0], [0, 0]], "o": [[0, 0], [0, 0], [0, 0]], "v": [[0.5, -199.5], [173.705, 100.5], [-172.705, 100.5]], "c": true}, "ix": 1}, "o": {"a": 0, "k": 100, "ix": 3}, "x": {"a": 0, "k": 0, "ix": 4}, "nm": "Mask 1"}], "shapes": [{"ty": "gr", "it": [{"d": 1, "ty": "el", "s": {"a": 0, "k": [200, 200], "ix": 2}, "p": {"a": 0, "k": [100, 0], "ix": 3}, "nm": "Ellipse Path 1", "mn": "ADBE Vector Shape - Ellipse", "hd": false}, {"ty": "fl", "c": {"a": 0, "k": [0, 1, 0.250980407, 1], "ix": 4}, "o": {"a": 0, "k": 75, "ix": 5}, "r": 1, "bm": 0, "nm": "Fill 1", "mn": "ADBE Vector Graphic - Fill", "hd": false}, {"ty": "tr", "p": {"a": 0, "k": [0, 0], "ix": 2}, "a": {"a": 0, "k": [0, 0], "ix": 1}, "s": {"a": 0, "k": [100, 100], "ix": 3}, "r": {"a": 1, "k": [{"i": {"x": [0.833], "y": [0.833]}, "o": {"x": [0.167], "y": [0.167]}, "t": 0, "s": [0]}, {"t": 600, "s": [360]}], "ix": 6}, "o": {"a": 0, "k": 100, "ix": 7}, "sk": {"a": 0, "k": 0, "ix": 4}, "sa": {"a": 0, "k": 0, "ix": 5}, "nm": "Transform"}], "nm": "Group 3", "np": 2, "cix": 2, "bm": 0, "ix": 1, "mn": "ADBE Vector Group", "hd": false}, {"ty": "gr", "it": [{"ty": "sr", "sy": 1, "d": 1, "pt": {"a": 0, "k": 5, "ix": 3}, "p": {"a": 0, "k": [0, 0], "ix": 4}, "r": {"a": 0, "k": 0, "ix": 5}, "ir": {"a": 0, "k": 50, "ix": 6}, "is": {"a": 0, "k": 0, "ix": 8}, "or": {"a": 0, "k": 162, "ix": 7}, "os": {"a": 0, "k": 0, "ix": 9}, "ix": 1, "nm": "Polystar Path 1", "mn": "ADBE Vector Shape - Star", "hd": false}, {"ty": "fl", "c": {"a": 0, "k": [1, 0.250980407, 0, 1], "ix": 4}, "o": {"a": 0, "k": 75, "ix": 5}, "r": 1, "bm": 0, "nm": "Fill 1", "mn": "ADBE Vector Graphic - Fill", "hd": false}, {"ty": "tr", "p": {"a": 0, "k": [0, 0], "ix": 2}, "a": {"a": 0, "k": [0, 0], "ix": 1}, "s": {"a": 0, "k": [100, 100], "ix": 3}, "r": {"a": 1, "k": [{"i": {"x": [0.833], "y": [0.833]}, "o": {"x": [0.167], "y": [0.167]}, "t": 0, "s": [0]}, {"t": 600, "s": [720]}], "ix": 6}, "o": {"a": 0, "k": 100, "ix": 7}, "sk": {"a": 0, "k": 0, "ix": 4}, "sa": {"a": 0, "k": 0, "ix": 5}, "nm": "Transform"}], "nm": "Group 1", "np": 2, "cix": 2, "bm": 0, "ix": 2, "mn": "ADBE Vector Group", "hd": false}, {"ty": "gr", "it": [{"ty": "rc", "d": 1, "s": {"a": 0, "k": [175, 175], "ix": 2}, "p": {"a": 0, "k": [-90, 0], "ix": 3}, "r": {"a": 0, "k": 0, "ix": 4}, "nm": "Rectangle Path 1", "mn": "ADBE Vector Shape - Rect", "hd": false}, {"ty": "fl", "c": {"a": 0, "k": [0.250980407, 0, 1, 1], "ix": 4}, "o": {"a": 0, "k": 75, "ix": 5}, "r": 1, "bm": 0, "nm": "Fill 1", "mn": "ADBE Vector Graphic - Fill", "hd": false}, {"ty": "tr", "p": {"a": 0, "k": [0, 0], "ix": 2}, "a": {"a": 0, "k": [0, 0], "ix": 1}, "s": {"a": 0, "k": [100, 100], "ix": 3}, "r": {"a": 1, "k": [{"i": {"x": [0.833], "y": [0.833]}, "o": {"x": [0.167], "y": [0.167]}, "t": 0, "s": [0]}, {"t": 600, "s": [-360]}], "ix": 6}, "o": {"a": 0, "k": 100, "ix": 7}, "sk": {"a": 0, "k": 0, "ix": 4}, "sa": {"a": 0, "k": 0, "ix": 5}, "nm": "Transform"}], "nm": "Group 2", "np": 2, "cix": 2, "bm": 0, "ix": 3, "mn": "ADBE Vector Group", "hd": false}], "ip": 0, "op": 601, "st": 0, "ct": 1, "bm": 0}], "markers": [], "props": {}},
+            function (lottie, data)
+            {
+                
+        let mask = lottie.layers[1].masksProperties[0];
+        mask.o.k = Number(data["Opacity"]);
+    this.json_viewer_contents = lottie.layers[1].masksProperties[0];
+            },
+            {}
+        );
+        </script>
+</div>
+</div></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+    <hr/>
+
+      </footer>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+      <!-- default is to include highlightjs -->
+    
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../js/print-site.js"></script>
+    <script src="../../search/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                if ( block.classList.length != 0 )
+                    hljs.highlightBlock(block);
+            });
+        });
+    </script>
+
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>
