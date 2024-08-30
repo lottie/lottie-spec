@@ -4,7 +4,7 @@ disable_toc: 1
 # Lottie Validator
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/8.16.0/ajv2020.min.js" integrity="sha512-OunSQfwE+NRzXE6jEJfFCyVkFQgMOk+oxD34iU8Xc21cUYfFH5TKBc7Z3RqKC4EW1tlllWIIOdq2Kf5F/5wKOw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="{{url}}/js/validator.js"></script>
+<script src="../js/validator.js"></script>
 
 <style>
 .hidden {
