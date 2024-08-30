@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentation for the Lottie animation format">
+    
+    <link rel="canonical" href="https://lottie.github.io/lottie-spec/1.0/specs/assets/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Assets - Lottie Specs</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+     
+
+    
+    <link href="../../css/print-site-enum-headings1.css" rel="stylesheet">
+    <link href="../../css/print-site-enum-headings2.css" rel="stylesheet">
+    <link href="../../css/print-site-enum-headings3.css" rel="stylesheet">
+    <link href="../../css/print-site.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+    
+     
+
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.js'></script>
+
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="../../js/lottie_raw_utils.js"></script>
+    <script src="../../js/value_editors.js"></script>
+    <link href="../../css/style.css" rel="stylesheet">
+    <link href="../../css/lottie-theme.css" rel="stylesheet">
+
+    <script>
+        var base_url = "../..";
+    </script>
+    <script src="../../js/version-select.js"></script>
+    <link href="../../css/version-select.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="../..">Lottie Specs</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Format <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../values/">Values</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../properties/">Properties</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../composition/">Composition</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../layers/">Layers</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../shapes/">Shapes</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Assets</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../constants/">Enumerations</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../helpers/">Helpers</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../glossary/">Glossary</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../schema/">JSON Schema</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../validator/">Lottie Validator</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Community <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../governance/">Lottie Animation Format Documentation</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Governance/">Community Specification Governance Policy 1.0</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Community_Specification_License-v1/">Community Specification License 1.0</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Code_of_Conduct/">Contributor Covenant Code of Conduct</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/License/">Licenses</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Notices/">Notices</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Contributing</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../governance/CONTRIBUTING/">Lottie Format Specification Contribution Guide</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../editing/schema/">Adding to the Schema</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../editing/extensions/">Markdown Extensions</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../shapes/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../constants/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/lottie/lottie-spec/edit/main/docs/specs/assets.md"><i class="fab fa-github"></i> Edit on GitHub</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#assets">Assets</a></li>
+            <li class="second-level"><a href="#asset">Asset</a></li>
+                
+            <li class="second-level"><a href="#precomposition">Precomposition</a></li>
+                
+            <li class="second-level"><a href="#image">Image</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="assets">Assets</h1>
+<h2 id="asset">Asset</h2>
+<p></p>
+<p><span></span></p>
+<div>
+<details>
+<summary>Composition Diagram for Asset</summary>
+<svg _xmlns="http://www.w3.org/2000/svg" height="98pt" viewBox="0.00 0.00 280.00 98.00" width="280pt">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 94)">
+
+<polygon fill="white" points="-4,4 -4,-94 276,-94 276,4 -4,4" stroke="transparent"></polygon>
+
+<g class="node current" id="node1">
+
+<polygon fill="none" points="169,-63 115,-63 115,-27 169,-27 169,-63" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="142" y="-42.5">Asset</text>
+</g>
+
+<g class="node" id="node2">
+
+<g id="a_node2"><a href="../helpers/#visual-object" title="Visual Object">
+<polygon fill="none" points="272,-63 205,-63 205,-27 272,-27 272,-63" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="238.5" y="-42.5">Visual Object</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge1">
+
+<path d="M169.07,-45C177,-45 185.94,-45 194.67,-45" fill="none" stroke="black"></path>
+<polygon fill="none" points="194.76,-48.5 204.76,-45 194.76,-41.5 194.76,-48.5" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node3">
+
+<g id="a_node3"><a href="./#precomposition" title="Precomposition">
+<polygon fill="none" points="79,-90 0,-90 0,-54 79,-54 79,-90" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="39.5" y="-69.5">Precomposition</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge2">
+
+<path d="M79.07,-61.64C87.57,-59.35 96.54,-56.94 104.94,-54.69" fill="none" stroke="black"></path>
+<polygon fill="none" points="106.07,-58.01 114.82,-52.03 104.26,-51.25 106.07,-58.01" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node4">
+
+<g id="a_node4"><a href="./#image" title="Image">
+<polygon fill="none" points="66.5,-36 12.5,-36 12.5,0 66.5,0 66.5,-36" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="39.5" y="-15.5">Image</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge3">
+
+<path d="M66.64,-25.02C78.39,-28.18 92.44,-31.95 105.15,-35.37" fill="none" stroke="black"></path>
+<polygon fill="none" points="104.42,-38.8 114.99,-38.01 106.24,-32.04 104.42,-38.8" stroke="black"></polygon>
+</g>
+</g>
+</svg></details>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Title</th>
+<th>Description <a class="schema-link" href="../schema/#/$defs/assets/asset" title="View Schema"><i class="fas fa-file-code"></i></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nm</code></td>
+<td><code>string</code></td>
+<td>
+<p>Name</p>
+</td>
+<td>
+<p>Human readable name, as seen from editors and the like</p>
+</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>
+<p>ID</p>
+</td>
+<td>
+<p>Unique identifier used by layers when referencing this asset</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="precomposition">Precomposition</h2>
+<p></p>
+<p><span>Asset containing a composition that can be referenced by layers.</span></p>
+<div>
+<details>
+<summary>Composition Diagram for Precomposition</summary>
+<svg _xmlns="http://www.w3.org/2000/svg" height="98pt" viewBox="0.00 0.00 290.00 98.00" width="290pt">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 94)">
+
+<polygon fill="white" points="-4,4 -4,-94 286,-94 286,4 -4,4" stroke="transparent"></polygon>
+
+<g class="node current" id="node1">
+
+<polygon fill="none" points="79,-63 0,-63 0,-27 79,-27 79,-63" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="39.5" y="-42.5">Precomposition</text>
+</g>
+
+<g class="node" id="node2">
+
+<g id="a_node2"><a href="./#asset" title="Asset">
+<polygon fill="none" points="174,-90 120,-90 120,-54 174,-54 174,-90" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="147" y="-69.5">Asset</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge2">
+
+<path d="M79.19,-54.9C89.22,-57.47 100,-60.23 109.9,-62.76" fill="none" stroke="black"></path>
+<polygon fill="none" points="109.27,-66.21 119.83,-65.3 111.01,-59.43 109.27,-66.21" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node4">
+
+<g id="a_node4"><a href="../composition/#composition" title="Composition">
+<polygon fill="none" points="179,-36 115,-36 115,0 179,0 179,-36" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="147" y="-15.5">Composition</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge3">
+
+<path d="M79.19,-35.1C87.64,-32.94 96.61,-30.64 105.15,-28.46" fill="none" stroke="black"></path>
+<polygon fill="none" points="106.09,-31.83 114.91,-25.96 104.35,-25.05 106.09,-31.83" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node3">
+
+<g id="a_node3"><a href="../helpers/#visual-object" title="Visual Object">
+<polygon fill="none" points="282,-90 215,-90 215,-54 282,-54 282,-90" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="248.5" y="-69.5">Visual Object</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge1">
+
+<path d="M174.14,-72C183.47,-72 194.24,-72 204.6,-72" fill="none" stroke="black"></path>
+<polygon fill="none" points="204.76,-75.5 214.76,-72 204.76,-68.5 204.76,-75.5" stroke="black"></polygon>
+</g>
+</g>
+</svg></details>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Title</th>
+<th>Description <a class="schema-link" href="../schema/#/$defs/assets/precomposition" title="View Schema"><i class="fas fa-file-code"></i></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nm</code></td>
+<td><code>string</code></td>
+<td>
+<p>Name</p>
+</td>
+<td>
+<p>Human readable name, as seen from editors and the like</p>
+</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>
+<p>ID</p>
+</td>
+<td>
+<p>Unique identifier used by layers when referencing this asset</p>
+</td>
+</tr>
+<tr>
+<td><code>layers</code></td>
+<td><code>array</code> of <a href="../layers/#layer">Layer</a></td>
+<td>
+<p>Layers</p>
+</td>
+<td>
+<p>Layers</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="image">Image</h2>
+<p></p>
+<p><span>Asset containing an image that can be referenced by layers.</span></p>
+<p>Image formats supported vary depending on the player. Some commonly supported formats are JPEG, GIF, PNG and SVG. </p>
+<div>
+<details>
+<summary>Composition Diagram for Image</summary>
+<svg _xmlns="http://www.w3.org/2000/svg" height="98pt" viewBox="0.00 0.00 283.00 98.00" width="283pt">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 94)">
+
+<polygon fill="white" points="-4,4 -4,-94 279,-94 279,4 -4,4" stroke="transparent"></polygon>
+
+<g class="node current" id="node1">
+
+<polygon fill="none" points="54,-63 0,-63 0,-27 54,-27 54,-63" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="27" y="-42.5">Image</text>
+</g>
+
+<g class="node" id="node2">
+
+<g id="a_node2"><a href="./#asset" title="Asset">
+<polygon fill="none" points="158,-90 104,-90 104,-54 158,-54 158,-90" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="131" y="-69.5">Asset</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge2">
+
+<path d="M54,-51.88C66.14,-55.1 80.78,-58.97 93.96,-62.46" fill="none" stroke="black"></path>
+<polygon fill="none" points="93.13,-65.86 103.69,-65.04 94.92,-59.09 93.13,-65.86" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node4">
+
+<g id="a_node4"><a href="../helpers/#slottable-object" title="Slottable Object">
+<polygon fill="none" points="172,-36 90,-36 90,0 172,0 172,-36" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="131" y="-15.5">Slottable Object</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge3">
+
+<path d="M54,-38.12C61.98,-36.01 71.04,-33.61 80.05,-31.22" fill="none" stroke="black"></path>
+<polygon fill="none" points="80.99,-34.59 89.76,-28.65 79.2,-27.83 80.99,-34.59" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node3">
+
+<g id="a_node3"><a href="../helpers/#visual-object" title="Visual Object">
+<polygon fill="none" points="275,-90 208,-90 208,-54 275,-54 275,-90" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="241.5" y="-69.5">Visual Object</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge1">
+
+<path d="M158.26,-72C170.04,-72 184.24,-72 197.51,-72" fill="none" stroke="black"></path>
+<polygon fill="none" points="197.88,-75.5 207.88,-72 197.88,-68.5 197.88,-75.5" stroke="black"></polygon>
+</g>
+</g>
+</svg></details>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Title</th>
+<th>Description <a class="schema-link" href="../schema/#/$defs/assets/image" title="View Schema"><i class="fas fa-file-code"></i></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nm</code></td>
+<td><code>string</code></td>
+<td>
+<p>Name</p>
+</td>
+<td>
+<p>Human readable name, as seen from editors and the like</p>
+</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>
+<p>ID</p>
+</td>
+<td>
+<p>Unique identifier used by layers when referencing this asset</p>
+</td>
+</tr>
+<tr>
+<td><code>sid</code></td>
+<td><code>string</code></td>
+<td>
+<p>Slot Id</p>
+</td>
+<td>
+<p>Identifier to look up the slot</p>
+</td>
+</tr>
+<tr>
+<td><code>w</code></td>
+<td><code>number</code></td>
+<td>
+<p>Width</p>
+</td>
+<td>
+<p>Width of the image</p>
+</td>
+</tr>
+<tr>
+<td><code>h</code></td>
+<td><code>number</code></td>
+<td>
+<p>Height</p>
+</td>
+<td>
+<p>Height of the image</p>
+</td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td><code>string</code></td>
+<td>
+<p>File Name</p>
+</td>
+<td>
+<p>Name of the image file or a data url</p>
+</td>
+</tr>
+<tr>
+<td><code>u</code></td>
+<td><code>string</code></td>
+<td>
+<p>File Path</p>
+</td>
+<td>
+<p>Path to the image file</p>
+</td>
+</tr>
+<tr>
+<td><code>e</code></td>
+<td><a href="../values/#int-boolean" style="white-space: nowrap;">0-1 <code>integer</code></a></td>
+<td>
+<p>Embedded</p>
+</td>
+<td>
+<p>If '1', 'p' is a Data URL</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>If the dimensions of the image asset does not match the size given by <code>w</code> and <code>h</code>,
+renderers <strong class="bcp14">MUST</strong> ensure image layers referencing that asset do not have any visuals
+exceeding the <code>w</code>-<code>h</code> size. It's <strong class="bcp14">RECOMMENDED</strong> they scale the image maintaining
+its aspect ratio and they center it within the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>w</mi><mo>&#x0002C;</mo><mi>h</mi><mo stretchy="false">&#x00029;</mo></mrow></math> box.</p>
+<p>Even if an image asset does not have any intrinsic size, its contents <strong class="bcp14">MUST</strong>
+still stay within the <code>w</code>-<code>h</code> bounds when rendered.</p>
+<p>Authoring tools <strong class="bcp14">SHOULD</strong> export files where <code>w</code> and <code>h</code> match the physical size of the assets.</p></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+    <hr/>
+
+      </footer>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+      <!-- default is to include highlightjs -->
+    
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../js/print-site.js"></script>
+    <script src="../../search/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                if ( block.classList.length != 0 )
+                    hljs.highlightBlock(block);
+            });
+        });
+    </script>
+
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>
