@@ -1,0 +1,117 @@
+body {
+  color: #1a1c1c;
+}
+
+.navbar {
+  font-size: 16px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.navbar-default {
+  background-color: white;
+  border-bottom: 0;
+}
+
+.navbar-default .navbar-brand {
+  color: #006a5f;
+  font-weight: 600;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #006a5f;
+  font-weight: 600;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #1a1c1c;
+  background-color: white;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #1a1c1c;
+  background-color: white;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #1a1c1c;
+  background-color: white;
+}
+
+.navbar-default .dropdown-menu {
+  background-color: white;
+}
+
+.navbar-default .dropdown-menu > li > a,
+.navbar-default .dropdown-menu > li > a:focus {
+  color: #1a1c1c;
+  font-weight: 600;
+}
+
+.navbar-default .dropdown-menu > li > a:hover,
+.navbar-default .dropdown-menu > .active > a,
+.navbar-default .dropdown-menu > .active > a:hover {
+  background-color: #ebfbfa;
+}
+
+.navbar-default .navbar-nav > .disabled > a,
+.navbar-default .navbar-nav > .disabled > a:hover,
+.navbar-default .navbar-nav > .disabled > a:focus {
+  color: rgba(0, 106, 95, 0.5);
+}
+
+.navbar-dark .navbar-brand {
+  color: #006a5f;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #006a5f;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #006a5f;
+}
+
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: rgba(0, 0, 0, 0.075);
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+  color: #006a5f !important;
+}
+
+a {
+  color: #006a5f;
+}
+
+a:hover {
+  color: #1a1c1c;
+}
+
+.dropdown-item {
+  color: #1a1c1c;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  color: #1a1c1c;
+  text-decoration: none;
+  background-color: #ebfbfa;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #006a5f;
+}
+
+.container {
+  width: fit-content;
+}
