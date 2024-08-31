@@ -32,14 +32,15 @@ jobs:
             sudo apt update -q
             sudo apt install -yy python3 python3-pip graphviz
             pip install -r tools/requirements.txt
-            git config --global user.name "Lottie CI"
-            git config --global user.email "lottie@example.com"
+            git config user.name "Lottie CI"
+            git config user.email "lottie@example.com"
+            git fetch origin gh-pages --depth=1
       -
         name: Dev Docs
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
             make lottie.schema.json
-            tools/mike deploy dev
+            tools/mike deploy dev --push
       -
         name: Docs
         if: ${{ github.ref != 'refs/heads/main' }}
@@ -47,4 +48,4 @@ jobs:
           RELEASE_VERSION: ${{ github.ref_name }}
         run: |
             make lottie.schema.json
-            tools/mike deploy "$RELEASE_VERSION"
+            tools/mike deploy "$RELEASE_VERSION" --push
