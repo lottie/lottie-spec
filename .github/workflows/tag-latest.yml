@@ -1,0 +1,37 @@
+name: Tag Latest
+on:
+    workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+    contents: write
+    pages: write
+    id-token: write
+
+jobs:
+  pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Failsafe
+        if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
+        run: |
+            echo "Only run on tags" >&2
+            false
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Setup
+        run: |
+            sudo apt update -q
+            sudo apt install -yy python3 python3-pip graphviz
+            pip install -r tools/requirements.txt
+            git config user.name "Lottie CI"
+            git config user.email "lottie@example.com"
+            git fetch origin gh-pages --depth=1
+      -
+        name: Tag Latest
+        env:
+          RELEASE_VERSION: ${{ github.ref_name }}
+        run: tools/mike alias "$RELEASE_VERSION" latest --push
+
