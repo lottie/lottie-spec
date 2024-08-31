@@ -62,7 +62,10 @@ window.addEventListener("DOMContentLoaded", function() {
     var select = makeSelect(versions.filter(function(i) {
       return i.version === realVersion || !i.properties || !i.properties.hidden;
     }).map(function(i) {
-      return {text: i.title, value: i.version,
+      var title = i.title;
+      if ( i.aliases.length )
+        title += ` (${i.aliases.join(", ")})`;
+      return {text: title, value: i.version,
               selected: i.version === realVersion};
     }));
     select.addEventListener("change", function(event) {
