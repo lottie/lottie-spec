@@ -37,7 +37,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
             make lottie.schema.json
-            mike deploy dev
+            tools/mike deploy dev
       -
         name: Docs
         if: ${{ github.ref != 'refs/heads/main' }}
@@ -45,4 +45,4 @@ jobs:
           RELEASE_VERSION: ${{ github.ref_name }}
         run: |
             make lottie.schema.json
-            mike deploy "$RELEASE_VERSION"
+            tools/mike deploy "$RELEASE_VERSION"
