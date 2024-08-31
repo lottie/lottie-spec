@@ -32,6 +32,8 @@ jobs:
             sudo apt update -q
             sudo apt install -yy python3 python3-pip graphviz
             pip install -r tools/requirements.txt
+            git config --global user.name "Lottie CI"
+            git config --global user.email "lottie@example.com"
       -
         name: Dev Docs
         if: ${{ github.ref == 'refs/heads/main' }}
