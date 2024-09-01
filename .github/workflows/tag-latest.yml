@@ -34,5 +34,5 @@ jobs:
         name: Tag Latest
         env:
           RELEASE_VERSION: ${{ github.ref_name }}
-        run: tools/mike alias "$RELEASE_VERSION" latest --push
+        run: tools/mike alias -u "$RELEASE_VERSION" latest --push
 
