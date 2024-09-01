@@ -29,6 +29,7 @@ jobs:
             git config user.name "Lottie CI"
             git config user.email "lottie@example.com"
             git fetch origin gh-pages --depth=1
+            make lottie.schema.json
       -
         name: Tag Latest
         env:
