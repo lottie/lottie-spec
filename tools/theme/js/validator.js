@@ -237,7 +237,7 @@ function keyframe_has_t(kf)
 
 class Validator
 {
-    constructor(AjvClass, schema_json)
+    constructor(AjvClass, schema_json, docs_url="")
     {
         this.schema = schema_json;
         this.defs = this.schema["$defs"];
@@ -245,7 +245,7 @@ class Validator
 
         for ( let [cat, sub_schemas] of Object.entries(this.defs) )
         {
-            let cat_docs = `/lottie-spec/specs/${cat}/`;
+            let cat_docs = `${docs_url}/specs/${cat}/`;
             let cat_name = kebab_to_title(cat.replace(/s$/, ""));
             for ( let [obj, sub_schema] of Object.entries(sub_schemas) )
             {

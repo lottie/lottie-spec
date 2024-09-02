@@ -16,9 +16,6 @@ markdown_extensions:
     - latex_markdown
     - def_list
     - toc_deflist
-extra_css:
-    # - /lottie-spec/style/style.css
-    # - /lottie-spec/style/lottie-theme.css
 nav:
     - "Home" : index.md
     - "Format":
