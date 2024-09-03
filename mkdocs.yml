@@ -44,6 +44,8 @@ nav:
             - editing/extensions.md
 plugins:
     - search
+    - mike:
+        version_selector: true
     - print-site:
         add_table_of_contents: false
         enumerate_headings_depth: 3

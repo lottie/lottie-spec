@@ -1,10 +1,5 @@
-name: Build Pages
+name: Tag Latest
 on:
-    push:
-        branches:
-            - main
-        tags:
-            - '*'
     workflow_dispatch:
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
@@ -20,9 +15,14 @@ permissions:
     id-token: write
 
 jobs:
-  pages:
+  tag-latest:
     runs-on: ubuntu-latest
     steps:
+      - name: Failsafe
+        if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
+        run: |
+            echo "Only run on tags" >&2
+            false
       -
         name: Checkout
         uses: actions/checkout@v4
@@ -35,17 +35,10 @@ jobs:
             git config user.name "Lottie CI"
             git config user.email "lottie@example.com"
             git fetch origin gh-pages --depth=1
-      -
-        name: Dev Docs
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: |
             make lottie.schema.json
-            tools/mike deploy dev --push
       -
-        name: Docs
-        if: ${{ github.ref != 'refs/heads/main' }}
+        name: Tag Latest
         env:
           RELEASE_VERSION: ${{ github.ref_name }}
-        run: |
-            make lottie.schema.json
-            tools/mike deploy "$RELEASE_VERSION" --push
+        run: tools/mike alias -u "$RELEASE_VERSION" latest --push
+

@@ -6,3 +6,5 @@ graphviz==0.20.1
 latex2mathml==3.77.0
 # Used for link validations
 lxml==4.9.3
+# Versioning
+mike==2.1.3

@@ -9,7 +9,6 @@ from markdown import Markdown
 from markdown.extensions import Extension
 from markdown.inlinepatterns import InlineProcessor
 from markdown.blockprocessors import BlockProcessor
-from markdown.preprocessors import Preprocessor
 from markdown.util import HTML_PLACEHOLDER_RE, AtomicString
 from mkdocs.utils import get_relative_url
 
@@ -708,18 +707,6 @@ def get_url(md, path, anchor=None, src_uri=True):
     return url
 
 
-class BaseUrl(Preprocessor):
-    def __init__(self, md):
-        super().__init__(md)
-        self.base_url = None
-
-    def run(self, lines):
-        if self.base_url is None:
-            pages = get_page_processor(self.md)
-            self.base_url = pages.config["site_url"]
-        return list(map(lambda line: line.replace("{{url}}", self.base_url), lines))
-
-
 class LottieBlock(BlockProcessor):
     def __init__(self, md):
         self.md = md
@@ -1235,8 +1222,6 @@ class LottieExtension(Extension):
         md.parser.blockprocessors.register(SchemaObject(md, ts), "schema_object", 175)
         md.parser.blockprocessors.register(SchemaEnum(md, ts), "schema_enum", 175)
         md.parser.blockprocessors.register(EditorExample(md.parser), "editor_example", 175)
-
-        md.preprocessors.register(BaseUrl(md), "base_url", 1000)
 
 
 def makeExtension(**kwargs):
