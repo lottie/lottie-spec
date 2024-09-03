@@ -52,6 +52,6 @@ To understand Lottie data, it's useful to start learning about
 
 The root object of any Lottie animation is the [Animation](./specs/composition.md#animation) object.
 
-A printable single-page version of the specification is available [here](./print_page).
+A printable single-page version of the specification is available [here](./single-page).
 
 <lottie src="static/logo.json" loop="false" buttons="false" background="none" />
