@@ -6,11 +6,14 @@ local coordinates
     and the Y coordinate increasing towards the bottom.
     Without any transforms, the point $(0, 0)$ corresponds with the top-left
     corner of the viewport.
+
 render stack
 :   A render stack is a list if rendering primitive to be drawn in inverse
     stack order. A render stack can contain child stacks.
+
 stacking order
 :   The order in which objects appear in the [[render stack]].
+
 collected shapes
 :   When collecting shapes for a rendering operation, implementations MUST
     traverse the [[render stack]] in reverse order.

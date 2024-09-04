@@ -29,7 +29,7 @@ class TocDefListTreeProcessor(Treeprocessor):
         term: etree.Element
         for term in root.findall(".//dt"):
             if "id" not in term.attrib:
-                text = toc.unescape(toc.stashedHTML2text(toc.get_name(term), self.md))
+                text = toc.unescape(toc.strip_tags(toc.render_inner_html(term, self.md)))
                 id = toc.slugify(text, "-")
                 term.attrib["id"] = id
                 link = etree.Element("a")
