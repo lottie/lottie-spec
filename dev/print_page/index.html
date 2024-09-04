@@ -9657,9 +9657,7 @@ corner of the viewport.</dd>
 <dd>A render stack is a list if rendering primitive to be drawn in inverse
 stack order. A render stack can contain child stacks.</dd>
 <dt id="stacking-order"><a href="#specs-glossary-stacking-order">stacking order</a></dt>
-<dd>
-<dl>
-<dt id="the-order-in-which-objects-appear-in-the-render-stack"><a href="#specs-glossary-the-order-in-which-objects-appear-in-the-render-stack">The order in which objects appear in the <a href="#specs-glossary-render-stack">render stack</a>.</a></dt>
+<dd>The order in which objects appear in the <a href="#specs-glossary-render-stack">render stack</a>.</dd>
 <dt id="collected-shapes"><a href="#specs-glossary-collected-shapes">collected shapes</a></dt>
 <dd>When collecting shapes for a rendering operation, implementations <strong class="bcp14">MUST</strong>
 traverse the <a href="#specs-glossary-render-stack">render stack</a> in reverse order.
@@ -9667,8 +9665,6 @@ All <a href="#specs-shapes-shape">Shapes</a> encountered in the stack traversal 
 be included, until the beginning of the stack is reached or a <a href="#specs-shapes-modifier">Modifier</a>
 is encountered. If a <a href="#specs-shapes-modifier">Modifier</a> is found, it <strong class="bcp14">MUST</strong> be applied to
 its own <em>collected shapes</em> and the output added to the shape collection.</dd>
-</dl>
-</dd>
 </dl></section><section class="print-page" id="specs-schema"><h1 id="specs-schema-json-schema">JSON Schema</h1>
 <p>This page shows a formatted version of the JSON schema, you can click on highlighted
 objects to get a link to that section of the schema. You can also click on <code>$ref</code>

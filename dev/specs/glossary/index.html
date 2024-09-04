@@ -287,8 +287,6 @@
                 
             <li class="second-level"><a href="#stacking-order">stacking order</a></li>
                 
-            <li class="second-level"><a href="#the-order-in-which-objects-appear-in-the-render-stack">The order in which objects appear in the [[render stack]].</a></li>
-                
             <li class="second-level"><a href="#collected-shapes">collected shapes</a></li>
                 
     </ul>
@@ -307,9 +305,7 @@ corner of the viewport.</dd>
 <dd>A render stack is a list if rendering primitive to be drawn in inverse
 stack order. A render stack can contain child stacks.</dd>
 <dt id="stacking-order"><a href="#stacking-order">stacking order</a></dt>
-<dd>
-<dl>
-<dt id="the-order-in-which-objects-appear-in-the-render-stack"><a href="#the-order-in-which-objects-appear-in-the-render-stack">The order in which objects appear in the <a href="./#render-stack">render stack</a>.</a></dt>
+<dd>The order in which objects appear in the <a href="./#render-stack">render stack</a>.</dd>
 <dt id="collected-shapes"><a href="#collected-shapes">collected shapes</a></dt>
 <dd>When collecting shapes for a rendering operation, implementations <strong class="bcp14">MUST</strong>
 traverse the <a href="./#render-stack">render stack</a> in reverse order.
@@ -317,8 +313,6 @@ All <a href="../shapes/#shape">Shapes</a> encountered in the stack traversal <st
 be included, until the beginning of the stack is reached or a <a href="../shapes/#modifier">Modifier</a>
 is encountered. If a <a href="../shapes/#modifier">Modifier</a> is found, it <strong class="bcp14">MUST</strong> be applied to
 its own <em>collected shapes</em> and the output added to the shape collection.</dd>
-</dl>
-</dd>
 </dl></div>
         
         
