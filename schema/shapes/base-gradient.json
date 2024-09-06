@@ -30,16 +30,12 @@
                 "h": {
                     "title": "Highlight Length",
                     "description": "Highlight Length, as a percentage between `s` and `e`",
-                    "$ref": "#/$defs/properties/scalar-property",
-                    "minimum": 0,
-                    "maximum": 1
+                    "$ref": "#/$defs/properties/scalar-property"
                 },
                 "a": {
                     "title": "Highlight Angle",
                     "description": "Highlight Angle in clockwise degrees, relative to the direction from `s` to `e`",
-                    "$ref": "#/$defs/properties/scalar-property",
-                    "minimum": 0,
-                    "maximum": 360
+                    "$ref": "#/$defs/properties/scalar-property"
                 }
             },
             "required": [
