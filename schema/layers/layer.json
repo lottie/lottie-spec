@@ -41,7 +41,7 @@
                     "type": "number"
                 }
             },
-            "required": ["ty", "st", "ip", "op"]
+            "required": ["ty", "ip", "op"]
         }
     ]
 }
