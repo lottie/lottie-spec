@@ -17,7 +17,7 @@ Their structure depends on whether it's animated or not:
 
 Keyframe arrays MUST be stored in order of ascending `t` frame number.
 
-Two consecutive keyframes MAY have the same `t` value but a property MUST NOT have more that two keyframes with the same `t`.
+Two consecutive keyframes MAY have the same `t` value but a property MUST NOT have more than two keyframes with the same `t`.
 If two keyframes share the `t` value, the implementation MUST render one of the two values at the given frame.
 
 All keyframes MUST have an `i` and `o` value, unless-
@@ -26,7 +26,8 @@ All keyframes MUST have an `i` and `o` value, unless-
 * `h` is present and it's 1, as the property will keep the same value until the
 next keyframe.
 
-If the first keyframe occurs after the start of the animation, the initial property value will be from the first keyframe. Similarly if the last keyframe is before the end of the animation, the last keyframe value will be held until the end.
+If the first keyframe occurs after the start of the animation, the initial property value will be from the first keyframe.
+Similarly, if the last keyframe is before the end of the animation, the last keyframe value will be held until the end.
 
 <h3 id="easing-handle">Keyframe Easing</h3>
 

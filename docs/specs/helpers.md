@@ -161,7 +161,7 @@ The operations need to be chained using right multiplication instead of left mul
 
 Slots are a way to define a property value once and use the value in multiple
 properties. Slot definitions are in a dictionary, the slot definition key is the
-key that is used to match all properties with an `sid` field to the same key for
+key that is used to match all properties with a `sid` field to the same key for
 replacement.
 
 <h3 id="slot">Slot</h3>
