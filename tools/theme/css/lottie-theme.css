@@ -115,3 +115,9 @@ a:hover {
 code {
   white-space: normal;
 }
+
+table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
