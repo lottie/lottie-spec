@@ -17,12 +17,12 @@ second corresponding to the _Y_.
 
 Colors are [Vectors](#vector) with values between 0 and 1 for the RGB components.
 
-for example:
+For example:
 
 * {lottie_color:1, 0, 0}
 * {lottie_color:1, 0.5, 0}
 
-Note sometimes you might find color values with 4 components (the 4th being alpha)
+Note: sometimes you might find color values with 4 components (the 4th being alpha)
 but most players ignore the last component.
 
 <h2 id="hexcolor">Hex Color</h2>

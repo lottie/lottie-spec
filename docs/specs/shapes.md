@@ -76,7 +76,7 @@ the instructions are equivalent to `value[0]` and `value[1]` respectively.
 All paths MUST be closed unless specified otherwise in the rendering instructions.
 
 When instructions call for an equality comparison between two values,
-implementaions MAY consider similar values to be equal to overcome numerical instability.
+implementations MAY consider similar values to be equal to overcome numerical instability.
 
 ### Drawing Commands
 
@@ -85,7 +85,7 @@ Drawing instructions will contain the following commands:
 * _add vertex_: Adds a vertex to the bezier shape in global coordinates
 * _set in tangent_: Sets the cubic tangent to the last added vertex, with coordinates relative to it.  If omitted, tangents MUST be $(0, 0)$.
 * _set out tangent_: Sets the cubic tangent from the last added vertex, with coordinates relative to it.  If omitted, tangents MUST be $(0, 0)$.
-* _lerp_: Linerarly interpolates two points or scalars by a given amount.
+* _lerp_: Linearly interpolates two points or scalars by a given amount.
 
 
 ### Approximating Ellipses with Cubic Bezier

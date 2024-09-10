@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "title": "Graphic Element",
-    "description": "Element used to display vector daya in a shape layer",
+    "description": "Element used to display vector data in a shape layer",
     "allOf": [
         {
             "$ref": "#/$defs/helpers/visual-object"
