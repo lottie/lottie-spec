@@ -191,7 +191,7 @@
                             },
                             "slots": {
                                 "title": "Slots",
-                                "description": "Dictionary of slot ids that that will replace matching properties.",
+                                "description": "Dictionary of slot ids that will replace matching properties.",
                                 "type": "object",
                                 "additionalProperties": {
                                     "$ref": "#/$defs/helpers/slot"
@@ -453,7 +453,7 @@
             "slottable-object": {
                 "type": "object",
                 "title": "Slottable Object",
-                "description": "Object that may have it's value replaced with a slot value",
+                "description": "Object that may have its value replaced with a slot value",
                 "properties": {
                     "sid": {
                         "title": "Slot Id",
@@ -554,7 +554,7 @@
             "slottable-property": {
                 "type": "object",
                 "title": "Slottable Property",
-                "description": "Property that may have it's value replaced with a slot value",
+                "description": "Property that may have its value replaced with a slot value",
                 "allOf": [
                     {
                         "$ref": "#/$defs/helpers/slottable-object"
@@ -1911,7 +1911,7 @@
             "graphic-element": {
                 "type": "object",
                 "title": "Graphic Element",
-                "description": "Element used to display vector daya in a shape layer",
+                "description": "Element used to display vector data in a shape layer",
                 "allOf": [
                     {
                         "$ref": "#/$defs/helpers/visual-object"
@@ -2246,7 +2246,7 @@
             "gradient": {
                 "type": "array",
                 "title": "Gradient",
-                "description": "A flat list of color stops followed by optional transparency stops. A color stop is [offset, red, green, blue]. A transperency stop is [offset, transparency]. All values are between 0 and 1",
+                "description": "A flat list of color stops followed by optional transparency stops. A color stop is [offset, red, green, blue]. A transparency stop is [offset, transparency]. All values are between 0 and 1",
                 "items": {
                     "type": "number",
                     "minimum": 0,

@@ -366,12 +366,12 @@ second corresponding to the <em>Y</em>.</p>
 <h2 id="specs-values-color">Color</h2>
 <p></p>
 <p>Colors are <a href="#specs-values-vector">Vectors</a> with values between 0 and 1 for the RGB components.</p>
-<p>for example:</p>
+<p>For example:</p>
 <ul>
 <li><span><span class="color-preview" style="background-color:#ff0000;"></span><code>[1, 0, 0]</code></span></li>
 <li><span><span class="color-preview" style="background-color:#ff8000;"></span><code>[1, 0.5, 0]</code></span></li>
 </ul>
-<p>Note sometimes you might find color values with 4 components (the 4th being alpha)
+<p>Note: sometimes you might find color values with 4 components (the 4th being alpha)
 but most players ignore the last component.</p>
 <h2 id="specs-values-hexcolor">Hex Color</h2>
 <p></p>
@@ -764,7 +764,7 @@ These points are along the bezier path</p>
 </table>
 </div>
 <p>Keyframe arrays <strong class="bcp14">MUST</strong> be stored in order of ascending <code>t</code> frame number.</p>
-<p>Two consecutive keyframes <strong class="bcp14">MAY</strong> have the same <code>t</code> value but a property <strong class="bcp14">MUST NOT</strong> have more that two keyframes with the same <code>t</code>.
+<p>Two consecutive keyframes <strong class="bcp14">MAY</strong> have the same <code>t</code> value but a property <strong class="bcp14">MUST NOT</strong> have more than two keyframes with the same <code>t</code>.
 If two keyframes share the <code>t</code> value, the implementation <strong class="bcp14">MUST</strong> render one of the two values at the given frame.</p>
 <p>All keyframes <strong class="bcp14">MUST</strong> have an <code>i</code> and <code>o</code> value, unless-</p>
 <ul>
@@ -772,7 +772,8 @@ If two keyframes share the <code>t</code> value, the implementation <strong clas
 <li><code>h</code> is present and it's 1, as the property will keep the same value until the
 next keyframe.</li>
 </ul>
-<p>If the first keyframe occurs after the start of the animation, the initial property value will be from the first keyframe. Similarly if the last keyframe is before the end of the animation, the last keyframe value will be held until the end.</p>
+<p>If the first keyframe occurs after the start of the animation, the initial property value will be from the first keyframe.
+Similarly, if the last keyframe is before the end of the animation, the last keyframe value will be held until the end.</p>
 <h3 id="specs-properties-easing-handle">Keyframe Easing</h3>
 <p></p>
 <p>Keyframe easing handles are objects with <code>x</code> and <code>y</code> attributes, which are numbers within 0 and 1.</p>
@@ -2018,7 +2019,7 @@ so instead of scalars keyframes have arrays with a single values.</p>
 <p>Slots</p>
 </td>
 <td>
-<p>Dictionary of slot ids that that will replace matching properties.</p>
+<p>Dictionary of slot ids that will replace matching properties.</p>
 </td>
 </tr>
 </tbody>
@@ -4045,14 +4046,14 @@ For <a href="#specs-values-vector">Vector</a> values, <math display="inline" xml
 the instructions are equivalent to <code>value[0]</code> and <code>value[1]</code> respectively.</p>
 <p>All paths <strong class="bcp14">MUST</strong> be closed unless specified otherwise in the rendering instructions.</p>
 <p>When instructions call for an equality comparison between two values,
-implementaions <strong class="bcp14">MAY</strong> consider similar values to be equal to overcome numerical instability.</p>
+implementations <strong class="bcp14">MAY</strong> consider similar values to be equal to overcome numerical instability.</p>
 <h3 id="specs-shapes-drawing-commands">Drawing Commands</h3>
 <p>Drawing instructions will contain the following commands:</p>
 <ul>
 <li><em>add vertex</em>: Adds a vertex to the bezier shape in global coordinates</li>
 <li><em>set in tangent</em>: Sets the cubic tangent to the last added vertex, with coordinates relative to it.  If omitted, tangents <strong class="bcp14">MUST</strong> be <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>.</li>
 <li><em>set out tangent</em>: Sets the cubic tangent from the last added vertex, with coordinates relative to it.  If omitted, tangents <strong class="bcp14">MUST</strong> be <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>.</li>
-<li><em>lerp</em>: Linerarly interpolates two points or scalars by a given amount.</li>
+<li><em>lerp</em>: Linearly interpolates two points or scalars by a given amount.</li>
 </ul>
 <h3 id="specs-shapes-approximating-ellipses-with-cubic-bezier">Approximating Ellipses with Cubic Bezier</h3>
 <p>An elliptical quadrant can be approximated by a cubic bezier segment
@@ -4064,7 +4065,7 @@ with tangents of length $radius \cdot E_t.</p>
 use this constant, a similar approximation, or elliptical arc drawing primitives.</p>
 <h2 id="specs-shapes-graphic-element">Graphic Element</h2>
 <p></p>
-<p><span>Element used to display vector daya in a shape layer</span></p>
+<p><span>Element used to display vector data in a shape layer</span></p>
 <div>
 <details>
 <summary>Composition Diagram for Graphic Element</summary>
@@ -8359,7 +8360,7 @@ still stay within the <code>w</code>-<code>h</code> bounds when rendered.</p>
 <h2 id="specs-constants-matte-mode">Matte Mode</h2>
 <p></p>
 <p><span>How a layer should mask another layer</span></p>
-<p>The value for Luma is calculated accourding to <a href="https://www.itu.int/rec/R-REC-BT.709">Rec.709</a> standard:</p>
+<p>The value for Luma is calculated according to <a href="https://www.itu.int/rec/R-REC-BT.709">Rec.709</a> standard:</p>
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Y</mi><mo>&#x0003D;</mo><mn>0.2126</mn><mi>R</mi><mo>&#x0002B;</mo><mn>0.7152</mn><mi>G</mi><mo>&#x0002B;</mo><mn>0.0722</mn><mi>B</mi></mrow></math>
 <table>
 <thead>
@@ -9223,7 +9224,7 @@ still stay within the <code>w</code>-<code>h</code> bounds when rendered.</p>
 <p></p>
 <p>Slots are a way to define a property value once and use the value in multiple
 properties. Slot definitions are in a dictionary, the slot definition key is the
-key that is used to match all properties with an <code>sid</code> field to the same key for
+key that is used to match all properties with a <code>sid</code> field to the same key for
 replacement.</p>
 <h3 id="specs-helpers-slot">Slot</h3>
 <p></p>
@@ -9254,7 +9255,7 @@ replacement.</p>
 </div>
 <h3 id="specs-helpers-slottable-object">Slotabble Object</h3>
 <p></p>
-<p><span>Object that may have it's value replaced with a slot value</span></p>
+<p><span>Object that may have its value replaced with a slot value</span></p>
 <div>
 <details>
 <summary>Composition Diagram for Slottable Object</summary>
@@ -9385,7 +9386,7 @@ replacement.</p>
 </div>
 <h3 id="specs-helpers-slottable-property">Slotabble Property</h3>
 <p></p>
-<p><span>Property that may have it's value replaced with a slot value</span></p>
+<p><span>Property that may have its value replaced with a slot value</span></p>
 <div>
 <details>
 <summary>Composition Diagram for Slottable Property</summary>
@@ -9864,7 +9865,7 @@ values to jump to the relevant section.</p>
                             },
                             <span class="hljs-attr">"slots"</span>: {
                                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Slots"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Dictionary of slot ids that that will replace matching properties."</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Dictionary of slot ids that will replace matching properties."</span>,
                                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
                                 <span class="hljs-attr">"additionalProperties"</span>: {
                                     <span class="hljs-attr">"$ref"</span>: <a href="#specs-schema-/$defs/helpers/slot"><span class="hljs-string">"#/$defs/helpers/slot"</span></a>
@@ -10126,7 +10127,7 @@ values to jump to the relevant section.</p>
             <a href="#specs-schema-/$defs/helpers/slottable-object" id="/$defs/helpers/slottable-object"><span class="hljs-attr">"slottable-object"</span></a> <a href="#specs-helpers-slottable-object" title="Slottable Object"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Slottable Object"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Object that may have it's value replaced with a slot value"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Object that may have its value replaced with a slot value"</span>,
                 <a href="#specs-schema-/$defs/helpers/slottable-object/properties" id="/$defs/helpers/slottable-object/properties"><span class="hljs-attr">"properties"</span></a>: {
                     <a href="#specs-schema-/$defs/helpers/slottable-object/properties/sid" id="/$defs/helpers/slottable-object/properties/sid"><span class="hljs-attr">"sid"</span></a>: {
                         <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Slot Id"</span>,
@@ -10227,7 +10228,7 @@ values to jump to the relevant section.</p>
             <a href="#specs-schema-/$defs/helpers/slottable-property" id="/$defs/helpers/slottable-property"><span class="hljs-attr">"slottable-property"</span></a> <a href="#specs-helpers-slottable-property" title="Slottable Property"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Slottable Property"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Property that may have it's value replaced with a slot value"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Property that may have its value replaced with a slot value"</span>,
                 <span class="hljs-attr">"allOf"</span>: [
                     {
                         <span class="hljs-attr">"$ref"</span>: <a href="#specs-schema-/$defs/helpers/slottable-object"><span class="hljs-string">"#/$defs/helpers/slottable-object"</span></a>
@@ -11584,7 +11585,7 @@ values to jump to the relevant section.</p>
             <a href="#specs-schema-/$defs/shapes/graphic-element" id="/$defs/shapes/graphic-element"><span class="hljs-attr">"graphic-element"</span></a> <a href="#specs-shapes-graphic-element" title="Graphic Element"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Graphic Element"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Element used to display vector daya in a shape layer"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Element used to display vector data in a shape layer"</span>,
                 <span class="hljs-attr">"allOf"</span>: [
                     {
                         <span class="hljs-attr">"$ref"</span>: <a href="#specs-schema-/$defs/helpers/visual-object"><span class="hljs-string">"#/$defs/helpers/visual-object"</span></a>
@@ -11919,7 +11920,7 @@ values to jump to the relevant section.</p>
             <a href="#specs-schema-/$defs/values/gradient" id="/$defs/values/gradient"><span class="hljs-attr">"gradient"</span></a> <a href="#specs-values-gradient" title="Gradient"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gradient"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A flat list of color stops followed by optional transparency stops. A color stop is [offset, red, green, blue]. A transperency stop is [offset, transparency]. All values are between 0 and 1"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A flat list of color stops followed by optional transparency stops. A color stop is [offset, red, green, blue]. A transparency stop is [offset, transparency]. All values are between 0 and 1"</span>,
                 <a href="#specs-schema-/$defs/values/gradient/items" id="/$defs/values/gradient/items"><span class="hljs-attr">"items"</span></a>: {
                     <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>,
                     <span class="hljs-attr">"minimum"</span>: <span class="hljs-number">0</span>,

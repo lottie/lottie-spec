@@ -400,14 +400,14 @@ For <a href="../values/#vector">Vector</a> values, <math display="inline" xmlns=
 the instructions are equivalent to <code>value[0]</code> and <code>value[1]</code> respectively.</p>
 <p>All paths <strong class="bcp14">MUST</strong> be closed unless specified otherwise in the rendering instructions.</p>
 <p>When instructions call for an equality comparison between two values,
-implementaions <strong class="bcp14">MAY</strong> consider similar values to be equal to overcome numerical instability.</p>
+implementations <strong class="bcp14">MAY</strong> consider similar values to be equal to overcome numerical instability.</p>
 <h3 id="drawing-commands">Drawing Commands</h3>
 <p>Drawing instructions will contain the following commands:</p>
 <ul>
 <li><em>add vertex</em>: Adds a vertex to the bezier shape in global coordinates</li>
 <li><em>set in tangent</em>: Sets the cubic tangent to the last added vertex, with coordinates relative to it.  If omitted, tangents <strong class="bcp14">MUST</strong> be <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>.</li>
 <li><em>set out tangent</em>: Sets the cubic tangent from the last added vertex, with coordinates relative to it.  If omitted, tangents <strong class="bcp14">MUST</strong> be <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>.</li>
-<li><em>lerp</em>: Linerarly interpolates two points or scalars by a given amount.</li>
+<li><em>lerp</em>: Linearly interpolates two points or scalars by a given amount.</li>
 </ul>
 <h3 id="approximating-ellipses-with-cubic-bezier">Approximating Ellipses with Cubic Bezier</h3>
 <p>An elliptical quadrant can be approximated by a cubic bezier segment
@@ -419,7 +419,7 @@ with tangents of length $radius \cdot E_t.</p>
 use this constant, a similar approximation, or elliptical arc drawing primitives.</p>
 <h2 id="graphic-element">Graphic Element</h2>
 <p></p>
-<p><span>Element used to display vector daya in a shape layer</span></p>
+<p><span>Element used to display vector data in a shape layer</span></p>
 <div>
 <details>
 <summary>Composition Diagram for Graphic Element</summary>

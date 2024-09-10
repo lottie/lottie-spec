@@ -471,7 +471,7 @@
 </table>
 </div>
 <p>Keyframe arrays <strong class="bcp14">MUST</strong> be stored in order of ascending <code>t</code> frame number.</p>
-<p>Two consecutive keyframes <strong class="bcp14">MAY</strong> have the same <code>t</code> value but a property <strong class="bcp14">MUST NOT</strong> have more that two keyframes with the same <code>t</code>.
+<p>Two consecutive keyframes <strong class="bcp14">MAY</strong> have the same <code>t</code> value but a property <strong class="bcp14">MUST NOT</strong> have more than two keyframes with the same <code>t</code>.
 If two keyframes share the <code>t</code> value, the implementation <strong class="bcp14">MUST</strong> render one of the two values at the given frame.</p>
 <p>All keyframes <strong class="bcp14">MUST</strong> have an <code>i</code> and <code>o</code> value, unless-</p>
 <ul>
@@ -479,7 +479,8 @@ If two keyframes share the <code>t</code> value, the implementation <strong clas
 <li><code>h</code> is present and it's 1, as the property will keep the same value until the
 next keyframe.</li>
 </ul>
-<p>If the first keyframe occurs after the start of the animation, the initial property value will be from the first keyframe. Similarly if the last keyframe is before the end of the animation, the last keyframe value will be held until the end.</p>
+<p>If the first keyframe occurs after the start of the animation, the initial property value will be from the first keyframe.
+Similarly, if the last keyframe is before the end of the animation, the last keyframe value will be held until the end.</p>
 <h3 id="easing-handle">Keyframe Easing</h3>
 <p></p>
 <p>Keyframe easing handles are objects with <code>x</code> and <code>y</code> attributes, which are numbers within 0 and 1.</p>
