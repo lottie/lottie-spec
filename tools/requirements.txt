@@ -1,7 +1,7 @@
 mkdocs==1.5.3
 mkdocs-cinder==1.2.0
 # mkdocs-print-site-plugin==2.5.0
-git+https://github.com/mbasaglia/mkdocs-print-site-plugin.git@clean-toc
+git+https://github.com/mbasaglia/mkdocs-print-site-plugin.git@rename-page
 graphviz==0.20.1
 latex2mathml==3.77.0
 # Used for link validations

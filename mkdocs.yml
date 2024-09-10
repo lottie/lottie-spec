@@ -49,6 +49,7 @@ plugins:
     - print-site:
         add_table_of_contents: false
         enumerate_headings_depth: 3
+        print_page_basename: single-page
         exclude:
           - editing/schema.md
           - editing/extensions.md
