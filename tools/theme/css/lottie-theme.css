@@ -112,6 +112,12 @@ a:hover {
   background-color: #006a5f;
 }
 
-.container {
-  width: fit-content;
+code {
+  white-space: normal;
+}
+
+table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
 }
