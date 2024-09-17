@@ -1,8 +1,8 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://lottie.github.io/lottie-spec/specs/schema/0.1.0",
+    "$id": "https://lottie.github.io/lottie-spec/1.0/specs/schema/",
     "$ref": "#/$defs/composition/animation",
-    "$version": 100,
+    "$version": 10000,
     "$defs": {
         "assets": {
             "precomposition": {
@@ -143,7 +143,7 @@
                                 "title": "Specification Version",
                                 "description": "Specification version this Lottie is targeting. This is a 6 digit number with version components encoded as `MMmmpp`, with `MM` being major version, `mm` being minor and `pp` being patch.",
                                 "type": "integer",
-                                "minimum": 100
+                                "minimum": 10000
                             },
                             "fr": {
                                 "title": "Framerate",
