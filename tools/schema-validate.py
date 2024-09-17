@@ -70,16 +70,20 @@ class Validator:
                 self.collect_defs(child)
 
     def check_version(self, schema: Schema):
-        versionNumber = schema["$version"]
+        version_number = schema["$version"]
 
-        majorVersion = versionNumber // 10000
-        minorVersion = (versionNumber % 10000) // 100
-        patchVersion = versionNumber % 100
+        major_version = version_number // 10000
+        minor_version = (version_number % 10000) // 100
+        patch_version = version_number % 100
 
-        versionString = f'{majorVersion}.{minorVersion}.{patchVersion}'
+        components = [major_version, minor_version]
+        if patch_version != 0:
+            components.append(patch_version)
 
-        if versionString not in schema["$id"]:
-            self.error(schema, "Mismatched URI version - expected: %s" % versionString)
+        version_string = ".".join(map(str, components))
+
+        if version_string not in schema["$id"]:
+            self.error(schema, "Mismatched URI version - expected: %s" % version_string)
 
     def check_links(self, html_path: pathlib.Path):
         checked = set()
