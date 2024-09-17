@@ -30,7 +30,6 @@ nav:
         - specs/glossary.md
         #
         - specs/schema.md
-        - validator/index.md
     - "Community":
         - governance/index.md
         - governance/Governance.md
@@ -60,4 +59,3 @@ plugins:
           - governance/License.md
           - governance/Notices.md
           - governance/CONTRIBUTING.md
-          - validator/index.md
