@@ -1,0 +1,30 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Pucker Bloat",
+    "description": "Interpolates bezier vertices towards the center of the shape, and tangent handles away from it (or vice-versa)",
+    "allOf": [
+        {
+            "$ref": "#/$defs/shapes/modifier"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "ty": {
+                    "title": "Shape Type",
+                    "type": "string",
+                    "const": "pb"
+                },
+                "a": {
+                    "title": "Amount",
+                    "description": "Amount as a percentage",
+                    "$ref": "#/$defs/properties/scalar-property"
+                }
+            },
+            "required": [
+                "ty"
+            ]
+        }
+    ]
+}
+
