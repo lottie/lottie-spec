@@ -658,6 +658,7 @@ When `a` is `0`, nothing changes.<br/>
 When `a` is positive, the vertices are pulled towards the center, with `100` being at the center. And the tangents are pushed away.<br/>
 When `a` is negative the vertices are pushed away from the center with `100` being twice far away from the center. And the tangents are pulled towards the center.<br/>
 
+The center is defined as the mean of the bezier vertices.
 
 <lottie-playground example="pucker_bloat.json">
     <form>
