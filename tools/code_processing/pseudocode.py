@@ -1,0 +1,168 @@
+import ast
+from python_to_ts import AstTranslator, IndentationManager
+
+
+class PseudoCode(AstTranslator):
+    ops = {
+        "Eq": "=",
+        "NotEq": r"\neq",
+        "Lt": "<",
+        "LtE": r"\leq",
+        "Gt": ">",
+        "GtE": r"\geq",
+        "Is": "=",
+        "IsNot": r"\neq",
+        "In": r"\in",
+        "NotIn": r"\notin",
+        "Add": "+",
+        "Sub": "-",
+        "Mult": r"\cdot",
+        "MatMult": r"\times",
+        "Div": r"\frac",
+        "Mod": "%",
+        "LShift": "<<",
+        "RShift": ">>",
+        "BitOr": "|",
+        "BitXor": "^",
+        "BitAnd": "&",
+        "FloorDiv": "//",
+        "Pow": "**",
+        "Invert": "~",
+        "Not": "!",
+        "UAdd": "+",
+        "USub": "-",
+        "And": "&&",
+        "Or": "||",
+    }
+
+    def snake_sentence(self, name, upper):
+        sentence = name.replace("_", " ")
+        if upper:
+            return sentence[0].upper() + sentence[1:]
+        return sentence
+
+    def expr_attribute(self, object, member):
+        if object == "shape":
+            if member == "closed":
+                return "shape closed"
+            return self.snake_sentence(member, True)
+        return "%s.%s" % (object, member)
+
+    def begin_if(self, expr):
+        self.push_code("If $%s$" % expr)
+
+    def end_block(self):
+        pass
+
+    def begin_else(self):
+        self.push_code("Otherwise")
+
+    def declare(self, target, annotation, value):
+        self.push_code("$%s \\coloneq %s$" % (target, value))
+
+    def format_comment(self, value):
+        if len(value) == 0:
+            self.push_code("")
+        for line in value:
+            self.push_code(line)
+
+    def expression_statement(self, expr):
+        if " " in expr or "$" in expr:
+            self.push_code(expr)
+        else:
+            self.push_code("$%s$" % expr)
+
+    def expr_func(self, name, args):
+        is_sentence = " " in name
+        if name == "Vector2D":
+            name = ""
+        ts_code = name
+        if is_sentence:
+            ts_code += " $"
+        else:
+            ts_code += r"\left("
+        ts_code += ", ".join(args)
+        if is_sentence:
+            ts_code += "$"
+        else:
+            ts_code += r"\right)"
+        return ts_code
+
+    def convert_name(self, name, annotation):
+        if annotation:
+            if name == "float":
+                return "\\mathbb{R}"
+            elif name == "int":
+                return "\\mathbb{Z}"
+            elif name == "Vector2D":
+                return "\\mathbb{R}^2"
+
+        if name in ("min", "max"):
+            return "\\" + name
+        if name == "ELLIPSE_CONSTANT":
+            return "E_t"
+        return name
+
+    def convert_constant(self, value):
+        if value is None:
+            return "nil"
+        if isinstance(value, bool):
+            return str(value).lower()
+        return repr(value)
+
+    def expr_binop(self, op, *operands):
+        if op == "\\frac":
+            return "%s{%s}{%s}" % (op, operands[0], operands[1])
+        return (" %s " % op).join(operands)
+
+    def assign(self, targets, value):
+        for target in targets:
+            if " " in target:
+                if value == "true":
+                    self.push_code("Set %s" % (target))
+                elif value == "false":
+
+                    self.push_code("Unset %s" % (target))
+                else:
+                    self.push_code("Set %s to %s" % (target, value))
+            else:
+                self.push_code("%s \\coloneq %s" % (target, value))
+
+    def function_def(self, name, args, body, is_async, is_method, is_getter):
+        self.push_code(self.snake_sentence(name, True))
+
+        with IndentationManager(self, False):
+            args_start = 0
+            if self.in_class and len(args.args) > 0 and args.args[0].arg in ("self", "cls"):
+                args_start = 1
+
+            if len(args.args) > args_start and args.args[args_start].arg == "shape":
+                args_start += 1
+
+            if len(args.args) > args_start:
+                self.push_code("Inputs:")
+
+                with IndentationManager(self, False):
+                    for i in range(args_start, len(args.args)):
+                        arg = "$" + args.args[i].arg
+                        if args.args[i].annotation:
+                            arg += " \\in " + self.expression_to_string(args.args[i].annotation, True)
+
+                        reverse_i = len(args.args) - i
+                        if reverse_i <= len(args.defaults):
+                            arg += " = %s" % self.expression_to_string(args.defaults[-reverse_i])
+                        arg += "$"
+                        self.push_code(arg)
+
+        with IndentationManager(self, False):
+            self.convert_ast(body)
+
+    def other_expression(self, value, annotation):
+        if isinstance(value, ast.Compare):
+            expr = self.expression_to_string(value.left, annotation)
+            for cmp, op in zip(value.comparators, value.ops):
+                expr += " " + self.expression_to_string(op, annotation)
+                expr += " " + self.expression_to_string(cmp, annotation)
+            return expr
+        return self.unknown(value, True)
+

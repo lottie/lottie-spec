@@ -107,9 +107,12 @@ canvas.bezier-editor {
 }
 
 /* mathml */
+math[display="block"] {
+    margin: 1em 0;
+}
 
 math {
-    margin: 1em 0;
+    font-size: 20px;
 }
 
 mtd[columnalign=right] {
