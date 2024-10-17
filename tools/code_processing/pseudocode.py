@@ -1,3 +1,4 @@
+import re
 import ast
 from .python_to_ts import AstTranslator, IndentationManager
 
@@ -26,13 +27,13 @@ class PseudoCode(AstTranslator):
         "BitXor": "^",
         "BitAnd": "&",
         "FloorDiv": "//",
-        "Pow": "**",
+        "Pow": "^",
         "Invert": "~",
-        "Not": "!",
+        "Not": "\\neg",
         "UAdd": "+",
         "USub": "-",
-        "And": "&&",
-        "Or": "||",
+        "And": "\\land",
+        "Or": "\\lor",
     }
 
     def snake_sentence(self, name, upper):
@@ -46,6 +47,8 @@ class PseudoCode(AstTranslator):
             if member == "closed":
                 return "shape closed"
             return self.snake_sentence(member, True)
+        if object == "math":
+            return "\\" + member
         return "%s.%s" % (object, member)
 
     def begin_if(self, expr):
@@ -73,6 +76,21 @@ class PseudoCode(AstTranslator):
             self.push_code("$%s$" % expr)
 
     def expr_func(self, name, args):
+        if name == "round":
+            return r"\lfloor %s \rceil" % ", ".join(args)
+
+        if name == "range":
+            start = "0"
+            end = "0"
+            if len(args) == 1:
+                end = args[0]
+            elif len(args) == 2:
+                start, end = args
+            else:
+                raise NotImplementedError
+
+            return "[%s, %s)" % (start, end)
+
         is_sentence = " " in name
         if name == "Vector2D":
             name = ""
@@ -101,7 +119,11 @@ class PseudoCode(AstTranslator):
             return "\\" + name
         if name == "ELLIPSE_CONSTANT":
             return "E_t"
-        return name
+        if name in ("alpha", "beta", "theta"):
+            return "\\" + name
+
+        name = name.strip("_")
+        return re.sub("_([^_]+)", "_{\\1}", name)
 
     def convert_constant(self, value):
         if value is None:
@@ -126,7 +148,7 @@ class PseudoCode(AstTranslator):
                 else:
                     self.push_code("Set %s to %s" % (target, value))
             else:
-                self.push_code("%s \\coloneq %s" % (target, value))
+                self.push_code("$%s \\coloneq %s$" % (target, value))
 
     def function_def(self, name, args, body, is_async, is_method, is_getter):
         self.push_code(self.snake_sentence(name, True))
@@ -144,7 +166,7 @@ class PseudoCode(AstTranslator):
 
                 with IndentationManager(self, False):
                     for i in range(args_start, len(args.args)):
-                        arg = "$" + args.args[i].arg
+                        arg = "$" + self.convert_name(args.args[i].arg, False)
                         if args.args[i].annotation:
                             arg += " \\in " + self.expression_to_string(args.args[i].annotation, True)
 
@@ -167,3 +189,6 @@ class PseudoCode(AstTranslator):
             return expr
         return self.unknown(value, True)
 
+    def begin_for(self, target, iter, is_async):
+        code_start = "For each $%s$ in $%s$" % (target, iter)
+        self.push_code(code_start)

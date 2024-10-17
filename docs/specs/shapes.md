@@ -91,7 +91,7 @@ Drawing instructions will contain the following commands:
 ### Approximating Ellipses with Cubic Bezier
 
 An elliptical quadrant can be approximated by a cubic bezier segment
-with tangents of length $radius \cdot E_t.
+with tangents of length $radius * E_t.
 
 Where
 
@@ -147,29 +147,29 @@ Hidden shapes (`hd: True`) are ignored, and do not contribute to rendering nor m
     </script>
 </lottie-playground>
 
-An ellipse is drawn from the top quandrant point going clockwise:
 
-$$
-\begin{align*}
-radius & = \frac{s}{2} \\
-tangent & = radius \cdot E_t \\
-x & = p.x \\
-y & = p.y \\
-\end{align*}
-$$
+<algorithm>
+def ellipse(shape: Bezier, p: Vector2D, s: Vector2D):
+    # An ellipse is drawn from the top quandrant point going clockwise:
+    radius = s / 2
+    tangent = radius * ELLIPSE_CONSTANT
+    x = p.x
+    y = p.y
 
-1. Add vertex $(x, y - radius.y)$
-1. Set in tangent $(-tangent.x, 0)$
-1. Set out tangent $(tangent.x, 0)$
-1. Add vertex $(x + radius.x, y)$
-1. Set in tangent $(0, -tangent.y)$
-1. Set out tangent $(0, tangent.y)$
-1. Add vertex $(x, y + radius.y)$
-1. Set in tangent $(tangent.x, 0)$
-1. Set out tangent $(-tangent.x, 0)$
-1. Add vertex $(x - radius.x, y)$
-1. Set in tangent $(0, tangent.y)$
-1. Set out tangent $(0, -tangent.y)$
+    shape.closed = True
+    shape.add_vertex(Vector2D(x, y - radius.y))
+    shape.set_in_tangent(Vector2D(-tangent.x, 0))
+    shape.set_out_tangent(Vector2D(tangent.x, 0))
+    shape.add_vertex(Vector2D(x + radius.x, y))
+    shape.set_in_tangent(Vector2D(0, -tangent.y))
+    shape.set_out_tangent(Vector2D(0, tangent.y))
+    shape.add_vertex(Vector2D(x, y + radius.y))
+    shape.set_in_tangent(Vector2D(tangent.x, 0))
+    shape.set_out_tangent(Vector2D(-tangent.x, 0))
+    shape.add_vertex(Vector2D(x - radius.x, y))
+    shape.set_in_tangent(Vector2D(0, tangent.y))
+    shape.set_out_tangent(Vector2D(0, -tangent.y))
+</algorithm>
 
 Implementations MAY use elliptical arcs to render an ellipse.
 
@@ -335,34 +335,38 @@ def rectangle(shape: Bezier, p: Vector2D, s: Vector2D, r: float):
     </script>
 </lottie-playground>
 
+<algorithm>
+def polystar(shape: Bezier, p: Vector2D, pt: float, r: float, or_: float, os: float, sy: int, ir: float, is_: float):
+    points: int = int(round(pt))
+    alpha: float = -r * math.pi / 180 - math.pi / 2
+    theta: float = -math.pi / points
+    tan_out: float = (2 * math.pi * or_) / (4 * points) * (os / 100)
+    tan_in: float = (2 * math.pi * ir) / (4 * points) * (is_ / 100)
 
-Definitions:
+    shape.closed = True
 
-$$
-\begin{align*}
-points & = \lfloor pt \rceil \\
-\theta  & = \frac{\pi}{points} \\
-\alpha & = \frac{\pi}{180} \cdot r \\
-tan_{out} &= \frac{os}{100} \cdot \frac{or \cdot 2 \pi}{points \cdot 4} \\
-tan_{in} &= \frac{is}{100} \cdot \frac{ir \cdot 2 \pi}{points \cdot 4} \\
-\end{align*}
-$$
+    for i in range(points):
+        beta: float = alpha + i * theta * 2
+        v_out: Vector2D = Vector2D(or_ * math.cos(beta),  or_ * math.sin(beta))
+        shape.add_vertex(p + v_out)
 
-1. For $i$ in $[0, points)$
-    1. Let $\beta = -\frac{\pi}{2} + \alpha + i \cdot 2 \dot \theta$
-    1. Let $V_{out} = (or \cdot \cos(\beta), or \cdot \sin(\beta))$
-    1. Add vertex $p + V_{out}$
-    1. If $or \neq 0$, we need to add bezier tangent
-        1. Let $T_{out} = (V_{out} \cdot \frac{tan_{out}}{or})$
-        1. Set in tangent $V_{out}$
-        1. Set out tangent $-V_{out}$
-    1. If $sy = 1$, we need to add a vertex towards the inner radius to make a star
-        1. Let $V_{in} = (ir \cdot \cos(\beta + \theta), or \cdot \sin(\beta + \theta))$
-        1. Add vertex $p + V_{in}$
-        1. If $ir \neq 0$, we need to add bezier tangent
-            1. Let $T_{in} = (V_{in} \cdot \frac{tan_{in}}{or})$
-            1. Set in tangent $V_{in}$
-            1. Set out tangent $-V_{in}$
+        if os != 0 and or_ != 0:
+            # We need to add bezier tangents
+            t_out: Vector2D = v_out * tan_out / or_
+            shape.set_in_tangent(Vector2D(-t_out.y, t_out.x))
+            shape.set_out_tangent(Vector2D(t_out.y, -t_out.x))
+
+        if sy == 1:
+            # We need to add a vertex towards the inner radius to make a star
+            v_in: Vector2D = Vector2D(ir * math.cos(beta + theta), ir * math.sin(beta + theta))
+            shape.add_vertex(p + v_in)
+
+            if is_ != 0 and ir != 0:
+                # we need to add bezier tangents
+                t_in = v_in * tan_in / ir
+                shape.set_in_tangent(Vector2D(-t_in.y, t_in.x))
+                shape.set_out_tangent(Vector2D(t_in.y, -t_in.x))
+</algorithm>
 
 <h2 id="grouping">Grouping</h2>
 

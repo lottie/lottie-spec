@@ -278,7 +278,7 @@ class AstTranslator:
             return self.ops[value.__class__.__name__]
         if isinstance(value, ast.Call):
             name = self.expression_to_string(value.func, annotation)
-            args = (self.expression_to_string(v, annotation) for v in value.args)
+            args = [self.expression_to_string(v, annotation) for v in value.args]
             return self.expr_func(name, args)
         if isinstance(value, ast.BinOp):
             return self.expr_binop(*self.values_to_string(value.op, value.left, value.right, annotation=annotation))
@@ -476,6 +476,9 @@ class Py2Ts(AstTranslator):
         return ts_code
 
     def expr_attribute(self, object, member):
+        if object == "Math":
+            if member == "pi":
+                member = member.upper()
         return "%s.%s" % (object, self.camel_snake(member))
 
     def other_expression(self, value, annotation):
