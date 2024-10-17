@@ -76,8 +76,17 @@ class PseudoCode(AstTranslator):
             self.push_code("$%s$" % expr)
 
     def expr_func(self, name, args):
+        if name == "int":
+            return args[0]
+
         if name == "round":
             return r"\lfloor %s \rceil" % ", ".join(args)
+
+        if name == "floor":
+            return r"\lfloor %s \rfloor" % ", ".join(args)
+
+        if name == "ceil":
+            return r"\lceil %s \rceil" % ", ".join(args)
 
         if name == "range":
             start = "0"
