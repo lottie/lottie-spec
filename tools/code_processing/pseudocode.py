@@ -1,5 +1,5 @@
 import ast
-from python_to_ts import AstTranslator, IndentationManager
+from .python_to_ts import AstTranslator, IndentationManager
 
 
 class PseudoCode(AstTranslator):
@@ -153,6 +153,7 @@ class PseudoCode(AstTranslator):
                             arg += " = %s" % self.expression_to_string(args.defaults[-reverse_i])
                         arg += "$"
                         self.push_code(arg)
+                self.push_code("")
 
         with IndentationManager(self, False):
             self.convert_ast(body)

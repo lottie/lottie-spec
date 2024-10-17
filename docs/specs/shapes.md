@@ -203,50 +203,50 @@ Implementations MAY use elliptical arcs to render an ellipse.
     </script>
 </lottie-playground>
 
+Rendering algorithm:
 
-Definitions:
+<algorithm>
+def rectangle(shape: Bezier, p: Vector2D, s: Vector2D, r: float):
+    left: float = p.x - s.x / 2
+    right: float = p.x + s.x / 2
+    top: float = p.y - s.y / 2
+    bottom: float = p.y + s.y / 2
 
-$$
-\begin{align*}
-left & = p.x - \frac{s.x}{2} \\
-right & = p.x + \frac{s.x}{2} \\
-top & = p.y - \frac{s.y}{2} \\
-bottom & = p.y + \frac{s.y}{2} \\
-\end{align*}
-$$
+    shape.closed = True
 
-If $r = 0$, then the rectangle is rendered from the top-right going clockwise:
+    if r <= 0:
 
-1. Add vertex $(right, top)$
-1. Add vertex $(right, bottom)$
-1. Add vertex $(left, bottom)$
-1. Add vertex $(left, top)$
+        # The rectangle is rendered from the top-right going clockwise
 
-If $r > 0$, the rounded corners must be taken into account.
+        shape.add_vertex(Vector2D(right, top))
+        shape.add_vertex(Vector2D(right, bottom))
+        shape.add_vertex(Vector2D(left, bottom))
+        shape.add_vertex(Vector2D(left, top))
 
-$$
-\begin{align*}
-rounded & = \min\left(\frac{s.x}{2}, \frac{s.y}{2}, r\right) \\
-tangent & = rounded \cdot E_t \\
-\end{align*}
-$$
+    else:
 
-1. Add vertex $(right, top + rounded)$
-1. Set in tangent $(0, -tangent)$
-1. Add vertex $(right, bottom - rounded)$
-1. Set out tangent $(0, tangent)$
-1. Add vertex $(right - rounded, bottom)$
-1. Set in tangent $(tangent, 0)$
-1. Add vertex $(left + rounded, bottom)$
-1. Set out tangent $(-tangent, 0)$
-1. Add vertex $(left, bottom - rounded)$
-1. Set in tangent $(0, tangent)$
-1. Add vertex $(left, top + rounded)$
-1. Set out tangent $(0, -tangent)$
-1. Add vertex $(left + rounded, top)$
-1. Set in tangent $(-tangent, 0)$
-1. Add vertex $(right - rounded, top)$
-1. Set out tangent $(tangent, 0)$
+        # Rounded corners must be taken into account
+
+        rounded: float = min(s.x/2, s.y/2, r)
+        tangent: float = rounded * ELLIPSE_CONSTANT
+
+        shape.add_vertex(Vector2D(right, top + rounded))
+        shape.set_in_tangent(Vector2D(0, -tangent))
+        shape.add_vertex(Vector2D(right, bottom - rounded))
+        shape.set_out_tangent(Vector2D(0, tangent))
+        shape.add_vertex(Vector2D(right - rounded, bottom))
+        shape.set_in_tangent(Vector2D(tangent, 0))
+        shape.add_vertex(Vector2D(left + rounded, bottom))
+        shape.set_out_tangent(Vector2D(-tangent, 0))
+        shape.add_vertex(Vector2D(left, bottom - rounded))
+        shape.set_in_tangent(Vector2D(0, tangent))
+        shape.add_vertex(Vector2D(left, top + rounded))
+        shape.set_out_tangent(Vector2D(0, -tangent))
+        shape.add_vertex(Vector2D(left + rounded, top))
+        shape.set_in_tangent(Vector2D(-tangent, 0))
+        shape.add_vertex(Vector2D(right - rounded, top))
+        shape.set_out_tangent(Vector2D(tangent, 0))
+</algorithm>
 
 ![Rectangle rendering guide](../static/img/rect-guide.svg)
 

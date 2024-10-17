@@ -124,3 +124,15 @@ mtd[columnalign=left] {
     text-align: -webkit-left;
     text-align: -moz-left;
 }
+
+/* algorithm */
+
+.algorithm {
+    position: relative;
+}
+
+.algorithm select {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
