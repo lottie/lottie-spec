@@ -36,9 +36,9 @@ More formally:
     $shape \in Scope(modifier)$:
     * $shape = modifier(shape)$
   * compute the total shape transformation by composing all transforms within the shape scope chain:
-    $$T_{shape} = \prod_{n=0}^{Scope(shape)} Transform(scope_n)$$
+    $T_{shape} = \prod_{n=0}^{Scope(shape)} Transform(scope_n)$
   * compute the total style transformation by composing all transforms within the style scope chain:
-    $$T_{style} = \prod_{n=0}^{Scope(style)} Transform(scope_n)$$
+    $T_{style} = \prod_{n=0}^{Scope(style)} Transform(scope_n)$
 
   * $Render(shape \times T_{shape}, style \times T_{style})$
 
