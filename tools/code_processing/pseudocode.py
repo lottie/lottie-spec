@@ -60,8 +60,8 @@ class PseudoCode(AstTranslator):
     def begin_else(self):
         self.push_code("Otherwise")
 
-    def declare(self, target, annotation, value):
-        self.push_code("$%s \\coloneq %s$" % (target, value))
+    def declare(self, target, type, value):
+        self.push_code("$%s \\coloneq %s$" % (self.decorate_name(target), value))
 
     def format_comment(self, value):
         if len(value) == 0:
@@ -74,6 +74,12 @@ class PseudoCode(AstTranslator):
             self.push_code(expr)
         else:
             self.push_code("$%s$" % expr)
+
+    def decorate_name(self, name):
+        type = self.get_var_type(name)
+        if type.startswith("\\mathbb{R}^"):
+            return "\\vec{%s}" % name
+        return name
 
     def expr_func(self, name, args):
         if name == "int":
@@ -132,7 +138,8 @@ class PseudoCode(AstTranslator):
             return "\\" + name
 
         name = name.strip("_")
-        return re.sub("_([^_]+)", "_{\\1}", name)
+        name = re.sub("_([^_]+)", "_{\\1}", name)
+        return self.decorate_name(name)
 
     def convert_constant(self, value):
         if value is None:
@@ -175,9 +182,15 @@ class PseudoCode(AstTranslator):
 
                 with IndentationManager(self, False):
                     for i in range(args_start, len(args.args)):
-                        arg = "$" + self.convert_name(args.args[i].arg, False)
+                        name = self.convert_name(args.args[i].arg, False)
                         if args.args[i].annotation:
-                            arg += " \\in " + self.expression_to_string(args.args[i].annotation, True)
+                            type = self.expression_to_string(args.args[i].annotation, True)
+                        else:
+                            type = None
+                        self.var_add(name, type)
+                        arg = "$" + self.decorate_name(name)
+                        if type:
+                            arg += " \\in " + type
 
                         reverse_i = len(args.args) - i
                         if reverse_i <= len(args.defaults):

@@ -37,11 +37,31 @@ class AstTranslator:
         self.output = ""
         self.in_class = False
         self.in_method = False
+        self.scope = [{}]
 
     def convert(self, obj):
         self.output = ""
         self.convert_ast(obj)
         return self.output
+
+    def push_scope(self):
+        self.scope.insert(0, {})
+
+    def pop_scope(self):
+        self.scope.pop(0)
+
+    def var_add(self, var, type):
+        if type is None:
+            type = ""
+        elif not isinstance(type, str):
+            type = self.expression_to_string(type, True)
+        self.scope[0][var] = type
+
+    def get_var_type(self, var):
+        for scope in self.scope:
+            if var in scope:
+                return scope[var]
+        return ""
 
     @property
     def indent(self):
@@ -154,8 +174,10 @@ class AstTranslator:
         if isinstance(obj, ast.Module):
             self.convert_ast(obj.body)
         elif isinstance(obj, list):
+            self.push_scope()
             for code in obj:
                 self.convert_ast(code)
+            self.pop_scope()
         elif isinstance(obj, ast.ClassDef):
             body = self.convert_doc_comment(obj.body)
             self.begin_class(obj.name)
@@ -174,7 +196,9 @@ class AstTranslator:
                     if isinstance(deco, ast.Name) and deco.id == "property":
                         is_getter = True
 
+            self.push_scope()
             self.function_def(obj.name, obj.args, body, is_async, is_method, is_getter)
+            self.pop_scope()
         elif isinstance(obj, ast.Assign):
             targets = list(map(self.expression_to_string, obj.targets))
             value = self.expression_to_string(obj.value)
@@ -184,6 +208,7 @@ class AstTranslator:
             target = self.expression_to_string(obj.target)
             annotation = self.expression_to_string(obj.annotation, annotation=True)
             value = self.expression_to_string(obj.value) if obj.value else None
+            self.var_add(target, annotation)
             self.declare(target, annotation, value)
         elif isinstance(obj, ast.If):
             self.begin_if(self.expression_to_string(obj.test))
