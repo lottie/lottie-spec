@@ -1242,12 +1242,9 @@ class Algorithm(BlockProcessor):
     def render_pseudocode(self, parent, pseudo: str):
         pre = etree.SubElement(parent, "pre")
         for line in pseudo.splitlines():
-            # stripped = line.lstrip()
-            # indent = line[0:len(line) - len(stripped)]
-            # etree.SubElement(pre, "span").text = indent
-            l = etree.SubElement(pre, "span")
-            l.text = line
-            l.tail = "\n"
+            span = etree.SubElement(pre, "span")
+            span.text = line
+            span.tail = "\n"
 
 
 class LottieExtension(Extension):

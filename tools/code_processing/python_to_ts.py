@@ -1,10 +1,7 @@
 import re
-import os
-import sys
 import ast
 import pprint
 import inspect
-import argparse
 
 
 def snake_to_lower_camel(string):
@@ -161,9 +158,6 @@ class AstTranslator:
     def type_alias(self, obj):
         raise NotImplementedError
 
-    def convert_name(self, name, annotation):
-        raise NotImplementedError
-
     def expr_func(self, name, args):
         raise NotImplementedError
 
@@ -258,6 +252,7 @@ class AstTranslator:
                 pattern = None
             else:
                 pattern = self.expression_to_string(obj.pattern)
+            self.begin_switch_case(pattern)
             with IndentationManager(self, False):
                 self.convert_ast(obj.body)
                 self.end_switch_case()
@@ -558,4 +553,3 @@ class Py2Ts(AstTranslator):
 
     def expression_statement(self, v):
         self.push_code(v + ";")
-

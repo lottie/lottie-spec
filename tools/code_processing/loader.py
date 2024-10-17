@@ -11,7 +11,7 @@ def indent_at(string, pos):
     if pos <= 0:
         return ""
 
-    newline_before = string.rfind('\n', 0, pos-1)
+    newline_before = string.rfind('\n', 0, pos - 1)
     if newline_before == -1:
         return ""
 
