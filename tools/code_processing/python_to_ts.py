@@ -27,6 +27,31 @@ class IndentationManager:
         self.converter.indent_down()
 
 
+class Range:
+    def __init__(self, ast_node, translator):
+        self.ast_node = ast_node
+        self.start = None
+        self.stop = None
+        self.step = None
+        self.translator = translator
+        if len(ast_node.args) == 1:
+            self.stop = translator.expression_to_string(ast_node.args[0], False)
+        else:
+            self.start = translator.expression_to_string(ast_node.args[0], False)
+            self.stop = translator.expression_to_string(ast_node.args[1], False)
+            if len(ast_node.args) > 2:
+                self.step = translator.expression_to_string(ast_node.args[2], False)
+
+    def fill_defaults(self, step=False):
+        if self.start is None:
+            self.start = self.translator.expression_to_string(ast.Constant(0), False)
+        if step and self.step is None:
+            self.step = self.translator.expression_to_string(ast.Constant(1), False)
+
+    def __str__(self):
+        return self.translator.expression_to_string(self.ast_node, False)
+
+
 class AstTranslator:
     def __init__(self):
         self.indent_spaces = 4
@@ -59,6 +84,11 @@ class AstTranslator:
             if var in scope:
                 return scope[var]
         return ""
+
+    def maybe_range(self, ast_node):
+        if isinstance(ast_node, ast.Call) and isinstance(ast_node.func, ast.Name) and ast_node.func.id == "range":
+            return Range(ast_node, self)
+        return self.expression_to_string(ast_node, False)
 
     @property
     def indent(self):
@@ -228,7 +258,7 @@ class AstTranslator:
         elif isinstance(obj, (ast.For, ast.AsyncFor)):
             is_async = isinstance(obj, ast.AsyncFor)
             target = self.expression_to_string(obj.target)
-            iter = self.expression_to_string(obj.iter)
+            iter = self.maybe_range(obj.iter)
             self.begin_for(target, iter, is_async)
             with IndentationManager(self, False):
                 self.convert_ast(obj.body)
@@ -417,7 +447,17 @@ class Py2Ts(AstTranslator):
         code_start = "for "
         if is_async:
             code_start += "await "
-        code_start += "( let %s of %s ) {" % (target, iter)
+        if isinstance(iter, Range):
+            iter.fill_defaults(False)
+            code_start += "( let %s = %s; " % (target, iter.start)
+            code_start += "%s < %s; " % (target, iter.stop)
+            if iter.step is None:
+                code_start += "%s++" % (target)
+            else:
+                code_start += "%s += %s" % (target, iter.step)
+            code_start += " )"
+        else:
+            code_start += "( let %s of %s ) {" % (target, iter)
         self.push_code(code_start)
 
     def begin_else(self):
