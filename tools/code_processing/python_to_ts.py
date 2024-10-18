@@ -27,6 +27,78 @@ class IndentationManager:
         self.converter.indent_down()
 
 
+class CommentData:
+    RE_COMMENT = re.compile(r"^\s*(.+)?# ?(.*)$")
+
+    class Comment:
+        def __init__(self, line, text, is_tail):
+            self.line = line
+            self.text = text
+            self.is_tail = is_tail
+
+    class CommentReader:
+        def __init__(self, comments):
+            self.comments = comments
+            self.next_line = None
+            self.current_line = 0
+            self.index = 0
+            self.get_next()
+
+        def prepare(self, node):
+            if hasattr(node, "lineno"):
+                self.current_line = node.lineno
+
+        def get_next(self):
+            self.next_line = self.current_comment().line if self.index < len(self.comments) else None
+
+        def current_comment(self):
+            return self.comments[self.index]
+
+        def has_line_comment(self):
+            if self.next_line is None:
+                return False
+
+            if self.current_line >= self.next_line:
+                return not self.current_comment().is_tail
+
+            return False
+
+        def has_tail_comment(self):
+            if self.next_line is None:
+                return False
+
+            if self.current_line >= self.next_line:
+                return self.current_comment().is_tail
+
+            return False
+
+        def get_comment(self):
+            return self.current_comment().text
+
+        def next(self):
+            self.index += 1
+            self.get_next()
+
+    def __init__(self, source):
+        self.comments = []
+
+        for lineno, line in enumerate(source.splitlines()):
+            match = self.RE_COMMENT.match(line)
+            if match:
+                self.add_comment(lineno + 1, match.group(2), match.group(1) is not None)
+            elif line.strip() == "":
+                self.add_empty(lineno + 1)
+
+    def add_comment(self, line, text, is_tail):
+        self.comments.append(self.Comment(line, text, is_tail))
+
+    def add_empty(self, line):
+        self.comments.append(self.Comment(line, None, False))
+
+    def reader(self):
+        return self.CommentReader(self.comments)
+
+
 class Range:
     def __init__(self, ast_node, translator):
         self.ast_node = ast_node
@@ -61,8 +133,14 @@ class AstTranslator:
         self.in_method = False
         self.scope = [{}]
 
-    def convert(self, obj):
+    def convert(self, obj, comments: CommentData):
         self.output = ""
+        self.comments = comments.reader()
+        self.next_comment = None
+        if comments.comments:
+            self.next_comment = comments.comments[0].line
+
+        self.comment_line = 0
         self.convert_ast(obj)
         return self.output
 
@@ -102,8 +180,22 @@ class AstTranslator:
         #     return unknown
         # self.ts_code += unknown
 
-    def push_code(self, ts_code):
-        self.output += self.indent + ts_code + "\n"
+    def push_code(self, code):
+        while self.comments.has_line_comment():
+            comment = self.comments.get_comment()
+            if comment is None:
+                self.output += "\n"
+            else:
+                self.output += self.indent + self.convert_line_comment(comment) + "\n"
+            self.comments.next()
+
+        self.output += self.indent + code
+
+        if self.comments.has_tail_comment():
+            self.output += " " + self.convert_line_comment(self.comments.get_comment())
+            self.comments.next()
+
+        self.output += "\n"
 
     def indent_up(self):
         self.indent_level += 1
@@ -195,6 +287,8 @@ class AstTranslator:
         self.push_code(v)
 
     def convert_ast(self, obj):
+        self.comments.prepare(obj)
+
         if isinstance(obj, ast.Module):
             self.convert_ast(obj.body)
         elif isinstance(obj, list):
@@ -314,6 +408,9 @@ class AstTranslator:
 
     def expr_attribute(self, object, member):
         return "%s.%s" % (object, member)
+
+    def convert_line_comment(self, comment):
+        raise NotImplementedError
 
     def expression_to_string(self, value, annotation=False):
         if isinstance(value, ast.Constant):
@@ -593,3 +690,6 @@ class Py2Ts(AstTranslator):
 
     def expression_statement(self, v):
         self.push_code(v + ";")
+
+    def convert_line_comment(self, comment):
+        return "// " + comment

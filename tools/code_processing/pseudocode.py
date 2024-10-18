@@ -214,3 +214,6 @@ class PseudoCode(AstTranslator):
     def begin_for(self, target, iter, is_async):
         code_start = "For each $%s$ in $%s$" % (target, iter)
         self.push_code(code_start)
+
+    def convert_line_comment(self, comment):
+        return comment or ""
