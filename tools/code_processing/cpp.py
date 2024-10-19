@@ -42,7 +42,7 @@ class CppTranslator(CLike):
         code = "%s %s" % (annotation, target)
         if value:
             if isinstance(ast_value, ast.Call) and value.startswith(annotation):
-                value = value[len(annotation)+1:-1]
+                value = value[len(annotation) + 1:-1]
                 if annotation[0].isupper():
                     self.push_code("%s(%s);" % (code, value))
                     return

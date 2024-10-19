@@ -1,4 +1,3 @@
-import re
 from .python_to_ts import AstTranslator, IndentationManager, snake_to_lower_camel
 
 
