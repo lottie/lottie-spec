@@ -470,11 +470,11 @@ class AstTranslator:
             op = self.expression_to_string(value.op, annotation)
             return self.expr_binop(op, *(self.expression_to_string(v, annotation) for v in value.values))
         if isinstance(value, ast.Tuple):
-            return self.expr_sequence_literal_converter(value.elts, tuple)
+            return self.expr_sequence_literal_converter(value.elts, tuple, annotation)
         if isinstance(value, ast.List):
-            return self.expr_sequence_literal_converter(value.elts, list)
+            return self.expr_sequence_literal_converter(value.elts, list, annotation)
         if isinstance(value, ast.Set):
-            return self.expr_sequence_literal_converter(value.elts, set)
+            return self.expr_sequence_literal_converter(value.elts, set, annotation)
         if isinstance(value, ast.Compare):
             return self.expr_compare(value, annotation)
         if isinstance(value, ast.MatchValue):
@@ -495,7 +495,7 @@ class AstTranslator:
             return self.expr_starred(self.expression_to_string(value.value, annotation))
         return self.other_expression(value, annotation)
 
-    def expr_sequence_literal_converter(self, elements, type):
+    def expr_sequence_literal_converter(self, elements, type, annotation):
         return self.expr_sequence_literal([self.expression_to_string(v, annotation) for v in elements], type)
 
     def expr_sequence_literal(self, elements, type):

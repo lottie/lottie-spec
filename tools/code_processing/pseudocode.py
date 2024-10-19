@@ -1,5 +1,4 @@
 import re
-import ast
 from .python_to_ts import AstTranslator, IndentationManager
 
 
