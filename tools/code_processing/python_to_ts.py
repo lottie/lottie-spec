@@ -9,21 +9,21 @@ def snake_to_lower_camel(string):
 
 
 class IndentationManager:
-    def __init__(self, converter, is_class):
+    def __init__(self, converter, class_name):
         self.converter = converter
-        self.is_class = is_class
-        self.start_in_class = converter.in_class
+        self.class_name = class_name
+        self.start_class_name = converter.class_name
+        self.start_in_method = converter.in_method
 
     def __enter__(self):
-        if self.is_class:
+        if self.class_name:
             self.converter.in_method = True
-        self.converter.in_class = self.is_class
+        self.converter.class_name = self.class_name
         self.converter.indent_up()
 
     def __exit__(self, *a):
-        if self.is_class:
-            self.converter.in_method = False
-        self.converter.in_class = self.start_in_class
+        self.converter.in_method = self.start_in_method
+        self.converter.class_name = self.start_class_name
         self.converter.indent_down()
 
 
@@ -100,19 +100,20 @@ class CommentData:
 
 
 class Range:
-    def __init__(self, ast_node, translator):
+    def __init__(self, ast_node, translator, start=None, stop=None, step=None):
         self.ast_node = ast_node
-        self.start = None
-        self.stop = None
-        self.step = None
+        self.start = start
+        self.stop = stop
+        self.step = step
         self.translator = translator
-        if len(ast_node.args) == 1:
-            self.stop = translator.expression_to_string(ast_node.args[0], False)
-        else:
-            self.start = translator.expression_to_string(ast_node.args[0], False)
-            self.stop = translator.expression_to_string(ast_node.args[1], False)
-            if len(ast_node.args) > 2:
-                self.step = translator.expression_to_string(ast_node.args[2], False)
+        if stop is None:
+            if len(ast_node.args) == 1:
+                self.stop = translator.expression_to_string(ast_node.args[0], False)
+            else:
+                self.start = translator.expression_to_string(ast_node.args[0], False)
+                self.stop = translator.expression_to_string(ast_node.args[1], False)
+                if len(ast_node.args) > 2:
+                    self.step = translator.expression_to_string(ast_node.args[2], False)
 
     def fill_defaults(self, step=False):
         if self.start is None:
@@ -129,7 +130,7 @@ class AstTranslator:
         self.indent_spaces = 4
         self.indent_level = 0
         self.output = ""
-        self.in_class = False
+        self.class_name = None
         self.in_method = False
         self.scope = [{}]
 
@@ -299,7 +300,7 @@ class AstTranslator:
         elif isinstance(obj, ast.ClassDef):
             body = self.convert_doc_comment(obj.body)
             self.begin_class(obj.name)
-            with IndentationManager(self, True):
+            with IndentationManager(self, obj.name):
                 self.convert_ast(body)
         elif isinstance(obj, ast.Expr):
             self.convert_ast(obj.value)
@@ -307,9 +308,9 @@ class AstTranslator:
             body = self.convert_doc_comment(obj.body)
             is_async = isinstance(obj, ast.AsyncFunctionDef)
             is_getter = False
-            is_method = self.in_class
+            is_method = self.class_name is not None
 
-            if self.in_class:
+            if is_method:
                 for deco in obj.decorator_list:
                     if isinstance(deco, ast.Name) and deco.id == "property":
                         is_getter = True
@@ -330,11 +331,11 @@ class AstTranslator:
             self.declare(target, annotation, value)
         elif isinstance(obj, ast.If):
             self.begin_if(self.expression_to_string(obj.test))
-            with IndentationManager(self, False):
+            with IndentationManager(self, None):
                 self.convert_ast(obj.body)
             if obj.orelse:
                 self.begin_else()
-                with IndentationManager(self, False):
+                with IndentationManager(self, None):
                     self.convert_ast(obj.orelse)
             self.end_block()
         elif isinstance(obj, ast.Constant):
@@ -354,13 +355,13 @@ class AstTranslator:
             target = self.expression_to_string(obj.target)
             iter = self.maybe_range(obj.iter)
             self.begin_for(target, iter, is_async)
-            with IndentationManager(self, False):
+            with IndentationManager(self, None):
                 self.convert_ast(obj.body)
             self.end_block()
         elif isinstance(obj, ast.While):
             cond = self.expression_to_string(obj.test)
             self.begin_while(cond)
-            with IndentationManager(self, False):
+            with IndentationManager(self, None):
                 self.convert_ast(obj.body)
             self.end_block()
         elif isinstance(obj, ast.Pass):
@@ -368,7 +369,7 @@ class AstTranslator:
         elif isinstance(obj, ast.Match):
             expr = self.expression_to_string(obj.subject)
             self.begin_switch(expr)
-            with IndentationManager(self, False):
+            with IndentationManager(self, None):
                 self.convert_ast(obj.cases)
             self.end_block()
         elif isinstance(obj, ast.match_case):
@@ -377,7 +378,7 @@ class AstTranslator:
             else:
                 pattern = self.expression_to_string(obj.pattern)
             self.begin_switch_case(pattern)
-            with IndentationManager(self, False):
+            with IndentationManager(self, None):
                 self.convert_ast(obj.body)
                 self.end_switch_case()
         elif isinstance(obj, ast.Import):
@@ -434,7 +435,51 @@ class AstTranslator:
         if isinstance(value, ast.BoolOp):
             op = self.expression_to_string(value.op, annotation)
             return self.expr_binop(op, *(self.expression_to_string(v, annotation) for v in value.values))
+        if isinstance(value, ast.Tuple):
+            return self.expr_sequence_literal_converter(value.elts, tuple)
+        if isinstance(value, ast.List):
+            return self.expr_sequence_literal_converter(value.elts, list)
+        if isinstance(value, ast.Set):
+            return self.expr_sequence_literal_converter(value.elts, set)
+        if isinstance(value, ast.Compare):
+            return self.expr_compare(value, annotation)
+        if isinstance(value, ast.MatchValue):
+            return self.expression_to_string(value.value, annotation)
+        if isinstance(value, ast.Dict):
+            return self.expr_dict(self.values_to_string(*it, annotation=annotation) for it in zip(value.keys, value.values))
+        if isinstance(value, ast.IfExp):
+            return self.expr_if(*self.values_to_string(value.test, value.body, value.orelse, annotation=annotation))
+        if isinstance(value, ast.Subscript):
+            if isinstance(value.slice, ast.Slice):
+                index = Range(value.slice, self, slice.lower, slice.upper, slice.step)
+            else:
+                index = self.expression_to_string(value.slice, annotation=annotation)
+            value = self.expression_to_string(value.value, annotation=annotation)
+            return self.expr_subscript(value, index)
+        if isinstance(value, ast.Starred):
+            return self.expr_starred(self.expression_to_string(value.value, annotation))
         return self.other_expression(value, annotation)
+
+    def expr_sequence_literal_converter(self, elements, type):
+        return self.expr_sequence_literal([self.expression_to_string(v, annotation) for v in elements], type)
+
+    def expr_sequence_literal(self, elements, type):
+        raise NotImplementedError
+
+    def expr_compare(self, value, annotation):
+        raise NotImplementedError
+
+    def expr_dict(self, items):
+        raise NotImplementedError
+
+    def expr_if(self, cond, then, otherwise):
+        raise NotImplementedError
+
+    def expr_subscript(self, value, index):
+        raise NotImplementedError
+
+    def expr_starred(self, value):
+        raise NotImplementedError
 
 
 class Py2Ts(AstTranslator):
@@ -470,9 +515,9 @@ class Py2Ts(AstTranslator):
         "Or": "||",
     }
 
-    def __init__(self):
+    def __init__(self, type_annotations=True):
         super().__init__()
-        self.type_annotations = True
+        self.type_annotations = type_annotations
 
     def function_def(self, name, args, body, is_async, is_method, is_getter):
         start = ""
@@ -490,7 +535,7 @@ class Py2Ts(AstTranslator):
         start += "%s(" % self.camel_snake(name)
 
         args_start = 0
-        if self.in_class and len(args.args) > 0 and args.args[0].arg in ("self", "cls"):
+        if self.class_name and len(args.args) > 0 and args.args[0].arg in ("self", "cls"):
             args_start = 1
 
         ts_args = []
@@ -506,7 +551,7 @@ class Py2Ts(AstTranslator):
 
         start += ", ".join(ts_args) + ") {"
         self.push_code(start)
-        with IndentationManager(self, False):
+        with IndentationManager(self, None):
             self.convert_ast(body)
         self.push_code("}")
 
@@ -638,37 +683,40 @@ class Py2Ts(AstTranslator):
                 member = member.upper()
         return "%s.%s" % (object, self.camel_snake(member))
 
+    def expr_sequence_literal(self, elements, type):
+        if type is set:
+            return "new Set([%s])" % ", ".join(elements)
+        return "[%s]" % ", ".join(elements)
+
+    def expr_compare(self, value, annotation):
+        all = []
+        left = self.expression_to_string(value.left, annotation)
+        for cmp, op in zip(value.comparators, value.ops):
+            right = self.expression_to_string(cmp, annotation)
+            all.append("%s %s %s" % (left, self.expression_to_string(op, annotation), right))
+            left = right
+        if len(all) == 1:
+            return all[0]
+        return "(%s)" % " && ".join(all)
+
+    def expr_dict(self, items):
+        return "{%s}" % ", ".join("%s: %s" % item for item in items)
+
+    def expr_if(self, *args):
+        return "%s ? %s : %s" % args
+
+    def expr_subscript(self, value, index):
+        if isinstance(index, Range):
+            args = ", ".join(v if v is not None else "undefined" for v in [index.start, index.stop, index.step])
+            return "%s.slice(%s)" % (value, args)
+        return "%s[%s]" % (value, index)
+
+    def expr_starred(self, value):
+        return "...%s" % value
+
     def other_expression(self, value, annotation):
-        if isinstance(value, ast.Compare):
-            all = []
-            left = self.expression_to_string(value.left, annotation)
-            for cmp, op in zip(value.comparators, value.ops):
-                right = self.expression_to_string(cmp, annotation)
-                all.append("%s %s %s" % (left, self.expression_to_string(op, annotation), right))
-                left = right
-            if len(all) == 1:
-                return all[0]
-            return "(%s)" % " && ".join(all)
-        if isinstance(value, (ast.Tuple, ast.List)):
-            return "[%s]" % ", ".join(self.expression_to_string(v, annotation) for v in value.elts)
-        if isinstance(value, ast.MatchValue):
-            return self.expression_to_string(value.value, annotation)
         if isinstance(value, ast.MatchAs):
             return value.name
-        if isinstance(value, ast.Subscript):
-            if isinstance(value.slice, ast.Slice):
-                slice = value.slice
-                args = ", ".join(self.expression_to_string(v, annotation) if v is not None else "undefined" for v in [slice.lower, slice.upper])
-                return "%s.slice(%s)" % (self.expression_to_string(value.value, annotation), args)
-            return "%s[%s]" % self.values_to_string(value.value, value.slice, annotation=annotation)
-        if isinstance(value, ast.Set):
-            return "new Set([%s])" % ", ".join(self.expression_to_string(v, annotation) for v in value.elts)
-        if isinstance(value, ast.Dict):
-            return "{%s}" % ", ".join("%s: %s" % self.values_to_string(*it, annotation=annotation) for it in zip(value.keys, value.values))
-        if isinstance(value, ast.IfExp):
-            return "%s ? %s : %s" % self.values_to_string(value.test, value.body, value.orelse, annotation=annotation)
-        if isinstance(value, ast.Starred):
-            return "...%s" % self.expression_to_string(value.value, annotation)
         return self.unknown(value, True)
 
     def format_doc_comment(self, comment):

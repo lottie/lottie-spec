@@ -109,17 +109,17 @@ class PseudoCode(AstTranslator):
         is_sentence = " " in name
         if name == "Vector2D":
             name = ""
-        ts_code = name
+        code = name
         if is_sentence:
-            ts_code += " $"
+            code += " $"
         else:
-            ts_code += r"\left("
-        ts_code += ", ".join(args)
+            code += r"\left("
+        code += ", ".join(args)
         if is_sentence:
-            ts_code += "$"
+            code += "$"
         else:
-            ts_code += r"\right)"
-        return ts_code
+            code += r"\right)"
+        return code
 
     def convert_name(self, name, annotation):
         if annotation:
@@ -171,7 +171,7 @@ class PseudoCode(AstTranslator):
 
         with IndentationManager(self, False):
             args_start = 0
-            if self.in_class and len(args.args) > 0 and args.args[0].arg in ("self", "cls"):
+            if is_method and len(args.args) > 0 and args.args[0].arg in ("self", "cls"):
                 args_start = 1
 
             if len(args.args) > args_start and args.args[args_start].arg == "shape":
@@ -202,14 +202,12 @@ class PseudoCode(AstTranslator):
         with IndentationManager(self, False):
             self.convert_ast(body)
 
-    def other_expression(self, value, annotation):
-        if isinstance(value, ast.Compare):
-            expr = self.expression_to_string(value.left, annotation)
-            for cmp, op in zip(value.comparators, value.ops):
-                expr += " " + self.expression_to_string(op, annotation)
-                expr += " " + self.expression_to_string(cmp, annotation)
-            return expr
-        return self.unknown(value, True)
+    def expr_compare(self, value, annotation):
+        expr = self.expression_to_string(value.left, annotation)
+        for cmp, op in zip(value.comparators, value.ops):
+            expr += " " + self.expression_to_string(op, annotation)
+            expr += " " + self.expression_to_string(cmp, annotation)
+        return expr
 
     def begin_for(self, target, iter, is_async):
         code_start = "For each $%s$ in $%s$" % (target, iter)
