@@ -1,5 +1,6 @@
 import re
 import ast
+import json
 import pprint
 import inspect
 
@@ -245,7 +246,7 @@ class AstTranslator:
                 return body[1:]
         return body
 
-    def function_def(self, name, args, body, is_async, is_method, is_getter):
+    def function_def(self, name, args, returns, body, is_async, is_method, is_getter):
         raise NotImplementedError
 
     def values_to_string(self, *args, annotation=False):
@@ -342,8 +343,9 @@ class AstTranslator:
                     if isinstance(deco, ast.Name) and deco.id == "property":
                         is_getter = True
 
+            returns = self.expression_to_string(obj.returns, True) if obj.returns else None
             self.push_scope()
-            self.function_def(obj.name, obj.args, body, is_async, is_method, is_getter)
+            self.function_def(obj.name, obj.args, returns, body, is_async, is_method, is_getter)
             self.pop_scope()
         elif isinstance(obj, ast.Assign):
             targets = list(map(self.expression_to_string, obj.targets))
@@ -424,7 +426,7 @@ class AstTranslator:
         else:
             self.unknown(obj)
 
-    def convert_constant(self, value):
+    def convert_constant(self, value, annotation):
         return repr(value)
 
     def convert_name(self, name, annotation):
@@ -447,7 +449,7 @@ class AstTranslator:
 
     def expression_to_string(self, value, annotation=False):
         if isinstance(value, ast.Constant):
-            return self.convert_constant(value.value)
+            return self.convert_constant(value.value, annotation)
         if isinstance(value, ast.Name):
             return self.convert_name(value.id, annotation)
         if isinstance(value, ast.Attribute):
@@ -550,6 +552,7 @@ class CLike(AstTranslator):
         "And": "&&",
         "Or": "||",
     }
+    keywords = []
 
     def __init__(self):
         super().__init__()
@@ -571,6 +574,9 @@ class CLike(AstTranslator):
             self.push_code("} %s {" % header)
 
     def styled_name(self, id):
+        id = id.strip("_")
+        if id in self.keywords:
+            return id + "_"
         return id
 
     def begin_class(self, obj):
@@ -673,6 +679,20 @@ class CLike(AstTranslator):
     def expr_subscript(self, value, index):
         return "%s[%s]" % (value, index)
 
+    def function_body(self, decl, body):
+        self.begin_block(decl)
+        with IndentationManager(self, None):
+            self.convert_ast(body)
+        self.end_block()
+
+    def convert_constant(self, value, annotation):
+        return json.dumps(value)
+
+    def convert_name(self, name, annotation):
+        if self.in_method and name == "self":
+            return "this"
+        return self.styled_name(name)
+
 
 class Py2Ts(CLike):
     ops = {
@@ -680,14 +700,19 @@ class Py2Ts(CLike):
         "Is": "===",
         "IsNot": "!==",
     }
+    keywords = {"in"}
 
     def __init__(self, type_annotations=True):
         super().__init__()
         self.type_annotations = type_annotations
         self.brace_newline = False
 
-    def function_def(self, name, args, body, is_async, is_method, is_getter):
+    def function_def(self, name, args, returns, body, is_async, is_method, is_getter):
         start = ""
+        suffix = ""
+
+        if returns:
+            suffix = " : %s" % returns
 
         if is_async:
             start = "async "
@@ -716,11 +741,8 @@ class Py2Ts(CLike):
                 ts_arg += " = %s" % self.expression_to_string(args.defaults[-reverse_i])
             ts_args.append(ts_arg)
 
-        start += ", ".join(ts_args) + ") {"
-        self.push_code(start)
-        with IndentationManager(self, None):
-            self.convert_ast(body)
-        self.push_code("}")
+        start += ", ".join(ts_args) + ")" + suffix
+        self.function_body(start, body)
 
     def styled_name(self, id):
         if "_" in id:
@@ -732,8 +754,8 @@ class Py2Ts(CLike):
         if self.type_annotations:
             ts_code += ": %s" % annotation
         if value:
-            ts_code += " = %s;" % value
-        self.push_code(ts_code)
+            ts_code += " = %s" % value
+        self.push_code(ts_code + ";")
 
     def begin_for(self, target, iter, is_async):
         code_start = "for "
@@ -771,25 +793,19 @@ class Py2Ts(CLike):
     def type_alias(self, obj):
         self.push_code("type %s = %s;" % list(map(self.expression_to_string, (obj.name, obj.value))))
 
-    def convert_constant(self, value):
+    def convert_constant(self, value, annotation):
         if value is None:
             return "null"
-        if isinstance(value, bool):
-            return str(value).lower()
-        return repr(value)
+        return super().convert_constant(value, annotation)
 
     def convert_name(self, name, annotation):
-        if self.in_method and name == "self":
-            return "this"
         if name == "math":
             return "Math"
         if name == "NVector":
             return "Vector"
         if name in ("min", "max"):
             return "Math." + name
-        if name == "float" or name == "int":
-            return "number" if annotation else "Number"
-        return self.styled_name(name)
+        return super().convert_name(name, annotation)
 
     def expr_func(self, name, args):
         if name[0].isupper() and name.isalnum():

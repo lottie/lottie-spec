@@ -14,7 +14,7 @@ from mkdocs.utils import get_relative_url
 
 from schema_tools.schema import Schema, SchemaPath
 from schema_tools import type_info
-from code_processing.loader import code_to_samples
+from code_processing.loader import code_to_samples, language_names
 
 
 docs_path = Path(__file__).parent.parent / "docs"
@@ -1194,12 +1194,6 @@ class RfcLink(InlineProcessor):
 
 
 class Algorithm(BlockProcessor):
-    names = {
-        "pseudo": "Pseudo-Code",
-        "py": "Python",
-        "ts": "TypeScript",
-    }
-
     def test(self, parent, block):
         return block.startswith("<algorithm")
 
@@ -1237,7 +1231,7 @@ class Algorithm(BlockProcessor):
 
         option = etree.SubElement(selector, "option")
         option.attrib["value"] = str(index)
-        option.text = self.names[language]
+        option.text = language_names[language]
 
     def render_pseudocode(self, parent, pseudo: str):
         pre = etree.SubElement(parent, "pre")

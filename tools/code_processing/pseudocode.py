@@ -141,7 +141,7 @@ class PseudoCode(AstTranslator):
         name = re.sub("_([^_]+)", "_{\\1}", name)
         return self.decorate_name(name)
 
-    def convert_constant(self, value):
+    def convert_constant(self, value, annotation):
         if value is None:
             return "nil"
         if isinstance(value, bool):
@@ -166,7 +166,7 @@ class PseudoCode(AstTranslator):
             else:
                 self.push_code("$%s \\coloneq %s$" % (target, value))
 
-    def function_def(self, name, args, body, is_async, is_method, is_getter):
+    def function_def(self, name, args, returns, body, is_async, is_method, is_getter):
         self.push_code(self.snake_sentence(name, True))
 
         with IndentationManager(self, False):

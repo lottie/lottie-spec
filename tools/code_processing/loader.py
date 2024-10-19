@@ -1,6 +1,14 @@
 import ast
 
-from . import python_to_ts, pseudocode
+from . import python_to_ts, pseudocode, cpp
+
+
+language_names = {
+    "pseudo": "Pseudo-Code",
+    "py": "Python",
+    "cpp": "C++",
+    "ts": "TypeScript",
+}
 
 
 def code_to_ast(source):
@@ -13,6 +21,7 @@ def code_to_samples(source):
     return {
         "ast": tree,
         "pseudo": pseudocode.PseudoCode().convert(tree, comments),
-        "py": source.strip("\n"),
+        "py": source,
+        "cpp": cpp.CppTranslator().convert(tree, comments),
         "ts": python_to_ts.Py2Ts().convert(tree, comments),
     }
