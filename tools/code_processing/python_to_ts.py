@@ -264,7 +264,7 @@ class AstTranslator:
     def end_block(self):
         pass
 
-    def declare(self, target, annotation, value):
+    def declare(self, target, annotation, value, ast_value):
         raise NotImplementedError
 
     def assign(self, targets, value):
@@ -362,7 +362,7 @@ class AstTranslator:
             annotation = self.expression_to_string(obj.annotation, annotation=True)
             value = self.expression_to_string(obj.value) if obj.value else None
             self.var_add(target, annotation)
-            self.declare(target, annotation, value)
+            self.declare(target, annotation, value, obj.value)
         elif isinstance(obj, ast.If):
             self.begin_if(self.expression_to_string(obj.test))
             with IndentationManager(self, None):
@@ -754,11 +754,12 @@ class Py2Ts(CLike):
         self.function_body(start, body)
 
     def styled_name(self, id):
-        if "_" in id:
+        id = super().styled_name(id)
+        if "_" in id[:-1]:
             return snake_to_lower_camel(id)
         return id
 
-    def declare(self, target, annotation, value):
+    def declare(self, target, annotation, value, ast_value):
         ts_code = "let %s" % target
         if self.type_annotations:
             ts_code += ": %s" % annotation

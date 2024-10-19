@@ -347,8 +347,8 @@ def polystar(shape: Bezier, p: Vector2D, pt: float, r: float, or_: float, os: fl
     points: int = int(round(pt))
     alpha: float = -r * math.pi / 180 - math.pi / 2
     theta: float = -math.pi / points
-    tan_out: float = (2 * math.pi * or_) / (4 * points) * (os / 100)
-    tan_in: float = (2 * math.pi * ir) / (4 * points) * (is_ / 100)
+    tan_len_out: float = (2 * math.pi * or_) / (4 * points) * (os / 100)
+    tan_len_in: float = (2 * math.pi * ir) / (4 * points) * (is_ / 100)
 
     shape.closed = True
 
@@ -359,9 +359,9 @@ def polystar(shape: Bezier, p: Vector2D, pt: float, r: float, or_: float, os: fl
 
         if os != 0 and or_ != 0:
             # We need to add bezier tangents
-            t_out: Vector2D = v_out * tan_out / or_
-            shape.set_in_tangent(Vector2D(-t_out.y, t_out.x))
-            shape.set_out_tangent(Vector2D(t_out.y, -t_out.x))
+            tan_out: Vector2D = v_out * tan_len_out / or_
+            shape.set_in_tangent(Vector2D(-tan_out.y, tan_out.x))
+            shape.set_out_tangent(Vector2D(tan_out.y, -tan_out.x))
 
         if sy == 1:
             # We need to add a vertex towards the inner radius to make a star
@@ -370,9 +370,9 @@ def polystar(shape: Bezier, p: Vector2D, pt: float, r: float, or_: float, os: fl
 
             if is_ != 0 and ir != 0:
                 # we need to add bezier tangents
-                t_in = v_in * tan_in / ir
-                shape.set_in_tangent(Vector2D(-t_in.y, t_in.x))
-                shape.set_out_tangent(Vector2D(t_in.y, -t_in.x))
+                tan_in = v_in * tan_len_in / ir
+                shape.set_in_tangent(Vector2D(-tan_in.y, tan_in.x))
+                shape.set_out_tangent(Vector2D(tan_in.y, -tan_in.x))
 </algorithm>
 
 <h2 id="grouping">Grouping</h2>

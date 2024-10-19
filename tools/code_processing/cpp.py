@@ -1,3 +1,4 @@
+import ast
 from .python_to_ts import CLike, Range
 
 
@@ -37,9 +38,14 @@ class CppTranslator(CLike):
         start += ", ".join(converted_args) + ")" + suffix
         self.function_body(start, body)
 
-    def declare(self, target, annotation, value):
+    def declare(self, target, annotation, value, ast_value):
         code = "%s %s" % (annotation, target)
         if value:
+            if isinstance(ast_value, ast.Call) and value.startswith(annotation):
+                value = value[len(annotation)+1:-1]
+                if annotation[0].isupper():
+                    self.push_code("%s(%s);" % (code, value))
+                    return
             code += " = %s" % value
         self.push_code(code + ";")
 
@@ -76,14 +82,9 @@ class CppTranslator(CLike):
         return "{%s}" % ", ".join("{%s, %s}" % item for item in items)
 
     def convert_name(self, name, annotation):
-        if name in ("min", "max"):
+        if name in ("min", "max", "round"):
             return "std::" + name
         return super().convert_name(name, annotation)
-
-    def expr_func(self, name, args):
-        if name[0].isupper() and name.isalnum():
-            name = "new %s" % name
-        return super().expr_func(name, args)
 
     def expr_attribute(self, object, member):
         if object == "math":

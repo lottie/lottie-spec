@@ -1,5 +1,5 @@
 import re
-from .python_to_ts import AstTranslator, IndentationManager
+from .python_to_ts import AstTranslator, IndentationManager, snake_to_lower_camel
 
 
 class PseudoCode(AstTranslator):
@@ -59,7 +59,7 @@ class PseudoCode(AstTranslator):
     def begin_else(self):
         self.push_code("Otherwise")
 
-    def declare(self, target, type, value):
+    def declare(self, target, type, value, ast_value):
         self.push_code("$%s \\coloneq %s$" % (self.decorate_name(target), value))
 
     def format_comment(self, value):
@@ -137,7 +137,10 @@ class PseudoCode(AstTranslator):
             return "\\" + name
 
         name = name.strip("_")
-        name = re.sub("_([^_]+)", "_{\\1}", name)
+        chunks = name.rsplit("_", 1)
+        name = snake_to_lower_camel(chunks[0])
+        if len(chunks) == 2:
+            name += "_{%s}" % chunks[1]
         return self.decorate_name(name)
 
     def convert_constant(self, value, annotation):
