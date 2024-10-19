@@ -92,6 +92,11 @@ class CommentData:
             self.index += 1
             self.get_next()
 
+        def skip_newline(self):
+            if self.next_line and self.current_line + 1 >= self.next_line:
+                if self.current_comment().is_line and self.current_comment().text is None:
+                    self.next()
+
     def __init__(self, source):
         self.comments = []
 
@@ -210,8 +215,9 @@ class AstTranslator:
     def find_else(self, lineno):
         self.comments.current_line = lineno
 
-    def push_code(self, code):
-        self.process_line_comments()
+    def push_code(self, code, line_comments=True):
+        if line_comments:
+            self.process_line_comments()
         if self.comments.has_else():
             self.comments.next()
 
@@ -556,20 +562,23 @@ class CLike(AstTranslator):
 
     def __init__(self):
         super().__init__()
-        self.brace_newline = False
+        self.brace_newline = True
 
     def begin_block(self, header):
         if self.brace_newline:
             self.push_code(header)
-            self.push_code("{")
+            self.push_code("{", False)
+            self.comments.skip_newline()
         else:
             self.push_code(header + " {")
 
     def mid_block(self, header):
         if self.brace_newline:
+            self.comments.skip_newline()
             self.push_code("}")
-            self.push_code(header)
-            self.push_code("{")
+            self.push_code(header, False)
+            self.push_code("{", False)
+            self.comments.skip_newline()
         else:
             self.push_code("} %s {" % header)
 
