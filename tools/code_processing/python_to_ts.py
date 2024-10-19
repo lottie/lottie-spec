@@ -29,12 +29,15 @@ class IndentationManager:
 
 class CommentData:
     RE_COMMENT = re.compile(r"^\s*(.+)?# ?(.*)$")
+    RE_ELSE = re.compile(r"^\s*(else|elif .*):")
 
     class Comment:
-        def __init__(self, line, text, is_tail):
+        def __init__(self, line, text, is_tail, is_else):
             self.line = line
             self.text = text
             self.is_tail = is_tail
+            self.is_else = is_else
+            self.is_line = not is_else and not is_tail
 
     class CommentReader:
         def __init__(self, comments):
@@ -59,7 +62,7 @@ class CommentData:
                 return False
 
             if self.current_line >= self.next_line:
-                return not self.current_comment().is_tail
+                return self.current_comment().is_line
 
             return False
 
@@ -69,6 +72,15 @@ class CommentData:
 
             if self.current_line >= self.next_line:
                 return self.current_comment().is_tail
+
+            return False
+
+        def has_else(self):
+            if self.next_line is None:
+                return False
+
+            if self.current_line >= self.next_line:
+                return self.current_comment().is_else
 
             return False
 
@@ -83,6 +95,10 @@ class CommentData:
         self.comments = []
 
         for lineno, line in enumerate(source.splitlines()):
+            melse = self.RE_ELSE.match(line)
+            if melse:
+                self.comments.append(self.Comment(lineno + 1, None, False, True))
+
             match = self.RE_COMMENT.match(line)
             if match:
                 self.add_comment(lineno + 1, match.group(2), match.group(1) is not None)
@@ -90,10 +106,10 @@ class CommentData:
                 self.add_empty(lineno + 1)
 
     def add_comment(self, line, text, is_tail):
-        self.comments.append(self.Comment(line, text, is_tail))
+        self.comments.append(self.Comment(line, text, is_tail, False))
 
     def add_empty(self, line):
-        self.comments.append(self.Comment(line, None, False))
+        self.comments.append(self.Comment(line, None, False, False))
 
     def reader(self):
         return self.CommentReader(self.comments)
@@ -181,13 +197,21 @@ class AstTranslator:
         #     return unknown
         # self.ts_code += unknown
 
-    def push_code(self, code):
+    def process_line_comments(self):
         while self.comments.has_line_comment():
             comment = self.comments.get_comment()
             if comment is None:
                 self.output += "\n"
             else:
                 self.output += self.indent + self.convert_line_comment(comment) + "\n"
+            self.comments.next()
+
+    def find_else(self, lineno):
+        self.comments.current_line = lineno
+
+    def push_code(self, code):
+        self.process_line_comments()
+        if self.comments.has_else():
             self.comments.next()
 
         self.output += self.indent + code
@@ -243,6 +267,9 @@ class AstTranslator:
         raise NotImplementedError
 
     def begin_if(self, expr):
+        raise NotImplementedError
+
+    def begin_elif(self, expr):
         raise NotImplementedError
 
     def begin_for(self, target, iter, is_async):
@@ -322,7 +349,6 @@ class AstTranslator:
             targets = list(map(self.expression_to_string, obj.targets))
             value = self.expression_to_string(obj.value)
             self.assign(targets, value)
-
         elif isinstance(obj, ast.AnnAssign):
             target = self.expression_to_string(obj.target)
             annotation = self.expression_to_string(obj.annotation, annotation=True)
@@ -333,10 +359,16 @@ class AstTranslator:
             self.begin_if(self.expression_to_string(obj.test))
             with IndentationManager(self, None):
                 self.convert_ast(obj.body)
-            if obj.orelse:
-                self.begin_else()
-                with IndentationManager(self, None):
-                    self.convert_ast(obj.orelse)
+            while obj.orelse:
+                self.find_else(getattr(obj.orelse[0], "lineno", obj.end_lineno))
+                if len(obj.orelse) == 1 and isinstance(obj.orelse[0], ast.If):
+                    obj = obj.orelse[0]
+                    self.begin_elif(self.expression_to_string(obj.test))
+                else:
+                    self.begin_else()
+                    with IndentationManager(self, None):
+                        self.convert_ast(obj.orelse)
+                    break
             self.end_block()
         elif isinstance(obj, ast.Constant):
             self.format_comment(inspect.cleandoc(str(obj.value)).splitlines())
@@ -450,12 +482,13 @@ class AstTranslator:
         if isinstance(value, ast.IfExp):
             return self.expr_if(*self.values_to_string(value.test, value.body, value.orelse, annotation=annotation))
         if isinstance(value, ast.Subscript):
+            value = self.expression_to_string(value.value, annotation=annotation)
             if isinstance(value.slice, ast.Slice):
                 index = Range(value.slice, self, slice.lower, slice.upper, slice.step)
+                return self.expr_subscript_range(value, index)
             else:
                 index = self.expression_to_string(value.slice, annotation=annotation)
-            value = self.expression_to_string(value.value, annotation=annotation)
-            return self.expr_subscript(value, index)
+                return self.expr_subscript(value, index)
         if isinstance(value, ast.Starred):
             return self.expr_starred(self.expression_to_string(value.value, annotation))
         return self.other_expression(value, annotation)
@@ -475,6 +508,9 @@ class AstTranslator:
     def expr_if(self, cond, then, otherwise):
         raise NotImplementedError
 
+    def expr_subscript_range(self, value, index):
+        raise NotImplementedError
+
     def expr_subscript(self, value, index):
         raise NotImplementedError
 
@@ -482,7 +518,7 @@ class AstTranslator:
         raise NotImplementedError
 
 
-class Py2Ts(AstTranslator):
+class CLike(AstTranslator):
     ops = {
         "Eq": "==",
         "NotEq": "!=",
@@ -490,8 +526,8 @@ class Py2Ts(AstTranslator):
         "LtE": "<=",
         "Gt": ">",
         "GtE": ">=",
-        "Is": "===",
-        "IsNot": "!==",
+        "Is": "==",
+        "IsNot": "!=",
         "In": " <in>",
         "NotIn": "<not in>",
         "Add": "+",
@@ -515,9 +551,140 @@ class Py2Ts(AstTranslator):
         "Or": "||",
     }
 
+    def __init__(self):
+        super().__init__()
+        self.brace_newline = False
+
+    def begin_block(self, header):
+        if self.brace_newline:
+            self.push_code(header)
+            self.push_code("{")
+        else:
+            self.push_code(header + " {")
+
+    def mid_block(self, header):
+        if self.brace_newline:
+            self.push_code("}")
+            self.push_code(header)
+            self.push_code("{")
+        else:
+            self.push_code("} %s {" % header)
+
+    def styled_name(self, id):
+        return id
+
+    def begin_class(self, obj):
+        self.begin_block("class %s" % obj.name)
+
+    def end_block(self):
+        self.push_code("}")
+
+    def assign(self, targets, value):
+        code = " = ".join(targets)
+        code += " = %s;" % value
+        self.push_code(code)
+
+    def assign_op(self, target, op, value):
+        self.push_code("%s %s= %s;" % (target, op, value))
+
+    def begin_if(self, expr):
+        self.begin_block("if ( %s )" % expr)
+
+    def begin_elif(self, expr):
+        self.mid_block("else if ( %s )" % expr)
+
+    def begin_else(self):
+        self.mid_block("else")
+
+    def begin_while(self, cond):
+        self.begin_block("while ( %s )" % cond)
+
+    def basic_statement(self, statement):
+        self.push_code(statement + ";")
+
+    def return_statement(self, value):
+        if value is None:
+            self.push_code("return;")
+        else:
+            self.push_code("return %s;" % value)
+
+    def begin_switch(self, expr):
+        self.begin_block("switch ( %s )" % expr)
+
+    def begin_switch_case(self, pattern):
+        if pattern is None:
+            self.push_code("default:")
+        else:
+            self.push_code("case %s:" % pattern)
+
+    def end_switch_case(self):
+        self.push_code("break;")
+
+    def expr_func(self, name, args):
+        code = name
+        code += "("
+        code += ", ".join(args)
+        code += ")"
+        return code
+
+    def expr_attribute(self, object, member):
+        return "%s.%s" % (object, self.styled_name(member))
+
+    def expr_compare(self, value, annotation):
+        all = []
+        left = self.expression_to_string(value.left, annotation)
+        for cmp, op in zip(value.comparators, value.ops):
+            right = self.expression_to_string(cmp, annotation)
+            all.append("%s %s %s" % (left, self.expression_to_string(op, annotation), right))
+            left = right
+        if len(all) == 1:
+            return all[0]
+        return "(%s)" % " && ".join(all)
+
+    def expr_starred(self, value):
+        return "...%s" % value
+
+    def format_doc_comment(self, comment):
+        self.push_code("/**")
+        for line in comment:
+            self.push_code(" * " + line)
+        self.push_code(" */")
+
+    def format_comment(self, value):
+        if len(value) > 1:
+            self.push_code("/*")
+            for line in value:
+                self.push_code(line)
+            self.push_code("*/")
+        elif value:
+            self.push_code("// " + value[0])
+        else:
+            self.push_code("")
+
+    def expression_statement(self, v):
+        self.push_code(v + ";")
+
+    def convert_line_comment(self, comment):
+        return "// " + comment
+
+    def expr_if(self, *args):
+        return "%s ? %s : %s" % args
+
+    def expr_subscript(self, value, index):
+        return "%s[%s]" % (value, index)
+
+
+class Py2Ts(CLike):
+    ops = {
+        **CLike.ops,
+        "Is": "===",
+        "IsNot": "!==",
+    }
+
     def __init__(self, type_annotations=True):
         super().__init__()
         self.type_annotations = type_annotations
+        self.brace_newline = False
 
     def function_def(self, name, args, body, is_async, is_method, is_getter):
         start = ""
@@ -532,7 +699,7 @@ class Py2Ts(AstTranslator):
         elif name == "__repr__" or name == "__str__":
             name = "toString"
 
-        start += "%s(" % self.camel_snake(name)
+        start += "%s(" % self.styled_name(name)
 
         args_start = 0
         if self.class_name and len(args.args) > 0 and args.args[0].arg in ("self", "cls"):
@@ -540,7 +707,7 @@ class Py2Ts(AstTranslator):
 
         ts_args = []
         for i in range(args_start, len(args.args)):
-            ts_arg = self.camel_snake(args.args[i].arg)
+            ts_arg = self.styled_name(args.args[i].arg)
             if args.args[i].annotation is not None and self.type_annotations:
                 ts_arg += ": " + self.expression_to_string(args.args[i].annotation, True)
 
@@ -555,24 +722,10 @@ class Py2Ts(AstTranslator):
             self.convert_ast(body)
         self.push_code("}")
 
-    def camel_snake(self, id):
+    def styled_name(self, id):
         if "_" in id:
             return snake_to_lower_camel(id)
         return id
-
-    def begin_class(self, obj):
-        self.push_code("class %s {" % obj.name)
-
-    def end_block(self):
-        self.push_code("}")
-
-    def assign(self, targets, value):
-        ts_code = " = ".join(targets)
-        ts_code += " = %s;" % value
-        self.push_code(ts_code)
-
-    def assign_op(self, target, op, value):
-        self.push_code("%s %s= %s;" % (target, op, value))
 
     def declare(self, target, annotation, value):
         ts_code = "let %s" % target
@@ -581,9 +734,6 @@ class Py2Ts(AstTranslator):
         if value:
             ts_code += " = %s;" % value
         self.push_code(ts_code)
-
-    def begin_if(self, expr):
-        self.push_code("if ( %s ) {" % expr)
 
     def begin_for(self, target, iter, is_async):
         code_start = "for "
@@ -599,35 +749,8 @@ class Py2Ts(AstTranslator):
                 code_start += "%s += %s" % (target, iter.step)
             code_start += " )"
         else:
-            code_start += "( let %s of %s ) {" % (target, iter)
-        self.push_code(code_start)
-
-    def begin_else(self):
-        self.push_code("} else {")
-
-    def begin_while(self, cond):
-        self.push_code("while ( %s ) {" % cond)
-
-    def basic_statement(self, statement):
-        self.push_code(statement + ";")
-
-    def return_statement(self, value):
-        if value is None:
-            self.push_code("return;")
-        else:
-            self.push_code("return %s;" % value)
-
-    def begin_switch(self, expr):
-        self.push_code("switch ( %s ) {" % expr)
-
-    def begin_switch_case(self, pattern):
-        if pattern is None:
-            self.push_code("default:")
-        else:
-            self.push_code("case %s:" % pattern)
-
-    def end_switch_case(self):
-        self.push_code("break;")
+            code_start += "( let %s of %s )" % (target, iter)
+        self.begin_block(code_start)
 
     def import_statement(self, obj):
         for alias in obj.names:
@@ -666,78 +789,32 @@ class Py2Ts(AstTranslator):
             return "Math." + name
         if name == "float" or name == "int":
             return "number" if annotation else "Number"
-        return self.camel_snake(name)
+        return self.styled_name(name)
 
     def expr_func(self, name, args):
-        ts_code = name
         if name[0].isupper() and name.isalnum():
-            ts_code = "new %s" % name
-        ts_code += "("
-        ts_code += ", ".join(args)
-        ts_code += ")"
-        return ts_code
+            name = "new %s" % name
+        return super().expr_func(name, args)
 
     def expr_attribute(self, object, member):
         if object == "Math":
             if member == "pi":
                 member = member.upper()
-        return "%s.%s" % (object, self.camel_snake(member))
+        return super().expr_attribute(object, member)
 
     def expr_sequence_literal(self, elements, type):
         if type is set:
             return "new Set([%s])" % ", ".join(elements)
         return "[%s]" % ", ".join(elements)
 
-    def expr_compare(self, value, annotation):
-        all = []
-        left = self.expression_to_string(value.left, annotation)
-        for cmp, op in zip(value.comparators, value.ops):
-            right = self.expression_to_string(cmp, annotation)
-            all.append("%s %s %s" % (left, self.expression_to_string(op, annotation), right))
-            left = right
-        if len(all) == 1:
-            return all[0]
-        return "(%s)" % " && ".join(all)
-
     def expr_dict(self, items):
         return "{%s}" % ", ".join("%s: %s" % item for item in items)
 
-    def expr_if(self, *args):
-        return "%s ? %s : %s" % args
-
-    def expr_subscript(self, value, index):
-        if isinstance(index, Range):
-            args = ", ".join(v if v is not None else "undefined" for v in [index.start, index.stop, index.step])
-            return "%s.slice(%s)" % (value, args)
-        return "%s[%s]" % (value, index)
-
-    def expr_starred(self, value):
-        return "...%s" % value
+    def expr_subscript_range(self, value, index):
+        args = ", ".join(v if v is not None else "undefined" for v in [index.start, index.stop, index.step])
+        return "%s.slice(%s)" % (value, args)
 
     def other_expression(self, value, annotation):
         if isinstance(value, ast.MatchAs):
             return value.name
         return self.unknown(value, True)
-
-    def format_doc_comment(self, comment):
-        self.push_code("/**")
-        for line in comment:
-            self.push_code(" * " + line)
-        self.push_code(" */")
-
-    def format_comment(self, value):
-        if len(value) > 1:
-            self.push_code("/*")
-            for line in value:
-                self.push_code(line)
-            self.push_code("*/")
-        elif value:
-            self.push_code("// " + value[0])
-        else:
-            self.push_code("")
-
-    def expression_statement(self, v):
-        self.push_code(v + ";")
-
-    def convert_line_comment(self, comment):
-        return "// " + comment
