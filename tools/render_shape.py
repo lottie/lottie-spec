@@ -4,7 +4,7 @@ import math
 import inspect
 import argparse
 import lottie
-from code_processing.loader import code_to_samples, code_to_ast
+from code_processing.loader import code_to_samples, SourceCode
 
 
 class Bezier(lottie.objects.bezier.BezierView):
@@ -72,7 +72,7 @@ def main(argv):
         print(data[argv.view_code])
         parsed = data["ast"]
     else:
-        parsed = code_to_ast(code)
+        parsed = SourceCode(code).ast
 
     local = {}
     exec(compile(parsed, "", "exec"), exec_globals, local)

@@ -1,5 +1,5 @@
 import ast
-from .python_to_ts import CLike, Range
+from ..python_source import CLike, Range
 
 
 class CppTranslator(CLike):
