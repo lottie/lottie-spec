@@ -369,7 +369,7 @@ def polystar(shape: Bezier, p: Vector2D, pt: float, r: float, or_: float, os: fl
             shape.add_vertex(p + v_in)
 
             if is_ != 0 and ir != 0:
-                # we need to add bezier tangents
+                # We need to add bezier tangents
                 tan_in = v_in * tan_len_in / ir
                 shape.set_in_tangent(Vector2D(-tan_in.y, tan_in.x))
                 shape.set_out_tangent(Vector2D(tan_in.y, -tan_in.x))

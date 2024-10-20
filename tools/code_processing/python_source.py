@@ -30,9 +30,14 @@ class IndentationManager:
 
 class SourceCode:
     def __init__(self, source):
-        self.source = source
-        self.comments = CommentData(source)
-        self.ast = ast.parse(source, type_comments=True)
+        if isinstance(source, ast.AST):
+            self.source = ast.unparse(source)
+            self.ast = ast
+            self.comments = CommentData("")
+        else:
+            self.source = source
+            self.comments = CommentData(source)
+            self.ast = ast.parse(source, type_comments=True)
 
 
 class CommentData:
@@ -155,8 +160,8 @@ class Range:
 
 
 class AstTranslator:
-    def __init__(self):
-        self.indent_spaces = 4
+    def __init__(self, indent_style=None):
+        self.indent_style = indent_style or IndentationStyle()
         self.indent_level = 0
         self.output = ""
         self.class_name = None
@@ -193,9 +198,8 @@ class AstTranslator:
             return Range(ast_node, self)
         return self.expression_to_string(ast_node, False)
 
-    @property
-    def indent(self):
-        return (self.indent_level * self.indent_spaces) * " "
+    def indent_string(self, offset=0):
+        return self.indent_style.indent_string(self.indent_level + offset)
 
     def unknown(self, obj, as_string=False):
         # breakpoint()
@@ -211,19 +215,19 @@ class AstTranslator:
             if comment is None:
                 self.output += "\n"
             else:
-                self.output += self.indent + self.convert_line_comment(comment) + "\n"
+                self.output += self.indent_string() + self.convert_line_comment(comment) + "\n"
             self.comments.next()
 
     def find_else(self, lineno):
         self.comments.current_line = lineno
 
-    def push_code(self, code, line_comments=True):
+    def push_code(self, code, line_comments=True, indent_offset=0):
         if line_comments:
             self.process_line_comments()
         if self.comments.has_else():
             self.comments.next()
 
-        self.output += self.indent + code
+        self.output += self.indent_string(indent_offset) + code
 
         if self.comments.has_tail_comment():
             self.output += " " + self.convert_line_comment(self.comments.get_comment())
@@ -528,6 +532,66 @@ class AstTranslator:
         raise NotImplementedError
 
 
+class IndentationStyle:
+    def __init__(self, spaces=4, character=" "):
+        self.spaces = spaces
+        self.character = character
+
+    def indent_string(self, level):
+        return int(level * self.spaces) * self.character
+
+    def begin_block(self, translator: AstTranslator, header: str):
+        raise NotImplementedError
+
+    def mid_block(self, translator: AstTranslator, header: str):
+        raise NotImplementedError
+
+    def end_block(self, translator: AstTranslator):
+        raise NotImplementedError
+
+
+class AllmanStyle(IndentationStyle):
+    def __init__(self, offset=0, *a, **kw):
+        super().__init__(*a, **kw)
+        self.offset = offset
+
+    def begin_block(self, translator: AstTranslator, header: str):
+        translator.push_code(header)
+        translator.push_code("{", False, self.offset)
+        translator.comments.skip_newline()
+
+    def mid_block(self, translator: AstTranslator, header: str):
+        translator.comments.skip_newline()
+        translator.push_code("}", True, self.offset)
+        translator.push_code(header, False)
+        translator.push_code("{", False, self.offset)
+        translator.comments.skip_newline()
+
+    def end_block(self, translator: AstTranslator):
+        translator.push_code("}", True, self.offset)
+
+
+class KandRStyle(IndentationStyle):
+    def begin_block(self, translator: AstTranslator, header: str):
+        translator.push_code(header + " {")
+
+    def mid_block(self, translator: AstTranslator, header: str):
+        translator.push_code("} " + header + " {")
+
+    def end_block(self, translator: AstTranslator):
+        translator.push_code("}")
+
+
+class WhitesmithsStyle(AllmanStyle):
+    def __init__(self, *a, **kw):
+        super().__init__(1, *a, **kw)
+
+
+class GnuStyle(AllmanStyle):
+    def __init__(self, *a, **kw):
+        super().__init__(0.5, *a, **kw)
+
+
 class CLike(AstTranslator):
     ops = {
         "Eq": "==",
@@ -562,27 +626,14 @@ class CLike(AstTranslator):
     }
     keywords = []
 
-    def __init__(self):
-        super().__init__()
-        self.brace_newline = True
+    def __init__(self, indent_style=AllmanStyle()):
+        super().__init__(indent_style)
 
     def begin_block(self, header):
-        if self.brace_newline:
-            self.push_code(header)
-            self.push_code("{", False)
-            self.comments.skip_newline()
-        else:
-            self.push_code(header + " {")
+        self.indent_style.begin_block(self, header)
 
     def mid_block(self, header):
-        if self.brace_newline:
-            self.comments.skip_newline()
-            self.push_code("}")
-            self.push_code(header, False)
-            self.push_code("{", False)
-            self.comments.skip_newline()
-        else:
-            self.push_code("} %s {" % header)
+        self.indent_style.mid_block(self, header)
 
     def styled_name(self, id):
         id = id.strip("_")
@@ -594,7 +645,7 @@ class CLike(AstTranslator):
         self.begin_block("class %s" % obj.name)
 
     def end_block(self):
-        self.push_code("}")
+        self.indent_style.end_block(self)
 
     def assign(self, targets, value):
         code = " = ".join(targets)

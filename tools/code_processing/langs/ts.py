@@ -1,5 +1,5 @@
 import ast
-from ..python_source import CLike, Range, snake_to_lower_camel
+from ..python_source import CLike, Range, snake_to_lower_camel, KandRStyle
 
 
 class TypeScriptTranslator(CLike):
@@ -11,9 +11,8 @@ class TypeScriptTranslator(CLike):
     keywords = {"in"}
 
     def __init__(self, type_annotations=True):
-        super().__init__()
+        super().__init__(KandRStyle())
         self.type_annotations = type_annotations
-        self.brace_newline = False
 
     def function_def(self, name, args, returns, body, is_async, is_method, is_getter):
         start = ""
