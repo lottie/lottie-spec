@@ -1,4 +1,5 @@
-from ..python_source import AstTranslator, IndentationManager, snake_to_lower_camel
+from source_translator import AstTranslator, IndentationManager
+from source_translator.naming import snake_to_lower_camel
 
 
 class PseudoCode(AstTranslator):

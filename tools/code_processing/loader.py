@@ -1,5 +1,6 @@
-from .python_source import SourceCode
-from .langs import ts, pseudocode, cpp
+from source_translator import SourceCode
+from source_translator.langs import cpp, ts
+from . import pseudocode
 
 
 language_names = {
