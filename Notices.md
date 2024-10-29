@@ -139,3 +139,11 @@ Licensee's name: Henry Huck
 Authorized individual and system identifier: henry@jitter.video
 
 Specification version: 1.0
+
+---
+
+Licensee's name: Mira Grudzinska
+
+Authorized individual and system identifier: mira@lottiefiles.com
+
+Specification version: 1.0
