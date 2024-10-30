@@ -34,7 +34,7 @@ RGB component.
 <h2 id="gradient">Gradient</h2>
 
 The gradient appearance is specified in terms of color stops and opacity stops.
-Color stops are defined as `(position, color)` tuples, where the position is a normalized `[0..1]`value along the gradient axis `[startpoint -> endpoint]`, and the color is 3 floats representing the RGB components. Transparency (opacity) stops are defined as `(position, color)` tuples, where position is similar to color stops' position.
+Color stops are defined as `(position, color)` tuples, where the position is a normalized `[0..1]`value along the gradient axis `[startpoint -> endpoint]`, and the color is 3 floats representing the RGB components. Transparency (opacity) stops are defined as `(position, transparency)` tuples, where position is similar to color stops' position.
 
 All color and opacity stops are stored sequentially by ascending offsets in a flattened float array (color stops followed by opacity stops), with 4 floats per color stop and 2 floats per opacity stops. Thus, given color stops and opacity stops, the expected size for the gradient data array is `4 * Nc + 2 * No`.
 
