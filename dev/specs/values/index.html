@@ -327,7 +327,7 @@ RGB component.</p>
 <h2 id="gradient">Gradient</h2>
 <p></p>
 <p>The gradient appearance is specified in terms of color stops and opacity stops.
-Color stops are defined as <code>(position, color)</code> tuples, where the position is a normalized <code>[0..1]</code>value along the gradient axis <code>[startpoint -&gt; endpoint]</code>, and the color is 3 floats representing the RGB components. Transparency (opacity) stops are defined as <code>(position, color)</code> tuples, where position is similar to color stops' position.</p>
+Color stops are defined as <code>(position, color)</code> tuples, where the position is a normalized <code>[0..1]</code>value along the gradient axis <code>[startpoint -&gt; endpoint]</code>, and the color is 3 floats representing the RGB components. Transparency (opacity) stops are defined as <code>(position, transparency)</code> tuples, where position is similar to color stops' position.</p>
 <p>All color and opacity stops are stored sequentially by ascending offsets in a flattened float array (color stops followed by opacity stops), with 4 floats per color stop and 2 floats per opacity stops. Thus, given color stops and opacity stops, the expected size for the gradient data array is <code>4 * Nc + 2 * No</code>.</p>
 <p>The color stop count is typically specified in a separate field from the gradient values, while the count of opacity stops can be inferred from the data array length: <code>No = (length - 4 * Nc)/2</code>.</p>
 <h3 id="gradient-without-transparency">Gradient without transparency</h3>
