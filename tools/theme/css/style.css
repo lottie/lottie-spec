@@ -107,9 +107,12 @@ canvas.bezier-editor {
 }
 
 /* mathml */
+math[display="block"] {
+    margin: 1em 0;
+}
 
 math {
-    margin: 1em 0;
+    font-size: 20px;
 }
 
 mtd[columnalign=right] {
@@ -120,4 +123,16 @@ mtd[columnalign=right] {
 mtd[columnalign=left] {
     text-align: -webkit-left;
     text-align: -moz-left;
+}
+
+/* algorithm */
+
+.algorithm {
+    position: relative;
+}
+
+.algorithm select {
+    position: absolute;
+    top: 0;
+    right: 0;
 }

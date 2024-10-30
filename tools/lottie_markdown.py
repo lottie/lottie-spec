@@ -14,6 +14,7 @@ from mkdocs.utils import get_relative_url
 
 from schema_tools.schema import Schema, SchemaPath
 from schema_tools import type_info
+from code_processing.loader import code_to_samples, language_names
 
 
 docs_path = Path(__file__).parent.parent / "docs"
@@ -1192,6 +1193,54 @@ class RfcLink(InlineProcessor):
         return span, match.start(0), match.end(0)
 
 
+class Algorithm(BlockProcessor):
+    def test(self, parent, block):
+        return block.startswith("<algorithm")
+
+    def run(self, parent, blocks):
+        raw_string = blocks.pop(0)
+
+        while "</algorithm>" not in raw_string:
+            raw_string += "\n\n" + blocks.pop(0)
+
+        source = raw_string[raw_string.find('\n'):raw_string.rfind('\n')]
+
+        samples = code_to_samples(source)
+
+        container = etree.SubElement(parent, "div", {"class": "algorithm"})
+
+        selector = etree.SubElement(container, "select", {
+            "onchange": """this.parentElement.querySelectorAll("pre").forEach(
+                (e, i) => e.style.display = i == this.value ? "block" : "none"
+            )"""
+        })
+
+        samples.pop("ast")
+
+        for index, (lang, code) in enumerate(samples.items()):
+            self.render_code(container, index, lang, code, selector)
+
+        return True
+
+    def render_code(self, parent, index, language, code, selector):
+        if language == "pseudo":
+            self.render_pseudocode(parent, code)
+        else:
+            pre = etree.SubElement(parent, "pre", {"style": "display: none"})
+            etree.SubElement(pre, "code", {"class": "language-%s hljs" % language}).text = AtomicString(code)
+
+        option = etree.SubElement(selector, "option")
+        option.attrib["value"] = str(index)
+        option.text = language_names[language]
+
+    def render_pseudocode(self, parent, pseudo: str):
+        pre = etree.SubElement(parent, "pre")
+        for line in pseudo.splitlines():
+            span = etree.SubElement(pre, "span")
+            span.text = line
+            span.tail = "\n"
+
+
 class LottieExtension(Extension):
     def extendMarkdown(self, md: Markdown):
         ts = typed_schema(Schema.load(docs_path / "lottie.schema.json"))
@@ -1212,7 +1261,7 @@ class LottieExtension(Extension):
         md.parser.blockprocessors.register(
             RawHTML(
                 md.parser,
-                ["lottie", "lottie-playground"]
+                ["lottie", "lottie-playground", "algorithm"]
             ),
             "raw_heading",
             100
@@ -1222,6 +1271,7 @@ class LottieExtension(Extension):
         md.parser.blockprocessors.register(SchemaObject(md, ts), "schema_object", 175)
         md.parser.blockprocessors.register(SchemaEnum(md, ts), "schema_enum", 175)
         md.parser.blockprocessors.register(EditorExample(md.parser), "editor_example", 175)
+        md.parser.blockprocessors.register(Algorithm(md.parser), "algorithm", 175)
 
 
 def makeExtension(**kwargs):
