@@ -36,9 +36,9 @@ More formally:
     $shape \in Scope(modifier)$:
     * $shape = modifier(shape)$
   * compute the total shape transformation by composing all transforms within the shape scope chain:
-    $$T_{shape} = \prod_{n=0}^{Scope(shape)} Transform(scope_n)$$
+    $T_{shape} = \prod_{n=0}^{Scope(shape)} Transform(scope_n)$
   * compute the total style transformation by composing all transforms within the style scope chain:
-    $$T_{style} = \prod_{n=0}^{Scope(style)} Transform(scope_n)$$
+    $T_{style} = \prod_{n=0}^{Scope(style)} Transform(scope_n)$
 
   * $Render(shape \times T_{shape}, style \times T_{style})$
 
@@ -78,20 +78,27 @@ All paths MUST be closed unless specified otherwise in the rendering instruction
 When instructions call for an equality comparison between two values,
 implementations MAY consider similar values to be equal to overcome numerical instability.
 
-### Drawing Commands
+### Bezier Conversions
+
+This documents includes algorithms to convert parametric shapes into bezier curves.
+
+Implementations MAY use different implementations than the algorithms provided here
+but the output shape MUST be visually indistinguishable from the output of these algorithms.
+
+Furthermore, when drawing individual shapes the stroke order and direction is not importand
+but implementations of Trim Path MUST follow the stroke order as defined by these algorithms.
 
 Drawing instructions will contain the following commands:
 
-* _add vertex_: Adds a vertex to the bezier shape in global coordinates
-* _set in tangent_: Sets the cubic tangent to the last added vertex, with coordinates relative to it.  If omitted, tangents MUST be $(0, 0)$.
-* _set out tangent_: Sets the cubic tangent from the last added vertex, with coordinates relative to it.  If omitted, tangents MUST be $(0, 0)$.
-* _lerp_: Linearly interpolates two points or scalars by a given amount.
+* _Add vertex_: Adds a vertex to the bezier shape in global coordinates
+* _Set in tangent_: Sets the cubic tangent to the last added vertex, with coordinates relative to it.  If omitted, tangents MUST be $(0, 0)$.
+* _Set out tangent_: Sets the cubic tangent from the last added vertex, with coordinates relative to it.  If omitted, tangents MUST be $(0, 0)$.
 
 
 ### Approximating Ellipses with Cubic Bezier
 
 An elliptical quadrant can be approximated by a cubic bezier segment
-with tangents of length $radius \cdot E_t.
+with tangents of length $radius * E_t.
 
 Where
 
@@ -147,29 +154,29 @@ Hidden shapes (`hd: True`) are ignored, and do not contribute to rendering nor m
     </script>
 </lottie-playground>
 
-An ellipse is drawn from the top quandrant point going clockwise:
 
-$$
-\begin{align*}
-radius & = \frac{s}{2} \\
-tangent & = radius \cdot E_t \\
-x & = p.x \\
-y & = p.y \\
-\end{align*}
-$$
+<algorithm>
+def ellipse(shape: Bezier, p: Vector2D, s: Vector2D):
+    # An ellipse is drawn from the top quandrant point going clockwise:
+    radius = s / 2
+    tangent = radius * ELLIPSE_CONSTANT
+    x = p.x
+    y = p.y
 
-1. Add vertex $(x, y - radius.y)$
-1. Set in tangent $(-tangent.x, 0)$
-1. Set out tangent $(tangent.x, 0)$
-1. Add vertex $(x + radius.x, y)$
-1. Set in tangent $(0, -tangent.y)$
-1. Set out tangent $(0, tangent.y)$
-1. Add vertex $(x, y + radius.y)$
-1. Set in tangent $(tangent.x, 0)$
-1. Set out tangent $(-tangent.x, 0)$
-1. Add vertex $(x - radius.x, y)$
-1. Set in tangent $(0, tangent.y)$
-1. Set out tangent $(0, -tangent.y)$
+    shape.closed = True
+    shape.add_vertex(Vector2D(x, y - radius.y))
+    shape.set_in_tangent(Vector2D(-tangent.x, 0))
+    shape.set_out_tangent(Vector2D(tangent.x, 0))
+    shape.add_vertex(Vector2D(x + radius.x, y))
+    shape.set_in_tangent(Vector2D(0, -tangent.y))
+    shape.set_out_tangent(Vector2D(0, tangent.y))
+    shape.add_vertex(Vector2D(x, y + radius.y))
+    shape.set_in_tangent(Vector2D(tangent.x, 0))
+    shape.set_out_tangent(Vector2D(-tangent.x, 0))
+    shape.add_vertex(Vector2D(x - radius.x, y))
+    shape.set_in_tangent(Vector2D(0, tangent.y))
+    shape.set_out_tangent(Vector2D(0, -tangent.y))
+</algorithm>
 
 Implementations MAY use elliptical arcs to render an ellipse.
 
@@ -203,50 +210,50 @@ Implementations MAY use elliptical arcs to render an ellipse.
     </script>
 </lottie-playground>
 
+Rendering algorithm:
 
-Definitions:
+<algorithm>
+def rectangle(shape: Bezier, p: Vector2D, s: Vector2D, r: float):
+    left: float = p.x - s.x / 2
+    right: float = p.x + s.x / 2
+    top: float = p.y - s.y / 2
+    bottom: float = p.y + s.y / 2
 
-$$
-\begin{align*}
-left & = p.x - \frac{s.x}{2} \\
-right & = p.x + \frac{s.x}{2} \\
-top & = p.y - \frac{s.y}{2} \\
-bottom & = p.y + \frac{s.y}{2} \\
-\end{align*}
-$$
+    shape.closed = True
 
-If $r = 0$, then the rectangle is rendered from the top-right going clockwise:
+    if r <= 0:
 
-1. Add vertex $(right, top)$
-1. Add vertex $(right, bottom)$
-1. Add vertex $(left, bottom)$
-1. Add vertex $(left, top)$
+        # The rectangle is rendered from the top-right going clockwise
 
-If $r > 0$, the rounded corners must be taken into account.
+        shape.add_vertex(Vector2D(right, top))
+        shape.add_vertex(Vector2D(right, bottom))
+        shape.add_vertex(Vector2D(left, bottom))
+        shape.add_vertex(Vector2D(left, top))
 
-$$
-\begin{align*}
-rounded & = \min\left(\frac{s.x}{2}, \frac{s.y}{2}, r\right) \\
-tangent & = rounded \cdot E_t \\
-\end{align*}
-$$
+    else:
 
-1. Add vertex $(right, top + rounded)$
-1. Set in tangent $(0, -tangent)$
-1. Add vertex $(right, bottom - rounded)$
-1. Set out tangent $(0, tangent)$
-1. Add vertex $(right - rounded, bottom)$
-1. Set in tangent $(tangent, 0)$
-1. Add vertex $(left + rounded, bottom)$
-1. Set out tangent $(-tangent, 0)$
-1. Add vertex $(left, bottom - rounded)$
-1. Set in tangent $(0, tangent)$
-1. Add vertex $(left, top + rounded)$
-1. Set out tangent $(0, -tangent)$
-1. Add vertex $(left + rounded, top)$
-1. Set in tangent $(-tangent, 0)$
-1. Add vertex $(right - rounded, top)$
-1. Set out tangent $(tangent, 0)$
+        # Rounded corners must be taken into account
+
+        rounded: float = min(s.x/2, s.y/2, r)
+        tangent: float = rounded * ELLIPSE_CONSTANT
+
+        shape.add_vertex(Vector2D(right, top + rounded))
+        shape.set_in_tangent(Vector2D(0, -tangent))
+        shape.add_vertex(Vector2D(right, bottom - rounded))
+        shape.set_out_tangent(Vector2D(0, tangent))
+        shape.add_vertex(Vector2D(right - rounded, bottom))
+        shape.set_in_tangent(Vector2D(tangent, 0))
+        shape.add_vertex(Vector2D(left + rounded, bottom))
+        shape.set_out_tangent(Vector2D(-tangent, 0))
+        shape.add_vertex(Vector2D(left, bottom - rounded))
+        shape.set_in_tangent(Vector2D(0, tangent))
+        shape.add_vertex(Vector2D(left, top + rounded))
+        shape.set_out_tangent(Vector2D(0, -tangent))
+        shape.add_vertex(Vector2D(left + rounded, top))
+        shape.set_in_tangent(Vector2D(-tangent, 0))
+        shape.add_vertex(Vector2D(right - rounded, top))
+        shape.set_out_tangent(Vector2D(tangent, 0))
+</algorithm>
 
 ![Rectangle rendering guide](../static/img/rect-guide.svg)
 
@@ -335,34 +342,38 @@ $$
     </script>
 </lottie-playground>
 
+<algorithm>
+def polystar(shape: Bezier, p: Vector2D, pt: float, r: float, or_: float, os: float, sy: int, ir: float, is_: float):
+    points: int = int(round(pt))
+    alpha: float = -r * math.pi / 180 - math.pi / 2
+    theta: float = -math.pi / points
+    tan_len_out: float = (2 * math.pi * or_) / (4 * points) * (os / 100)
+    tan_len_in: float = (2 * math.pi * ir) / (4 * points) * (is_ / 100)
 
-Definitions:
+    shape.closed = True
 
-$$
-\begin{align*}
-points & = \lfloor pt \rceil \\
-\theta  & = \frac{\pi}{points} \\
-\alpha & = \frac{\pi}{180} \cdot r \\
-tan_{out} &= \frac{os}{100} \cdot \frac{or \cdot 2 \pi}{points \cdot 4} \\
-tan_{in} &= \frac{is}{100} \cdot \frac{ir \cdot 2 \pi}{points \cdot 4} \\
-\end{align*}
-$$
+    for i in range(points):
+        beta: float = alpha + i * theta * 2
+        v_out: Vector2D = Vector2D(or_ * math.cos(beta),  or_ * math.sin(beta))
+        shape.add_vertex(p + v_out)
 
-1. For $i$ in $[0, points)$
-    1. Let $\beta = -\frac{\pi}{2} + \alpha + i \cdot 2 \dot \theta$
-    1. Let $V_{out} = (or \cdot \cos(\beta), or \cdot \sin(\beta))$
-    1. Add vertex $p + V_{out}$
-    1. If $or \neq 0$, we need to add bezier tangent
-        1. Let $T_{out} = (V_{out} \cdot \frac{tan_{out}}{or})$
-        1. Set in tangent $V_{out}$
-        1. Set out tangent $-V_{out}$
-    1. If $sy = 1$, we need to add a vertex towards the inner radius to make a star
-        1. Let $V_{in} = (ir \cdot \cos(\beta + \theta), or \cdot \sin(\beta + \theta))$
-        1. Add vertex $p + V_{in}$
-        1. If $ir \neq 0$, we need to add bezier tangent
-            1. Let $T_{in} = (V_{in} \cdot \frac{tan_{in}}{or})$
-            1. Set in tangent $V_{in}$
-            1. Set out tangent $-V_{in}$
+        if os != 0 and or_ != 0:
+            # We need to add bezier tangents
+            tan_out: Vector2D = v_out * tan_len_out / or_
+            shape.set_in_tangent(Vector2D(-tan_out.y, tan_out.x))
+            shape.set_out_tangent(Vector2D(tan_out.y, -tan_out.x))
+
+        if sy == 1:
+            # We need to add a vertex towards the inner radius to make a star
+            v_in: Vector2D = Vector2D(ir * math.cos(beta + theta), ir * math.sin(beta + theta))
+            shape.add_vertex(p + v_in)
+
+            if is_ != 0 and ir != 0:
+                # We need to add bezier tangents
+                tan_in = v_in * tan_len_in / ir
+                shape.set_in_tangent(Vector2D(-tan_in.y, tan_in.x))
+                shape.set_out_tangent(Vector2D(tan_in.y, -tan_in.x))
+</algorithm>
 
 <h2 id="grouping">Grouping</h2>
 
