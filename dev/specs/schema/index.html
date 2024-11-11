@@ -1826,6 +1826,34 @@ values to jump to the relevant section.</p>
                     }
                 ]
             },
+            <a href="#/$defs/shapes/pucker-bloat" id="/$defs/shapes/pucker-bloat"><span class="hljs-attr">"pucker-bloat"</span></a> <a href="../shapes/#pucker-bloat" title="Pucker Bloat"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Pucker Bloat"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Interpolates bezier vertices towards the center of the shape, and tangent handles away from it (or vice-versa)"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/modifier"><span class="hljs-string">"#/$defs/shapes/modifier"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"ty"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Type"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"pb"</span>
+                            },
+                            <span class="hljs-attr">"a"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Amount"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Amount as a percentage"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/scalar-property"><span class="hljs-string">"#/$defs/properties/scalar-property"</span></a>
+                            }
+                        },
+                        <span class="hljs-attr">"required"</span>: [
+                            <span class="hljs-string">"ty"</span>
+                        ]
+                    }
+                ]
+            },
             <a href="#/$defs/shapes/polystar" id="/$defs/shapes/polystar"><span class="hljs-attr">"polystar"</span></a> <a href="../shapes/#polystar" title="PolyStar"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"PolyStar"</span>,
@@ -2019,6 +2047,9 @@ values to jump to the relevant section.</p>
                         <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/trim-path"><span class="hljs-string">"#/$defs/shapes/trim-path"</span></a>
                     },
                     {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/pucker-bloat"><span class="hljs-string">"#/$defs/shapes/pucker-bloat"</span></a>
+                    },
+                    {
                         <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/unknown-shape"><span class="hljs-string">"#/$defs/shapes/unknown-shape"</span></a>
                     }
                 ]
@@ -2182,7 +2213,8 @@ values to jump to the relevant section.</p>
                                 <span class="hljs-string">"rc"</span>,
                                 <span class="hljs-string">"st"</span>,
                                 <span class="hljs-string">"tr"</span>,
-                                <span class="hljs-string">"tm"</span>
+                                <span class="hljs-string">"tm"</span>,
+                                <span class="hljs-string">"pb"</span>
                             ]
                         }
                     }
