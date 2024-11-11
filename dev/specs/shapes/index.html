@@ -281,7 +281,7 @@
                 <li class="third-level"><a href="#notes">Notes</a></li>
             <li class="second-level"><a href="#rendering-convention">Rendering Convention</a></li>
                 
-                <li class="third-level"><a href="#drawing-commands">Drawing Commands</a></li>
+                <li class="third-level"><a href="#bezier-conversions">Bezier Conversions</a></li>
                 <li class="third-level"><a href="#approximating-ellipses-with-cubic-bezier">Approximating Ellipses with Cubic Bezier</a></li>
             <li class="second-level"><a href="#graphic-element">Graphic Element</a></li>
                 
@@ -348,11 +348,11 @@
 </ul>
 </li>
 <li>compute the total shape transformation by composing all transforms within the shape scope chain:
-    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi></mi><mi>k</mi><mi>l</mi><mi>z</mi><mi>z</mi><mi>w</mi><mi>x</mi><mi>h</mi><mi>:</mi><mn>0433</mn><mi></mi></mrow></math>
+    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>T</mi><mrow><mi>s</mi><mi>h</mi><mi>a</mi><mi>p</mi><mi>e</mi></mrow></msub><mo>&#x0003D;</mo><msubsup><mo>&#x0220F;</mo><mrow><mi>n</mi><mo>&#x0003D;</mo><mn>0</mn></mrow><mrow><mi>S</mi><mi>c</mi><mi>o</mi><mi>p</mi><mi>e</mi><mo stretchy="false">&#x00028;</mo><mi>s</mi><mi>h</mi><mi>a</mi><mi>p</mi><mi>e</mi><mo stretchy="false">&#x00029;</mo></mrow></msubsup><mi>T</mi><mi>r</mi><mi>a</mi><mi>n</mi><mi>s</mi><mi>f</mi><mi>o</mi><mi>r</mi><mi>m</mi><mo stretchy="false">&#x00028;</mo><mi>s</mi><mi>c</mi><mi>o</mi><mi>p</mi><msub><mi>e</mi><mi>n</mi></msub><mo stretchy="false">&#x00029;</mo></mrow></math>
 </li>
 <li>
 <p>compute the total style transformation by composing all transforms within the style scope chain:
-    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi></mi><mi>k</mi><mi>l</mi><mi>z</mi><mi>z</mi><mi>w</mi><mi>x</mi><mi>h</mi><mi>:</mi><mn>0441</mn><mi></mi></mrow></math>
+    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>T</mi><mrow><mi>s</mi><mi>t</mi><mi>y</mi><mi>l</mi><mi>e</mi></mrow></msub><mo>&#x0003D;</mo><msubsup><mo>&#x0220F;</mo><mrow><mi>n</mi><mo>&#x0003D;</mo><mn>0</mn></mrow><mrow><mi>S</mi><mi>c</mi><mi>o</mi><mi>p</mi><mi>e</mi><mo stretchy="false">&#x00028;</mo><mi>s</mi><mi>t</mi><mi>y</mi><mi>l</mi><mi>e</mi><mo stretchy="false">&#x00029;</mo></mrow></msubsup><mi>T</mi><mi>r</mi><mi>a</mi><mi>n</mi><mi>s</mi><mi>f</mi><mi>o</mi><mi>r</mi><mi>m</mi><mo stretchy="false">&#x00028;</mo><mi>s</mi><mi>c</mi><mi>o</mi><mi>p</mi><msub><mi>e</mi><mi>n</mi></msub><mo stretchy="false">&#x00029;</mo></mrow></math>
 </p>
 </li>
 <li>
@@ -395,17 +395,21 @@ the instructions are equivalent to <code>value[0]</code> and <code>value[1]</cod
 <p>All paths <strong class="bcp14">MUST</strong> be closed unless specified otherwise in the rendering instructions.</p>
 <p>When instructions call for an equality comparison between two values,
 implementations <strong class="bcp14">MAY</strong> consider similar values to be equal to overcome numerical instability.</p>
-<h3 id="drawing-commands">Drawing Commands</h3>
+<h3 id="bezier-conversions">Bezier Conversions</h3>
+<p>This documents includes algorithms to convert parametric shapes into bezier curves.</p>
+<p>Implementations <strong class="bcp14">MAY</strong> use different implementations than the algorithms provided here
+but the output shape <strong class="bcp14">MUST</strong> be visually indistinguishable from the output of these algorithms.</p>
+<p>Furthermore, when drawing individual shapes the stroke order and direction is not importand
+but implementations of Trim Path <strong class="bcp14">MUST</strong> follow the stroke order as defined by these algorithms.</p>
 <p>Drawing instructions will contain the following commands:</p>
 <ul>
-<li><em>add vertex</em>: Adds a vertex to the bezier shape in global coordinates</li>
-<li><em>set in tangent</em>: Sets the cubic tangent to the last added vertex, with coordinates relative to it.  If omitted, tangents <strong class="bcp14">MUST</strong> be <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>.</li>
-<li><em>set out tangent</em>: Sets the cubic tangent from the last added vertex, with coordinates relative to it.  If omitted, tangents <strong class="bcp14">MUST</strong> be <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>.</li>
-<li><em>lerp</em>: Linearly interpolates two points or scalars by a given amount.</li>
+<li><em>Add vertex</em>: Adds a vertex to the bezier shape in global coordinates</li>
+<li><em>Set in tangent</em>: Sets the cubic tangent to the last added vertex, with coordinates relative to it.  If omitted, tangents <strong class="bcp14">MUST</strong> be <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>.</li>
+<li><em>Set out tangent</em>: Sets the cubic tangent from the last added vertex, with coordinates relative to it.  If omitted, tangents <strong class="bcp14">MUST</strong> be <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>.</li>
 </ul>
 <h3 id="approximating-ellipses-with-cubic-bezier">Approximating Ellipses with Cubic Bezier</h3>
 <p>An elliptical quadrant can be approximated by a cubic bezier segment
-with tangents of length $radius \cdot E_t.</p>
+with tangents of length $radius * E_t.</p>
 <p>Where</p>
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>E</mi><mi>t</mi></msub><mo>&#x02248;</mo><mn>0.5519150244935105707435627</mn></mrow></math>
 <p>See <a href="https://spencermortensen.com/articles/bezier-circle/">this article</a> for the math behind it.</p>
@@ -1110,34 +1114,104 @@ use this constant, a similar approximation, or elliptical arc drawing primitives
         </script>
 </div>
 </div>
-<p>An ellipse is drawn from the top quandrant point going clockwise:</p>
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtable columnspacing="0em 2em" displaystyle="true" rowspacing="3pt"><mtr><mtd columnalign="right"><mi>r</mi><mi>a</mi><mi>d</mi><mi>i</mi><mi>u</mi><mi>s</mi></mtd><mtd columnalign="left"><mi></mi><mo>&#x0003D;</mo><mfrac><mrow><mi>s</mi></mrow><mrow><mn>2</mn></mrow></mfrac></mtd></mtr><mtr><mtd columnalign="right"><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi></mtd><mtd columnalign="left"><mi></mi><mo>&#x0003D;</mo><mi>r</mi><mi>a</mi><mi>d</mi><mi>i</mi><mi>u</mi><mi>s</mi><mi>&#x000B7;</mi><msub><mi>E</mi><mi>t</mi></msub></mtd></mtr><mtr><mtd columnalign="right"><mi>x</mi></mtd><mtd columnalign="left"><mi></mi><mo>&#x0003D;</mo><mi>p</mi><mo>&#x0002E;</mo><mi>x</mi></mtd></mtr><mtr><mtd columnalign="right"><mi>y</mi></mtd><mtd columnalign="left"><mi></mi><mo>&#x0003D;</mo><mi>p</mi><mo>&#x0002E;</mo><mi>y</mi></mtd></mtr></mtable></mrow></math>
-<ol>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi><mo>&#x02212;</mo><mi>r</mi><mi>a</mi><mi>d</mi><mi>i</mi><mi>u</mi><mi>s</mi><mo>&#x0002E;</mo><mi>y</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002E;</mo><mi>x</mi><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002E;</mo><mi>x</mi><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x0002B;</mo><mi>r</mi><mi>a</mi><mi>d</mi><mi>i</mi><mi>u</mi><mi>s</mi><mo>&#x0002E;</mo><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002E;</mo><mi>y</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002E;</mo><mi>y</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi><mo>&#x0002B;</mo><mi>r</mi><mi>a</mi><mi>d</mi><mi>i</mi><mi>u</mi><mi>s</mi><mo>&#x0002E;</mo><mi>y</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002E;</mo><mi>x</mi><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002E;</mo><mi>x</mi><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x02212;</mo><mi>r</mi><mi>a</mi><mi>d</mi><mi>i</mi><mi>u</mi><mi>s</mi><mo>&#x0002E;</mo><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002E;</mo><mi>y</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002E;</mo><mi>y</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-</ol>
+<div class="algorithm"><select onchange="this.parentElement.querySelectorAll(&quot;pre&quot;).forEach(
+                (e, i) =&gt; e.style.display = i == this.value ? &quot;block&quot; : &quot;none&quot;
+            )"><option value="0">Pseudo-Code</option><option value="1">Python</option><option value="2">C++</option><option value="3">TypeScript</option></select><pre><span></span>
+<span>Ellipse</span>
+<span>    Inputs:</span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mover><mrow><mi>p</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x02208;</mo><msup><mi>&#x0211D;</mi><mn>2</mn></msup></mrow></math></span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mover><mrow><mi>s</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x02208;</mo><msup><mi>&#x0211D;</mi><mn>2</mn></msup></mrow></math></span>
+<span>    </span>
+<span>    An ellipse is drawn from the top quandrant point going clockwise:</span>
+<span>    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>r</mi><mi>a</mi><mi>d</mi><mi>i</mi><mi>u</mi><mi>s</mi><mo>&#x02254;</mo><mfrac><mrow><mover><mrow><mi>s</mi></mrow><mo stretchy="true">&#x02192;</mo></mover></mrow><mrow><mn>2</mn></mrow></mfrac></mrow></math></span>
+<span>    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x02254;</mo><mi>r</mi><mi>a</mi><mi>d</mi><mi>i</mi><mi>u</mi><mi>s</mi><mi>&#x000B7;</mi><msub><mi>E</mi><mi>t</mi></msub></mrow></math></span>
+<span>    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi><mo>&#x02254;</mo><mover><mrow><mi>p</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002E;</mo><mi>x</mi></mrow></math></span>
+<span>    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>y</mi><mo>&#x02254;</mo><mover><mrow><mi>p</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002E;</mo><mi>y</mi></mrow></math></span>
+<span></span>
+<span>    Set shape closed</span>
+<span>    Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi><mo>&#x02212;</mo><mi>r</mi><mi>a</mi><mi>d</mi><mi>i</mi><mi>u</mi><mi>s</mi><mo>&#x0002E;</mo><mi>y</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>    Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002E;</mo><mi>x</mi><mo>&#x0002C;</mo><mn>0</mn><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>    Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002E;</mo><mi>x</mi><mo>&#x0002C;</mo><mn>0</mn><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>    Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>x</mi><mo>&#x0002B;</mo><mi>r</mi><mi>a</mi><mi>d</mi><mi>i</mi><mi>u</mi><mi>s</mi><mo>&#x0002E;</mo><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>    Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002E;</mo><mi>y</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>    Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002E;</mo><mi>y</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>    Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi><mo>&#x0002B;</mo><mi>r</mi><mi>a</mi><mi>d</mi><mi>i</mi><mi>u</mi><mi>s</mi><mo>&#x0002E;</mo><mi>y</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>    Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002E;</mo><mi>x</mi><mo>&#x0002C;</mo><mn>0</mn><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>    Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002E;</mo><mi>x</mi><mo>&#x0002C;</mo><mn>0</mn><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>    Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>x</mi><mo>&#x02212;</mo><mi>r</mi><mi>a</mi><mi>d</mi><mi>i</mi><mi>u</mi><mi>s</mi><mo>&#x0002E;</mo><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>    Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002E;</mo><mi>y</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>    Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002E;</mo><mi>y</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+</pre>
+<pre style="display: none"><code class="language-py hljs">
+def ellipse(shape: Bezier, p: Vector2D, s: Vector2D):
+    # An ellipse is drawn from the top quandrant point going clockwise:
+    radius = s / 2
+    tangent = radius * ELLIPSE_CONSTANT
+    x = p.x
+    y = p.y
+
+    shape.closed = True
+    shape.add_vertex(Vector2D(x, y - radius.y))
+    shape.set_in_tangent(Vector2D(-tangent.x, 0))
+    shape.set_out_tangent(Vector2D(tangent.x, 0))
+    shape.add_vertex(Vector2D(x + radius.x, y))
+    shape.set_in_tangent(Vector2D(0, -tangent.y))
+    shape.set_out_tangent(Vector2D(0, tangent.y))
+    shape.add_vertex(Vector2D(x, y + radius.y))
+    shape.set_in_tangent(Vector2D(tangent.x, 0))
+    shape.set_out_tangent(Vector2D(-tangent.x, 0))
+    shape.add_vertex(Vector2D(x - radius.x, y))
+    shape.set_in_tangent(Vector2D(0, tangent.y))
+    shape.set_out_tangent(Vector2D(0, -tangent.y))
+</code></pre>
+<pre style="display: none"><code class="language-cpp hljs">
+void ellipse(Bezier shape, Vector2D p, Vector2D s)
+{
+    // An ellipse is drawn from the top quandrant point going clockwise:
+    radius = s / 2;
+    tangent = radius * ELLIPSE_CONSTANT;
+    x = p.x;
+    y = p.y;
+
+    shape.closed = true;
+    shape.add_vertex(Vector2D(x, y - radius.y));
+    shape.set_in_tangent(Vector2D(-tangent.x, 0));
+    shape.set_out_tangent(Vector2D(tangent.x, 0));
+    shape.add_vertex(Vector2D(x + radius.x, y));
+    shape.set_in_tangent(Vector2D(0, -tangent.y));
+    shape.set_out_tangent(Vector2D(0, tangent.y));
+    shape.add_vertex(Vector2D(x, y + radius.y));
+    shape.set_in_tangent(Vector2D(tangent.x, 0));
+    shape.set_out_tangent(Vector2D(-tangent.x, 0));
+    shape.add_vertex(Vector2D(x - radius.x, y));
+    shape.set_in_tangent(Vector2D(0, tangent.y));
+    shape.set_out_tangent(Vector2D(0, -tangent.y));
+}
+</code></pre>
+<pre style="display: none"><code class="language-ts hljs">
+function ellipse(shape: Bezier, p: Vector2D, s: Vector2D) {
+    // An ellipse is drawn from the top quandrant point going clockwise:
+    radius = String / 2;
+    tangent = radius * ELLIPSE_CONSTANT;
+    x = p.x;
+    y = p.y;
+
+    shape.closed = true;
+    shape.addVertex(new Vector2D(x, y - radius.y));
+    shape.setInTangent(new Vector2D(-tangent.x, 0));
+    shape.setOutTangent(new Vector2D(tangent.x, 0));
+    shape.addVertex(new Vector2D(x + radius.x, y));
+    shape.setInTangent(new Vector2D(0, -tangent.y));
+    shape.setOutTangent(new Vector2D(0, tangent.y));
+    shape.addVertex(new Vector2D(x, y + radius.y));
+    shape.setInTangent(new Vector2D(tangent.x, 0));
+    shape.setOutTangent(new Vector2D(-tangent.x, 0));
+    shape.addVertex(new Vector2D(x - radius.x, y));
+    shape.setInTangent(new Vector2D(0, tangent.y));
+    shape.setOutTangent(new Vector2D(0, -tangent.y));
+}
+</code></pre>
+</div>
 <p>Implementations <strong class="bcp14">MAY</strong> use elliptical arcs to render an ellipse.</p>
 <p><img alt="Ellipse rendering guide" src="../../static/img/ellipse-guide.svg" /></p>
 <h3 id="rectangle">Rectangle</h3>
@@ -1346,55 +1420,188 @@ use this constant, a similar approximation, or elliptical arc drawing primitives
         </script>
 </div>
 </div>
-<p>Definitions:</p>
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtable columnspacing="0em 2em" displaystyle="true" rowspacing="3pt"><mtr><mtd columnalign="right"><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi></mtd><mtd columnalign="left"><mi></mi><mo>&#x0003D;</mo><mi>p</mi><mo>&#x0002E;</mo><mi>x</mi><mo>&#x02212;</mo><mfrac><mrow><mi>s</mi><mo>&#x0002E;</mo><mi>x</mi></mrow><mrow><mn>2</mn></mrow></mfrac></mtd></mtr><mtr><mtd columnalign="right"><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi></mtd><mtd columnalign="left"><mi></mi><mo>&#x0003D;</mo><mi>p</mi><mo>&#x0002E;</mo><mi>x</mi><mo>&#x0002B;</mo><mfrac><mrow><mi>s</mi><mo>&#x0002E;</mo><mi>x</mi></mrow><mrow><mn>2</mn></mrow></mfrac></mtd></mtr><mtr><mtd columnalign="right"><mi>t</mi><mi>o</mi><mi>p</mi></mtd><mtd columnalign="left"><mi></mi><mo>&#x0003D;</mo><mi>p</mi><mo>&#x0002E;</mo><mi>y</mi><mo>&#x02212;</mo><mfrac><mrow><mi>s</mi><mo>&#x0002E;</mo><mi>y</mi></mrow><mrow><mn>2</mn></mrow></mfrac></mtd></mtr><mtr><mtd columnalign="right"><mi>b</mi><mi>o</mi><mi>t</mi><mi>t</mi><mi>o</mi><mi>m</mi></mtd><mtd columnalign="left"><mi></mi><mo>&#x0003D;</mo><mi>p</mi><mo>&#x0002E;</mo><mi>y</mi><mo>&#x0002B;</mo><mfrac><mrow><mi>s</mi><mo>&#x0002E;</mo><mi>y</mi></mrow><mrow><mn>2</mn></mrow></mfrac></mtd></mtr></mtable></mrow></math>
-<p>If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>r</mi><mo>&#x0003D;</mo><mn>0</mn></mrow></math>, then the rectangle is rendered from the top-right going clockwise:</p>
-<ol>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>&#x0002C;</mo><mi>t</mi><mi>o</mi><mi>p</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>&#x0002C;</mo><mi>b</mi><mi>o</mi><mi>t</mi><mi>t</mi><mi>o</mi><mi>m</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>&#x0002C;</mo><mi>b</mi><mi>o</mi><mi>t</mi><mi>t</mi><mi>o</mi><mi>m</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>&#x0002C;</mo><mi>t</mi><mi>o</mi><mi>p</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-</ol>
-<p>If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>r</mi><mo>&#x0003E;</mo><mn>0</mn></mrow></math>, the rounded corners must be taken into account.</p>
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtable columnspacing="0em 2em" displaystyle="true" rowspacing="3pt"><mtr><mtd columnalign="right"><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi></mtd><mtd columnalign="left"><mi></mi><mo>&#x0003D;</mo><mo>min</mo><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mfrac><mrow><mi>s</mi><mo>&#x0002E;</mo><mi>x</mi></mrow><mrow><mn>2</mn></mrow></mfrac><mo>&#x0002C;</mo><mfrac><mrow><mi>s</mi><mo>&#x0002E;</mo><mi>y</mi></mrow><mrow><mn>2</mn></mrow></mfrac><mo>&#x0002C;</mo><mi>r</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mtd></mtr><mtr><mtd columnalign="right"><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi></mtd><mtd columnalign="left"><mi></mi><mo>&#x0003D;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mi>&#x000B7;</mi><msub><mi>E</mi><mi>t</mi></msub></mtd></mtr></mtable></mrow></math>
-<ol>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>&#x0002C;</mo><mi>t</mi><mi>o</mi><mi>p</mi><mo>&#x0002B;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>&#x0002C;</mo><mi>b</mi><mi>o</mi><mi>t</mi><mi>t</mi><mi>o</mi><mi>m</mi><mo>&#x02212;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>&#x02212;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo>&#x0002C;</mo><mi>b</mi><mi>o</mi><mi>t</mi><mi>t</mi><mi>o</mi><mi>m</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>&#x0002B;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo>&#x0002C;</mo><mi>b</mi><mi>o</mi><mi>t</mi><mi>t</mi><mi>o</mi><mi>m</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>&#x0002C;</mo><mi>b</mi><mi>o</mi><mi>t</mi><mi>t</mi><mi>o</mi><mi>m</mi><mo>&#x02212;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>&#x0002C;</mo><mi>t</mi><mi>o</mi><mi>p</mi><mo>&#x0002B;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>&#x0002B;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo>&#x0002C;</mo><mi>t</mi><mi>o</mi><mi>p</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>&#x02212;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo>&#x0002C;</mo><mi>t</mi><mi>o</mi><mi>p</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">&#x00028;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-</ol>
+<p>Rendering algorithm:</p>
+<div class="algorithm"><select onchange="this.parentElement.querySelectorAll(&quot;pre&quot;).forEach(
+                (e, i) =&gt; e.style.display = i == this.value ? &quot;block&quot; : &quot;none&quot;
+            )"><option value="0">Pseudo-Code</option><option value="1">Python</option><option value="2">C++</option><option value="3">TypeScript</option></select><pre><span></span>
+<span>Rectangle</span>
+<span>    Inputs:</span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mover><mrow><mi>p</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x02208;</mo><msup><mi>&#x0211D;</mi><mn>2</mn></msup></mrow></math></span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mover><mrow><mi>s</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x02208;</mo><msup><mi>&#x0211D;</mi><mn>2</mn></msup></mrow></math></span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>r</mi><mo>&#x02208;</mo><mi>&#x0211D;</mi></mrow></math></span>
+<span>    </span>
+<span>    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>&#x02254;</mo><mover><mrow><mi>p</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002E;</mo><mi>x</mi><mo>&#x02212;</mo><mfrac><mrow><mover><mrow><mi>s</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002E;</mo><mi>x</mi></mrow><mrow><mn>2</mn></mrow></mfrac></mrow></math></span>
+<span>    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>&#x02254;</mo><mover><mrow><mi>p</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002E;</mo><mi>x</mi><mo>&#x0002B;</mo><mfrac><mrow><mover><mrow><mi>s</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002E;</mo><mi>x</mi></mrow><mrow><mn>2</mn></mrow></mfrac></mrow></math></span>
+<span>    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>t</mi><mi>o</mi><mi>p</mi><mo>&#x02254;</mo><mover><mrow><mi>p</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002E;</mo><mi>y</mi><mo>&#x02212;</mo><mfrac><mrow><mover><mrow><mi>s</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002E;</mo><mi>y</mi></mrow><mrow><mn>2</mn></mrow></mfrac></mrow></math></span>
+<span>    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>b</mi><mi>o</mi><mi>t</mi><mi>t</mi><mi>o</mi><mi>m</mi><mo>&#x02254;</mo><mover><mrow><mi>p</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002E;</mo><mi>y</mi><mo>&#x0002B;</mo><mfrac><mrow><mover><mrow><mi>s</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002E;</mo><mi>y</mi></mrow><mrow><mn>2</mn></mrow></mfrac></mrow></math></span>
+<span></span>
+<span>    Set shape closed</span>
+<span></span>
+<span>    If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>r</mi><mo>&#x02264;</mo><mn>0</mn></mrow></math></span>
+<span></span>
+<span>        The rectangle is rendered from the top-right going clockwise</span>
+<span></span>
+<span>        Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>&#x0002C;</mo><mi>t</mi><mi>o</mi><mi>p</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>&#x0002C;</mo><mi>b</mi><mi>o</mi><mi>t</mi><mi>t</mi><mi>o</mi><mi>m</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>&#x0002C;</mo><mi>b</mi><mi>o</mi><mi>t</mi><mi>t</mi><mi>o</mi><mi>m</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>&#x0002C;</mo><mi>t</mi><mi>o</mi><mi>p</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span></span>
+<span>    Otherwise</span>
+<span></span>
+<span>        Rounded corners must be taken into account</span>
+<span></span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo>&#x02254;</mo><mo>min</mo><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mfrac><mrow><mover><mrow><mi>s</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002E;</mo><mi>x</mi></mrow><mrow><mn>2</mn></mrow></mfrac><mo>&#x0002C;</mo><mfrac><mrow><mover><mrow><mi>s</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002E;</mo><mi>y</mi></mrow><mrow><mn>2</mn></mrow></mfrac><mo>&#x0002C;</mo><mi>r</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x02254;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mi>&#x000B7;</mi><msub><mi>E</mi><mi>t</mi></msub></mrow></math></span>
+<span></span>
+<span>        Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>&#x0002C;</mo><mi>t</mi><mi>o</mi><mi>p</mi><mo>&#x0002B;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>&#x0002C;</mo><mi>b</mi><mi>o</mi><mi>t</mi><mi>t</mi><mi>o</mi><mi>m</mi><mo>&#x02212;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>&#x02212;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo>&#x0002C;</mo><mi>b</mi><mi>o</mi><mi>t</mi><mi>t</mi><mi>o</mi><mi>m</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002C;</mo><mn>0</mn><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>&#x0002B;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo>&#x0002C;</mo><mi>b</mi><mi>o</mi><mi>t</mi><mi>t</mi><mi>o</mi><mi>m</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002C;</mo><mn>0</mn><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>&#x0002C;</mo><mi>b</mi><mi>o</mi><mi>t</mi><mi>t</mi><mi>o</mi><mi>m</mi><mo>&#x02212;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>&#x0002C;</mo><mi>t</mi><mi>o</mi><mi>p</mi><mo>&#x0002B;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo>&#x0002B;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo>&#x0002C;</mo><mi>t</mi><mi>o</mi><mi>p</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002C;</mo><mn>0</mn><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>r</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi><mo>&#x02212;</mo><mi>r</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi><mi>e</mi><mi>d</mi><mo>&#x0002C;</mo><mi>t</mi><mi>o</mi><mi>p</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>t</mi><mi>a</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>&#x0002C;</mo><mn>0</mn><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+</pre>
+<pre style="display: none"><code class="language-py hljs">
+def rectangle(shape: Bezier, p: Vector2D, s: Vector2D, r: float):
+    left: float = p.x - s.x / 2
+    right: float = p.x + s.x / 2
+    top: float = p.y - s.y / 2
+    bottom: float = p.y + s.y / 2
+
+    shape.closed = True
+
+    if r &lt;= 0:
+
+        # The rectangle is rendered from the top-right going clockwise
+
+        shape.add_vertex(Vector2D(right, top))
+        shape.add_vertex(Vector2D(right, bottom))
+        shape.add_vertex(Vector2D(left, bottom))
+        shape.add_vertex(Vector2D(left, top))
+
+    else:
+
+        # Rounded corners must be taken into account
+
+        rounded: float = min(s.x/2, s.y/2, r)
+        tangent: float = rounded * ELLIPSE_CONSTANT
+
+        shape.add_vertex(Vector2D(right, top + rounded))
+        shape.set_in_tangent(Vector2D(0, -tangent))
+        shape.add_vertex(Vector2D(right, bottom - rounded))
+        shape.set_out_tangent(Vector2D(0, tangent))
+        shape.add_vertex(Vector2D(right - rounded, bottom))
+        shape.set_in_tangent(Vector2D(tangent, 0))
+        shape.add_vertex(Vector2D(left + rounded, bottom))
+        shape.set_out_tangent(Vector2D(-tangent, 0))
+        shape.add_vertex(Vector2D(left, bottom - rounded))
+        shape.set_in_tangent(Vector2D(0, tangent))
+        shape.add_vertex(Vector2D(left, top + rounded))
+        shape.set_out_tangent(Vector2D(0, -tangent))
+        shape.add_vertex(Vector2D(left + rounded, top))
+        shape.set_in_tangent(Vector2D(-tangent, 0))
+        shape.add_vertex(Vector2D(right - rounded, top))
+        shape.set_out_tangent(Vector2D(tangent, 0))
+</code></pre>
+<pre style="display: none"><code class="language-cpp hljs">
+void rectangle(Bezier shape, Vector2D p, Vector2D s, float r)
+{
+    float left = p.x - s.x / 2;
+    float right = p.x + s.x / 2;
+    float top = p.y - s.y / 2;
+    float bottom = p.y + s.y / 2;
+
+    shape.closed = true;
+
+    if ( r &lt;= 0 )
+    {
+        // The rectangle is rendered from the top-right going clockwise
+
+        shape.add_vertex(Vector2D(right, top));
+        shape.add_vertex(Vector2D(right, bottom));
+        shape.add_vertex(Vector2D(left, bottom));
+        shape.add_vertex(Vector2D(left, top));
+    }
+    // Rounded corners must be taken into account
+
+    else
+    {
+        float rounded = std::min(s.x / 2, s.y / 2, r);
+        float tangent = rounded * ELLIPSE_CONSTANT;
+
+        shape.add_vertex(Vector2D(right, top + rounded));
+        shape.set_in_tangent(Vector2D(0, -tangent));
+        shape.add_vertex(Vector2D(right, bottom - rounded));
+        shape.set_out_tangent(Vector2D(0, tangent));
+        shape.add_vertex(Vector2D(right - rounded, bottom));
+        shape.set_in_tangent(Vector2D(tangent, 0));
+        shape.add_vertex(Vector2D(left + rounded, bottom));
+        shape.set_out_tangent(Vector2D(-tangent, 0));
+        shape.add_vertex(Vector2D(left, bottom - rounded));
+        shape.set_in_tangent(Vector2D(0, tangent));
+        shape.add_vertex(Vector2D(left, top + rounded));
+        shape.set_out_tangent(Vector2D(0, -tangent));
+        shape.add_vertex(Vector2D(left + rounded, top));
+        shape.set_in_tangent(Vector2D(-tangent, 0));
+        shape.add_vertex(Vector2D(right - rounded, top));
+        shape.set_out_tangent(Vector2D(tangent, 0));
+    }
+}
+</code></pre>
+<pre style="display: none"><code class="language-ts hljs">
+function rectangle(shape: Bezier, p: Vector2D, s: Vector2D, r: number) {
+    let left: number = p.x - String.x / 2;
+    let right: number = p.x + String.x / 2;
+    let top: number = p.y - String.y / 2;
+    let bottom: number = p.y + String.y / 2;
+
+    shape.closed = true;
+
+    if ( String &lt;= 0 ) {
+
+        // The rectangle is rendered from the top-right going clockwise
+
+        shape.addVertex(new Vector2D(right, top));
+        shape.addVertex(new Vector2D(right, bottom));
+        shape.addVertex(new Vector2D(left, bottom));
+        shape.addVertex(new Vector2D(left, top));
+
+    } else {
+
+        // Rounded corners must be taken into account
+
+        let rounded: number = Math.min(String.x / 2, String.y / 2, String);
+        let tangent: number = rounded * ELLIPSE_CONSTANT;
+
+        shape.addVertex(new Vector2D(right, top + rounded));
+        shape.setInTangent(new Vector2D(0, -tangent));
+        shape.addVertex(new Vector2D(right, bottom - rounded));
+        shape.setOutTangent(new Vector2D(0, tangent));
+        shape.addVertex(new Vector2D(right - rounded, bottom));
+        shape.setInTangent(new Vector2D(tangent, 0));
+        shape.addVertex(new Vector2D(left + rounded, bottom));
+        shape.setOutTangent(new Vector2D(-tangent, 0));
+        shape.addVertex(new Vector2D(left, bottom - rounded));
+        shape.setInTangent(new Vector2D(0, tangent));
+        shape.addVertex(new Vector2D(left, top + rounded));
+        shape.setOutTangent(new Vector2D(0, -tangent));
+        shape.addVertex(new Vector2D(left + rounded, top));
+        shape.setInTangent(new Vector2D(-tangent, 0));
+        shape.addVertex(new Vector2D(right - rounded, top));
+        shape.setOutTangent(new Vector2D(tangent, 0));
+    }
+}
+</code></pre>
+</div>
 <p><img alt="Rectangle rendering guide" src="../../static/img/rect-guide.svg" /></p>
 <h3 id="path">Path</h3>
 <p></p>
@@ -1876,45 +2083,162 @@ use this constant, a similar approximation, or elliptical arc drawing primitives
         </script>
 </div>
 </div>
-<p>Definitions:</p>
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtable columnspacing="0em 2em" displaystyle="true" rowspacing="3pt"><mtr><mtd columnalign="right"><mi>p</mi><mi>o</mi><mi>i</mi><mi>n</mi><mi>t</mi><mi>s</mi></mtd><mtd columnalign="left"><mi></mi><mo>&#x0003D;</mo><mi>&#x0230A;</mi><mi>p</mi><mi>t</mi><mi>&#x02309;</mi></mtd></mtr><mtr><mtd columnalign="right"><mi>&#x003B8;</mi></mtd><mtd columnalign="left"><mi></mi><mo>&#x0003D;</mo><mfrac><mrow><mi>&#x003C0;</mi></mrow><mrow><mi>p</mi><mi>o</mi><mi>i</mi><mi>n</mi><mi>t</mi><mi>s</mi></mrow></mfrac></mtd></mtr><mtr><mtd columnalign="right"><mi>&#x003B1;</mi></mtd><mtd columnalign="left"><mi></mi><mo>&#x0003D;</mo><mfrac><mrow><mi>&#x003C0;</mi></mrow><mrow><mn>180</mn></mrow></mfrac><mi>&#x000B7;</mi><mi>r</mi></mtd></mtr><mtr><mtd columnalign="right"><mi>t</mi><mi>a</mi><msub><mi>n</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mtd><mtd columnalign="left"><mi></mi><mo>&#x0003D;</mo><mfrac><mrow><mi>o</mi><mi>s</mi></mrow><mrow><mn>100</mn></mrow></mfrac><mi>&#x000B7;</mi><mfrac><mrow><mi>o</mi><mi>r</mi><mi>&#x000B7;</mi><mn>2</mn><mi>&#x003C0;</mi></mrow><mrow><mi>p</mi><mi>o</mi><mi>i</mi><mi>n</mi><mi>t</mi><mi>s</mi><mi>&#x000B7;</mi><mn>4</mn></mrow></mfrac></mtd></mtr><mtr><mtd columnalign="right"><mi>t</mi><mi>a</mi><msub><mi>n</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mtd><mtd columnalign="left"><mi></mi><mo>&#x0003D;</mo><mfrac><mrow><mi>i</mi><mi>s</mi></mrow><mrow><mn>100</mn></mrow></mfrac><mi>&#x000B7;</mi><mfrac><mrow><mi>i</mi><mi>r</mi><mi>&#x000B7;</mi><mn>2</mn><mi>&#x003C0;</mi></mrow><mrow><mi>p</mi><mi>o</mi><mi>i</mi><mi>n</mi><mi>t</mi><mi>s</mi><mi>&#x000B7;</mi><mn>4</mn></mrow></mfrac></mtd></mtr></mtable></mrow></math>
-<ol>
-<li>For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>i</mi></mrow></math> in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>&#x0002C;</mo><mi>p</mi><mi>o</mi><mi>i</mi><mi>n</mi><mi>t</mi><mi>s</mi><mo stretchy="false">&#x00029;</mo></mrow></math>
-<ol>
-<li>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>&#x003B2;</mi><mo>&#x0003D;</mo><mo>&#x02212;</mo><mfrac><mrow><mi>&#x003C0;</mi></mrow><mrow><mn>2</mn></mrow></mfrac><mo>&#x0002B;</mo><mi>&#x003B1;</mi><mo>&#x0002B;</mo><mi>i</mi><mi>&#x000B7;</mi><mn>2</mn><mover><mi>&#x003B8;</mi><mo>&#x002D9;</mo></mover></mrow></math>
-</li>
-<li>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>V</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><mi>o</mi><mi>r</mi><mi>&#x000B7;</mi><mi>cos</mi><mo stretchy="false">&#x00028;</mo><mi>&#x003B2;</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002C;</mo><mi>o</mi><mi>r</mi><mi>&#x000B7;</mi><mi>sin</mi><mo stretchy="false">&#x00028;</mo><mi>&#x003B2;</mi><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>p</mi><mo>&#x0002B;</mo><msub><mi>V</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow></math>
-</li>
-<li>If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>o</mi><mi>r</mi><mo>&#x02260;</mo><mn>0</mn></mrow></math>, we need to add bezier tangent<ol>
-<li>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>T</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><msub><mi>V</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub><mi>&#x000B7;</mi><mfrac><mrow><mi>t</mi><mi>a</mi><msub><mi>n</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><mrow><mi>o</mi><mi>r</mi></mrow></mfrac><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>V</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow></math>
-</li>
-<li>Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>&#x02212;</mo><msub><mi>V</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow></math>
-</li>
-</ol>
-</li>
-<li>If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>s</mi><mi>y</mi><mo>&#x0003D;</mo><mn>1</mn></mrow></math>, we need to add a vertex towards the inner radius to make a star<ol>
-<li>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>V</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><mi>i</mi><mi>r</mi><mi>&#x000B7;</mi><mi>cos</mi><mo stretchy="false">&#x00028;</mo><mi>&#x003B2;</mi><mo>&#x0002B;</mo><mi>&#x003B8;</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002C;</mo><mi>o</mi><mi>r</mi><mi>&#x000B7;</mi><mi>sin</mi><mo stretchy="false">&#x00028;</mo><mi>&#x003B2;</mi><mo>&#x0002B;</mo><mi>&#x003B8;</mi><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>p</mi><mo>&#x0002B;</mo><msub><mi>V</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mrow></math>
-</li>
-<li>If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>i</mi><mi>r</mi><mo>&#x02260;</mo><mn>0</mn></mrow></math>, we need to add bezier tangent<ol>
-<li>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>T</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><msub><mi>V</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><mi>&#x000B7;</mi><mfrac><mrow><mi>t</mi><mi>a</mi><msub><mi>n</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mrow><mrow><mi>o</mi><mi>r</mi></mrow></mfrac><mo stretchy="false">&#x00029;</mo></mrow></math>
-</li>
-<li>Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>V</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mrow></math>
-</li>
-<li>Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>&#x02212;</mo><msub><mi>V</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mrow></math>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
+<div class="algorithm"><select onchange="this.parentElement.querySelectorAll(&quot;pre&quot;).forEach(
+                (e, i) =&gt; e.style.display = i == this.value ? &quot;block&quot; : &quot;none&quot;
+            )"><option value="0">Pseudo-Code</option><option value="1">Python</option><option value="2">C++</option><option value="3">TypeScript</option></select><pre><span></span>
+<span>Polystar</span>
+<span>    Inputs:</span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mover><mrow><mi>p</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x02208;</mo><msup><mi>&#x0211D;</mi><mn>2</mn></msup></mrow></math></span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>p</mi><mi>t</mi><mo>&#x02208;</mo><mi>&#x0211D;</mi></mrow></math></span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>r</mi><mo>&#x02208;</mo><mi>&#x0211D;</mi></mrow></math></span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>o</mi><mi>r</mi><mo>&#x02208;</mo><mi>&#x0211D;</mi></mrow></math></span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>o</mi><mi>s</mi><mo>&#x02208;</mo><mi>&#x0211D;</mi></mrow></math></span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>s</mi><mi>y</mi><mo>&#x02208;</mo><mi>&#x02124;</mi></mrow></math></span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>i</mi><mi>r</mi><mo>&#x02208;</mo><mi>&#x0211D;</mi></mrow></math></span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>i</mi><mi>s</mi><mo>&#x02208;</mo><mi>&#x0211D;</mi></mrow></math></span>
+<span>    </span>
+<span>    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>p</mi><mi>o</mi><mi>i</mi><mi>n</mi><mi>t</mi><mi>s</mi><mo>&#x02254;</mo><mi>&#x0230A;</mi><mi>p</mi><mi>t</mi><mi>&#x02309;</mi></mrow></math></span>
+<span>    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>&#x003B1;</mi><mo>&#x02254;</mo><mfrac><mrow><mo>&#x02212;</mo><mi>r</mi><mi>&#x000B7;</mi><mi>&#x003C0;</mi></mrow><mrow><mn>180</mn></mrow></mfrac><mo>&#x02212;</mo><mfrac><mrow><mi>&#x003C0;</mi></mrow><mrow><mn>2</mn></mrow></mfrac></mrow></math></span>
+<span>    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>&#x003B8;</mi><mo>&#x02254;</mo><mfrac><mrow><mo>&#x02212;</mo><mi>&#x003C0;</mi></mrow><mrow><mi>p</mi><mi>o</mi><mi>i</mi><mi>n</mi><mi>t</mi><mi>s</mi></mrow></mfrac></mrow></math></span>
+<span>    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>t</mi><mi>a</mi><mi>n</mi><mi>L</mi><mi>e</mi><msub><mi>n</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub><mo>&#x02254;</mo><mfrac><mrow><mn>2</mn><mi>&#x000B7;</mi><mi>&#x003C0;</mi><mi>&#x000B7;</mi><mi>o</mi><mi>r</mi></mrow><mrow><mn>4</mn><mi>&#x000B7;</mi><mi>p</mi><mi>o</mi><mi>i</mi><mi>n</mi><mi>t</mi><mi>s</mi></mrow></mfrac><mi>&#x000B7;</mi><mfrac><mrow><mi>o</mi><mi>s</mi></mrow><mrow><mn>100</mn></mrow></mfrac></mrow></math></span>
+<span>    <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>t</mi><mi>a</mi><mi>n</mi><mi>L</mi><mi>e</mi><msub><mi>n</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><mo>&#x02254;</mo><mfrac><mrow><mn>2</mn><mi>&#x000B7;</mi><mi>&#x003C0;</mi><mi>&#x000B7;</mi><mi>i</mi><mi>r</mi></mrow><mrow><mn>4</mn><mi>&#x000B7;</mi><mi>p</mi><mi>o</mi><mi>i</mi><mi>n</mi><mi>t</mi><mi>s</mi></mrow></mfrac><mi>&#x000B7;</mi><mfrac><mrow><mi>i</mi><mi>s</mi></mrow><mrow><mn>100</mn></mrow></mfrac></mrow></math></span>
+<span></span>
+<span>    Set shape closed</span>
+<span></span>
+<span>    For each <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>i</mi></mrow></math> in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>&#x0002C;</mo><mi>p</mi><mi>o</mi><mi>i</mi><mi>n</mi><mi>t</mi><mi>s</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>&#x003B2;</mi><mo>&#x02254;</mo><mi>&#x003B1;</mi><mo>&#x0002B;</mo><mi>i</mi><mi>&#x000B7;</mi><mi>&#x003B8;</mi><mi>&#x000B7;</mi><mn>2</mn></mrow></math></span>
+<span>        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mover><mrow><msub><mi>v</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x02254;</mo><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>o</mi><mi>r</mi><mi>&#x000B7;</mi><mi>cos</mi><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>&#x003B2;</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow><mo>&#x0002C;</mo><mi>o</mi><mi>r</mi><mi>&#x000B7;</mi><mi>sin</mi><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>&#x003B2;</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>        Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mover><mrow><mi>p</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002B;</mo><mover><mrow><msub><mi>v</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><mo stretchy="true">&#x02192;</mo></mover></mrow></math></span>
+<span></span>
+<span>        If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>o</mi><mi>s</mi><mo>&#x02260;</mo><mn>0</mn><mo>&#x02227;</mo><mi>o</mi><mi>r</mi><mo>&#x02260;</mo><mn>0</mn></mrow></math></span>
+<span>            We need to add bezier tangents</span>
+<span>            <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mover><mrow><mi>t</mi><mi>a</mi><msub><mi>n</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x02254;</mo><mfrac><mrow><mover><mrow><msub><mi>v</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><mo stretchy="true">&#x02192;</mo></mover><mi>&#x000B7;</mi><mi>t</mi><mi>a</mi><mi>n</mi><mi>L</mi><mi>e</mi><msub><mi>n</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><mrow><mi>o</mi><mi>r</mi></mrow></mfrac></mrow></math></span>
+<span>            Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mo>&#x02212;</mo><mover><mrow><mi>t</mi><mi>a</mi><msub><mi>n</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002E;</mo><mi>y</mi><mo>&#x0002C;</mo><mover><mrow><mi>t</mi><mi>a</mi><msub><mi>n</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002E;</mo><mi>x</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>            Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mover><mrow><mi>t</mi><mi>a</mi><msub><mi>n</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002E;</mo><mi>y</mi><mo>&#x0002C;</mo><mo>&#x02212;</mo><mover><mrow><mi>t</mi><mi>a</mi><msub><mi>n</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002E;</mo><mi>x</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span></span>
+<span>        If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>s</mi><mi>y</mi><mo>&#x0003D;</mo><mn>1</mn></mrow></math></span>
+<span>            We need to add a vertex towards the inner radius to make a star</span>
+<span>            <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mover><mrow><msub><mi>v</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x02254;</mo><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>i</mi><mi>r</mi><mi>&#x000B7;</mi><mi>cos</mi><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>&#x003B2;</mi><mo>&#x0002B;</mo><mi>&#x003B8;</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow><mo>&#x0002C;</mo><mi>i</mi><mi>r</mi><mi>&#x000B7;</mi><mi>sin</mi><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>&#x003B2;</mi><mo>&#x0002B;</mo><mi>&#x003B8;</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>            Add vertex <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mover><mrow><mi>p</mi></mrow><mo stretchy="true">&#x02192;</mo></mover><mo>&#x0002B;</mo><mover><mrow><msub><mi>v</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mrow><mo stretchy="true">&#x02192;</mo></mover></mrow></math></span>
+<span></span>
+<span>            If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>i</mi><mi>s</mi><mo>&#x02260;</mo><mn>0</mn><mo>&#x02227;</mo><mi>i</mi><mi>r</mi><mo>&#x02260;</mo><mn>0</mn></mrow></math></span>
+<span>                We need to add bezier tangents</span>
+<span>                <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>t</mi><mi>a</mi><msub><mi>n</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><mo>&#x02254;</mo><mfrac><mrow><mover><mrow><msub><mi>v</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mrow><mo stretchy="true">&#x02192;</mo></mover><mi>&#x000B7;</mi><mi>t</mi><mi>a</mi><mi>n</mi><mi>L</mi><mi>e</mi><msub><mi>n</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mrow><mrow><mi>i</mi><mi>r</mi></mrow></mfrac></mrow></math></span>
+<span>                Set in tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><msub><mi>n</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><mo>&#x0002E;</mo><mi>y</mi><mo>&#x0002C;</mo><mi>t</mi><mi>a</mi><msub><mi>n</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><mo>&#x0002E;</mo><mi>x</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+<span>                Set out tangent <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mrow><mo fence="true" form="prefix" stretchy="true">&#x00028;</mo><mi>t</mi><mi>a</mi><msub><mi>n</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><mo>&#x0002E;</mo><mi>y</mi><mo>&#x0002C;</mo><mo>&#x02212;</mo><mi>t</mi><mi>a</mi><msub><mi>n</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><mo>&#x0002E;</mo><mi>x</mi><mo fence="true" form="postfix" stretchy="true">&#x00029;</mo></mrow></mrow></math></span>
+</pre>
+<pre style="display: none"><code class="language-py hljs">
+def polystar(shape: Bezier, p: Vector2D, pt: float, r: float, or_: float, os: float, sy: int, ir: float, is_: float):
+    points: int = int(round(pt))
+    alpha: float = -r * math.pi / 180 - math.pi / 2
+    theta: float = -math.pi / points
+    tan_len_out: float = (2 * math.pi * or_) / (4 * points) * (os / 100)
+    tan_len_in: float = (2 * math.pi * ir) / (4 * points) * (is_ / 100)
+
+    shape.closed = True
+
+    for i in range(points):
+        beta: float = alpha + i * theta * 2
+        v_out: Vector2D = Vector2D(or_ * math.cos(beta),  or_ * math.sin(beta))
+        shape.add_vertex(p + v_out)
+
+        if os != 0 and or_ != 0:
+            # We need to add bezier tangents
+            tan_out: Vector2D = v_out * tan_len_out / or_
+            shape.set_in_tangent(Vector2D(-tan_out.y, tan_out.x))
+            shape.set_out_tangent(Vector2D(tan_out.y, -tan_out.x))
+
+        if sy == 1:
+            # We need to add a vertex towards the inner radius to make a star
+            v_in: Vector2D = Vector2D(ir * math.cos(beta + theta), ir * math.sin(beta + theta))
+            shape.add_vertex(p + v_in)
+
+            if is_ != 0 and ir != 0:
+                # We need to add bezier tangents
+                tan_in = v_in * tan_len_in / ir
+                shape.set_in_tangent(Vector2D(-tan_in.y, tan_in.x))
+                shape.set_out_tangent(Vector2D(tan_in.y, -tan_in.x))
+</code></pre>
+<pre style="display: none"><code class="language-cpp hljs">
+void polystar(Bezier shape, Vector2D p, float pt, float r, float or_, float os, int sy, float ir, float is)
+{
+    int points = std::round(pt);
+    float alpha = -r * std::numbers::pi / 180 - std::numbers::pi / 2;
+    float theta = -std::numbers::pi / points;
+    float tan_len_out = 2 * std::numbers::pi * or_ / 4 * points * os / 100;
+    float tan_len_in = 2 * std::numbers::pi * ir / 4 * points * is / 100;
+
+    shape.closed = true;
+
+    for ( int i = 0; i &lt; points; i++ )
+    {
+        float beta = alpha + i * theta * 2;
+        Vector2D v_out(or_ * std::cos(beta), or_ * std::sin(beta));
+        shape.add_vertex(p + v_out);
+
+        if ( os != 0 &amp;&amp; or_ != 0 )
+        {
+            // We need to add bezier tangents
+            Vector2D tan_out = v_out * tan_len_out / or_;
+            shape.set_in_tangent(Vector2D(-tan_out.y, tan_out.x));
+            shape.set_out_tangent(Vector2D(tan_out.y, -tan_out.x));
+        }
+
+        if ( sy == 1 )
+        {
+            // We need to add a vertex towards the inner radius to make a star
+            Vector2D v_in(ir * std::cos(beta + theta), ir * std::sin(beta + theta));
+            shape.add_vertex(p + v_in);
+
+            if ( is != 0 &amp;&amp; ir != 0 )
+            {
+                // We need to add bezier tangents
+                tan_in = v_in * tan_len_in / ir;
+                shape.set_in_tangent(Vector2D(-tan_in.y, tan_in.x));
+                shape.set_out_tangent(Vector2D(tan_in.y, -tan_in.x));
+            }
+        }
+    }
+}
+</code></pre>
+<pre style="display: none"><code class="language-ts hljs">
+function polystar(shape: Bezier, p: Vector2D, pt: number, r: number, or: number, os: number, sy: number, ir: number, is: number) {
+    let points: number = new Number(round(pt));
+    let alpha: number = -String * Math.PI / 180 - Math.PI / 2;
+    let theta: number = -Math.PI / points;
+    let tanLenOut: number = 2 * Math.PI * or / 4 * points * os / 100;
+    let tanLenIn: number = 2 * Math.PI * ir / 4 * points * is / 100;
+
+    shape.closed = true;
+
+    for ( let i: number = 0; i &lt; points; i++ ) {
+        let beta: number = alpha + i * theta * 2;
+        let vOut: Vector2D = new Vector2D(or * Math.cos(beta), or * Math.sin(beta));
+        shape.addVertex(p + vOut);
+
+        if ( os != 0 &amp;&amp; or != 0 ) {
+            // We need to add bezier tangents
+            let tanOut: Vector2D = vOut * tanLenOut / or;
+            shape.setInTangent(new Vector2D(-tanOut.y, tanOut.x));
+            shape.setOutTangent(new Vector2D(tanOut.y, -tanOut.x));
+        }
+
+        if ( sy == 1 ) {
+            // We need to add a vertex towards the inner radius to make a star
+            let vIn: Vector2D = new Vector2D(ir * Math.cos(beta + theta), ir * Math.sin(beta + theta));
+            shape.addVertex(p + vIn);
+
+            if ( is != 0 &amp;&amp; ir != 0 ) {
+                // We need to add bezier tangents
+                tanIn = vIn * tanLenIn / ir;
+                shape.setInTangent(new Vector2D(-tanIn.y, tanIn.x));
+                shape.setOutTangent(new Vector2D(tanIn.y, -tanIn.x));
+            }
+        }
+    }
+}
+</code></pre>
+</div>
 <h2 id="grouping">Grouping</h2>
 <p></p>
 <h3 id="group">Group</h3>
