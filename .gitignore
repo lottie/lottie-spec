@@ -4,6 +4,7 @@ __pycache__
 node_modules
 path
 venv
+.venv
 
 # Operating system
 .DS_Store
