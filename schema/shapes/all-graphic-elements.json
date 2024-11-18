@@ -13,7 +13,6 @@
         {"$ref": "#/$defs/shapes/stroke"},
         {"$ref": "#/$defs/shapes/transform"},
         {"$ref": "#/$defs/shapes/trim-path"},
-        {"$ref": "#/$defs/shapes/pucker-bloat"},
         {"$ref": "#/$defs/shapes/unknown-shape"}
     ]
 }
