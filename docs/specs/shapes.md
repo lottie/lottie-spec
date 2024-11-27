@@ -473,7 +473,11 @@ come before them in [[stacking order]].
 
 {schema_string:shapes/stroke-dash/description}
 
-A stroke dash array consists of `n` dash entries, `[n-1,n]` gap entries and `[0-1]` offset entries. Dash and gap entries MUST all be in a continuous order and alternate between dash and gap, starting with dash. If there are an odd number of dashes + gaps, the sequence will repeat with dashes and gaps reversed. For example a sequence of `[4d, 8g, 16d]` MUST be rendered as `[4d, 8g, 16d, 4g, 8d, 16g]`.
+A stroke dash array consists of `n` dash entries, `[n-1,n]` gap entries and `[0-1]` offset entries.
+
+Dash and gap entries MUST all be in a continuous order and alternate between dash and gap, starting with dash. If there are an odd number of dashes + gaps, the sequence will repeat with dashes and gaps reversed. For example a sequence of `[4d, 8g, 16d]` MUST be rendered as `[4d, 8g, 16d, 4g, 8d, 16g]`.
+
+Offset entry, if present, MUST be at the end of the array. 
 
 {schema_object:shapes/stroke-dash}
 
