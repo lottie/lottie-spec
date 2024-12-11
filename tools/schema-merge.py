@@ -41,9 +41,9 @@ def add_vals_to_unknown_object(
     types = []
 
     for ele in objects.concrete:
-        type = ele.properties['ty'].const
-        if type is not None:
-            types.append(type)
+        type = ele.properties.get('ty', None)
+        if type is not None and type.const:
+            types.append(type.const)
 
     unknown_type_dict["properties"]["ty"]["not"]["enum"] = types
 
