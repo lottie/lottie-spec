@@ -27,6 +27,16 @@ class TypeSystem:
             schema_data = Schema(json.load(file))
         return TypeSystem(schema_data)
 
+    def resolve_type(self, schema: Schema):
+        if "oneOf" in schema:
+            local_type = schema.get("type", None)
+            if local_type is not None:
+                return local_type
+            return [self.resolve_type(choice) for choice in schema / "oneOf"]
+        if "$ref" in schema:
+            return self.types[schema["$ref"]]
+        return schema.get("type", None)
+
 
 class Type:
     def __init__(self, type_system: TypeSystem, schema: Schema):
@@ -50,20 +60,10 @@ class Property(Type):
         super().__init__(type_system, schema)
         self.const = schema.get("const", None)
 
-    def resolve_type(self, schema: Schema):
-        if "oneOf" in schema:
-            local_type = schema.get("type", None)
-            if local_type is not None:
-                return local_type
-            return [self.resolve_type(choice) for choice in schema / "oneOf"]
-        if "$ref" in schema:
-            return self.type_system.types[schema["$ref"]]
-        return schema.get("type", None)
-
     def resolve(self):
-        self.type = self.resolve_type(self.schema)
+        self.type = self.type_system.resolve_type(self.schema)
         if "items" in self.schema:
-            self.item_type = self.resolve_type(self.schema / "items")
+            self.item_type = self.type_system.resolve_type(self.schema / "items")
         else:
             self.item_type = ""
 
@@ -89,6 +89,12 @@ class Class(Type):
     def get_properties(self, schema: Schema):
         if "properties" in schema:
             for name, value in (schema / "properties").items():
+                if (
+                    isinstance(value.schema, dict) and
+                    len(value.schema) == 1 and
+                    list(value.schema.keys())[0] == "not"
+                ):
+                    continue
                 self.properties[name] = Property(self.type_system, value)
 
     def resolve(self):
