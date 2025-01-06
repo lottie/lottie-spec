@@ -16,13 +16,12 @@ all: docs
 lottie.schema.json:$(SOURCE_DIR)/docs/lottie.schema.json
 
 $(SOURCE_DIR)/docs/lottie.schema.json: $(wildcard $(SOURCE_DIR)/schema/**/*.json)
-	$(SOURCE_DIR)/tools/schema-merge.py
+	schema-merge.py
 
 docs:$(OUTPUT_DIR)/index.html
 
 $(OUTPUT_DIR)/index.html:$(wildcard $(SOURCE_DIR)/docs/**/*)
 $(OUTPUT_DIR)/index.html:$(SOURCE_DIR)/docs/lottie.schema.json
-$(OUTPUT_DIR)/index.html:$(SOURCE_DIR)/tools/lottie_markdown.py
 	$(MKDOCS) build -f $(SOURCE_DIR)/mkdocs.yml -d $(OUTPUT_DIR)
 
 docs_serve:$(SOURCE_DIR)/docs/lottie.schema.json
@@ -32,11 +31,11 @@ install_dependencies:
 	$(PIP) install -r $(SOURCE_DIR)/tools/requirements.txt
 
 validate: $(SOURCE_DIR)/docs/lottie.schema.json
-	$(SOURCE_DIR)/tools/schema-validate.py
+	schema-validate.py
 
 
 validate_full:$(OUTPUT_DIR)/index.html
-	$(SOURCE_DIR)/tools/schema-validate.py --html $(OUTPUT_DIR)/specs
+	schema-validate.py --html $(OUTPUT_DIR)/specs
 
 validate_animations: $(SOURCE_DIR)/docs/lottie.schema.json
 validate_animations: $(SOURCE_DIR)/tests/validate_animations.test.js
