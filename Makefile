@@ -1,7 +1,7 @@
 # Executable names
 PIP ?= pip
 PYTHON ?= python
-MKDOCS ?= PYTHONPATH="$(SOURCE_DIR)/tools" mkdocs
+MKDOCS ?= mkdocs
 
 # Paths
 SOURCE_DIR = $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
@@ -16,7 +16,6 @@ all: docs
 lottie.schema.json:$(SOURCE_DIR)/docs/lottie.schema.json
 
 $(SOURCE_DIR)/docs/lottie.schema.json: $(wildcard $(SOURCE_DIR)/schema/**/*.json)
-$(SOURCE_DIR)/docs/lottie.schema.json: $(SOURCE_DIR)/tools/schema-merge.py
 	$(SOURCE_DIR)/tools/schema-merge.py
 
 docs:$(OUTPUT_DIR)/index.html
