@@ -157,7 +157,7 @@ Hidden shapes (`hd: True`) are ignored, and do not contribute to rendering nor m
 
 <algorithm>
 def ellipse(shape: Bezier, p: Vector2D, s: Vector2D):
-    # An ellipse is drawn from the top quandrant point going clockwise:
+    # An ellipse is drawn from the top quadrant point going clockwise:
     radius = s / 2
     tangent = radius * ELLIPSE_CONSTANT
     x = p.x
@@ -657,7 +657,7 @@ the segment to render is given by the percentages $start$ and $end$.
 When trim path is applied to multiple shapes, the `m` property MUST
 be considered when applying the modifier:
 
-* When `m` has a value of `1` (Parallel), each shape MUST considered
+* When `m` has a value of `1` (Parallel), each shape MUST be considered
 separately, $start$ and $end$ being applied to each shape.
 
 * When `m` has a value of `2` (Sequential), all the shapes MUST be considered
