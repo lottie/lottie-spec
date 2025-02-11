@@ -51,5 +51,6 @@
             ],
             "required": ["a", "k"]
         }
-    }
+    },
+    "required": ["p", "k"]
 }
