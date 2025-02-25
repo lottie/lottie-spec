@@ -663,3 +663,28 @@ separately, $start$ and $end$ being applied to each shape.
 * When `m` has a value of `2` (Sequential), all the shapes MUST be considered
 as following each other in render order.  $start$ and $end$ refer to the whole
 length created by concatenating each shape.
+
+
+<h3 id="rounded-corners">Rounded Corners</h3>
+
+{schema_string:shapes/rounded-corners/description}
+
+{schema_object:shapes/rounded-corners}
+
+<lottie-playground example="rounded_corners.json">
+    <form>
+        <input title="Roundness" type="range" min="0" value="100" max="300"/>
+    </form>
+    <json>lottie.layers[0].shapes[5]</json>
+    <script>
+        lottie.layers[0].shapes[5].s.r = data["Roundness"];
+    </script>
+</lottie-playground>
+
+Note: it does not affect:
+1. {link:shapes/ellipse|Ellipse}.
+2. {link:shapes/rectangle|Rectangle}, as long as its Roundness value (r) is greater than zero.
+3. The inner corners of a {link:shapes/polystar|PolyStar} if its Inner Roundness is greater 
+than 0 and/or the outer corners if its Outer Roundness is greater than 0.
+
+

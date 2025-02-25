@@ -10,6 +10,7 @@
         {"$ref": "#/$defs/shapes/path"},
         {"$ref": "#/$defs/shapes/polystar"},
         {"$ref": "#/$defs/shapes/rectangle"},
+        {"$ref": "#/$defs/shapes/rounded-corners"},
         {"$ref": "#/$defs/shapes/stroke"},
         {"$ref": "#/$defs/shapes/transform"},
         {"$ref": "#/$defs/shapes/trim-path"},
