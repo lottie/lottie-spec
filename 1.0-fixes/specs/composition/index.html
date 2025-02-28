@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentation for the Lottie animation format">
+    
+    <link rel="canonical" href="https://lottie.github.io/lottie-spec/1.0-fixes/specs/composition/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Composition - Lottie Specs</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+     
+
+    
+    <link href="../../css/print-site-enum-headings1.css" rel="stylesheet">
+    <link href="../../css/print-site-enum-headings2.css" rel="stylesheet">
+    <link href="../../css/print-site-enum-headings3.css" rel="stylesheet">
+    <link href="../../css/print-site.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+    
+     
+
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.js'></script>
+
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="../../js/lottie_raw_utils.js"></script>
+    <script src="../../js/value_editors.js"></script>
+    <link href="../../css/style.css" rel="stylesheet">
+    <link href="../../css/lottie-theme.css" rel="stylesheet">
+
+    <script>
+        var base_url = "../..";
+    </script>
+    <script src="../../js/version-select.js"></script>
+    <link href="../../css/version-select.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="../..">Lottie Specs</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Format <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../values/">Values</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../properties/">Properties</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Composition</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../layers/">Layers</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../shapes/">Shapes</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../assets/">Assets</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../constants/">Enumerations</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../helpers/">Helpers</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../glossary/">Glossary</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../schema/">JSON Schema</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Community <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../governance/">Lottie Animation Format Documentation</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Governance/">Community Specification Governance Policy 1.0</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Community_Specification_License-v1/">Community Specification License 1.0</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Code_of_Conduct/">Contributor Covenant Code of Conduct</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/License/">Licenses</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../governance/Notices/">Notices</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Contributing</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../governance/CONTRIBUTING/">Lottie Format Specification Contribution Guide</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../editing/schema/">Adding to the Schema</a>
+</li>
+
+        
+            
+<li >
+    <a href="../../editing/extensions/">Markdown Extensions</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../properties/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../layers/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/lottie/lottie-spec/edit/main/docs/specs/composition.md"><i class="fab fa-github"></i> Edit on GitHub</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#composition_1">Composition</a></li>
+            <li class="second-level"><a href="#animation">Animation</a></li>
+                
+                <li class="third-level"><a href="#versioning-guidelines">Versioning Guidelines</a></li>
+            <li class="second-level"><a href="#composition">Composition</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="composition_1">Composition</h1>
+<h2 id="animation">Animation</h2>
+<p></p>
+<p><span>Top level object, describing the animation</span></p>
+<div>
+<details>
+<summary>Composition Diagram for Animation</summary>
+<svg _xmlns="http://www.w3.org/2000/svg" height="98pt" viewBox="0.00 0.00 165.00 98.00" width="165pt">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 94)">
+
+<polygon fill="white" points="-4,4 -4,-94 161,-94 161,4 -4,4" stroke="transparent"></polygon>
+
+<g class="node current" id="node1">
+
+<polygon fill="none" points="54,-63 0,-63 0,-27 54,-27 54,-63" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="27" y="-42.5">Animation</text>
+</g>
+
+<g class="node" id="node2">
+
+<g id="a_node2"><a href="../helpers/#visual-object" title="Visual Object">
+<polygon fill="none" points="157,-90 90,-90 90,-54 157,-54 157,-90" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="123.5" y="-69.5">Visual Object</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge1">
+
+<path d="M54.07,-52.45C62.09,-54.74 71.13,-57.32 79.96,-59.84" fill="none" stroke="black"></path>
+<polygon fill="none" points="79.18,-63.26 89.76,-62.65 81.1,-56.53 79.18,-63.26" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node3">
+
+<g id="a_node3"><a href="./#composition" title="Composition">
+<polygon fill="none" points="155.5,-36 91.5,-36 91.5,0 155.5,0 155.5,-36" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="123.5" y="-15.5">Composition</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge2">
+
+<path d="M54.07,-37.55C62.67,-35.09 72.44,-32.3 81.86,-29.61" fill="none" stroke="black"></path>
+<polygon fill="none" points="82.83,-32.98 91.48,-26.86 80.9,-26.24 82.83,-32.98" stroke="black"></polygon>
+</g>
+</g>
+</svg></details>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Title</th>
+<th>Description <a class="schema-link" href="../schema/#/$defs/composition/animation" title="View Schema"><i class="fas fa-file-code"></i></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nm</code></td>
+<td><code>string</code></td>
+<td>
+<p>Name</p>
+</td>
+<td>
+<p>Human readable name, as seen from editors and the like</p>
+</td>
+</tr>
+<tr>
+<td><code>layers</code></td>
+<td><code>array</code> of <a href="../layers/#layer">Layer</a></td>
+<td>
+<p>Layers</p>
+</td>
+<td>
+<p>Layers</p>
+</td>
+</tr>
+<tr>
+<td><code>ver</code></td>
+<td><code>integer</code></td>
+<td>
+<p>Specification Version</p>
+</td>
+<td>
+<p>Specification version this Lottie is targeting. This is a 6 digit number with version components encoded as <code>MMmmpp</code>, with <code>MM</code> being major version, <code>mm</code> being minor and <code>pp</code> being patch.</p>
+</td>
+</tr>
+<tr>
+<td><code>fr</code></td>
+<td><code>number</code></td>
+<td>
+<p>Framerate</p>
+</td>
+<td>
+<p>Framerate in frames per second</p>
+</td>
+</tr>
+<tr>
+<td><code>ip</code></td>
+<td><code>number</code></td>
+<td>
+<p>In Point</p>
+</td>
+<td>
+<p>Frame the animation starts at (usually 0)</p>
+</td>
+</tr>
+<tr>
+<td><code>op</code></td>
+<td><code>number</code></td>
+<td>
+<p>Out Point</p>
+</td>
+<td>
+<p>Frame the animation stops/loops at, which makes this the duration in frames when <code>ip</code> is 0</p>
+</td>
+</tr>
+<tr>
+<td><code>w</code></td>
+<td><code>integer</code></td>
+<td>
+<p>Width</p>
+</td>
+<td>
+<p>Width of the animation</p>
+</td>
+</tr>
+<tr>
+<td><code>h</code></td>
+<td><code>integer</code></td>
+<td>
+<p>Height</p>
+</td>
+<td>
+<p>Height of the animation</p>
+</td>
+</tr>
+<tr>
+<td><code>assets</code></td>
+<td><code>array</code> of <a href="../assets/#asset">Asset</a></td>
+<td>
+<p>Assets</p>
+</td>
+<td>
+<p>List of assets that can be referenced by layers</p>
+</td>
+</tr>
+<tr>
+<td><code>markers</code></td>
+<td><code>array</code> of <a href="../helpers/#marker">Marker</a></td>
+<td>
+<p>Markers</p>
+</td>
+<td>
+<p>Markers defining named sections of the composition.</p>
+</td>
+</tr>
+<tr>
+<td><code>slots</code></td>
+<td><code>object</code></td>
+<td>
+<p>Slots</p>
+</td>
+<td>
+<p>Dictionary of slot ids that will replace matching properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="versioning-guidelines">Versioning Guidelines</h3>
+<p>The Lottie specification version number uses a semantic versioning system,
+tools implementing the specification <strong class="bcp14">SHOULD</strong> consider the following
+guidelines:</p>
+<ul>
+<li>Major version signal the possibility of breaking changes that are not compatible
+with previous versions of the specification.</li>
+<li>Minor version updates typically add new functionality but do not
+contain breaking changes for existing features.</li>
+<li>Patch version updates typically make minor changes or clarifications to
+already existing functionality.</li>
+</ul>
+<h4 id="authoring-tools">Authoring Tools</h4>
+<p>Authoring tools <strong class="bcp14">SHOULD</strong> specify the latest version of the Lottie Specification.
+They <strong class="bcp14">MAY</strong> allow the major version to be configurable to facilitate playback on a
+wider range of players. Changing the targeted major version <strong class="bcp14">MAY</strong> also require
+changes to the produced animation in the case of any breaking changes between
+major versions.</p>
+<h4 id="animation-players">Animation Players</h4>
+<p>Players <strong class="bcp14">SHOULD</strong> determine what major versions they support and handle breaking
+changes across supported major versions. Players <strong class="bcp14">SHOULD</strong> be able to handle
+animations that specify both newer and older versions of the Lottie
+specification and <strong class="bcp14">SHOULD</strong> issue a warning if:</p>
+<ul>
+<li>The animation specifies a major version that is not supported.</li>
+<li>The animation specifies a newer minor version.</li>
+<li>No warning needed if the specified patch version is different.</li>
+</ul>
+<h2 id="composition">Composition</h2>
+<p></p>
+<p><span>An object that contains a list of layers</span></p>
+<div>
+<details>
+<summary>Composition Diagram for Composition</summary>
+<svg _xmlns="http://www.w3.org/2000/svg" height="98pt" viewBox="0.00 0.00 187.00 98.00" width="187pt">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 94)">
+
+<polygon fill="white" points="-4,4 -4,-94 183,-94 183,4 -4,4" stroke="transparent"></polygon>
+
+<g class="node current" id="node1">
+
+<polygon fill="none" points="179,-63 115,-63 115,-27 179,-27 179,-63" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="147" y="-42.5">Composition</text>
+</g>
+
+<g class="node" id="node2">
+
+<g id="a_node2"><a href="../assets/#precomposition" title="Precomposition">
+<polygon fill="none" points="79,-90 0,-90 0,-54 79,-54 79,-90" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="39.5" y="-69.5">Precomposition</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge1">
+
+<path d="M79.19,-62.1C87.64,-59.94 96.61,-57.64 105.15,-55.46" fill="none" stroke="black"></path>
+<polygon fill="none" points="106.09,-58.83 114.91,-52.96 104.35,-52.05 106.09,-58.83" stroke="black"></polygon>
+</g>
+
+<g class="node" id="node3">
+
+<g id="a_node3"><a href="./#animation" title="Animation">
+<polygon fill="none" points="66.5,-36 12.5,-36 12.5,0 66.5,0 66.5,-36" stroke="black"></polygon>
+<text _ff="Times,serif" font-size="10.00" text-anchor="middle" x="39.5" y="-15.5">Animation</text>
+</a>
+</g>
+</g>
+
+<g class="edge" id="edge2">
+
+<path d="M66.58,-24.67C78.13,-27.63 92.01,-31.18 104.9,-34.48" fill="none" stroke="black"></path>
+<polygon fill="none" points="104.41,-37.97 114.97,-37.06 106.15,-31.19 104.41,-37.97" stroke="black"></polygon>
+</g>
+</g>
+</svg></details>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Title</th>
+<th>Description <a class="schema-link" href="../schema/#/$defs/composition/composition" title="View Schema"><i class="fas fa-file-code"></i></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>layers</code></td>
+<td><code>array</code> of <a href="../layers/#layer">Layer</a></td>
+<td>
+<p>Layers</p>
+</td>
+<td>
+<p>Layers</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+    <hr/>
+
+      </footer>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+      <!-- default is to include highlightjs -->
+    
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../js/print-site.js"></script>
+    <script src="../../search/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                if ( block.classList.length != 0 )
+                    hljs.highlightBlock(block);
+            });
+        });
+    </script>
+
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

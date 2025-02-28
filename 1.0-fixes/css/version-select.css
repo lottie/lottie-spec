@@ -1,0 +1,15 @@
+@media only screen and (max-width:76.1875em) {
+    #version-selector {
+        padding: .6rem .8rem;
+    }
+}
+
+.navbar-header {
+    display: flex;
+    align-items: center;
+}
+
+.version-selector {
+    height: fit-content;
+    display: inline-block;
+}
