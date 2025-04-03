@@ -20,7 +20,7 @@ jobs:
                 run: |
                     sudo apt update -q
                     sudo apt install -yy python3 python3-pip
-                    pip install lottie_specs[docs]
+                    pip install lottie_specs==0.2
             -
                 name: Generate Schema
                 run: |
