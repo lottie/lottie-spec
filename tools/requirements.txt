@@ -1,4 +1,4 @@
-lottie_specs[docs] @ git+https://github.com/lottie/lottie-specs-python.git
+lottie_specs[docs]==0.2
 mkdocs-cinder==1.2.0
 # mkdocs-print-site-plugin==2.5.0
 git+https://github.com/mbasaglia/mkdocs-print-site-plugin.git@rename-page
