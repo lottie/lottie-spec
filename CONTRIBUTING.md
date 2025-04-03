@@ -195,6 +195,7 @@ New features and changed can be introduced based on the feedback but most new co
 
 When the target version is an increase in the major version, LAC guarantees that this stage will last a minimum of 3 weeks before moving forward to the next stage.
 
+When the target version is an increase in the minor version, LAC guarantees that this stage will last a minimum of 1 weeks before moving forward to the next stage. 
 
 ### Feature freeze
 
@@ -202,7 +203,7 @@ After all the comments have been addressed and accepted into the specifications,
 where no new features should be introduced. The LAC working group will still accept fixes that clarify ambiguities, correct mistakes, or otherwise
 don't change compliance requirements.
 
-When the target version is an increase in the major version, LAC guarantees that this stage will last a minimum of one week before publishing the specifications.
+When the target version is an increase in the major, minor or patch, LAC guarantees that this stage will last a minimum of one week before publishing the specifications.
 
 ### Published
 

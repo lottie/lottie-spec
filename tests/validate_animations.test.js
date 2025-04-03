@@ -12,6 +12,24 @@ const ajv = new Ajv({
 });
 const validate = ajv.compile(schema);
 
+expect.extend({
+    toBeValid(data) {
+
+        if ( validate(data) )
+        {
+            return {
+                message: () => "data NOT be valid",
+                pass: true
+            };
+        }
+
+        return {
+            message: () => "Invalid data: " + JSON.stringify(validate.errors, null, 4),
+            pass: false
+        };
+    }
+});
+
 describe('run schema validation', () => {
     describe('example animations', () => {
         const exampleFiles = fs.readdirSync(EXAMPLES_DIR).map(file => EXAMPLES_DIR + file);
@@ -19,9 +37,7 @@ describe('run schema validation', () => {
         exampleFiles.forEach((file) => {
             test(file, () => {
                 const animation = fs.readFileSync(file, 'utf8');
-                const valid = validate(JSON.parse(animation));
-    
-                expect(valid).toBe(true);
+                expect(JSON.parse(animation)).toBeValid();
             });
         });
     });
@@ -33,7 +49,7 @@ describe('run schema validation', () => {
             test(file, () => {
                 const animation = fs.readFileSync(file, 'utf8');
                 const valid = validate(JSON.parse(animation));
-    
+
                 expect(valid).toBe(true);
             });
         });
@@ -46,7 +62,7 @@ describe('run schema validation', () => {
             test(file, () => {
                 const animation = fs.readFileSync(file, 'utf8');
                 const valid = validate(JSON.parse(animation));
-    
+
                 expect(valid).toBe(false);
             });
         });

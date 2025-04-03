@@ -190,6 +190,7 @@ Animatable {link:values/color}.
 
 {schema_object:properties/color-keyframe}
 
+<span id="gradient-stops"></span>
 <h3 id="gradient-property">Gradient</h3>
 
 Animatable {link:values/gradient}.

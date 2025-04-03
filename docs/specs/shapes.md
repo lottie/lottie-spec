@@ -157,7 +157,7 @@ Hidden shapes (`hd: True`) are ignored, and do not contribute to rendering nor m
 
 <algorithm>
 def ellipse(shape: Bezier, p: Vector2D, s: Vector2D):
-    # An ellipse is drawn from the top quandrant point going clockwise:
+    # An ellipse is drawn from the top quadrant point going clockwise:
     radius = s / 2
     tangent = radius * ELLIPSE_CONSTANT
     x = p.x
@@ -473,6 +473,12 @@ come before them in [[stacking order]].
 
 {schema_string:shapes/stroke-dash/description}
 
+A stroke dash array consists of `n` dash entries, `[n-1,n]` gap entries and `[0-1]` offset entries.
+
+Dash and gap entries MUST all be in a continuous order and alternate between dash and gap, starting with dash. If there are an odd number of dashes + gaps, the sequence will repeat with dashes and gaps reversed. For example a sequence of `[4d, 8g, 16d]` MUST be rendered as `[4d, 8g, 16d, 4g, 8d, 16g]`.
+
+Offset entry, if present, MUST be at the end of the array. 
+
 {schema_object:shapes/stroke-dash}
 
 <lottie-playground example="stroke.json">
@@ -651,7 +657,7 @@ the segment to render is given by the percentages $start$ and $end$.
 When trim path is applied to multiple shapes, the `m` property MUST
 be considered when applying the modifier:
 
-* When `m` has a value of `1` (Parallel), each shape MUST considered
+* When `m` has a value of `1` (Parallel), each shape MUST be considered
 separately, $start$ and $end$ being applied to each shape.
 
 * When `m` has a value of `2` (Sequential), all the shapes MUST be considered

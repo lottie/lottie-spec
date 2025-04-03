@@ -25,7 +25,7 @@
                     "$ref": "#/$defs/properties/vector-property"
                 },
                 "r": {
-                    "title": "Rounded",
+                    "title": "Roundness",
                     "description": "Rounded corners radius",
                     "$ref": "#/$defs/properties/scalar-property"
                 }

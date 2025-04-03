@@ -512,12 +512,13 @@ class SubTypeTable(InlineProcessor):
         schema_obj = self.schema_data.from_path(match.group("path"))
 
         for row in schema_obj.concrete:
-            tr = etree.SubElement(tbody, "tr")
-            prop_schema = row.properties[attribute]
-            etree.SubElement(etree.SubElement(tr, "td"), "code").text = repr(prop_schema.const)
+            prop_schema = row.properties.get(attribute)
+            if prop_schema:
+                tr = etree.SubElement(tbody, "tr")
+                etree.SubElement(etree.SubElement(tr, "td"), "code").text = repr(prop_schema.const)
 
-            td = etree.SubElement(tr, "td")
-            row.link.to_element(td, self.md)
+                td = etree.SubElement(tr, "td")
+                row.link.to_element(td, self.md)
 
         return table, match.start(0), match.end(0)
 
