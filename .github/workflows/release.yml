@@ -1,0 +1,37 @@
+name: Release
+on:
+    push:
+        tags:
+            - '*'
+    workflow_dispatch:
+
+permissions:
+    contents: write
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        steps:
+            -
+                name: Checkout
+                uses: actions/checkout@v4
+            -
+                name: Setup
+                run: |
+                    sudo apt update -q
+                    sudo apt install -yy python3 python3-pip
+                    pip install lottie_specs[docs]
+            -
+                name: Generate Schema
+                run: |
+                    make lottie.schema.json
+                    mv docs/lottie.schema.json "lottie-${GITHUB_REF#refs/*/}.schema.json"
+            -
+                name: Release
+                uses: softprops/action-gh-release@v2
+                with:
+                    files: lottie-${{ github.ref_name }}.schema.json
+                    body: |
+                        * Specs: https://lottie.github.io/lottie-spec/${{ github.ref_name }}/
+                        * Release notes: https://lottie.github.io/news/announcing-lottie-specification-${{ github.ref_name }}/
+                        * Full Changelog: https://github.com/lottie/lottie-spec/commits/${{ github.ref_name }}
