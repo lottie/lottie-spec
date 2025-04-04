@@ -157,7 +157,7 @@ Hidden shapes (`hd: True`) are ignored, and do not contribute to rendering nor m
 
 <algorithm>
 def ellipse(shape: Bezier, p: Vector2D, s: Vector2D):
-    # An ellipse is drawn from the top quandrant point going clockwise:
+    # An ellipse is drawn from the top quadrant point going clockwise:
     radius = s / 2
     tangent = radius * ELLIPSE_CONSTANT
     x = p.x
@@ -657,9 +657,32 @@ the segment to render is given by the percentages $start$ and $end$.
 When trim path is applied to multiple shapes, the `m` property MUST
 be considered when applying the modifier:
 
-* When `m` has a value of `1` (Parallel), each shape MUST considered
+* When `m` has a value of `1` (Parallel), each shape MUST be considered
 separately, $start$ and $end$ being applied to each shape.
 
 * When `m` has a value of `2` (Sequential), all the shapes MUST be considered
 as following each other in render order.  $start$ and $end$ refer to the whole
 length created by concatenating each shape.
+
+
+<h3 id="pucker-bloat">Pucker / Bloat</h3>
+
+{schema_string:shapes/pucker-bloat/description}
+
+{schema_object:shapes/pucker-bloat}
+
+When `a` is `0`, nothing changes.<br/>
+When `a` is positive, the vertices are pulled towards the center, with `100` being at the center. And the tangents are pushed away.<br/>
+When `a` is negative the vertices are pushed away from the center with `100` being twice far away from the center. And the tangents are pulled towards the center.<br/>
+
+The center is defined as the mean of the bezier vertices.
+
+<lottie-playground example="pucker_bloat.json">
+    <form>
+        <input title="Amount" type="range" min="-100" value="50" max="100"/>
+    </form>
+    <json>lottie.layers[0].shapes[0].it[1]</json>
+    <script>
+        lottie.layers[0].shapes[0].it[1].a.k = data["Amount"];
+    </script>
+</lottie-playground>
