@@ -12,10 +12,11 @@ use_directory_urls: true
 site_url: https://lottie.github.io/lottie-spec/
 markdown_extensions:
     - attr_list
-    - lottie_markdown
-    - latex_markdown
+    - lottie_specs.markdown.lottie_markdown:
+        docs_path: ./docs
+    - lottie_specs.markdown.latex_markdown
     - def_list
-    - toc_deflist
+    - lottie_specs.markdown.toc_deflist
 nav:
     - "Home" : index.md
     - "Format":
