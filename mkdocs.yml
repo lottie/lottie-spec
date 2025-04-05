@@ -29,6 +29,7 @@ nav:
         - specs/helpers.md
         - specs/glossary.md
         #
+        - specs/format.md
         - specs/schema.md
     - "Community":
         - governance/index.md
