@@ -169,6 +169,12 @@
                         
                             
 <li >
+    <a href="../specs/format/">Lottie Format</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../specs/schema/">JSON Schema</a>
 </li>
 
@@ -290,7 +296,9 @@
                 
             <li class="second-level"><a href="#specs-glossary">10. Glossary</a></li>
                 
-            <li class="second-level"><a href="#specs-schema">11. JSON Schema</a></li>
+            <li class="second-level"><a href="#specs-format">11. Lottie Format</a></li>
+                
+            <li class="second-level"><a href="#specs-schema">12. JSON Schema</a></li>
                 
     </ul>
 </div></div>
@@ -10167,6 +10175,75 @@ All <a href="#specs-shapes-shape">Shapes</a> encountered in the stack traversal 
 be included, until the beginning of the stack is reached or a <a href="#specs-shapes-modifier">Modifier</a>
 is encountered. If a <a href="#specs-shapes-modifier">Modifier</a> is found, it <strong class="bcp14">MUST</strong> be applied to
 its own <em>collected shapes</em> and the output added to the shape collection.</dd>
+</dl></section><section class="print-page" id="specs-format"><h1 id="specs-format-lottie-format">Lottie Format</h1>
+<p>A Lottie file is a JSON-encoded object, whose top-level structure is <a href="#specs-composition-animation">Animation</a>.</p>
+<p>See the <a href="#specs-schema">JSON schema</a> for a full description of the JSON format.</p>
+<h2 id="specs-format-media-type">Media Type</h2>
+<p>This section registers a new MIME media type, <code>video/lottie+json</code> in conformance with BCP 13 <span>[<a href="https://www.rfc-editor.org/info/rfc4288">RFC4288</a>]</span>.</p>
+<dl>
+<dt id="media-type-name"><a href="#specs-format-media-type-name">Media type name:</a></dt>
+<dd><code>video</code></dd>
+<dt id="media-subtype-name"><a href="#specs-format-media-subtype-name">Media subtype name:</a></dt>
+<dd><code>lottie+json</code></dd>
+<dt id="required-parameters"><a href="#specs-format-required-parameters">Required parameters:</a></dt>
+<dd>None</dd>
+<dt id="optional-parameters"><a href="#specs-format-optional-parameters">Optional parameters:</a></dt>
+<dd>None</dd>
+<dt id="encoding-considerations"><a href="#specs-format-encoding-considerations">Encoding considerations:</a></dt>
+<dd>8bit, UTF-8 encoded text</dd>
+<dt id="security-considerations"><a href="#specs-format-security-considerations">Security considerations:</a></dt>
+<dd>Security considerations relating to the generation and consumption of Lottie files are similar to application/json and are discussed in Section 12 of <span>[<a href="https://www.rfc-editor.org/info/rfc8259">RFC8259</a>]</span>.<br/>
+Documents may reference external image assets. Security considerations in the Media Type registrations for those formats shall apply.<br/>
+A commonly used extension to the format outside of the spec is "expressions" which allow code execution. In itself, the Lottie format is a text based json document and relatively harmless. Support for expressions and security considerations for the same are dependent on the renderer used.<br/></dd>
+<dt id="interoperability-considerations"><a href="#specs-format-interoperability-considerations">Interoperability considerations:</a></dt>
+<dd>Processors must expect that content received is well-formed JSON, but it cannot be guaranteed that the content is valid to a particular Schema version, or that the processor will recognize all of the elements and attributes in the document.</dd>
+<dt id="published-specification"><a href="#specs-format-published-specification">Published specification:</a></dt>
+<dd>The specification is published by Lottie Animation Community, and is publicly available at<br/>
+Documentation: <a href="https://lottie.github.io/lottie-spec/1.0/">https://lottie.github.io/lottie-spec/1.0/</a> <br/>
+JSON Schema: <a href="https://lottie.github.io/lottie-spec/1.0/specs/schema/">https://lottie.github.io/lottie-spec/1.0/specs/schema/</a> <br/></dd>
+<dt id="applications-which-use-this-media"><a href="#specs-format-applications-which-use-this-media">Applications which use this media:</a></dt>
+<dd>Lottie is/will be used by systems and applications which require scalable static or interactive vector graphics animations.</dd>
+<dt id="fragment-identifier-considerations"><a href="#specs-format-fragment-identifier-considerations">Fragment identifier considerations:</a></dt>
+<dd>None</dd>
+<dt id="restrictions-on-usage"><a href="#specs-format-restrictions-on-usage">Restrictions on usage:</a></dt>
+<dd>None</dd>
+<dt id="additional-information"><a href="#specs-format-additional-information">Additional information:</a></dt>
+<dd>
+<dl>
+<dt id="deprecated-alias-names-for-this-type"><a href="#specs-format-deprecated-alias-names-for-this-type">Deprecated alias names for this type:</a></dt>
+<dd>N/A</dd>
+</dl>
+</dd>
+<dd>
+<dl>
+<dt id="magic-numbers"><a href="#specs-format-magic-numbers">Magic number(s):</a></dt>
+<dd>N/A</dd>
+</dl>
+</dd>
+<dd>
+<dl>
+<dt id="file-extensions"><a href="#specs-format-file-extensions">File extension(s):</a></dt>
+<dd><code>.lot</code></dd>
+</dl>
+</dd>
+<dd>
+<dl>
+<dt id="macintosh-file-type-code"><a href="#specs-format-macintosh-file-type-code">Macintosh file type code:</a></dt>
+<dd>N/A</dd>
+</dl>
+</dd>
+<dd>
+<dl>
+<dt id="object-identifiers"><a href="#specs-format-object-identifiers">Object Identifiers:</a></dt>
+<dd>N/A</dd>
+</dl>
+</dd>
+<dt id="person-to-contact-for-further-information"><a href="#specs-format-person-to-contact-for-further-information">Person to contact for further information:</a></dt>
+<dd>Lottie Animation Community lottie-dev AT googlegroups.com</dd>
+<dt id="intended-usage"><a href="#specs-format-intended-usage">Intended usage:</a></dt>
+<dd>COMMON</dd>
+<dt id="authorchange-controller"><a href="#specs-format-authorchange-controller">Author/Change controller:</a></dt>
+<dd>Lottie Animation Community (<a href="https://lottie.github.io">https://lottie.github.io</a>) working group</dd>
 </dl></section><section class="print-page" id="specs-schema"><h1 id="specs-schema-json-schema">JSON Schema</h1>
 <p>This page shows a formatted version of the JSON schema, you can click on highlighted
 objects to get a link to that section of the schema. You can also click on <code>$ref</code>
