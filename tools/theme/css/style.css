@@ -136,3 +136,18 @@ mtd[columnalign=left] {
     top: 0;
     right: 0;
 }
+
+
+/* definition list */
+
+dd {
+    margin-left: 3ex;
+}
+
+dt {
+    margin-top: 1ex;
+}
+
+dl dl {
+    margin-left: 3ex;
+}
