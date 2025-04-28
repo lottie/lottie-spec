@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Rounded Corners",
+  "description": "It smooths out the sharp corners of shape by rounding them.",
+  "allOf": [
+    {
+      "$ref": "#/$defs/shapes/modifier"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "ty": {
+          "title": "Shape Type",
+          "type": "string",
+          "const": "rd"
+        },
+        "r": {
+          "title": "Roundness",
+          "description": "Rounded corner value",
+          "$ref": "#/$defs/properties/scalar-property"
+        }
+      },
+      "required": [
+        "ty", "r"
+      ]
+    }
+  ]
+}
