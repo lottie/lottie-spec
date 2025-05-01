@@ -27,7 +27,7 @@ Object inheritance is simulated using `allOf`, with `$ref` items referring to
 Each object or significant data type is split in its own file under `/schema`.
 These files are grouped together within a shallow list of directories.
 
-The files will be joined together into a single schema using `/tools/schema-merge.py`.
+The files will be joined together into a single schema using `schema-merge.py`.
 
 ### Required Properties
 
@@ -81,7 +81,7 @@ The [graphviz](https://graphviz.org/download/) system package needs to be instal
 The first step is to build the combined schema:
 
 ```bash
-tools/schema-merge.py
+schema-merge.py
 ```
 
 It's important to call this after every schema change as the markdown
@@ -91,7 +91,7 @@ on the combined file.
 To run the documentation locally you can use:
 
 ```bash
-tools/mkdocs serve
+mkdocs serve
 ```
 
 This will create a local server that renders the documentation and it
@@ -100,7 +100,7 @@ will reload if anything under `/docs` changes.
 To build a static HTML site run the following:
 
 ```bash
-./tools/mkdocs build -d site
+mkdocs build -d site
 ```
 
 The output will be in `/site`.
@@ -138,12 +138,12 @@ make validate_full
 You can validate schema syntax and internal references using
 
 ```bash
-./tools/schema-validate.py
+schema-validate.py
 ```
 
 To validate that each section is documented, you can pass the path
 to the built site:
 
 ```bash
-./tools/schema-validate.py --html site/specs/
+schema-validate.py --html site/specs/
 ```
