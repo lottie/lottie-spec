@@ -316,7 +316,7 @@ will contain the common properties and descriptions of concrete sub-types.</p>
 <h3 id="split-files">Split Files</h3>
 <p>Each object or significant data type is split in its own file under <code>/schema</code>.
 These files are grouped together within a shallow list of directories.</p>
-<p>The files will be joined together into a single schema using <code>/tools/schema-merge.py</code>.</p>
+<p>The files will be joined together into a single schema using <code>schema-merge.py</code>.</p>
 <h3 id="required-properties">Required Properties</h3>
 <p>Each type defined by the schema must have a <code>type</code>, as well as <code>title</code> and <code>description</code>.</p>
 <p><code>title</code> should consist of a couple words that can be used to name the described object.</p>
@@ -347,18 +347,18 @@ ensure the requirements listed under <code>/tools/requirements.txt</code> are
 installed in your Python environment.</p>
 <p>The <a href="https://graphviz.org/download/">graphviz</a> system package needs to be installed as well.</p>
 <p>The first step is to build the combined schema:</p>
-<pre><code class="language-bash">tools/schema-merge.py
+<pre><code class="language-bash">schema-merge.py
 </code></pre>
 <p>It's important to call this after every schema change as the markdown
 extensions pull the data from this, and internal links are updated based
 on the combined file.</p>
 <p>To run the documentation locally you can use:</p>
-<pre><code class="language-bash">tools/mkdocs serve
+<pre><code class="language-bash">mkdocs serve
 </code></pre>
 <p>This will create a local server that renders the documentation and it
 will reload if anything under <code>/docs</code> changes.</p>
 <p>To build a static HTML site run the following:</p>
-<pre><code class="language-bash">./tools/mkdocs build -d site
+<pre><code class="language-bash">mkdocs build -d site
 </code></pre>
 <p>The output will be in <code>/site</code>.</p>
 <h3 id="makefile">Makefile</h3>
@@ -385,11 +385,11 @@ make validate_full
 </code></pre>
 <h3 id="schema-validation">Schema Validation</h3>
 <p>You can validate schema syntax and internal references using</p>
-<pre><code class="language-bash">./tools/schema-validate.py
+<pre><code class="language-bash">schema-validate.py
 </code></pre>
 <p>To validate that each section is documented, you can pass the path
 to the built site:</p>
-<pre><code class="language-bash">./tools/schema-validate.py --html site/specs/
+<pre><code class="language-bash">schema-validate.py --html site/specs/
 </code></pre></div>
         
         

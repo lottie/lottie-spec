@@ -618,20 +618,11 @@ into the markdown text.</p>
 /&gt;
 </code></pre>
 <p>Output:</p>
-<div>
-<div class="animation-container" style="background: white">
-<div id="lottie_target_1" style="width:200px;height:Nonepx"></div>
-</div>
-<div><button id="lottie_play_1" onclick="lottie_player_1.play(); document.getElementById('lottie_pause_1').style.display = 'inline-block'; this.style.display = 'none'" style="display:none" title="Play"><i class="fas fa-play"></i></button><button id="lottie_pause_1" onclick="lottie_player_1.pause(); document.getElementById('lottie_play_1').style.display = 'inline-block'; this.style.display = 'none'" title="Pause"><i class="fas fa-pause"></i></button><a href="../../static/logo.json" title="Download"><button><i class="fas fa-download"></i></button></a></div>
-<script>
-                var lottie_player_1 = new LottiePlayer(
-                    'lottie_target_1',
-                    '../../static/logo.json',
-                    true,
-                    {}
-                );
-            </script>
-</div>
+<p><lottie
+    src="static/logo.json"
+    width="200"
+    background="white"
+/></p>
 <h3 id="lottie-playground"><code>lottie-playground</code></h3>
 <p>Embeds a player side by side to a JSON snipped and controls to tweak the animation</p>
 <p>Example:</p>
@@ -662,43 +653,43 @@ into the markdown text.</p>
 <table class="table-plain" style="width: 100%">
 <tr>
 <td style="white-space: pre"><label>Position x</label> </td>
-<td style="width: 100%"><input autocomplete="off" data-lottie-input="2" max="512" min="0" name="Position x" oninput="lottie_player_2.reload();document.getElementById('playground_2_1_span').innerText = event.target.value;" title="Position x" type="range" value="256" />
-        <span id="playground_2_1_span">256</span></td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="1" max="512" min="0" name="Position x" oninput="lottie_player_1.reload();document.getElementById('playground_1_1_span').innerText = event.target.value;" title="Position x" type="range" value="256" />
+        <span id="playground_1_1_span">256</span></td>
 </tr>
 <tr>
 <td style="white-space: pre"><label>Position y</label> </td>
-<td style="width: 100%"><input autocomplete="off" data-lottie-input="2" max="512" min="0" name="Position y" oninput="lottie_player_2.reload();document.getElementById('playground_2_2_span').innerText = event.target.value;" title="Position y" type="range" value="256" />
-        <span id="playground_2_2_span">256</span></td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="1" max="512" min="0" name="Position y" oninput="lottie_player_1.reload();document.getElementById('playground_1_2_span').innerText = event.target.value;" title="Position y" type="range" value="256" />
+        <span id="playground_1_2_span">256</span></td>
 </tr>
 <tr>
 <td style="white-space: pre"><label>Width</label> </td>
-<td style="width: 100%"><input autocomplete="off" data-lottie-input="2" max="512" min="0" name="Width" oninput="lottie_player_2.reload();document.getElementById('playground_2_3_span').innerText = event.target.value;" title="Width" type="range" value="256" />
-        <span id="playground_2_3_span">256</span></td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="1" max="512" min="0" name="Width" oninput="lottie_player_1.reload();document.getElementById('playground_1_3_span').innerText = event.target.value;" title="Width" type="range" value="256" />
+        <span id="playground_1_3_span">256</span></td>
 </tr>
 <tr>
 <td style="white-space: pre"><label>Height</label> </td>
-<td style="width: 100%"><input autocomplete="off" data-lottie-input="2" max="512" min="0" name="Height" oninput="lottie_player_2.reload();document.getElementById('playground_2_4_span').innerText = event.target.value;" title="Height" type="range" value="256" />
-        <span id="playground_2_4_span">256</span></td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="1" max="512" min="0" name="Height" oninput="lottie_player_1.reload();document.getElementById('playground_1_4_span').innerText = event.target.value;" title="Height" type="range" value="256" />
+        <span id="playground_1_4_span">256</span></td>
 </tr>
 <tr>
 <td style="white-space: pre"><label>Roundness</label> </td>
-<td style="width: 100%"><input autocomplete="off" data-lottie-input="2" max="512" min="0" name="Roundness" oninput="lottie_player_2.reload();document.getElementById('playground_2_5_span').innerText = event.target.value;" title="Roundness" type="range" value="0" />
-    <span id="playground_2_5_span">0</span></td>
+<td style="width: 100%"><input autocomplete="off" data-lottie-input="1" max="512" min="0" name="Roundness" oninput="lottie_player_1.reload();document.getElementById('playground_1_5_span').innerText = event.target.value;" title="Roundness" type="range" value="0" />
+    <span id="playground_1_5_span">0</span></td>
 </tr>
 </table>
 <div class="playground-columns">
 <div class="animation-container animation-container-alpha">
-<div id="lottie_target_2"></div>
+<div id="lottie_target_1"></div>
 </div>
-<div class="json-parent" id="playground_2_6_parent">
-<pre><code class="language-json hljs" id="playground_2_6">
+<div class="json-parent" id="playground_1_6_parent">
+<pre><code class="language-json hljs" id="playground_1_6">
 </code></pre>
 </div>
 <script>
-        var lottie_player_2 = new PlaygroundPlayer(
-            2,
-            'playground_2_6',
-            'lottie_target_2',
+        var lottie_player_1 = new PlaygroundPlayer(
+            1,
+            'playground_1_6',
+            'lottie_target_1',
             {"v": "5.5.7", "ip": 0, "op": 180, "nm": "Animation", "mn": "{8f1618e3-6f83-4531-8f65-07dd4b68ee2e}", "fr": 60, "w": 512, "h": 512, "assets": [], "layers": [{"ddd": 0, "ty": 4, "ind": 0, "st": 0, "ip": 0, "op": 180, "nm": "Layer", "mn": "{85f37d8b-1792-4a4f-82d2-1b3b6d829c07}", "ks": {"a": {"a": 0, "k": [256, 256]}, "p": {"a": 0, "k": [256, 256]}, "s": {"a": 0, "k": [100, 100]}, "r": {"a": 0, "k": 0}, "o": {"a": 0, "k": 100}}, "shapes": [{"ty": "gr", "nm": "Group", "it": [{"ty": "rc", "nm": "Rectangle", "p": {"a": 0, "k": [256, 256]}, "s": {"a": 0, "k": [256, 256]}, "r": {"a": 0, "k": 0}}, {"ty": "st", "nm": "Stroke", "mn": "{0930ce27-c8f9-4371-b0cf-111a859abfaf}", "o": {"a": 0, "k": 100}, "c": {"a": 0, "k": [1, 0.9803921568627451, 0.2823529411764706]}, "lc": 2, "lj": 2, "ml": 0, "w": {"a": 0, "k": 30}}, {"ty": "tr", "a": {"a": 0, "k": [249.3134328358209, 254.47164179104476]}, "p": {"a": 0, "k": [249.3134328358209, 254.47164179104476]}, "s": {"a": 0, "k": [100, 100]}, "r": {"a": 0, "k": 0}, "o": {"a": 0, "k": 100}}]}]}], "meta": {"g": "Glaxnimate 0.4.6-26-g7b05e75c"}},
             function (lottie, data)
             {
