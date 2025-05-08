@@ -477,7 +477,7 @@ A stroke dash array consists of `n` dash entries, `[n-1,n]` gap entries and `[0-
 
 Dash and gap entries MUST all be in a continuous order and alternate between dash and gap, starting with dash. If there are an odd number of dashes + gaps, the sequence will repeat with dashes and gaps reversed. For example a sequence of `[4d, 8g, 16d]` MUST be rendered as `[4d, 8g, 16d, 4g, 8d, 16g]`.
 
-Offset entry, if present, MUST be at the end of the array. 
+Offset entry, if present, MUST be at the end of the array.
 
 {schema_object:shapes/stroke-dash}
 
@@ -541,11 +541,11 @@ Offset entry, if present, MUST be at the end of the array.
     gradient.t = Number(data["Type"]);
     if (gradient.t === 2) {
         gradient.h = {
-            a: 0, 
+            a: 0,
             k: data["Highlight"]
         };
         gradient.a = {
-            a: 0, 
+            a: 0,
             k: data["Highlight Angle"]
         };
     } else {
@@ -582,11 +582,11 @@ Offset entry, if present, MUST be at the end of the array.
     gradient.t = Number(data["Type"]);
     if (gradient.t === 2) {
         gradient.h = {
-            a: 0, 
+            a: 0,
             k: data["Highlight"]
         };
         gradient.a = {
-            a: 0, 
+            a: 0,
             k: data["Highlight Angle"]
         };
     } else {
@@ -686,3 +686,28 @@ The center is defined as the mean of the bezier vertices.
         lottie.layers[0].shapes[0].it[1].a.k = data["Amount"];
     </script>
 </lottie-playground>
+
+<algorithm>
+def pucker_bloat(shape: Bezier, a: float) -> Bezier:
+    shape_out: Bezier = Bezier()
+    amount: float = a / 100
+
+    if len(shape) == 0:
+        return shape
+
+    # Find the center (arithmetic mean of all the points)
+    center: Vector2D = Vector2D(0, 0)
+    for point in shape:
+        center += point.vertex
+    center /= len(shape)
+
+    # Move the points
+    for point in shape:
+        vertex: Vector2D = lerp(point.vertex, center, amount)
+        shape_out.add_vertex(vertex)
+        shape_out.set_in_tangent(lerp(point.absolute.in_tangent, center, -amount) - vertex)
+        shape_out.set_out_tangent(lerp(point.absolute.out_tangent, center, -amount) - vertex)
+
+    shape_out.closed = shape.closed
+    return shape_out
+</algorithm>
