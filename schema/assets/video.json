@@ -1,0 +1,71 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Video",
+    "description": "Asset containing a video that can be referenced by layers or video frame assets.",
+    "allOf": [
+        {
+            "$ref": "#/$defs/assets/asset"
+        },
+        {
+            "$ref": "#/$defs/helpers/slottable-object"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "w": {
+                    "title": "Width",
+                    "description": "Width of the video",
+                    "type": "number"
+                },
+                "h": {
+                    "title": "Height",
+                    "description": "Height of the video",
+                    "type": "number"
+                },
+                "duration": {
+                    "title": "Duration",
+                    "description": "Duration of the video in seconds",
+                    "type": "number",
+                    "minimum": 0
+                },
+                "p": {
+                    "title": "File Name",
+                    "description": "Name of the video file or a data url",
+                    "type": "string"
+                },
+                "u": {
+                    "title": "File Path",
+                    "description": "Path to the video file",
+                    "type": "string"
+                },
+                "e": {
+                    "title": "Embedded",
+                    "description": "If '1', 'p' is a Data URL",
+                    "$ref": "#/$defs/values/int-boolean"
+                }
+            },
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "e": {"const": 1}
+                        },
+                        "required": ["e"]
+                    },
+                    "then": {
+                        "properties": {
+                            "p": {"$ref": "#/$defs/values/data-url"}
+                        }
+                    }
+                }
+            ],
+            "if": {
+                "required": ["sid"]
+            },
+            "else": {
+                "required": ["w", "h", "duration", "p"]
+            }
+        }
+    ]
+}
