@@ -155,3 +155,11 @@ Licensee's name: Stepan Mikhailiuk
 Authorized individual and system identifier: istepancar@gmail.com
 
 Specification version: 1.0
+
+---
+
+Licensee's name: David Sun
+
+Authorized individual and system identifier: dsun3@snap.com
+
+Specification version: 1.0
