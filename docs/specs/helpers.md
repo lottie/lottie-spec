@@ -170,13 +170,13 @@ replacement.
 
 {schema_object:helpers/slot}
 
-<h3 id="slottable-object">Slotabble Object</h3>
+<h3 id="slottable-object">Slottable Object</h3>
 
 {schema_string:helpers/slottable-object/description}
 
 {schema_object:helpers/slottable-object}
 
-<h3 id="slottable-property">Slotabble Property</h3>
+<h3 id="slottable-property">Slottable Property</h3>
 
 {schema_string:helpers/slottable-property/description}
 
