@@ -11,6 +11,9 @@
             "$ref": "#/$defs/helpers/slottable-object"
         },
         {
+            "$ref": "#/$defs/helpers/file-asset"
+        },
+        {
             "type": "object",
             "properties": {
                 "w": {
@@ -28,38 +31,8 @@
                     "description": "Duration of the video in seconds",
                     "type": "number",
                     "minimum": 0
-                },
-                "p": {
-                    "title": "File Name",
-                    "description": "Name of the video file or a data url",
-                    "type": "string"
-                },
-                "u": {
-                    "title": "File Path",
-                    "description": "Path to the video file",
-                    "type": "string"
-                },
-                "e": {
-                    "title": "Embedded",
-                    "description": "If '1', 'p' is a Data URL",
-                    "$ref": "#/$defs/values/int-boolean"
                 }
             },
-            "allOf": [
-                {
-                    "if": {
-                        "properties": {
-                            "e": {"const": 1}
-                        },
-                        "required": ["e"]
-                    },
-                    "then": {
-                        "properties": {
-                            "p": {"$ref": "#/$defs/values/data-url"}
-                        }
-                    }
-                }
-            ],
             "if": {
                 "required": ["sid"]
             },
