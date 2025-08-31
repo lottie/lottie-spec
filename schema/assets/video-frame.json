@@ -13,6 +13,12 @@
         {
             "type": "object",
             "properties": {
+                "ty": {
+                    "title": "Type",
+                    "description": "Asset type",
+                    "type": "integer",
+                    "const": 3
+                },
                 "vsid": {
                     "title": "Video Asset ID",
                     "description": "ID of the video asset to extract frame from",
@@ -35,11 +41,12 @@
                     "type": "number"
                 }
             },
+            "required": ["ty"],
             "if": {
                 "required": ["sid"]
             },
             "else": {
-                "required": ["vsid", "t"]
+                "required": ["ty", "vsid", "t"]
             }
         }
     ]

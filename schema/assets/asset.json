@@ -13,9 +13,14 @@
                     "title": "ID",
                     "description": "Unique identifier used by layers when referencing this asset",
                     "type": "string"
+                },
+                "ty": {
+                    "title": "Type",
+                    "description": "Asset type",
+                    "type": "integer"
                 }
             },
-            "required": ["id"]
+            "required": ["id", "ty"]
         }
     ]
 }

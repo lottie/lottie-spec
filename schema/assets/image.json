@@ -16,6 +16,12 @@
         {
             "type": "object",
             "properties": {
+                "ty": {
+                    "title": "Type",
+                    "description": "Asset type",
+                    "type": "integer",
+                    "const": 1
+                },
                 "w": {
                     "title": "Width",
                     "description": "Width of the image",
@@ -27,11 +33,12 @@
                     "type": "number"
                 }
             },
+            "required": ["ty"],
             "if": {
                 "required": ["sid"]
             },
             "else": {
-                "required": ["w", "h", "p"]
+                "required": ["ty", "w", "h", "p"]
             }
         }
     ]

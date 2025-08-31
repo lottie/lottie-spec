@@ -16,6 +16,12 @@
         {
             "type": "object",
             "properties": {
+                "ty": {
+                    "title": "Type",
+                    "description": "Asset type",
+                    "type": "integer",
+                    "const": 2
+                },
                 "w": {
                     "title": "Width",
                     "description": "Width of the video",
@@ -33,11 +39,12 @@
                     "minimum": 0
                 }
             },
+            "required": ["ty"],
             "if": {
                 "required": ["sid"]
             },
             "else": {
-                "required": ["w", "h", "duration", "p"]
+                "required": ["ty", "w", "h", "duration", "p"]
             }
         }
     ]
