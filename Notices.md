@@ -147,3 +147,11 @@ Licensee's name: Mira Grudzinska
 Authorized individual and system identifier: mira@lottiefiles.com
 
 Specification version: 1.0
+
+---
+
+Licensee's name: Stepan Mikhailiuk
+
+Authorized individual and system identifier: istepancar@gmail.com
+
+Specification version: 1.0
