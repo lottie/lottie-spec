@@ -290,51 +290,6 @@ values to jump to the relevant section.</p>
     <span class="hljs-attr">"$version"</span>: <span class="hljs-number">10001</span>,
     <a href="#/$defs" id="/$defs"><span class="hljs-attr">"$defs"</span></a>: {
         <a href="#/$defs/assets" id="/$defs/assets"><span class="hljs-attr">"assets"</span></a>: {
-            <a href="#/$defs/assets/all-assets" id="/$defs/assets/all-assets"><span class="hljs-attr">"all-assets"</span></a> <a href="../assets/#asset" title="Asset"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"oneOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/assets/precomposition"><span class="hljs-string">"#/$defs/assets/precomposition"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/assets/image"><span class="hljs-string">"#/$defs/assets/image"</span></a>
-                    }
-                ]
-            },
-            <a href="#/$defs/assets/precomposition" id="/$defs/assets/precomposition"><span class="hljs-attr">"precomposition"</span></a> <a href="../assets/#precomposition" title="Precomposition"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Precomposition"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Asset containing a composition that can be referenced by layers."</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/assets/asset"><span class="hljs-string">"#/$defs/assets/asset"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/composition/composition"><span class="hljs-string">"#/$defs/composition/composition"</span></a>
-                    }
-                ]
-            },
-            <a href="#/$defs/assets/asset" id="/$defs/assets/asset"><span class="hljs-attr">"asset"</span></a> <a href="../assets/#asset" title="Asset"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Asset"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/helpers/visual-object"><span class="hljs-string">"#/$defs/helpers/visual-object"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"id"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"ID"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unique identifier used by layers when referencing this asset"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
-                            }
-                        },
-                        <span class="hljs-attr">"required"</span>: [
-                            <span class="hljs-string">"id"</span>
-                        ]
-                    }
-                ]
-            },
             <a href="#/$defs/assets/image" id="/$defs/assets/image"><span class="hljs-attr">"image"</span></a> <a href="../assets/#image" title="Image"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Image"</span>,
@@ -408,6 +363,51 @@ values to jump to the relevant section.</p>
                                 <span class="hljs-string">"p"</span>
                             ]
                         }
+                    }
+                ]
+            },
+            <a href="#/$defs/assets/asset" id="/$defs/assets/asset"><span class="hljs-attr">"asset"</span></a> <a href="../assets/#asset" title="Asset"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Asset"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/helpers/visual-object"><span class="hljs-string">"#/$defs/helpers/visual-object"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"id"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"ID"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unique identifier used by layers when referencing this asset"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                            }
+                        },
+                        <span class="hljs-attr">"required"</span>: [
+                            <span class="hljs-string">"id"</span>
+                        ]
+                    }
+                ]
+            },
+            <a href="#/$defs/assets/precomposition" id="/$defs/assets/precomposition"><span class="hljs-attr">"precomposition"</span></a> <a href="../assets/#precomposition" title="Precomposition"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Precomposition"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Asset containing a composition that can be referenced by layers."</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/assets/asset"><span class="hljs-string">"#/$defs/assets/asset"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/composition/composition"><span class="hljs-string">"#/$defs/composition/composition"</span></a>
+                    }
+                ]
+            },
+            <a href="#/$defs/assets/all-assets" id="/$defs/assets/all-assets"><span class="hljs-attr">"all-assets"</span></a> <a href="../assets/#asset" title="Asset"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"oneOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/assets/precomposition"><span class="hljs-string">"#/$defs/assets/precomposition"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/assets/image"><span class="hljs-string">"#/$defs/assets/image"</span></a>
                     }
                 ]
             }
@@ -515,63 +515,17 @@ values to jump to the relevant section.</p>
             }
         },
         <a href="#/$defs/constants" id="/$defs/constants"><span class="hljs-attr">"constants"</span></a>: {
-            <a href="#/$defs/constants/mask-mode" id="/$defs/constants/mask-mode"><span class="hljs-attr">"mask-mode"</span></a> <a href="../constants/#mask-mode" title="Mask Mode"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Mask Mode"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Describes how a mask interacts (blends) with the preceding masks in the stack."</span>,
-                <span class="hljs-attr">"oneOf"</span>: [
-                    {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"None"</span>,
-                        <span class="hljs-attr">"const"</span>: <span class="hljs-string">"n"</span>,
-                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"The mask is ignored."</span>
-                    },
-                    {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Add"</span>,
-                        <span class="hljs-attr">"const"</span>: <span class="hljs-string">"a"</span>,
-                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Mask coverage is added (Normal blending)."</span>
-                    },
-                    {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Subtract"</span>,
-                        <span class="hljs-attr">"const"</span>: <span class="hljs-string">"s"</span>,
-                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Mask coverage is subtracted (Subtract blending)."</span>
-                    },
-                    {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Intersect"</span>,
-                        <span class="hljs-attr">"const"</span>: <span class="hljs-string">"i"</span>,
-                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Mask coverage is intersected (Source-In blending)."</span>
-                    }
-                ]
-            },
-            <a href="#/$defs/constants/shape-direction" id="/$defs/constants/shape-direction"><span class="hljs-attr">"shape-direction"</span></a> <a href="../constants/#shape-direction" title="Shape Direction"><i class="fas fa-book-open"></i></a> : {
+            <a href="#/$defs/constants/star-type" id="/$defs/constants/star-type"><span class="hljs-attr">"star-type"</span></a> <a href="../constants/#star-type" title="Star Type"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Direction"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Drawing direction of the shape curve, useful for trim path"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Star Type"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether a PolyStar is a star or a polygon"</span>,
                 <span class="hljs-attr">"oneOf"</span>: [
                     {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Normal"</span>,
-                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Usually clockwise"</span>,
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Star"</span>,
                         <span class="hljs-attr">"const"</span>: <span class="hljs-number">1</span>
                     },
                     {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Reversed"</span>,
-                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Usually counter clockwise"</span>,
-                        <span class="hljs-attr">"const"</span>: <span class="hljs-number">3</span>
-                    }
-                ]
-            },
-            <a href="#/$defs/constants/gradient-type" id="/$defs/constants/gradient-type"><span class="hljs-attr">"gradient-type"</span></a> <a href="../constants/#gradient-type" title="Gradient Type"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gradient Type"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether a Gradient is a linear or radial."</span>,
-                <span class="hljs-attr">"oneOf"</span>: [
-                    {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Linear"</span>,
-                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Colors transition in a single linear direction."</span>,
-                        <span class="hljs-attr">"const"</span>: <span class="hljs-number">1</span>
-                    },
-                    {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Radial"</span>,
-                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Colors transition outward from a center point."</span>,
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Polygon"</span>,
                         <span class="hljs-attr">"const"</span>: <span class="hljs-number">2</span>
                     }
                 ]
@@ -608,25 +562,6 @@ values to jump to the relevant section.</p>
                     }
                 ]
             },
-            <a href="#/$defs/constants/stroke-dash-type" id="/$defs/constants/stroke-dash-type"><span class="hljs-attr">"stroke-dash-type"</span></a> <a href="../constants/#stroke-dash-type" title="Stroke Dash Type"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Stroke Dash Type"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Type of a dash item in a stroked line"</span>,
-                <span class="hljs-attr">"oneOf"</span>: [
-                    {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Dash"</span>,
-                        <span class="hljs-attr">"const"</span>: <span class="hljs-string">"d"</span>
-                    },
-                    {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gap"</span>,
-                        <span class="hljs-attr">"const"</span>: <span class="hljs-string">"g"</span>
-                    },
-                    {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Offset"</span>,
-                        <span class="hljs-attr">"const"</span>: <span class="hljs-string">"o"</span>
-                    }
-                ]
-            },
             <a href="#/$defs/constants/trim-multiple-shapes" id="/$defs/constants/trim-multiple-shapes"><span class="hljs-attr">"trim-multiple-shapes"</span></a> <a href="../constants/#trim-multiple-shapes" title="Trim Multiple Shapes"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Trim Multiple Shapes"</span>,
@@ -644,6 +579,40 @@ values to jump to the relevant section.</p>
                     }
                 ]
             },
+            <a href="#/$defs/constants/gradient-type" id="/$defs/constants/gradient-type"><span class="hljs-attr">"gradient-type"</span></a> <a href="../constants/#gradient-type" title="Gradient Type"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gradient Type"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether a Gradient is a linear or radial."</span>,
+                <span class="hljs-attr">"oneOf"</span>: [
+                    {
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Linear"</span>,
+                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Colors transition in a single linear direction."</span>,
+                        <span class="hljs-attr">"const"</span>: <span class="hljs-number">1</span>
+                    },
+                    {
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Radial"</span>,
+                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Colors transition outward from a center point."</span>,
+                        <span class="hljs-attr">"const"</span>: <span class="hljs-number">2</span>
+                    }
+                ]
+            },
+            <a href="#/$defs/constants/shape-direction" id="/$defs/constants/shape-direction"><span class="hljs-attr">"shape-direction"</span></a> <a href="../constants/#shape-direction" title="Shape Direction"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Direction"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Drawing direction of the shape curve, useful for trim path"</span>,
+                <span class="hljs-attr">"oneOf"</span>: [
+                    {
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Normal"</span>,
+                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Usually clockwise"</span>,
+                        <span class="hljs-attr">"const"</span>: <span class="hljs-number">1</span>
+                    },
+                    {
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Reversed"</span>,
+                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Usually counter clockwise"</span>,
+                        <span class="hljs-attr">"const"</span>: <span class="hljs-number">3</span>
+                    }
+                ]
+            },
             <a href="#/$defs/constants/fill-rule" id="/$defs/constants/fill-rule"><span class="hljs-attr">"fill-rule"</span></a> <a href="../constants/#fill-rule" title="Fill Rule"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Fill Rule"</span>,
@@ -658,6 +627,25 @@ values to jump to the relevant section.</p>
                         <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Even Odd"</span>,
                         <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Colored based on intersections and path direction, can be used to create \"holes\""</span>,
                         <span class="hljs-attr">"const"</span>: <span class="hljs-number">2</span>
+                    }
+                ]
+            },
+            <a href="#/$defs/constants/stroke-dash-type" id="/$defs/constants/stroke-dash-type"><span class="hljs-attr">"stroke-dash-type"</span></a> <a href="../constants/#stroke-dash-type" title="Stroke Dash Type"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Stroke Dash Type"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Type of a dash item in a stroked line"</span>,
+                <span class="hljs-attr">"oneOf"</span>: [
+                    {
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Dash"</span>,
+                        <span class="hljs-attr">"const"</span>: <span class="hljs-string">"d"</span>
+                    },
+                    {
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gap"</span>,
+                        <span class="hljs-attr">"const"</span>: <span class="hljs-string">"g"</span>
+                    },
+                    {
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Offset"</span>,
+                        <span class="hljs-attr">"const"</span>: <span class="hljs-string">"o"</span>
                     }
                 ]
             },
@@ -699,23 +687,82 @@ values to jump to the relevant section.</p>
                     }
                 ]
             },
-            <a href="#/$defs/constants/star-type" id="/$defs/constants/star-type"><span class="hljs-attr">"star-type"</span></a> <a href="../constants/#star-type" title="Star Type"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Star Type"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether a PolyStar is a star or a polygon"</span>,
+            <a href="#/$defs/constants/mask-mode" id="/$defs/constants/mask-mode"><span class="hljs-attr">"mask-mode"</span></a> <a href="../constants/#mask-mode" title="Mask Mode"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Mask Mode"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Describes how a mask interacts (blends) with the preceding masks in the stack."</span>,
                 <span class="hljs-attr">"oneOf"</span>: [
                     {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Star"</span>,
-                        <span class="hljs-attr">"const"</span>: <span class="hljs-number">1</span>
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"None"</span>,
+                        <span class="hljs-attr">"const"</span>: <span class="hljs-string">"n"</span>,
+                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"The mask is ignored."</span>
                     },
                     {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Polygon"</span>,
-                        <span class="hljs-attr">"const"</span>: <span class="hljs-number">2</span>
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Add"</span>,
+                        <span class="hljs-attr">"const"</span>: <span class="hljs-string">"a"</span>,
+                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Mask coverage is added (Normal blending)."</span>
+                    },
+                    {
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Subtract"</span>,
+                        <span class="hljs-attr">"const"</span>: <span class="hljs-string">"s"</span>,
+                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Mask coverage is subtracted (Subtract blending)."</span>
+                    },
+                    {
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Intersect"</span>,
+                        <span class="hljs-attr">"const"</span>: <span class="hljs-string">"i"</span>,
+                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Mask coverage is intersected (Source-In blending)."</span>
                     }
                 ]
             }
         },
         <a href="#/$defs/helpers" id="/$defs/helpers"><span class="hljs-attr">"helpers"</span></a>: {
+            <a href="#/$defs/helpers/slottable-object" id="/$defs/helpers/slottable-object"><span class="hljs-attr">"slottable-object"</span></a> <a href="../helpers/#slottable-object" title="Slottable Object"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Slottable Object"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Object that may have its value replaced with a slot value"</span>,
+                <a href="#/$defs/helpers/slottable-object/properties" id="/$defs/helpers/slottable-object/properties"><span class="hljs-attr">"properties"</span></a>: {
+                    <a href="#/$defs/helpers/slottable-object/properties/sid" id="/$defs/helpers/slottable-object/properties/sid"><span class="hljs-attr">"sid"</span></a>: {
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Slot Id"</span>,
+                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Identifier to look up the slot"</span>,
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                    }
+                }
+            },
+            <a href="#/$defs/helpers/slottable-property" id="/$defs/helpers/slottable-property"><span class="hljs-attr">"slottable-property"</span></a> <a href="../helpers/#slottable-property" title="Slottable Property"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Slottable Property"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Property that may have its value replaced with a slot value"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/helpers/slottable-object"><span class="hljs-string">"#/$defs/helpers/slottable-object"</span></a>
+                    }
+                ],
+                <a href="#/$defs/helpers/slottable-property/if" id="/$defs/helpers/slottable-property/if"><span class="hljs-attr">"if"</span></a>: {
+                    <span class="hljs-attr">"required"</span>: [
+                        <span class="hljs-string">"sid"</span>
+                    ]
+                },
+                <a href="#/$defs/helpers/slottable-property/else" id="/$defs/helpers/slottable-property/else"><span class="hljs-attr">"else"</span></a>: {
+                    <span class="hljs-attr">"required"</span>: [
+                        <span class="hljs-string">"a"</span>,
+                        <span class="hljs-string">"k"</span>
+                    ]
+                }
+            },
+            <a href="#/$defs/helpers/slot" id="/$defs/helpers/slot"><span class="hljs-attr">"slot"</span></a> <a href="../helpers/#slot" title="Slot"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Slot"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Defines a property value that will be set to all matched properties"</span>,
+                <a href="#/$defs/helpers/slot/properties" id="/$defs/helpers/slot/properties"><span class="hljs-attr">"properties"</span></a>: {
+                    <a href="#/$defs/helpers/slot/properties/p" id="/$defs/helpers/slot/properties/p"><span class="hljs-attr">"p"</span></a>: {
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Property Value"</span>,
+                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Property Value"</span>
+                    }
+                },
+                <span class="hljs-attr">"required"</span>: [
+                    <span class="hljs-string">"p"</span>
+                ]
+            },
             <a href="#/$defs/helpers/mask" id="/$defs/helpers/mask"><span class="hljs-attr">"mask"</span></a> <a href="../helpers/#mask" title="Mask"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Mask"</span>,
@@ -827,103 +874,9 @@ values to jump to the relevant section.</p>
                         <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>
                     }
                 }
-            },
-            <a href="#/$defs/helpers/slot" id="/$defs/helpers/slot"><span class="hljs-attr">"slot"</span></a> <a href="../helpers/#slot" title="Slot"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Slot"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Defines a property value that will be set to all matched properties"</span>,
-                <a href="#/$defs/helpers/slot/properties" id="/$defs/helpers/slot/properties"><span class="hljs-attr">"properties"</span></a>: {
-                    <a href="#/$defs/helpers/slot/properties/p" id="/$defs/helpers/slot/properties/p"><span class="hljs-attr">"p"</span></a>: {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Property Value"</span>,
-                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Property Value"</span>
-                    }
-                },
-                <span class="hljs-attr">"required"</span>: [
-                    <span class="hljs-string">"p"</span>
-                ]
-            },
-            <a href="#/$defs/helpers/slottable-property" id="/$defs/helpers/slottable-property"><span class="hljs-attr">"slottable-property"</span></a> <a href="../helpers/#slottable-property" title="Slottable Property"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Slottable Property"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Property that may have its value replaced with a slot value"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/helpers/slottable-object"><span class="hljs-string">"#/$defs/helpers/slottable-object"</span></a>
-                    }
-                ],
-                <a href="#/$defs/helpers/slottable-property/if" id="/$defs/helpers/slottable-property/if"><span class="hljs-attr">"if"</span></a>: {
-                    <span class="hljs-attr">"required"</span>: [
-                        <span class="hljs-string">"sid"</span>
-                    ]
-                },
-                <a href="#/$defs/helpers/slottable-property/else" id="/$defs/helpers/slottable-property/else"><span class="hljs-attr">"else"</span></a>: {
-                    <span class="hljs-attr">"required"</span>: [
-                        <span class="hljs-string">"a"</span>,
-                        <span class="hljs-string">"k"</span>
-                    ]
-                }
-            },
-            <a href="#/$defs/helpers/slottable-object" id="/$defs/helpers/slottable-object"><span class="hljs-attr">"slottable-object"</span></a> <a href="../helpers/#slottable-object" title="Slottable Object"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Slottable Object"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Object that may have its value replaced with a slot value"</span>,
-                <a href="#/$defs/helpers/slottable-object/properties" id="/$defs/helpers/slottable-object/properties"><span class="hljs-attr">"properties"</span></a>: {
-                    <a href="#/$defs/helpers/slottable-object/properties/sid" id="/$defs/helpers/slottable-object/properties/sid"><span class="hljs-attr">"sid"</span></a>: {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Slot Id"</span>,
-                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Identifier to look up the slot"</span>,
-                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
-                    }
-                }
             }
         },
         <a href="#/$defs/layers" id="/$defs/layers"><span class="hljs-attr">"layers"</span></a>: {
-            <a href="#/$defs/layers/visual-layer" id="/$defs/layers/visual-layer"><span class="hljs-attr">"visual-layer"</span></a> <a href="../layers/#visual-layer" title="Visual Layer"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Visual Layer"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Layer used to affect visual elements"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/layers/layer"><span class="hljs-string">"#/$defs/layers/layer"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"ks"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Transform"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Layer transform"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/helpers/transform"><span class="hljs-string">"#/$defs/helpers/transform"</span></a>
-                            },
-                            <span class="hljs-attr">"ao"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Auto Orient"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
-                                <span class="hljs-attr">"default"</span>: <span class="hljs-number">0</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"If 1, the layer will rotate itself to match its animated position path"</span>
-                            },
-                            <span class="hljs-attr">"tt"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Matte Mode"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/constants/matte-mode"><span class="hljs-string">"#/$defs/constants/matte-mode"</span></a>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Defines the track matte mode for the layer"</span>
-                            },
-                            <span class="hljs-attr">"tp"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Matte Parent"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Index of the layer used as matte, if omitted assume the layer above the current one"</span>
-                            },
-                            <span class="hljs-attr">"masksProperties"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Masks"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Optional array of masks for the layer."</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
-                                <span class="hljs-attr">"items"</span>: {
-                                    <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/helpers/mask"><span class="hljs-string">"#/$defs/helpers/mask"</span></a>
-                                }
-                            }
-                        },
-                        <span class="hljs-attr">"required"</span>: [
-                            <span class="hljs-string">"ks"</span>
-                        ]
-                    }
-                ]
-            },
             <a href="#/$defs/layers/all-layers" id="/$defs/layers/all-layers"><span class="hljs-attr">"all-layers"</span></a> <a href="../layers/#layer" title="Layer"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"oneOf"</span>: [
                     {
@@ -1001,68 +954,6 @@ values to jump to the relevant section.</p>
                     }
                 ]
             },
-            <a href="#/$defs/layers/image-layer" id="/$defs/layers/image-layer"><span class="hljs-attr">"image-layer"</span></a> <a href="../layers/#image-layer" title="Image Layer"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Image Layer"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Layer containing an image"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/layers/visual-layer"><span class="hljs-string">"#/$defs/layers/visual-layer"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"ty"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Type"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Layer type"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">2</span>
-                            },
-                            <span class="hljs-attr">"refId"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Reference Id"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"ID of the image as specified in the assets"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
-                            }
-                        },
-                        <span class="hljs-attr">"required"</span>: [
-                            <span class="hljs-string">"ty"</span>,
-                            <span class="hljs-string">"refId"</span>
-                        ]
-                    }
-                ]
-            },
-            <a href="#/$defs/layers/shape-layer" id="/$defs/layers/shape-layer"><span class="hljs-attr">"shape-layer"</span></a> <a href="../layers/#shape-layer" title="Shape Layer"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Layer"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Layer containing Shapes"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/layers/visual-layer"><span class="hljs-string">"#/$defs/layers/visual-layer"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"ty"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Type"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Layer type"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">4</span>
-                            },
-                            <span class="hljs-attr">"shapes"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shapes"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
-                                <span class="hljs-attr">"items"</span>: {
-                                    <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/all-graphic-elements"><span class="hljs-string">"#/$defs/shapes/all-graphic-elements"</span></a>
-                                }
-                            }
-                        },
-                        <span class="hljs-attr">"required"</span>: [
-                            <span class="hljs-string">"ty"</span>,
-                            <span class="hljs-string">"shapes"</span>
-                        ]
-                    }
-                ]
-            },
             <a href="#/$defs/layers/layer" id="/$defs/layers/layer"><span class="hljs-attr">"layer"</span></a> <a href="../layers/#layer" title="Layer"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Layer"</span>,
@@ -1109,6 +1000,104 @@ values to jump to the relevant section.</p>
                             <span class="hljs-string">"ty"</span>,
                             <span class="hljs-string">"ip"</span>,
                             <span class="hljs-string">"op"</span>
+                        ]
+                    }
+                ]
+            },
+            <a href="#/$defs/layers/unknown-layer" id="/$defs/layers/unknown-layer"><span class="hljs-attr">"unknown-layer"</span></a> <a href="../layers/#unknown-layer" title="Unknown layer types"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Unknown layer types"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unknown layer types. Types not defined by the specification are still allowed."</span>,
+                <a href="#/$defs/layers/unknown-layer/properties" id="/$defs/layers/unknown-layer/properties"><span class="hljs-attr">"properties"</span></a>: {
+                    <a href="#/$defs/layers/unknown-layer/properties/ty" id="/$defs/layers/unknown-layer/properties/ty"><span class="hljs-attr">"ty"</span></a>: {
+                        <a href="#/$defs/layers/unknown-layer/properties/ty/not" id="/$defs/layers/unknown-layer/properties/ty/not"><span class="hljs-attr">"not"</span></a>: {
+                            <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"enum list is dynamically generated"</span>,
+                            <span class="hljs-attr">"enum"</span>: [
+                                <span class="hljs-number">0</span>,
+                                <span class="hljs-number">2</span>,
+                                <span class="hljs-number">3</span>,
+                                <span class="hljs-number">1</span>,
+                                <span class="hljs-number">4</span>
+                            ]
+                        }
+                    }
+                }
+            },
+            <a href="#/$defs/layers/visual-layer" id="/$defs/layers/visual-layer"><span class="hljs-attr">"visual-layer"</span></a> <a href="../layers/#visual-layer" title="Visual Layer"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Visual Layer"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Layer used to affect visual elements"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/layers/layer"><span class="hljs-string">"#/$defs/layers/layer"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"ks"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Transform"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Layer transform"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/helpers/transform"><span class="hljs-string">"#/$defs/helpers/transform"</span></a>
+                            },
+                            <span class="hljs-attr">"ao"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Auto Orient"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
+                                <span class="hljs-attr">"default"</span>: <span class="hljs-number">0</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"If 1, the layer will rotate itself to match its animated position path"</span>
+                            },
+                            <span class="hljs-attr">"tt"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Matte Mode"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/constants/matte-mode"><span class="hljs-string">"#/$defs/constants/matte-mode"</span></a>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Defines the track matte mode for the layer"</span>
+                            },
+                            <span class="hljs-attr">"tp"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Matte Parent"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Index of the layer used as matte, if omitted assume the layer above the current one"</span>
+                            },
+                            <span class="hljs-attr">"masksProperties"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Masks"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Optional array of masks for the layer."</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+                                <span class="hljs-attr">"items"</span>: {
+                                    <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/helpers/mask"><span class="hljs-string">"#/$defs/helpers/mask"</span></a>
+                                }
+                            }
+                        },
+                        <span class="hljs-attr">"required"</span>: [
+                            <span class="hljs-string">"ks"</span>
+                        ]
+                    }
+                ]
+            },
+            <a href="#/$defs/layers/shape-layer" id="/$defs/layers/shape-layer"><span class="hljs-attr">"shape-layer"</span></a> <a href="../layers/#shape-layer" title="Shape Layer"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Layer"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Layer containing Shapes"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/layers/visual-layer"><span class="hljs-string">"#/$defs/layers/visual-layer"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"ty"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Type"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Layer type"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">4</span>
+                            },
+                            <span class="hljs-attr">"shapes"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shapes"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+                                <span class="hljs-attr">"items"</span>: {
+                                    <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/all-graphic-elements"><span class="hljs-string">"#/$defs/shapes/all-graphic-elements"</span></a>
+                                }
+                            }
+                        },
+                        <span class="hljs-attr">"required"</span>: [
+                            <span class="hljs-string">"ty"</span>,
+                            <span class="hljs-string">"shapes"</span>
                         ]
                     }
                 ]
@@ -1179,27 +1168,271 @@ values to jump to the relevant section.</p>
                     }
                 ]
             },
-            <a href="#/$defs/layers/unknown-layer" id="/$defs/layers/unknown-layer"><span class="hljs-attr">"unknown-layer"</span></a> <a href="../layers/#unknown-layer" title="Unknown layer types"><i class="fas fa-book-open"></i></a> : {
+            <a href="#/$defs/layers/image-layer" id="/$defs/layers/image-layer"><span class="hljs-attr">"image-layer"</span></a> <a href="../layers/#image-layer" title="Image Layer"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Unknown layer types"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unknown layer types. Types not defined by the specification are still allowed."</span>,
-                <a href="#/$defs/layers/unknown-layer/properties" id="/$defs/layers/unknown-layer/properties"><span class="hljs-attr">"properties"</span></a>: {
-                    <a href="#/$defs/layers/unknown-layer/properties/ty" id="/$defs/layers/unknown-layer/properties/ty"><span class="hljs-attr">"ty"</span></a>: {
-                        <a href="#/$defs/layers/unknown-layer/properties/ty/not" id="/$defs/layers/unknown-layer/properties/ty/not"><span class="hljs-attr">"not"</span></a>: {
-                            <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"enum list is dynamically generated"</span>,
-                            <span class="hljs-attr">"enum"</span>: [
-                                <span class="hljs-number">0</span>,
-                                <span class="hljs-number">2</span>,
-                                <span class="hljs-number">3</span>,
-                                <span class="hljs-number">1</span>,
-                                <span class="hljs-number">4</span>
-                            ]
-                        }
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Image Layer"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Layer containing an image"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/layers/visual-layer"><span class="hljs-string">"#/$defs/layers/visual-layer"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"ty"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Type"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Layer type"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">2</span>
+                            },
+                            <span class="hljs-attr">"refId"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Reference Id"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"ID of the image as specified in the assets"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+                            }
+                        },
+                        <span class="hljs-attr">"required"</span>: [
+                            <span class="hljs-string">"ty"</span>,
+                            <span class="hljs-string">"refId"</span>
+                        ]
                     }
-                }
+                ]
             }
         },
         <a href="#/$defs/properties" id="/$defs/properties"><span class="hljs-attr">"properties"</span></a>: {
+            <a href="#/$defs/properties/position-property" id="/$defs/properties/position-property"><span class="hljs-attr">"position-property"</span></a> <a href="../properties/#position-property" title="Position"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Position Property"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An animatable property to represent a position in space"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/helpers/slottable-property"><span class="hljs-string">"#/$defs/helpers/slottable-property"</span></a>
+                    }
+                ],
+                <span class="hljs-attr">"oneOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Not animated"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"a"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Animated"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the property is animated"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">0</span>
+                            },
+                            <span class="hljs-attr">"k"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Static Value"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/vector"><span class="hljs-string">"#/$defs/values/vector"</span></a>
+                            }
+                        }
+                    },
+                    {
+                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Animated"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"a"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Animated"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the property is animated"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">1</span>
+                            },
+                            <span class="hljs-attr">"k"</span>: {
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Keyframes"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Array of keyframes"</span>,
+                                <span class="hljs-attr">"items"</span>: {
+                                    <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/position-keyframe"><span class="hljs-string">"#/$defs/properties/position-keyframe"</span></a>
+                                }
+                            }
+                        }
+                    }
+                ],
+                <span class="hljs-attr">"required"</span>: [
+                    <span class="hljs-string">"a"</span>,
+                    <span class="hljs-string">"k"</span>
+                ]
+            },
+            <a href="#/$defs/properties/color-keyframe" id="/$defs/properties/color-keyframe"><span class="hljs-attr">"color-keyframe"</span></a> <a href="../properties/#color-keyframe" title="Color Keyframe"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Color Keyframe"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/base-keyframe"><span class="hljs-string">"#/$defs/properties/base-keyframe"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"s"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Value at this keyframe."</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/color"><span class="hljs-string">"#/$defs/values/color"</span></a>
+                            }
+                        }
+                    }
+                ],
+                <span class="hljs-attr">"required"</span>: [
+                    <span class="hljs-string">"s"</span>
+                ]
+            },
+            <a href="#/$defs/properties/gradient-keyframe" id="/$defs/properties/gradient-keyframe"><span class="hljs-attr">"gradient-keyframe"</span></a> <a href="../properties/#gradient-keyframe" title="Gradient Keyframe"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gradient Keyframe"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/base-keyframe"><span class="hljs-string">"#/$defs/properties/base-keyframe"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"s"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Value at this keyframe."</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/gradient"><span class="hljs-string">"#/$defs/values/gradient"</span></a>
+                            }
+                        }
+                    }
+                ],
+                <span class="hljs-attr">"required"</span>: [
+                    <span class="hljs-string">"s"</span>
+                ]
+            },
+            <a href="#/$defs/properties/bezier-property" id="/$defs/properties/bezier-property"><span class="hljs-attr">"bezier-property"</span></a> <a href="../properties/#bezier-property" title="Bezier"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Bezier Property"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An animatable property that holds a Bezier shape"</span>,
+                <span class="hljs-attr">"oneOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Not animated"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"a"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Animated"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the property is animated"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">0</span>
+                            },
+                            <span class="hljs-attr">"k"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Static Value"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/bezier"><span class="hljs-string">"#/$defs/values/bezier"</span></a>
+                            }
+                        }
+                    },
+                    {
+                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Animated"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"a"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Animated"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the property is animated"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">1</span>
+                            },
+                            <span class="hljs-attr">"k"</span>: {
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Keyframes"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Array of keyframes"</span>,
+                                <span class="hljs-attr">"items"</span>: {
+                                    <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/bezier-keyframe"><span class="hljs-string">"#/$defs/properties/bezier-keyframe"</span></a>
+                                }
+                            }
+                        }
+                    }
+                ],
+                <span class="hljs-attr">"required"</span>: [
+                    <span class="hljs-string">"a"</span>,
+                    <span class="hljs-string">"k"</span>
+                ]
+            },
+            <a href="#/$defs/properties/scalar-property" id="/$defs/properties/scalar-property"><span class="hljs-attr">"scalar-property"</span></a> <a href="../properties/#scalar-property" title="Scalar"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Scalar Property"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An animatable property that holds a float"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/helpers/slottable-property"><span class="hljs-string">"#/$defs/helpers/slottable-property"</span></a>
+                    }
+                ],
+                <span class="hljs-attr">"oneOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Not animated"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"a"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Animated"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the property is animated"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">0</span>
+                            },
+                            <span class="hljs-attr">"k"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Static Value"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>
+                            }
+                        }
+                    },
+                    {
+                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Animated"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"a"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Animated"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the property is animated"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">1</span>
+                            },
+                            <span class="hljs-attr">"k"</span>: {
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Keyframes"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Array of keyframes"</span>,
+                                <span class="hljs-attr">"items"</span>: {
+                                    <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/vector-keyframe"><span class="hljs-string">"#/$defs/properties/vector-keyframe"</span></a>
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
+            <a href="#/$defs/properties/color-property" id="/$defs/properties/color-property"><span class="hljs-attr">"color-property"</span></a> <a href="../properties/#color-property" title="Color"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Color Property"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An animatable property that holds a Color"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/helpers/slottable-property"><span class="hljs-string">"#/$defs/helpers/slottable-property"</span></a>
+                    }
+                ],
+                <span class="hljs-attr">"oneOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Not animated"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"a"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Animated"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the property is animated"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">0</span>
+                            },
+                            <span class="hljs-attr">"k"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Static Value"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/color"><span class="hljs-string">"#/$defs/values/color"</span></a>
+                            }
+                        }
+                    },
+                    {
+                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Animated"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"a"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Animated"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the property is animated"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">1</span>
+                            },
+                            <span class="hljs-attr">"k"</span>: {
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Keyframes"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Array of keyframes"</span>,
+                                <span class="hljs-attr">"items"</span>: {
+                                    <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/color-keyframe"><span class="hljs-string">"#/$defs/properties/color-keyframe"</span></a>
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
             <a href="#/$defs/properties/split-position" id="/$defs/properties/split-position"><span class="hljs-attr">"split-position"</span></a> <a href="../properties/#split-position" title="Split Position"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Split Position"</span>,
@@ -1228,50 +1461,60 @@ values to jump to the relevant section.</p>
                     <span class="hljs-string">"y"</span>
                 ]
             },
-            <a href="#/$defs/properties/gradient-stops" id="/$defs/properties/gradient-stops"><span class="hljs-attr">"gradient-stops"</span></a> <a href="../properties/#gradient-stops" title="Gradient Stops"><i class="fas fa-book-open"></i></a> : {
+            <a href="#/$defs/properties/vector-keyframe" id="/$defs/properties/vector-keyframe"><span class="hljs-attr">"vector-keyframe"</span></a> <a href="../properties/#vector-keyframe" title="Vector Keyframe"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gradient Stops"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Animatable vector representing the gradient stops"</span>,
-                <span class="hljs-attr">"oneOf"</span>: [
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Vector Keyframe"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
                     {
-                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Not animated"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"a"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Animated"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the property is animated"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">0</span>
-                            },
-                            <span class="hljs-attr">"k"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Static Value"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/gradient"><span class="hljs-string">"#/$defs/values/gradient"</span></a>
-                            }
-                        }
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/base-keyframe"><span class="hljs-string">"#/$defs/properties/base-keyframe"</span></a>
                     },
                     {
-                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Animated"</span>,
                         <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"a"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Animated"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the property is animated"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">1</span>
-                            },
-                            <span class="hljs-attr">"k"</span>: {
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Keyframes"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Array of keyframes"</span>,
-                                <span class="hljs-attr">"items"</span>: {
-                                    <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/gradient-keyframe"><span class="hljs-string">"#/$defs/properties/gradient-keyframe"</span></a>
-                                }
+                            <span class="hljs-attr">"s"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Value at this keyframe."</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/vector"><span class="hljs-string">"#/$defs/values/vector"</span></a>
                             }
                         }
                     }
                 ],
                 <span class="hljs-attr">"required"</span>: [
-                    <span class="hljs-string">"a"</span>,
-                    <span class="hljs-string">"k"</span>
+                    <span class="hljs-string">"s"</span>
+                ]
+            },
+            <a href="#/$defs/properties/base-keyframe" id="/$defs/properties/base-keyframe"><span class="hljs-attr">"base-keyframe"</span></a> <a href="../properties/#base-keyframe" title="Base Keyframe"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Base Keyframe"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A Keyframes specifies the value at a specific time and the interpolation function to reach the next keyframe."</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"t"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Time"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Frame number"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>,
+                                <span class="hljs-attr">"default"</span>: <span class="hljs-number">0</span>
+                            },
+                            <span class="hljs-attr">"h"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Hold"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
+                                <span class="hljs-attr">"default"</span>: <span class="hljs-number">0</span>
+                            },
+                            <span class="hljs-attr">"i"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"In Tangent"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Easing tangent going into the next keyframe"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/easing-handle"><span class="hljs-string">"#/$defs/properties/easing-handle"</span></a>
+                            },
+                            <span class="hljs-attr">"o"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Out Tangent"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Easing tangent leaving the current keyframe"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/easing-handle"><span class="hljs-string">"#/$defs/properties/easing-handle"</span></a>
+                            }
+                        }
+                    }
+                ],
+                <span class="hljs-attr">"required"</span>: [
+                    <span class="hljs-string">"t"</span>
                 ]
             },
             <a href="#/$defs/properties/easing-handle" id="/$defs/properties/easing-handle"><span class="hljs-attr">"easing-handle"</span></a> <a href="../properties/#easing-handle" title="Keyframe Easing"><i class="fas fa-book-open"></i></a> : {
@@ -1327,15 +1570,10 @@ values to jump to the relevant section.</p>
                     <span class="hljs-string">"y"</span>
                 ]
             },
-            <a href="#/$defs/properties/color-property" id="/$defs/properties/color-property"><span class="hljs-attr">"color-property"</span></a> <a href="../properties/#color-property" title="Color"><i class="fas fa-book-open"></i></a> : {
+            <a href="#/$defs/properties/gradient-stops" id="/$defs/properties/gradient-stops"><span class="hljs-attr">"gradient-stops"</span></a> <a href="../properties/#gradient-stops" title="Gradient Stops"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Color Property"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An animatable property that holds a Color"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/helpers/slottable-property"><span class="hljs-string">"#/$defs/helpers/slottable-property"</span></a>
-                    }
-                ],
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gradient Stops"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Animatable vector representing the gradient stops"</span>,
                 <span class="hljs-attr">"oneOf"</span>: [
                     {
                         <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Not animated"</span>,
@@ -1349,7 +1587,7 @@ values to jump to the relevant section.</p>
                             <span class="hljs-attr">"k"</span>: {
                                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value"</span>,
                                 <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Static Value"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/color"><span class="hljs-string">"#/$defs/values/color"</span></a>
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/gradient"><span class="hljs-string">"#/$defs/values/gradient"</span></a>
                             }
                         }
                     },
@@ -1367,32 +1605,15 @@ values to jump to the relevant section.</p>
                                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Keyframes"</span>,
                                 <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Array of keyframes"</span>,
                                 <span class="hljs-attr">"items"</span>: {
-                                    <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/color-keyframe"><span class="hljs-string">"#/$defs/properties/color-keyframe"</span></a>
+                                    <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/gradient-keyframe"><span class="hljs-string">"#/$defs/properties/gradient-keyframe"</span></a>
                                 }
-                            }
-                        }
-                    }
-                ]
-            },
-            <a href="#/$defs/properties/gradient-keyframe" id="/$defs/properties/gradient-keyframe"><span class="hljs-attr">"gradient-keyframe"</span></a> <a href="../properties/#gradient-keyframe" title="Gradient Keyframe"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gradient Keyframe"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/base-keyframe"><span class="hljs-string">"#/$defs/properties/base-keyframe"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"s"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Value at this keyframe."</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/gradient"><span class="hljs-string">"#/$defs/values/gradient"</span></a>
                             }
                         }
                     }
                 ],
                 <span class="hljs-attr">"required"</span>: [
-                    <span class="hljs-string">"s"</span>
+                    <span class="hljs-string">"a"</span>,
+                    <span class="hljs-string">"k"</span>
                 ]
             },
             <a href="#/$defs/properties/bezier-keyframe" id="/$defs/properties/bezier-keyframe"><span class="hljs-attr">"bezier-keyframe"</span></a> <a href="../properties/#bezier-keyframe" title="Shape Keyframe"><i class="fas fa-book-open"></i></a> : {
@@ -1441,76 +1662,50 @@ values to jump to the relevant section.</p>
                     <span class="hljs-string">"k"</span>
                 ]
             },
-            <a href="#/$defs/properties/color-keyframe" id="/$defs/properties/color-keyframe"><span class="hljs-attr">"color-keyframe"</span></a> <a href="../properties/#color-keyframe" title="Color Keyframe"><i class="fas fa-book-open"></i></a> : {
+            <a href="#/$defs/properties/position-keyframe" id="/$defs/properties/position-keyframe"><span class="hljs-attr">"position-keyframe"</span></a> <a href="../properties/#position-keyframe" title="Position Keyframe"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Color Keyframe"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Position Keyframe"</span>,
                 <span class="hljs-attr">"allOf"</span>: [
                     {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/base-keyframe"><span class="hljs-string">"#/$defs/properties/base-keyframe"</span></a>
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/vector-keyframe"><span class="hljs-string">"#/$defs/properties/vector-keyframe"</span></a>
                     },
                     {
                         <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"s"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Value at this keyframe."</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/color"><span class="hljs-string">"#/$defs/values/color"</span></a>
-                            }
-                        }
-                    }
-                ],
-                <span class="hljs-attr">"required"</span>: [
-                    <span class="hljs-string">"s"</span>
-                ]
-            },
-            <a href="#/$defs/properties/position-property" id="/$defs/properties/position-property"><span class="hljs-attr">"position-property"</span></a> <a href="../properties/#position-property" title="Position"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Position Property"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An animatable property to represent a position in space"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/helpers/slottable-property"><span class="hljs-string">"#/$defs/helpers/slottable-property"</span></a>
-                    }
-                ],
-                <span class="hljs-attr">"oneOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Not animated"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"a"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Animated"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the property is animated"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">0</span>
+                            <span class="hljs-attr">"ti"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value In Tangent"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Tangent for values (eg: moving position around a curved path)"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/vector"><span class="hljs-string">"#/$defs/values/vector"</span></a>
                             },
-                            <span class="hljs-attr">"k"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Static Value"</span>,
+                            <span class="hljs-attr">"to"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value Out Tangent"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Tangent for values (eg: moving position around a curved path)"</span>,
                                 <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/vector"><span class="hljs-string">"#/$defs/values/vector"</span></a>
                             }
                         }
-                    },
+                    }
+                ]
+            },
+            <a href="#/$defs/properties/splittable-position-property" id="/$defs/properties/splittable-position-property"><span class="hljs-attr">"splittable-position-property"</span></a> <a href="../properties/#splittable-position-property" title="Splittable Position"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Splittable Position Property"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An animatable position where position values may be defined and animated separately."</span>,
+                <span class="hljs-attr">"oneOf"</span>: [
                     {
-                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Animated"</span>,
+                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Grouped XY position coordinates"</span>,
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/position-property"><span class="hljs-string">"#/$defs/properties/position-property"</span></a>,
                         <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"a"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Animated"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the property is animated"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">1</span>
-                            },
-                            <span class="hljs-attr">"k"</span>: {
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Keyframes"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Array of keyframes"</span>,
-                                <span class="hljs-attr">"items"</span>: {
-                                    <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/position-keyframe"><span class="hljs-string">"#/$defs/properties/position-keyframe"</span></a>
-                                }
+                            <span class="hljs-attr">"s"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Split"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the position has split values"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"boolean"</span>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">false</span>
                             }
                         }
+                    },
+                    {
+                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Split XY position coordinates"</span>,
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/split-position"><span class="hljs-string">"#/$defs/properties/split-position"</span></a>
                     }
-                ],
-                <span class="hljs-attr">"required"</span>: [
-                    <span class="hljs-string">"a"</span>,
-                    <span class="hljs-string">"k"</span>
                 ]
             },
             <a href="#/$defs/properties/vector-property" id="/$defs/properties/vector-property"><span class="hljs-attr">"vector-property"</span></a> <a href="../properties/#vector-property" title="Vector"><i class="fas fa-book-open"></i></a> : {
@@ -1559,204 +1754,262 @@ values to jump to the relevant section.</p>
                         }
                     }
                 ]
-            },
-            <a href="#/$defs/properties/vector-keyframe" id="/$defs/properties/vector-keyframe"><span class="hljs-attr">"vector-keyframe"</span></a> <a href="../properties/#vector-keyframe" title="Vector Keyframe"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Vector Keyframe"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/base-keyframe"><span class="hljs-string">"#/$defs/properties/base-keyframe"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"s"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Value at this keyframe."</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/vector"><span class="hljs-string">"#/$defs/values/vector"</span></a>
-                            }
-                        }
-                    }
-                ],
-                <span class="hljs-attr">"required"</span>: [
-                    <span class="hljs-string">"s"</span>
-                ]
-            },
-            <a href="#/$defs/properties/splittable-position-property" id="/$defs/properties/splittable-position-property"><span class="hljs-attr">"splittable-position-property"</span></a> <a href="../properties/#splittable-position-property" title="Splittable Position"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Splittable Position Property"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An animatable position where position values may be defined and animated separately."</span>,
-                <span class="hljs-attr">"oneOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Grouped XY position coordinates"</span>,
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/position-property"><span class="hljs-string">"#/$defs/properties/position-property"</span></a>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"s"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Split"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the position has split values"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"boolean"</span>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">false</span>
-                            }
-                        }
-                    },
-                    {
-                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Split XY position coordinates"</span>,
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/split-position"><span class="hljs-string">"#/$defs/properties/split-position"</span></a>
-                    }
-                ]
-            },
-            <a href="#/$defs/properties/scalar-property" id="/$defs/properties/scalar-property"><span class="hljs-attr">"scalar-property"</span></a> <a href="../properties/#scalar-property" title="Scalar"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Scalar Property"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An animatable property that holds a float"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/helpers/slottable-property"><span class="hljs-string">"#/$defs/helpers/slottable-property"</span></a>
-                    }
-                ],
-                <span class="hljs-attr">"oneOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Not animated"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"a"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Animated"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the property is animated"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">0</span>
-                            },
-                            <span class="hljs-attr">"k"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Static Value"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>
-                            }
-                        }
-                    },
-                    {
-                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Animated"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"a"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Animated"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the property is animated"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">1</span>
-                            },
-                            <span class="hljs-attr">"k"</span>: {
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Keyframes"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Array of keyframes"</span>,
-                                <span class="hljs-attr">"items"</span>: {
-                                    <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/vector-keyframe"><span class="hljs-string">"#/$defs/properties/vector-keyframe"</span></a>
-                                }
-                            }
-                        }
-                    }
-                ]
-            },
-            <a href="#/$defs/properties/position-keyframe" id="/$defs/properties/position-keyframe"><span class="hljs-attr">"position-keyframe"</span></a> <a href="../properties/#position-keyframe" title="Position Keyframe"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Position Keyframe"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/vector-keyframe"><span class="hljs-string">"#/$defs/properties/vector-keyframe"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"ti"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value In Tangent"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Tangent for values (eg: moving position around a curved path)"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/vector"><span class="hljs-string">"#/$defs/values/vector"</span></a>
-                            },
-                            <span class="hljs-attr">"to"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value Out Tangent"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Tangent for values (eg: moving position around a curved path)"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/vector"><span class="hljs-string">"#/$defs/values/vector"</span></a>
-                            }
-                        }
-                    }
-                ]
-            },
-            <a href="#/$defs/properties/bezier-property" id="/$defs/properties/bezier-property"><span class="hljs-attr">"bezier-property"</span></a> <a href="../properties/#bezier-property" title="Bezier"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Bezier Property"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An animatable property that holds a Bezier shape"</span>,
-                <span class="hljs-attr">"oneOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Not animated"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"a"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Animated"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the property is animated"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">0</span>
-                            },
-                            <span class="hljs-attr">"k"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Value"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Static Value"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/bezier"><span class="hljs-string">"#/$defs/values/bezier"</span></a>
-                            }
-                        }
-                    },
-                    {
-                        <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"Animated"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"a"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Animated"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether the property is animated"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-number">1</span>
-                            },
-                            <span class="hljs-attr">"k"</span>: {
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Keyframes"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Array of keyframes"</span>,
-                                <span class="hljs-attr">"items"</span>: {
-                                    <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/bezier-keyframe"><span class="hljs-string">"#/$defs/properties/bezier-keyframe"</span></a>
-                                }
-                            }
-                        }
-                    }
-                ],
-                <span class="hljs-attr">"required"</span>: [
-                    <span class="hljs-string">"a"</span>,
-                    <span class="hljs-string">"k"</span>
-                ]
-            },
-            <a href="#/$defs/properties/base-keyframe" id="/$defs/properties/base-keyframe"><span class="hljs-attr">"base-keyframe"</span></a> <a href="../properties/#base-keyframe" title="Base Keyframe"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Base Keyframe"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A Keyframes specifies the value at a specific time and the interpolation function to reach the next keyframe."</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"t"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Time"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Frame number"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>,
-                                <span class="hljs-attr">"default"</span>: <span class="hljs-number">0</span>
-                            },
-                            <span class="hljs-attr">"h"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Hold"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/values/int-boolean"><span class="hljs-string">"#/$defs/values/int-boolean"</span></a>,
-                                <span class="hljs-attr">"default"</span>: <span class="hljs-number">0</span>
-                            },
-                            <span class="hljs-attr">"i"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"In Tangent"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Easing tangent going into the next keyframe"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/easing-handle"><span class="hljs-string">"#/$defs/properties/easing-handle"</span></a>
-                            },
-                            <span class="hljs-attr">"o"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Out Tangent"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Easing tangent leaving the current keyframe"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/easing-handle"><span class="hljs-string">"#/$defs/properties/easing-handle"</span></a>
-                            }
-                        }
-                    }
-                ],
-                <span class="hljs-attr">"required"</span>: [
-                    <span class="hljs-string">"t"</span>
-                ]
             }
         },
         <a href="#/$defs/shapes" id="/$defs/shapes"><span class="hljs-attr">"shapes"</span></a>: {
+            <a href="#/$defs/shapes/ellipse" id="/$defs/shapes/ellipse"><span class="hljs-attr">"ellipse"</span></a> <a href="../shapes/#ellipse" title="Ellipse"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Ellipse"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Ellipse shape"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/shape"><span class="hljs-string">"#/$defs/shapes/shape"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"ty"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Type"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"el"</span>
+                            },
+                            <span class="hljs-attr">"p"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Position"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/position-property"><span class="hljs-string">"#/$defs/properties/position-property"</span></a>
+                            },
+                            <span class="hljs-attr">"s"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Size"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/vector-property"><span class="hljs-string">"#/$defs/properties/vector-property"</span></a>
+                            }
+                        },
+                        <span class="hljs-attr">"required"</span>: [
+                            <span class="hljs-string">"ty"</span>,
+                            <span class="hljs-string">"s"</span>,
+                            <span class="hljs-string">"p"</span>
+                        ]
+                    }
+                ]
+            },
+            <a href="#/$defs/shapes/pucker-bloat" id="/$defs/shapes/pucker-bloat"><span class="hljs-attr">"pucker-bloat"</span></a> <a href="../shapes/#pucker-bloat" title="Pucker Bloat"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Pucker Bloat"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Interpolates bezier vertices towards the center of the shape, and tangent handles away from it (or vice-versa)"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/modifier"><span class="hljs-string">"#/$defs/shapes/modifier"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"ty"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Type"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"pb"</span>
+                            },
+                            <span class="hljs-attr">"a"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Amount"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Amount as a percentage"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/scalar-property"><span class="hljs-string">"#/$defs/properties/scalar-property"</span></a>
+                            }
+                        },
+                        <span class="hljs-attr">"required"</span>: [
+                            <span class="hljs-string">"ty"</span>
+                        ]
+                    }
+                ]
+            },
+            <a href="#/$defs/shapes/gradient-fill" id="/$defs/shapes/gradient-fill"><span class="hljs-attr">"gradient-fill"</span></a> <a href="../shapes/#gradient-fill" title="Gradient"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gradient"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Gradient fill color"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/shape-style"><span class="hljs-string">"#/$defs/shapes/shape-style"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/base-gradient"><span class="hljs-string">"#/$defs/shapes/base-gradient"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"ty"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Type"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"gf"</span>
+                            },
+                            <span class="hljs-attr">"r"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Fill Rule"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/constants/fill-rule"><span class="hljs-string">"#/$defs/constants/fill-rule"</span></a>
+                            }
+                        },
+                        <span class="hljs-attr">"required"</span>: [
+                            <span class="hljs-string">"ty"</span>
+                        ]
+                    }
+                ]
+            },
+            <a href="#/$defs/shapes/all-graphic-elements" id="/$defs/shapes/all-graphic-elements"><span class="hljs-attr">"all-graphic-elements"</span></a> <a href="../shapes/#graphic-element" title="Graphic Element"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"List of valid shapes"</span>,
+                <span class="hljs-attr">"oneOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/ellipse"><span class="hljs-string">"#/$defs/shapes/ellipse"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/fill"><span class="hljs-string">"#/$defs/shapes/fill"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/gradient-fill"><span class="hljs-string">"#/$defs/shapes/gradient-fill"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/gradient-stroke"><span class="hljs-string">"#/$defs/shapes/gradient-stroke"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/group"><span class="hljs-string">"#/$defs/shapes/group"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/path"><span class="hljs-string">"#/$defs/shapes/path"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/polystar"><span class="hljs-string">"#/$defs/shapes/polystar"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/rectangle"><span class="hljs-string">"#/$defs/shapes/rectangle"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/stroke"><span class="hljs-string">"#/$defs/shapes/stroke"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/transform"><span class="hljs-string">"#/$defs/shapes/transform"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/trim-path"><span class="hljs-string">"#/$defs/shapes/trim-path"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/pucker-bloat"><span class="hljs-string">"#/$defs/shapes/pucker-bloat"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/unknown-shape"><span class="hljs-string">"#/$defs/shapes/unknown-shape"</span></a>
+                    }
+                ]
+            },
+            <a href="#/$defs/shapes/modifier" id="/$defs/shapes/modifier"><span class="hljs-attr">"modifier"</span></a> <a href="../shapes/#modifier" title="Modifier"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Modifier"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Modifiers change the bezier curves of neighbouring shapes"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/graphic-element"><span class="hljs-string">"#/$defs/shapes/graphic-element"</span></a>
+                    }
+                ]
+            },
+            <a href="#/$defs/shapes/group" id="/$defs/shapes/group"><span class="hljs-attr">"group"</span></a> <a href="../shapes/#group" title="Group"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Group"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Shape Element that can contain other shapes"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/graphic-element"><span class="hljs-string">"#/$defs/shapes/graphic-element"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"ty"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Type"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"gr"</span>
+                            },
+                            <span class="hljs-attr">"np"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Number Of Properties"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>
+                            },
+                            <span class="hljs-attr">"it"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shapes"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+                                <span class="hljs-attr">"items"</span>: {
+                                    <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/all-graphic-elements"><span class="hljs-string">"#/$defs/shapes/all-graphic-elements"</span></a>
+                                }
+                            }
+                        },
+                        <span class="hljs-attr">"required"</span>: [
+                            <span class="hljs-string">"ty"</span>
+                        ]
+                    }
+                ]
+            },
+            <a href="#/$defs/shapes/gradient-stroke" id="/$defs/shapes/gradient-stroke"><span class="hljs-attr">"gradient-stroke"</span></a> <a href="../shapes/#gradient-stroke" title="Gradient Stroke"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gradient Stroke"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Gradient stroke"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/shape-style"><span class="hljs-string">"#/$defs/shapes/shape-style"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/base-stroke"><span class="hljs-string">"#/$defs/shapes/base-stroke"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/base-gradient"><span class="hljs-string">"#/$defs/shapes/base-gradient"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"ty"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Type"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"gs"</span>
+                            }
+                        },
+                        <span class="hljs-attr">"required"</span>: [
+                            <span class="hljs-string">"ty"</span>
+                        ]
+                    }
+                ]
+            },
+            <a href="#/$defs/shapes/trim-path" id="/$defs/shapes/trim-path"><span class="hljs-attr">"trim-path"</span></a> <a href="../shapes/#trim-path" title="Trim Path"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Trim Path"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Trims shapes into a segment"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/modifier"><span class="hljs-string">"#/$defs/shapes/modifier"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"ty"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Type"</span>,
+                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"tm"</span>
+                            },
+                            <span class="hljs-attr">"s"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Start"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Segment start"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/scalar-property"><span class="hljs-string">"#/$defs/properties/scalar-property"</span></a>
+                            },
+                            <span class="hljs-attr">"e"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"End"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Segment end"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/scalar-property"><span class="hljs-string">"#/$defs/properties/scalar-property"</span></a>
+                            },
+                            <span class="hljs-attr">"o"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Offset"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/scalar-property"><span class="hljs-string">"#/$defs/properties/scalar-property"</span></a>
+                            },
+                            <span class="hljs-attr">"m"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Multiple"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"How to treat multiple copies"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/constants/trim-multiple-shapes"><span class="hljs-string">"#/$defs/constants/trim-multiple-shapes"</span></a>
+                            }
+                        },
+                        <span class="hljs-attr">"required"</span>: [
+                            <span class="hljs-string">"ty"</span>,
+                            <span class="hljs-string">"o"</span>,
+                            <span class="hljs-string">"s"</span>,
+                            <span class="hljs-string">"e"</span>
+                        ]
+                    }
+                ]
+            },
             <a href="#/$defs/shapes/base-stroke" id="/$defs/shapes/base-stroke"><span class="hljs-attr">"base-stroke"</span></a> <a href="../shapes/#base-stroke" title="Base Stroke"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Base Stroke"</span>,
@@ -1802,42 +2055,6 @@ values to jump to the relevant section.</p>
                         <span class="hljs-attr">"required"</span>: [
                             <span class="hljs-string">"w"</span>
                         ]
-                    }
-                ]
-            },
-            <a href="#/$defs/shapes/unknown-shape" id="/$defs/shapes/unknown-shape"><span class="hljs-attr">"unknown-shape"</span></a> <a href="../shapes/#unknown-shape" title="Unknown shape types"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Unknown shape types"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unknown shape types. Types not defined by the specification are still allowed."</span>,
-                <a href="#/$defs/shapes/unknown-shape/properties" id="/$defs/shapes/unknown-shape/properties"><span class="hljs-attr">"properties"</span></a>: {
-                    <a href="#/$defs/shapes/unknown-shape/properties/ty" id="/$defs/shapes/unknown-shape/properties/ty"><span class="hljs-attr">"ty"</span></a>: {
-                        <a href="#/$defs/shapes/unknown-shape/properties/ty/not" id="/$defs/shapes/unknown-shape/properties/ty/not"><span class="hljs-attr">"not"</span></a>: {
-                            <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"enum list is dynamically generated"</span>,
-                            <span class="hljs-attr">"enum"</span>: [
-                                <span class="hljs-string">"el"</span>,
-                                <span class="hljs-string">"fl"</span>,
-                                <span class="hljs-string">"gf"</span>,
-                                <span class="hljs-string">"gs"</span>,
-                                <span class="hljs-string">"gr"</span>,
-                                <span class="hljs-string">"sh"</span>,
-                                <span class="hljs-string">"sr"</span>,
-                                <span class="hljs-string">"rc"</span>,
-                                <span class="hljs-string">"st"</span>,
-                                <span class="hljs-string">"tr"</span>,
-                                <span class="hljs-string">"tm"</span>,
-                                <span class="hljs-string">"pb"</span>
-                            ]
-                        }
-                    }
-                }
-            },
-            <a href="#/$defs/shapes/modifier" id="/$defs/shapes/modifier"><span class="hljs-attr">"modifier"</span></a> <a href="../shapes/#modifier" title="Modifier"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Modifier"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Modifiers change the bezier curves of neighbouring shapes"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/graphic-element"><span class="hljs-string">"#/$defs/shapes/graphic-element"</span></a>
                     }
                 ]
             },
@@ -1920,149 +2137,6 @@ values to jump to the relevant section.</p>
                     }
                 ]
             },
-            <a href="#/$defs/shapes/group" id="/$defs/shapes/group"><span class="hljs-attr">"group"</span></a> <a href="../shapes/#group" title="Group"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Group"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Shape Element that can contain other shapes"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/graphic-element"><span class="hljs-string">"#/$defs/shapes/graphic-element"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"ty"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Type"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"gr"</span>
-                            },
-                            <span class="hljs-attr">"np"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Number Of Properties"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>
-                            },
-                            <span class="hljs-attr">"it"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shapes"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
-                                <span class="hljs-attr">"items"</span>: {
-                                    <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/all-graphic-elements"><span class="hljs-string">"#/$defs/shapes/all-graphic-elements"</span></a>
-                                }
-                            }
-                        },
-                        <span class="hljs-attr">"required"</span>: [
-                            <span class="hljs-string">"ty"</span>
-                        ]
-                    }
-                ]
-            },
-            <a href="#/$defs/shapes/base-gradient" id="/$defs/shapes/base-gradient"><span class="hljs-attr">"base-gradient"</span></a> <a href="../shapes/#base-gradient" title="Base Gradient"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Base Gradient"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Common properties for gradients"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"g"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Colors"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Gradient colors"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/gradient-property"><span class="hljs-string">"#/$defs/properties/gradient-property"</span></a>
-                            },
-                            <span class="hljs-attr">"s"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Start Point"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Starting point for the gradient"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/position-property"><span class="hljs-string">"#/$defs/properties/position-property"</span></a>
-                            },
-                            <span class="hljs-attr">"e"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"End Point"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"End point for the gradient"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/position-property"><span class="hljs-string">"#/$defs/properties/position-property"</span></a>
-                            },
-                            <span class="hljs-attr">"t"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gradient Type"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Type of the gradient"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/constants/gradient-type"><span class="hljs-string">"#/$defs/constants/gradient-type"</span></a>
-                            },
-                            <span class="hljs-attr">"h"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Highlight Length"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Highlight Length, as a percentage between <code>s</code> and <code>e</code>"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/scalar-property"><span class="hljs-string">"#/$defs/properties/scalar-property"</span></a>
-                            },
-                            <span class="hljs-attr">"a"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Highlight Angle"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Highlight Angle in clockwise degrees, relative to the direction from <code>s</code> to <code>e</code>"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/scalar-property"><span class="hljs-string">"#/$defs/properties/scalar-property"</span></a>
-                            }
-                        },
-                        <span class="hljs-attr">"required"</span>: [
-                            <span class="hljs-string">"s"</span>,
-                            <span class="hljs-string">"e"</span>,
-                            <span class="hljs-string">"g"</span>,
-                            <span class="hljs-string">"t"</span>
-                        ]
-                    }
-                ]
-            },
-            <a href="#/$defs/shapes/stroke" id="/$defs/shapes/stroke"><span class="hljs-attr">"stroke"</span></a> <a href="../shapes/#stroke" title="Stroke"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Stroke"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Solid stroke"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/shape-style"><span class="hljs-string">"#/$defs/shapes/shape-style"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/base-stroke"><span class="hljs-string">"#/$defs/shapes/base-stroke"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"ty"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Type"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"st"</span>
-                            },
-                            <span class="hljs-attr">"c"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Color"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Stroke color"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/color-property"><span class="hljs-string">"#/$defs/properties/color-property"</span></a>
-                            }
-                        },
-                        <span class="hljs-attr">"required"</span>: [
-                            <span class="hljs-string">"ty"</span>,
-                            <span class="hljs-string">"c"</span>
-                        ]
-                    }
-                ]
-            },
-            <a href="#/$defs/shapes/gradient-stroke" id="/$defs/shapes/gradient-stroke"><span class="hljs-attr">"gradient-stroke"</span></a> <a href="../shapes/#gradient-stroke" title="Gradient Stroke"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gradient Stroke"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Gradient stroke"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/shape-style"><span class="hljs-string">"#/$defs/shapes/shape-style"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/base-stroke"><span class="hljs-string">"#/$defs/shapes/base-stroke"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/base-gradient"><span class="hljs-string">"#/$defs/shapes/base-gradient"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"ty"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Type"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"gs"</span>
-                            }
-                        },
-                        <span class="hljs-attr">"required"</span>: [
-                            <span class="hljs-string">"ty"</span>
-                        ]
-                    }
-                ]
-            },
             <a href="#/$defs/shapes/rectangle" id="/$defs/shapes/rectangle"><span class="hljs-attr">"rectangle"</span></a> <a href="../shapes/#rectangle" title="Rectangle"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Rectangle"</span>,
@@ -2102,102 +2176,29 @@ values to jump to the relevant section.</p>
                     }
                 ]
             },
-            <a href="#/$defs/shapes/all-graphic-elements" id="/$defs/shapes/all-graphic-elements"><span class="hljs-attr">"all-graphic-elements"</span></a> <a href="../shapes/#graphic-element" title="Graphic Element"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"List of valid shapes"</span>,
-                <span class="hljs-attr">"oneOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/ellipse"><span class="hljs-string">"#/$defs/shapes/ellipse"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/fill"><span class="hljs-string">"#/$defs/shapes/fill"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/gradient-fill"><span class="hljs-string">"#/$defs/shapes/gradient-fill"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/gradient-stroke"><span class="hljs-string">"#/$defs/shapes/gradient-stroke"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/group"><span class="hljs-string">"#/$defs/shapes/group"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/path"><span class="hljs-string">"#/$defs/shapes/path"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/polystar"><span class="hljs-string">"#/$defs/shapes/polystar"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/rectangle"><span class="hljs-string">"#/$defs/shapes/rectangle"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/stroke"><span class="hljs-string">"#/$defs/shapes/stroke"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/transform"><span class="hljs-string">"#/$defs/shapes/transform"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/trim-path"><span class="hljs-string">"#/$defs/shapes/trim-path"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/pucker-bloat"><span class="hljs-string">"#/$defs/shapes/pucker-bloat"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/unknown-shape"><span class="hljs-string">"#/$defs/shapes/unknown-shape"</span></a>
-                    }
-                ]
-            },
-            <a href="#/$defs/shapes/path" id="/$defs/shapes/path"><span class="hljs-attr">"path"</span></a> <a href="../shapes/#path" title="Path"><i class="fas fa-book-open"></i></a> : {
+            <a href="#/$defs/shapes/stroke" id="/$defs/shapes/stroke"><span class="hljs-attr">"stroke"</span></a> <a href="../shapes/#stroke" title="Stroke"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Path"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Custom Bezier shape"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/shape"><span class="hljs-string">"#/$defs/shapes/shape"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"ty"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Type"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"sh"</span>
-                            },
-                            <span class="hljs-attr">"ks"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Bezier path"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/bezier-property"><span class="hljs-string">"#/$defs/properties/bezier-property"</span></a>
-                            }
-                        },
-                        <span class="hljs-attr">"required"</span>: [
-                            <span class="hljs-string">"ty"</span>,
-                            <span class="hljs-string">"ks"</span>
-                        ]
-                    }
-                ]
-            },
-            <a href="#/$defs/shapes/fill" id="/$defs/shapes/fill"><span class="hljs-attr">"fill"</span></a> <a href="../shapes/#fill" title="Fill"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Fill"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Solid fill color"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Stroke"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Solid stroke"</span>,
                 <span class="hljs-attr">"allOf"</span>: [
                     {
                         <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/shape-style"><span class="hljs-string">"#/$defs/shapes/shape-style"</span></a>
                     },
                     {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/base-stroke"><span class="hljs-string">"#/$defs/shapes/base-stroke"</span></a>
+                    },
+                    {
                         <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
                         <span class="hljs-attr">"properties"</span>: {
                             <span class="hljs-attr">"ty"</span>: {
                                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Type"</span>,
                                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"fl"</span>
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"st"</span>
                             },
                             <span class="hljs-attr">"c"</span>: {
                                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Color"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Stroke color"</span>,
                                 <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/color-property"><span class="hljs-string">"#/$defs/properties/color-property"</span></a>
-                            },
-                            <span class="hljs-attr">"r"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Fill Rule"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/constants/fill-rule"><span class="hljs-string">"#/$defs/constants/fill-rule"</span></a>
                             }
                         },
                         <span class="hljs-attr">"required"</span>: [
@@ -2233,33 +2234,13 @@ values to jump to the relevant section.</p>
                     }
                 ]
             },
-            <a href="#/$defs/shapes/shape" id="/$defs/shapes/shape"><span class="hljs-attr">"shape"</span></a> <a href="../shapes/#shape" title="Shape"><i class="fas fa-book-open"></i></a> : {
+            <a href="#/$defs/shapes/path" id="/$defs/shapes/path"><span class="hljs-attr">"path"</span></a> <a href="../shapes/#path" title="Path"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Drawable shape, defines the actual shape but not the style"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Path"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Custom Bezier shape"</span>,
                 <span class="hljs-attr">"allOf"</span>: [
                     {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/graphic-element"><span class="hljs-string">"#/$defs/shapes/graphic-element"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"d"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Direction"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Direction the shape is drawn as, mostly relevant when using trim path"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/constants/shape-direction"><span class="hljs-string">"#/$defs/constants/shape-direction"</span></a>
-                            }
-                        }
-                    }
-                ]
-            },
-            <a href="#/$defs/shapes/trim-path" id="/$defs/shapes/trim-path"><span class="hljs-attr">"trim-path"</span></a> <a href="../shapes/#trim-path" title="Trim Path"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Trim Path"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Trims shapes into a segment"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/modifier"><span class="hljs-string">"#/$defs/shapes/modifier"</span></a>
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/shape"><span class="hljs-string">"#/$defs/shapes/shape"</span></a>
                     },
                     {
                         <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
@@ -2267,33 +2248,17 @@ values to jump to the relevant section.</p>
                             <span class="hljs-attr">"ty"</span>: {
                                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Type"</span>,
                                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"tm"</span>
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"sh"</span>
                             },
-                            <span class="hljs-attr">"s"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Start"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Segment start"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/scalar-property"><span class="hljs-string">"#/$defs/properties/scalar-property"</span></a>
-                            },
-                            <span class="hljs-attr">"e"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"End"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Segment end"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/scalar-property"><span class="hljs-string">"#/$defs/properties/scalar-property"</span></a>
-                            },
-                            <span class="hljs-attr">"o"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Offset"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/scalar-property"><span class="hljs-string">"#/$defs/properties/scalar-property"</span></a>
-                            },
-                            <span class="hljs-attr">"m"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Multiple"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"How to treat multiple copies"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/constants/trim-multiple-shapes"><span class="hljs-string">"#/$defs/constants/trim-multiple-shapes"</span></a>
+                            <span class="hljs-attr">"ks"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Bezier path"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/bezier-property"><span class="hljs-string">"#/$defs/properties/bezier-property"</span></a>
                             }
                         },
                         <span class="hljs-attr">"required"</span>: [
                             <span class="hljs-string">"ty"</span>,
-                            <span class="hljs-string">"o"</span>,
-                            <span class="hljs-string">"s"</span>,
-                            <span class="hljs-string">"e"</span>
+                            <span class="hljs-string">"ks"</span>
                         ]
                     }
                 ]
@@ -2351,13 +2316,33 @@ values to jump to the relevant section.</p>
                     }
                 ]
             },
-            <a href="#/$defs/shapes/ellipse" id="/$defs/shapes/ellipse"><span class="hljs-attr">"ellipse"</span></a> <a href="../shapes/#ellipse" title="Ellipse"><i class="fas fa-book-open"></i></a> : {
+            <a href="#/$defs/shapes/shape" id="/$defs/shapes/shape"><span class="hljs-attr">"shape"</span></a> <a href="../shapes/#shape" title="Shape"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Ellipse"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Ellipse shape"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Drawable shape, defines the actual shape but not the style"</span>,
                 <span class="hljs-attr">"allOf"</span>: [
                     {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/shape"><span class="hljs-string">"#/$defs/shapes/shape"</span></a>
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/graphic-element"><span class="hljs-string">"#/$defs/shapes/graphic-element"</span></a>
+                    },
+                    {
+                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                        <span class="hljs-attr">"properties"</span>: {
+                            <span class="hljs-attr">"d"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Direction"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Direction the shape is drawn as, mostly relevant when using trim path"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/constants/shape-direction"><span class="hljs-string">"#/$defs/constants/shape-direction"</span></a>
+                            }
+                        }
+                    }
+                ]
+            },
+            <a href="#/$defs/shapes/fill" id="/$defs/shapes/fill"><span class="hljs-attr">"fill"</span></a> <a href="../shapes/#fill" title="Fill"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Fill"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Solid fill color"</span>,
+                <span class="hljs-attr">"allOf"</span>: [
+                    {
+                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/shape-style"><span class="hljs-string">"#/$defs/shapes/shape-style"</span></a>
                     },
                     {
                         <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
@@ -2365,21 +2350,20 @@ values to jump to the relevant section.</p>
                             <span class="hljs-attr">"ty"</span>: {
                                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Type"</span>,
                                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"el"</span>
+                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"fl"</span>
                             },
-                            <span class="hljs-attr">"p"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Position"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/position-property"><span class="hljs-string">"#/$defs/properties/position-property"</span></a>
+                            <span class="hljs-attr">"c"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Color"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/color-property"><span class="hljs-string">"#/$defs/properties/color-property"</span></a>
                             },
-                            <span class="hljs-attr">"s"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Size"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/vector-property"><span class="hljs-string">"#/$defs/properties/vector-property"</span></a>
+                            <span class="hljs-attr">"r"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Fill Rule"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/constants/fill-rule"><span class="hljs-string">"#/$defs/constants/fill-rule"</span></a>
                             }
                         },
                         <span class="hljs-attr">"required"</span>: [
                             <span class="hljs-string">"ty"</span>,
-                            <span class="hljs-string">"s"</span>,
-                            <span class="hljs-string">"p"</span>
+                            <span class="hljs-string">"c"</span>
                         ]
                     }
                 ]
@@ -2407,63 +2391,79 @@ values to jump to the relevant section.</p>
                     }
                 ]
             },
-            <a href="#/$defs/shapes/pucker-bloat" id="/$defs/shapes/pucker-bloat"><span class="hljs-attr">"pucker-bloat"</span></a> <a href="../shapes/#pucker-bloat" title="Pucker Bloat"><i class="fas fa-book-open"></i></a> : {
+            <a href="#/$defs/shapes/base-gradient" id="/$defs/shapes/base-gradient"><span class="hljs-attr">"base-gradient"</span></a> <a href="../shapes/#base-gradient" title="Base Gradient"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Pucker Bloat"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Interpolates bezier vertices towards the center of the shape, and tangent handles away from it (or vice-versa)"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Base Gradient"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Common properties for gradients"</span>,
                 <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/modifier"><span class="hljs-string">"#/$defs/shapes/modifier"</span></a>
-                    },
                     {
                         <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
                         <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"ty"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Type"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"pb"</span>
+                            <span class="hljs-attr">"g"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Colors"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Gradient colors"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/gradient-property"><span class="hljs-string">"#/$defs/properties/gradient-property"</span></a>
+                            },
+                            <span class="hljs-attr">"s"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Start Point"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Starting point for the gradient"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/position-property"><span class="hljs-string">"#/$defs/properties/position-property"</span></a>
+                            },
+                            <span class="hljs-attr">"e"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"End Point"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"End point for the gradient"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/position-property"><span class="hljs-string">"#/$defs/properties/position-property"</span></a>
+                            },
+                            <span class="hljs-attr">"t"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gradient Type"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Type of the gradient"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/constants/gradient-type"><span class="hljs-string">"#/$defs/constants/gradient-type"</span></a>
+                            },
+                            <span class="hljs-attr">"h"</span>: {
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Highlight Length"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Highlight Length, as a percentage between <code>s</code> and <code>e</code>"</span>,
+                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/scalar-property"><span class="hljs-string">"#/$defs/properties/scalar-property"</span></a>
                             },
                             <span class="hljs-attr">"a"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Amount"</span>,
-                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Amount as a percentage"</span>,
+                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Highlight Angle"</span>,
+                                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Highlight Angle in clockwise degrees, relative to the direction from <code>s</code> to <code>e</code>"</span>,
                                 <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/properties/scalar-property"><span class="hljs-string">"#/$defs/properties/scalar-property"</span></a>
                             }
                         },
                         <span class="hljs-attr">"required"</span>: [
-                            <span class="hljs-string">"ty"</span>
+                            <span class="hljs-string">"s"</span>,
+                            <span class="hljs-string">"e"</span>,
+                            <span class="hljs-string">"g"</span>,
+                            <span class="hljs-string">"t"</span>
                         ]
                     }
                 ]
             },
-            <a href="#/$defs/shapes/gradient-fill" id="/$defs/shapes/gradient-fill"><span class="hljs-attr">"gradient-fill"</span></a> <a href="../shapes/#gradient-fill" title="Gradient"><i class="fas fa-book-open"></i></a> : {
+            <a href="#/$defs/shapes/unknown-shape" id="/$defs/shapes/unknown-shape"><span class="hljs-attr">"unknown-shape"</span></a> <a href="../shapes/#unknown-shape" title="Unknown shape types"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gradient"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Gradient fill color"</span>,
-                <span class="hljs-attr">"allOf"</span>: [
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/shape-style"><span class="hljs-string">"#/$defs/shapes/shape-style"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/shapes/base-gradient"><span class="hljs-string">"#/$defs/shapes/base-gradient"</span></a>
-                    },
-                    {
-                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
-                        <span class="hljs-attr">"properties"</span>: {
-                            <span class="hljs-attr">"ty"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Shape Type"</span>,
-                                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
-                                <span class="hljs-attr">"const"</span>: <span class="hljs-string">"gf"</span>
-                            },
-                            <span class="hljs-attr">"r"</span>: {
-                                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Fill Rule"</span>,
-                                <span class="hljs-attr">"$ref"</span>: <a href="#/$defs/constants/fill-rule"><span class="hljs-string">"#/$defs/constants/fill-rule"</span></a>
-                            }
-                        },
-                        <span class="hljs-attr">"required"</span>: [
-                            <span class="hljs-string">"ty"</span>
-                        ]
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Unknown shape types"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unknown shape types. Types not defined by the specification are still allowed."</span>,
+                <a href="#/$defs/shapes/unknown-shape/properties" id="/$defs/shapes/unknown-shape/properties"><span class="hljs-attr">"properties"</span></a>: {
+                    <a href="#/$defs/shapes/unknown-shape/properties/ty" id="/$defs/shapes/unknown-shape/properties/ty"><span class="hljs-attr">"ty"</span></a>: {
+                        <a href="#/$defs/shapes/unknown-shape/properties/ty/not" id="/$defs/shapes/unknown-shape/properties/ty/not"><span class="hljs-attr">"not"</span></a>: {
+                            <span class="hljs-attr">"$comment"</span>: <span class="hljs-string">"enum list is dynamically generated"</span>,
+                            <span class="hljs-attr">"enum"</span>: [
+                                <span class="hljs-string">"el"</span>,
+                                <span class="hljs-string">"fl"</span>,
+                                <span class="hljs-string">"gf"</span>,
+                                <span class="hljs-string">"gs"</span>,
+                                <span class="hljs-string">"gr"</span>,
+                                <span class="hljs-string">"sh"</span>,
+                                <span class="hljs-string">"sr"</span>,
+                                <span class="hljs-string">"rc"</span>,
+                                <span class="hljs-string">"st"</span>,
+                                <span class="hljs-string">"tr"</span>,
+                                <span class="hljs-string">"tm"</span>,
+                                <span class="hljs-string">"pb"</span>
+                            ]
+                        }
                     }
-                ]
+                }
             }
         },
         <a href="#/$defs/values" id="/$defs/values"><span class="hljs-attr">"values"</span></a>: {
@@ -2534,6 +2534,12 @@ values to jump to the relevant section.</p>
                     <span class="hljs-string">"o"</span>
                 ]
             },
+            <a href="#/$defs/values/data-url" id="/$defs/values/data-url"><span class="hljs-attr">"data-url"</span></a> <a href="../values/#data-url" title="Data URL"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Data URL"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An embedded data object"</span>,
+                <span class="hljs-attr">"pattern"</span>: <span class="hljs-string">"^data:([\w/]+)(;base64)?,(.+)$"</span>
+            },
             <a href="#/$defs/values/hexcolor" id="/$defs/values/hexcolor"><span class="hljs-attr">"hexcolor"</span></a> <a href="../values/#hexcolor" title="Hex Color"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Hex Color"</span>,
@@ -2543,11 +2549,17 @@ values to jump to the relevant section.</p>
                     <span class="hljs-string">"#FF00AA"</span>
                 ]
             },
-            <a href="#/$defs/values/data-url" id="/$defs/values/data-url"><span class="hljs-attr">"data-url"</span></a> <a href="../values/#data-url" title="Data URL"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Data URL"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"An embedded data object"</span>,
-                <span class="hljs-attr">"pattern"</span>: <span class="hljs-string">"^data:([\w/]+)(;base64)?,(.+)$"</span>
+            <a href="#/$defs/values/color" id="/$defs/values/color"><span class="hljs-attr">"color"</span></a> <a href="../values/#color" title="Color"><i class="fas fa-book-open"></i></a> : {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
+                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Color"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Color as a [r, g, b] array with values in [0, 1]"</span>,
+                <a href="#/$defs/values/color/items" id="/$defs/values/color/items"><span class="hljs-attr">"items"</span></a>: {
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>,
+                    <span class="hljs-attr">"minimum"</span>: <span class="hljs-number">0</span>,
+                    <span class="hljs-attr">"maximum"</span>: <span class="hljs-number">1</span>
+                },
+                <span class="hljs-attr">"minItems"</span>: <span class="hljs-number">3</span>,
+                <span class="hljs-attr">"maxItems"</span>: <span class="hljs-number">4</span>
             },
             <a href="#/$defs/values/vector" id="/$defs/values/vector"><span class="hljs-attr">"vector"</span></a> <a href="../values/#vector" title="Vector"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
@@ -2566,18 +2578,6 @@ values to jump to the relevant section.</p>
                     <span class="hljs-attr">"minimum"</span>: <span class="hljs-number">0</span>,
                     <span class="hljs-attr">"maximum"</span>: <span class="hljs-number">1</span>
                 }
-            },
-            <a href="#/$defs/values/color" id="/$defs/values/color"><span class="hljs-attr">"color"</span></a> <a href="../values/#color" title="Color"><i class="fas fa-book-open"></i></a> : {
-                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>,
-                <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Color"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Color as a [r, g, b] array with values in [0, 1]"</span>,
-                <a href="#/$defs/values/color/items" id="/$defs/values/color/items"><span class="hljs-attr">"items"</span></a>: {
-                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>,
-                    <span class="hljs-attr">"minimum"</span>: <span class="hljs-number">0</span>,
-                    <span class="hljs-attr">"maximum"</span>: <span class="hljs-number">1</span>
-                },
-                <span class="hljs-attr">"minItems"</span>: <span class="hljs-number">3</span>,
-                <span class="hljs-attr">"maxItems"</span>: <span class="hljs-number">4</span>
             }
         }
     }
