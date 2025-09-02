@@ -11,8 +11,17 @@
             "$ref": "#/$defs/helpers/slottable-object"
         },
         {
+            "$ref": "#/$defs/helpers/file-asset"
+        },
+        {
             "type": "object",
             "properties": {
+                "ty": {
+                    "title": "Type",
+                    "description": "Asset type",
+                    "type": "integer",
+                    "const": 1
+                },
                 "w": {
                     "title": "Width",
                     "description": "Width of the image",
@@ -22,43 +31,14 @@
                     "title": "Height",
                     "description": "Height of the image",
                     "type": "number"
-                },
-                "p": {
-                    "title": "File Name",
-                    "description": "Name of the image file or a data url",
-                    "type": "string"
-                },
-                "u": {
-                    "title": "File Path",
-                    "description": "Path to the image file",
-                    "type": "string"
-                },
-                "e": {
-                    "title": "Embedded",
-                    "description": "If '1', 'p' is a Data URL",
-                    "$ref": "#/$defs/values/int-boolean"
                 }
             },
-            "allOf": [
-                {
-                    "if": {
-                        "properties": {
-                            "e": {"const": 1}
-                        },
-                        "required": ["e"]
-                    },
-                    "then": {
-                        "properties": {
-                            "p": {"$ref": "#/$defs/values/data-url"}
-                        }
-                    }
-                }
-            ],
+            "required": ["ty"],
             "if": {
                 "required": ["sid"]
             },
             "else": {
-                "required": ["w", "h", "p"]
+                "required": ["ty", "w", "h", "p"]
             }
         }
     ]

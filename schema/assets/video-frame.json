@@ -1,0 +1,53 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Video Frame",
+    "description": "Asset representing a frame from a video at a specific timestamp.",
+    "allOf": [
+        {
+            "$ref": "#/$defs/assets/asset"
+        },
+        {
+            "$ref": "#/$defs/helpers/slottable-object"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "ty": {
+                    "title": "Type",
+                    "description": "Asset type",
+                    "type": "integer",
+                    "const": 3
+                },
+                "vsid": {
+                    "title": "Video Asset ID",
+                    "description": "ID of the video asset to extract frame from",
+                    "type": "string"
+                },
+                "t": {
+                    "title": "Timestamp",
+                    "description": "Timestamp in seconds where to extract the frame from the video",
+                    "type": "number",
+                    "minimum": 0
+                },
+                "w": {
+                    "title": "Width",
+                    "description": "Width of the frame",
+                    "type": "number"
+                },
+                "h": {
+                    "title": "Height",
+                    "description": "Height of the frame",
+                    "type": "number"
+                }
+            },
+            "required": ["ty"],
+            "if": {
+                "required": ["sid"]
+            },
+            "else": {
+                "required": ["ty", "vsid", "t"]
+            }
+        }
+    ]
+}
