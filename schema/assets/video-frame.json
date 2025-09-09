@@ -19,7 +19,7 @@
                     "type": "integer",
                     "const": 3
                 },
-                "vsid": {
+                "refId": {
                     "title": "Video Asset ID",
                     "description": "ID of the video asset to extract frame from",
                     "type": "string"
@@ -46,7 +46,7 @@
                 "required": ["sid"]
             },
             "else": {
-                "required": ["ty", "vsid", "t"]
+                "required": ["ty", "refId", "t"]
             }
         }
     ]
