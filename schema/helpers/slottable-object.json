@@ -2,11 +2,11 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "title": "Slottable Object",
-    "description": "Object that may have its value replaced with a slot value",
+    "description": "Object that may have its value replaced with a slot value. When `sid` is present, the object's value is determined by the corresponding slot in the animation's `slots` dictionary.",
     "properties": {
         "sid": {
             "title": "Slot Id",
-            "description": "Identifier to look up the slot",
+            "description": "Identifier that references a slot in the animation's `slots` dictionary. The slot's type must match this property's expected type.",
             "type": "string"
         }
     }
