@@ -182,6 +182,30 @@ replacement.
 
 {schema_object:helpers/slottable-property}
 
+<h3 id="slot-validation-rules">Slot Validation Rules</h3>
+
+**Type Consistency Rule:**
+
+- The type of a Slot's `p` property MUST match the type of the property that references it via `sid`
+- Vector-type slots MAY target Position properties (and vice versa) if the number of dimensions match, as implementations perform simple value substitution
+
+**Duplicate Slot ID Rule:**
+
+- Multiple properties MAY reference the same `sid` value
+- All properties referencing the same `sid` MUST have compatible types
+- If multiple `sid` values with identical names but incompatible types exist, implementations SHOULD treat this as an error
+
+**Missing Reference Handling:**
+
+- If a property's `sid` references a slot that does not exist in the `slots` dictionary, implementations MUST use the property's own `a` and `k` values as fallback
+- If a property has only `sid` (no `a`/`k` fallback) and the referenced slot is missing, implementations SHOULD ignore the property or use a type-appropriate default value
+- Slots defined in the `slots` dictionary that are not referenced by any property MAY be ignored
+
+**Type Determination:**
+
+- The type of a slot is determined by the properties that reference it
+- When parsing, implementations SHOULD use the first property referencing a slot to establish its expected type
+
 <lottie-playground example="slots.json">
     <form>
         <input title="Scale X" type="range" min="0" value="100" max="200"/>
