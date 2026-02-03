@@ -10,6 +10,7 @@ Their structure depends on whether it's animated or not:
 |-----------|------|-------|-------------|
 | `a`       | {link:values/int-boolean} | Animated | Whether the property is animated |
 | `k`       | | Value or Keyframes | When it's not animated, `k` will contain the value directly. When animated, `k` will be an array of keyframes. |
+| `ty`      | {link:constants/property-type} | Property Type | Compact type identifier indicating the value type |
 
 <h3 id="base-keyframe">Keyframes</h3>
 
