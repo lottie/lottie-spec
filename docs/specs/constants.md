@@ -184,6 +184,12 @@ $$Y = 0.2126 R + 0.7152 G + 0.0722 B$$
 
 {schema_enum:gradient-type}
 
+<h2 id="property-type">Property Type</h2>
+
+{schema_string:constants/property-type/description}
+
+{schema_enum:property-type}
+
 <lottie-playground example="gradient.json">
     <title>Example</title>
     <form>

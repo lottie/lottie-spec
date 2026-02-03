@@ -4,6 +4,12 @@
     "title": "Gradient Property",
     "description": "An animatable property that holds a Gradient",
     "properties": {
+        "ty": {
+            "title": "Property Type",
+            "description": "Property type, must be 'g' for Gradient Property",
+            "$ref": "#/$defs/constants/property-type",
+            "const": "g"
+        },
         "p": {
             "title": "Color stop count",
             "type": "number"

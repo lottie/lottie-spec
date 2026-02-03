@@ -8,6 +8,14 @@
             "$ref": "#/$defs/helpers/slottable-property"
         }
     ],
+    "properties": {
+        "ty": {
+            "title": "Property Type",
+            "description": "Property type, must be 'c' for Color Property",
+            "$ref": "#/$defs/constants/property-type",
+            "const": "c"
+        }
+    },
     "oneOf": [
         {
             "$comment": "Not animated",

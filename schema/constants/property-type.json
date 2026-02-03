@@ -1,0 +1,38 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "string",
+    "title": "Property Type",
+    "description": "Compact data type identifier for animatable properties.",
+    "oneOf": [
+        {
+            "title": "Scalar",
+            "description": "Single numeric value (e.g., opacity, rotation angle).",
+            "const": "s"
+        },
+        {
+            "title": "Vector",
+            "description": "Array of numbers with variable length.",
+            "const": "v"
+        },
+        {
+            "title": "Position",
+            "description": "2D vector representing a position in space.",
+            "const": "v2"
+        },
+        {
+            "title": "Color",
+            "description": "RGB or RGBA color value.",
+            "const": "c"
+        },
+        {
+            "title": "Bezier",
+            "description": "Cubic bezier path shape.",
+            "const": "p"
+        },
+        {
+            "title": "Gradient",
+            "description": "Gradient color stops.",
+            "const": "g"
+        }
+    ]
+}
