@@ -207,6 +207,45 @@ replacement.
 - When parsing, implementations SHOULD check that properties referencing a slot via `sid` are type-compatible with the slot's `p` value
 - If a type mismatch is detected, implementations SHOULD treat this as an error
 
+Valid example — scalar slot referenced by a scalar property:
+
+```json
+{
+    "slots": {
+        "my_rotation": { "p": { "a": 0, "k": 45 } }
+    }
+}
+```
+```json
+{ "a": 0, "k": 0, "sid": "my_rotation" }
+```
+
+Valid example — vector slot referenced by a position property (dimensions match):
+
+```json
+{
+    "slots": {
+        "my_position": { "p": { "a": 0, "k": [100, 200] } }
+    }
+}
+```
+```json
+{ "a": 0, "k": [0, 0], "sid": "my_position" }
+```
+
+Invalid example — scalar slot referenced by a vector property (type mismatch):
+
+```json
+{
+    "slots": {
+        "my_scale": { "p": { "a": 0, "k": 50 } }
+    }
+}
+```
+```json
+{ "a": 0, "k": [100, 100], "sid": "my_scale" }
+```
+
 <lottie-playground example="slots.json">
     <form>
         <input title="Scale X" type="range" min="0" value="100" max="200"/>
