@@ -203,8 +203,9 @@ replacement.
 
 **Type Determination:**
 
-- The type of a slot is determined by the properties that reference it
-- When parsing, implementations SHOULD use the first property referencing a slot to establish its expected type
+- The expected type of a slot is determined by its `p` value
+- When parsing, implementations SHOULD check that properties referencing a slot via `sid` are type-compatible with the slot's `p` value
+- If a type mismatch is detected, implementations SHOULD treat this as an error
 
 <lottie-playground example="slots.json">
     <form>
