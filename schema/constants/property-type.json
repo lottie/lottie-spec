@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "string",
     "title": "Property Type",
-    "description": "Compact data type identifier for animatable properties.",
+    "description": "Optional type identifier for animatable properties, allowing parsers to determine the value type without full schema awareness.",
     "oneOf": [
         {
             "title": "Scalar",

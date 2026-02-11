@@ -10,7 +10,20 @@ Their structure depends on whether it's animated or not:
 |-----------|------|-------|-------------|
 | `a`       | {link:values/int-boolean} | Animated | Whether the property is animated |
 | `k`       | | Value or Keyframes | When it's not animated, `k` will contain the value directly. When animated, `k` will be an array of keyframes. |
-| `ty`      | {link:constants/property-type} | Property Type | Compact type identifier indicating the value type |
+| `ty`      | {link:constants/property-type} | Property Type | Optional type identifier, allowing parsers to determine the value type without full schema awareness |
+
+In most cases, the property type can be determined by looking at the parent object.
+For example, a Transform's `r` attribute is always a Scalar Property and its `s` attribute is always a Vector Property.
+
+However, having an explicit `ty` is useful in cases where the property is processed
+without its parent context. For example:
+
+* **Slots**: when resolving slot values, the parser receives a property without
+  knowing which parent object it belongs to. The `ty` field allows the parser to
+  correctly interpret and validate the property value without traversing the
+  full object hierarchy.
+* **Validation**: tools can verify that a property's `ty` matches its expected
+  type, catching mismatches early without requiring full schema traversal.
 
 <h3 id="base-keyframe">Keyframes</h3>
 

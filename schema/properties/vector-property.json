@@ -11,7 +11,7 @@
     "properties": {
         "ty": {
             "title": "Property Type",
-            "description": "Property type, must be 'v' for Vector Property",
+            "description": "Property type, must be 'v' for Vector Property when present",
             "$ref": "#/$defs/constants/property-type",
             "const": "v"
         }
