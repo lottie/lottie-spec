@@ -6,7 +6,7 @@
     "properties": {
         "ty": {
             "title": "Property Type",
-            "description": "Property type, must be 'g' for Gradient Property",
+            "description": "Property type, must be 'g' for Gradient Property when present",
             "$ref": "#/$defs/constants/property-type",
             "const": "g"
         },
