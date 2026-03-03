@@ -198,6 +198,12 @@ replacement.
     </script>
 </lottie-playground>
 
+<h2 id="file-asset">File Asset</h2>
+
+{schema_string:helpers/file-asset/description}
+
+{schema_object:helpers/file-asset}
+
 <h2 id="mask">Mask</h2>
 
 {schema_string:helpers/mask/description}

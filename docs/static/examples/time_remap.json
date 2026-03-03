@@ -10,6 +10,7 @@
     "assets": [
         {
             "id": "comp_0",
+            "ty": 0,
             "nm": "time_remap_precomp",
             "fr": 60,
             "layers": [

@@ -10,6 +10,7 @@
     "assets": [
         {
             "id": "comp_0",
+            "ty": 0,
             "nm": "swing",
             "fr": 60,
             "layers": [
