@@ -2,11 +2,11 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "title": "Slot",
-    "description": "Defines a property value that will be set to all matched properties",
+    "description": "Defines a property value that will be set to all matched properties. The type of `p` must match the type of the properties referencing this slot via `sid`.",
     "properties": {
         "p": {
             "title": "Property Value",
-            "description": "Property Value"
+            "description": "The value to substitute into all properties with a matching `sid`. Must be type-compatible with the target properties."
         }
     },
     "required": ["p"]

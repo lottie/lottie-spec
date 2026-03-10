@@ -182,6 +182,70 @@ replacement.
 
 {schema_object:helpers/slottable-property}
 
+<h3 id="slot-validation-rules">Slot Validation Rules</h3>
+
+**Type Consistency Rule:**
+
+- The type of a Slot's `p` property MUST match the type of the property that references it via `sid`
+- Vector-type slots MAY target Position properties if the number of dimensions match, as implementations perform simple value substitution
+
+**Duplicate Slot ID Rule:**
+
+- Multiple properties MAY reference the same `sid` value
+- All properties referencing the same `sid` MUST have compatible types
+- If multiple `sid` values with identical names but incompatible types exist, implementations SHOULD treat this as an error
+
+**Missing Reference Handling:**
+
+- If a property's `sid` references a slot that does not exist in the `slots` dictionary, implementations MUST use the property's own `a` and `k` values as fallback
+- If a property has only `sid` (no `a`/`k` fallback) and the referenced slot is missing, implementations SHOULD ignore the property or use a type-appropriate default value
+- Slots defined in the `slots` dictionary that are not referenced by any property MAY be ignored
+
+**Type Determination:**
+
+- The expected type of a slot is determined by its `p` value
+- When parsing, implementations SHOULD check that properties referencing a slot via `sid` are type-compatible with the slot's `p` value
+- If a type mismatch is detected, implementations SHOULD treat this as an error
+
+Valid example — scalar slot referenced by a scalar property:
+
+```json
+{
+    "slots": {
+        "my_rotation": { "p": { "a": 0, "k": 45 } }
+    }
+}
+```
+```json
+{ "a": 0, "k": 0, "sid": "my_rotation" }
+```
+
+Valid example — vector slot referenced by a position property (dimensions match):
+
+```json
+{
+    "slots": {
+        "my_position": { "p": { "a": 0, "k": [100, 200] } }
+    }
+}
+```
+```json
+{ "a": 0, "k": [0, 0], "sid": "my_position" }
+```
+
+Invalid example — scalar slot referenced by a vector property (type mismatch):
+
+```json
+{
+    "slots": {
+        "my_scale": { "p": { "a": 0, "k": 50 } }
+    }
+}
+```
+```json
+{ "a": 0, "k": [100, 100], "sid": "my_scale" }
+```
+
 <lottie-playground example="slots.json">
     <form>
         <input title="Scale X" type="range" min="0" value="100" max="200"/>

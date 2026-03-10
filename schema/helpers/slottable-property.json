@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "title": "Slottable Property",
-    "description": "Property that may have its value replaced with a slot value",
+    "description": "Property that may have its value replaced with a slot value. When `sid` is present, `a` and `k` are optional fallback values used if the referenced slot is missing.",
     "allOf": [
         {
             "$ref": "#/$defs/helpers/slottable-object"
