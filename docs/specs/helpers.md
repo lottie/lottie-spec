@@ -187,7 +187,7 @@ replacement.
 **Type Consistency Rule:**
 
 - The type of a Slot's `p` property MUST match the type of the property that references it via `sid`
-- Vector-type slots MAY target Position properties (and vice versa) if the number of dimensions match, as implementations perform simple value substitution
+- Vector-type slots MAY target Position properties if the number of dimensions match, as implementations perform simple value substitution
 
 **Duplicate Slot ID Rule:**
 
