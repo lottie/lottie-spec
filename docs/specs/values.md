@@ -91,7 +91,7 @@ It's the same array as the case without transparency but with the following valu
 | `1`       | Alpha component for the 3rd color |
 
 
-<h3 >Gradient Types</h3>
+<h3>Gradient Types</h3>
 
 Gradient types are defined by {link:constants/gradient-type} with the following semantics
 (Properties are the ones from {link:shapes/gradient-fill} and {link:shapes/gradient-stroke}).
