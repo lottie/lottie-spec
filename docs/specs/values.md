@@ -96,6 +96,8 @@ It's the same array as the case without transparency but with the following valu
 Gradient types are defined by {link:constants/gradient-type} with the following semantics
 (Properties are the ones from {link:shapes/gradient-fill} and {link:shapes/gradient-stroke}).
 
+All gradient types use a padded spread, meaning the color stays constant outside the range.
+
 
 <h4>`1`: Linear Gradient</h4>
 
