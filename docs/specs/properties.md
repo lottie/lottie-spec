@@ -10,6 +10,20 @@ Their structure depends on whether it's animated or not:
 |-----------|------|-------|-------------|
 | `a`       | {link:values/int-boolean} | Animated | Whether the property is animated |
 | `k`       | | Value or Keyframes | When it's not animated, `k` will contain the value directly. When animated, `k` will be an array of keyframes. |
+| `ty`      | {link:constants/property-type} | Property Type | Optional type identifier, allowing parsers to determine the value type without full schema awareness |
+
+In most cases, the property type can be determined by looking at the parent object.
+For example, a Transform's `r` attribute is always a Scalar Property and its `s` attribute is always a Vector Property.
+
+However, having an explicit `ty` is useful in cases where the property is processed
+without its parent context. For example:
+
+* **Slots**: when resolving slot values, the parser receives a property without
+  knowing which parent object it belongs to. The `ty` field allows the parser to
+  correctly interpret and validate the property value without traversing the
+  full object hierarchy.
+* **Validation**: tools can verify that a property's `ty` matches its expected
+  type, catching mismatches early without requiring full schema traversal.
 
 <h3 id="base-keyframe">Keyframes</h3>
 
@@ -94,6 +108,37 @@ In the following example, the ball moves left and right, on the background you c
 
 Animatable {link:values/vector}.
 
+Static example (a scale of `[100, 100]`):
+
+```json
+{
+    "a": 0,
+    "k": [100, 100],
+    "ty": "v"
+}
+```
+
+Animated example (scale animating from `[100, 100]` to `[50, 50]`):
+
+```json
+{
+    "a": 1,
+    "k": [
+        {
+            "t": 0,
+            "s": [100, 100],
+            "o": {"x": [0.333, 0.333], "y": [0, 0]},
+            "i": {"x": [0.667, 0.667], "y": [1, 1]}
+        },
+        {
+            "t": 60,
+            "s": [50, 50]
+        }
+    ],
+    "ty": "v"
+}
+```
+
 {schema_object:properties/vector-property}
 <tr><td>`a`</td><td>{link:values/int-boolean}</td><td>Animated</td><td>Whether the property is animated</td></tr>
 <tr><td>`k`</td>
@@ -117,6 +162,37 @@ Animatable scalar (single number value).
 Note that when animated it uses {link:properties/vector-keyframe:Vector Keyframes},
 so instead of scalars keyframes have arrays with a single values.
 
+Static example (an opacity of `100`):
+
+```json
+{
+    "a": 0,
+    "k": 100,
+    "ty": "s"
+}
+```
+
+Animated example (rotation from `0` to `360` degrees):
+
+```json
+{
+    "a": 1,
+    "k": [
+        {
+            "t": 0,
+            "s": [0],
+            "o": {"x": [0], "y": [0]},
+            "i": {"x": [1], "y": [1]}
+        },
+        {
+            "t": 60,
+            "s": [360]
+        }
+    ],
+    "ty": "s"
+}
+```
+
 {schema_object:properties/scalar-property}
 <tr><td>`a`</td><td>{link:values/int-boolean}</td><td>Animated</td><td>Whether the property is animated</td></tr>
 <tr><td>`k`</td>
@@ -129,6 +205,39 @@ so instead of scalars keyframes have arrays with a single values.
 <h3 id="position-property">Position</h3>
 
 Animatable 2D {link:values/vector} with optional spatial tangents.
+
+Static example (a position at `[256, 256]`):
+
+```json
+{
+    "a": 0,
+    "k": [256, 256],
+    "ty": "v2"
+}
+```
+
+Animated example (position moving from `[0, 0]` to `[256, 256]` with spatial tangents):
+
+```json
+{
+    "a": 1,
+    "k": [
+        {
+            "t": 0,
+            "s": [0, 0],
+            "ti": [0, 0],
+            "to": [42.667, 42.667],
+            "o": {"x": [0.333], "y": [0]},
+            "i": {"x": [0.667], "y": [1]}
+        },
+        {
+            "t": 60,
+            "s": [256, 256]
+        }
+    ],
+    "ty": "v2"
+}
+```
 
 {schema_object:properties/position-property}
 <tr><td>`a`</td><td>{link:values/int-boolean}</td><td>Animated</td><td>Whether the property is animated</td></tr>
@@ -156,6 +265,52 @@ Animatable 2D {link:values/vector} with optional spatial tangents.
 
 Animatable {link:values/bezier}.
 
+Static example (a triangular path):
+
+```json
+{
+    "a": 0,
+    "k": {
+        "c": true,
+        "v": [[256, 0], [512, 512], [0, 512]],
+        "i": [[0, 0], [0, 0], [0, 0]],
+        "o": [[0, 0], [0, 0], [0, 0]]
+    },
+    "ty": "p"
+}
+```
+
+Animated example (a triangle morphing into a different shape):
+
+```json
+{
+    "a": 1,
+    "k": [
+        {
+            "t": 0,
+            "s": [{
+                "c": true,
+                "v": [[256, 0], [512, 512], [0, 512]],
+                "i": [[0, 0], [0, 0], [0, 0]],
+                "o": [[0, 0], [0, 0], [0, 0]]
+            }],
+            "o": {"x": [0.333], "y": [0]},
+            "i": {"x": [0.667], "y": [1]}
+        },
+        {
+            "t": 60,
+            "s": [{
+                "c": true,
+                "v": [[256, 0], [512, 256], [0, 256]],
+                "i": [[0, 0], [0, 0], [0, 0]],
+                "o": [[0, 0], [0, 0], [0, 0]]
+            }]
+        }
+    ],
+    "ty": "p"
+}
+```
+
 {schema_object:properties/bezier-property}
 <tr><td>`a`</td><td>{link:values/int-boolean}</td><td>Animated</td><td>Whether the property is animated</td></tr>
 <tr><td>`k`</td>
@@ -174,6 +329,37 @@ Animatable {link:values/bezier}.
 <h3 id="color-property">Color</h3>
 
 Animatable {link:values/color}.
+
+Static example (red):
+
+```json
+{
+    "a": 0,
+    "k": [1, 0, 0],
+    "ty": "c"
+}
+```
+
+Animated example (color transitioning from red to blue):
+
+```json
+{
+    "a": 1,
+    "k": [
+        {
+            "t": 0,
+            "s": [1, 0, 0],
+            "o": {"x": [0.333], "y": [0]},
+            "i": {"x": [0.667], "y": [1]}
+        },
+        {
+            "t": 60,
+            "s": [0, 0, 1]
+        }
+    ],
+    "ty": "c"
+}
+```
 
 {schema_object:properties/color-property}
 <tr><td>`a`</td><td>{link:values/int-boolean}</td><td>Animated</td><td>Whether the property is animated</td></tr>
@@ -194,6 +380,43 @@ Animatable {link:values/color}.
 <h3 id="gradient-property">Gradient</h3>
 
 Animatable {link:values/gradient}.
+
+Static example (a gradient with 3 color stops):
+
+```json
+{
+    "p": 3,
+    "k": {
+        "a": 0,
+        "k": [0, 1, 0, 0, 0.5, 0, 1, 0, 1, 0, 0, 1]
+    },
+    "ty": "g"
+}
+```
+
+Animated example (gradient transitioning between two color configurations):
+
+```json
+{
+    "p": 2,
+    "k": {
+        "a": 1,
+        "k": [
+            {
+                "t": 0,
+                "s": [0, 1, 0, 0, 1, 0, 0, 1],
+                "o": {"x": [0.333], "y": [0]},
+                "i": {"x": [0.667], "y": [1]}
+            },
+            {
+                "t": 60,
+                "s": [0, 0, 1, 0, 1, 1, 1, 0]
+            }
+        ]
+    },
+    "ty": "g"
+}
+```
 
 {schema_object:properties/gradient-property}
 <tr><td>`k.a`</td><td>{link:values/int-boolean}</td><td>Animated</td><td>Whether the property is animated</td></tr>
