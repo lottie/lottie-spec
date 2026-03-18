@@ -13,6 +13,11 @@
             "title": "Radial",
             "description": "Colors transition outward from a center point.",
             "const": 2
+        },
+        {
+            "title": "Conic",
+            "description": "Colors radiate clockwise around a center point.",
+            "const": 2
         }
     ]
 }
