@@ -129,11 +129,10 @@ The gradient changes colors across a circle around a point.
 
 `s` indicates the center of the circle.
 
-`a` Is the initial angle in degrees offset from the line between `s` and `e`.
-If absent, assume 0.
+`a` Is the initial angle in degrees if absent, assume 0.
 
 Offset values represent portions of a turn around the circle turning clockwise.
-A value of 0 will be on the line, a value of 0.25 will be 90 degrees from that line.
+A value of 0 will be at the angle `a`, a value of 0.25 will be 90 degrees from that.
 
 </body>
 </html>
