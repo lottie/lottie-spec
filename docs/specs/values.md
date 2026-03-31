@@ -134,15 +134,6 @@ The gradient changes colors across a circle around a point.
 Offset values represent portions of a turn around the circle turning clockwise.
 A value of 0 will be at the angle `a`, a value of 0.25 will be 90 degrees from that.
 
-</body>
-</html>
-</body>
-</html>
-
-</body>
-</html>
-
-
 <h3 class="print-site-plugin-ignore">Gradient Example</h3>
 
 {editor_example:gradient}
