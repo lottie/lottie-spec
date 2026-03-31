@@ -17,7 +17,7 @@
         {
             "title": "Conic",
             "description": "Colors radiate clockwise around a center point.",
-            "const": 2
+            "const": 3
         }
     ]
 }
