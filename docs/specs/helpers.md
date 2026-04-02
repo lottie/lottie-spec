@@ -233,6 +233,19 @@ Valid example — vector slot referenced by a position property (dimensions matc
 { "a": 0, "k": [0, 0], "sid": "my_position" }
 ```
 
+Valid example — bezier slot referenced by a bezier property:
+
+```json
+{
+    "slots": {
+        "my_path": { "p": { "a": 0, "k": { "c": true, "v": [[0, 0], [100, 0], [100, 100]], "i": [[0, 0], [0, 0], [0, 0]], "o": [[0, 0], [0, 0], [0, 0]] } } }
+    }
+}
+```
+```json
+{ "a": 0, "k": { "c": true, "v": [[0, 0]], "i": [[0, 0]], "o": [[0, 0]] }, "sid": "my_path" }
+```
+
 Invalid example — scalar slot referenced by a vector property (type mismatch):
 
 ```json
