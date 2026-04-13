@@ -11,9 +11,9 @@
   "properties": {
     "ty": {
       "title": "Property Type",
-      "description": "Property type, must be 'p' for Bezier Property when present",
+      "description": "Property type, must be 'b' for Bezier Property when present",
       "$ref": "#/$defs/constants/property-type",
-      "const": "p"
+      "const": "b"
     }
   },
   "oneOf": [

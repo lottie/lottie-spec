@@ -276,7 +276,7 @@ Static example (a triangular path):
         "i": [[0, 0], [0, 0], [0, 0]],
         "o": [[0, 0], [0, 0], [0, 0]]
     },
-    "ty": "p"
+    "ty": "b"
 }
 ```
 
@@ -307,7 +307,7 @@ Animated example (a triangle morphing into a different shape):
             }]
         }
     ],
-    "ty": "p"
+    "ty": "b"
 }
 ```
 

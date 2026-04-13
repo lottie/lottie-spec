@@ -27,7 +27,7 @@
         {
             "title": "Bezier",
             "description": "Cubic bezier path shape.",
-            "const": "p"
+            "const": "b"
         },
         {
             "title": "Gradient",
