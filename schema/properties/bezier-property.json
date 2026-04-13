@@ -1,48 +1,56 @@
 {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "type": "object",
-    "title": "Bezier Property",
-    "description": "An animatable property that holds a Bezier shape",
-    "allOf": [
-        {
-            "$ref": "#/$defs/helpers/slottable-property"
-        }
-    ],
-    "oneOf": [
-        {
-            "$comment": "Not animated",
-            "properties": {
-                "a": {
-                    "title": "Animated",
-                    "description": "Whether the property is animated",
-                    "$ref": "#/$defs/values/int-boolean",
-                    "const": 0
-                },
-                "k": {
-                    "title": "Value",
-                    "description": "Static Value",
-                    "$ref": "#/$defs/values/bezier"
-                }
-            }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Bezier Property",
+  "description": "An animatable property that holds a Bezier shape",
+  "allOf": [
+    {
+      "$ref": "#/$defs/helpers/slottable-property"
+    }
+  ],
+  "properties": {
+    "ty": {
+      "title": "Property Type",
+      "description": "Property type, must be 'b' for Bezier Property when present",
+      "$ref": "#/$defs/constants/property-type",
+      "const": "b"
+    }
+  },
+  "oneOf": [
+    {
+      "$comment": "Not animated",
+      "properties": {
+        "a": {
+          "title": "Animated",
+          "description": "Whether the property is animated",
+          "$ref": "#/$defs/values/int-boolean",
+          "const": 0
         },
-        {
-            "$comment": "Animated",
-            "properties": {
-                "a": {
-                    "title": "Animated",
-                    "description": "Whether the property is animated",
-                    "$ref": "#/$defs/values/int-boolean",
-                    "const": 1
-                },
-                "k": {
-                    "type": "array",
-                    "title": "Keyframes",
-                    "description": "Array of keyframes",
-                    "items": {
-                            "$ref": "#/$defs/properties/bezier-keyframe"
-                    }
-                }
-            }
+        "k": {
+          "title": "Value",
+          "description": "Static Value",
+          "$ref": "#/$defs/values/bezier"
         }
-    ]
+      }
+    },
+    {
+      "$comment": "Animated",
+      "properties": {
+        "a": {
+          "title": "Animated",
+          "description": "Whether the property is animated",
+          "$ref": "#/$defs/values/int-boolean",
+          "const": 1
+        },
+        "k": {
+          "type": "array",
+          "title": "Keyframes",
+          "description": "Array of keyframes",
+          "items": {
+            "$ref": "#/$defs/properties/bezier-keyframe"
+          }
+        }
+      }
+    }
+  ]
 }

@@ -8,6 +8,14 @@
             "$ref": "#/$defs/helpers/slottable-property"
         }
     ],
+    "properties": {
+        "ty": {
+            "title": "Property Type",
+            "description": "Property type, must be 's' for Scalar Property when present",
+            "$ref": "#/$defs/constants/property-type",
+            "const": "s"
+        }
+    },
     "oneOf": [
         {
             "$comment": "Not animated",

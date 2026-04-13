@@ -8,6 +8,14 @@
             "$ref": "#/$defs/helpers/slottable-property"
         }
     ],
+    "properties": {
+        "ty": {
+            "title": "Property Type",
+            "description": "Property type, must be 'v2' for Position Property when present",
+            "$ref": "#/$defs/constants/property-type",
+            "const": "v2"
+        }
+    },
     "oneOf": [
         {
             "$comment": "Not animated",

@@ -195,3 +195,11 @@ $$Y = 0.2126 R + 0.7152 G + 0.0722 B$$
     gradient.t = Number(data["Type"]);
     </script>
 </lottie-playground>
+
+<h2 id="property-type">Property Type</h2>
+
+{schema_string:constants/property-type/description}
+
+{schema_enum:property-type}
+
+For examples of each property type, see the [Property types](properties.md#vector-property) section.
