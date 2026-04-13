@@ -298,6 +298,8 @@
                 
             <li class="second-level"><a href="#gradient-type">Gradient Type</a></li>
                 
+            <li class="second-level"><a href="#property-type">Property Type</a></li>
+                
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
@@ -905,7 +907,52 @@
         );
         </script>
 </div>
-</div></div>
+</div>
+<h2 id="property-type">Property Type</h2>
+<p></p>
+<p><span>Optional type identifier for animatable properties, allowing parsers to determine the value type without full schema awareness.</span></p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Name </th>
+<th>Description <a class="schema-link" href="../schema/#/$defs/constants/property-type" title="View Schema"><i class="fas fa-file-code"></i></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>'s'</code></td>
+<td>Scalar</td>
+<td>Single numeric value (e.g., opacity, rotation angle).</td>
+</tr>
+<tr>
+<td><code>'v'</code></td>
+<td>Vector</td>
+<td>Array of numbers with variable length.</td>
+</tr>
+<tr>
+<td><code>'v2'</code></td>
+<td>Position</td>
+<td>2D vector representing a position in space.</td>
+</tr>
+<tr>
+<td><code>'c'</code></td>
+<td>Color</td>
+<td>RGB or RGBA color value.</td>
+</tr>
+<tr>
+<td><code>'b'</code></td>
+<td>Bezier</td>
+<td>Cubic bezier path shape.</td>
+</tr>
+<tr>
+<td><code>'g'</code></td>
+<td>Gradient</td>
+<td>Gradient color stops.</td>
+</tr>
+</tbody>
+</table>
+<p>For examples of each property type, see the <a href="../properties/#vector-property">Property types</a> section.</p></div>
         
         
     </div>

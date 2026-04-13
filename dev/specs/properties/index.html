@@ -320,8 +320,26 @@
 <td>Value or Keyframes</td>
 <td>When it's not animated, <code>k</code> will contain the value directly. When animated, <code>k</code> will be an array of keyframes.</td>
 </tr>
+<tr>
+<td><code>ty</code></td>
+<td><a href="../constants/#property-type">Property Type</a></td>
+<td>Property Type</td>
+<td>Optional type identifier, allowing parsers to determine the value type without full schema awareness</td>
+</tr>
 </tbody>
 </table>
+<p>In most cases, the property type can be determined by looking at the parent object.
+For example, a Transform's <code>r</code> attribute is always a Scalar Property and its <code>s</code> attribute is always a Vector Property.</p>
+<p>However, having an explicit <code>ty</code> is useful in cases where the property is processed
+without its parent context. For example:</p>
+<ul>
+<li><strong>Slots</strong>: when resolving slot values, the parser receives a property without
+  knowing which parent object it belongs to. The <code>ty</code> field allows the parser to
+  correctly interpret and validate the property value without traversing the
+  full object hierarchy.</li>
+<li><strong>Validation</strong>: tools can verify that a property's <code>ty</code> matches its expected
+  type, catching mismatches early without requiring full schema traversal.</li>
+</ul>
 <h3 id="base-keyframe">Keyframes</h3>
 <p></p>
 <div>
@@ -570,6 +588,31 @@ as it enters the next keyframe.</p>
 <h3 id="vector-property">Vector</h3>
 <p></p>
 <p>Animatable <a href="../values/#vector">Vector</a>.</p>
+<p>Static example (a scale of <code>[100, 100]</code>):</p>
+<pre><code class="language-json">{
+    &quot;a&quot;: 0,
+    &quot;k&quot;: [100, 100],
+    &quot;ty&quot;: &quot;v&quot;
+}
+</code></pre>
+<p>Animated example (scale animating from <code>[100, 100]</code> to <code>[50, 50]</code>):</p>
+<pre><code class="language-json">{
+    &quot;a&quot;: 1,
+    &quot;k&quot;: [
+        {
+            &quot;t&quot;: 0,
+            &quot;s&quot;: [100, 100],
+            &quot;o&quot;: {&quot;x&quot;: [0.333, 0.333], &quot;y&quot;: [0, 0]},
+            &quot;i&quot;: {&quot;x&quot;: [0.667, 0.667], &quot;y&quot;: [1, 1]}
+        },
+        {
+            &quot;t&quot;: 60,
+            &quot;s&quot;: [50, 50]
+        }
+    ],
+    &quot;ty&quot;: &quot;v&quot;
+}
+</code></pre>
 <div>
 <details>
 <summary>Composition Diagram for Vector Property</summary>
@@ -653,6 +696,16 @@ as it enters the next keyframe.</p>
 </td>
 <td>
 <p>Static Value or Array of keyframes</p>
+</td>
+</tr>
+<tr>
+<td><code>ty</code></td>
+<td><a href="../constants/#property-type">Property Type</a> = <code>'v'</code></td>
+<td>
+<p>Property Type</p>
+</td>
+<td>
+<p>Property type, must be 'v' for Vector Property when present</p>
 </td>
 </tr>
 <tr>
@@ -786,6 +839,31 @@ as it enters the next keyframe.</p>
 <p>Animatable scalar (single number value).</p>
 <p>Note that when animated it uses <a href="./#vector-keyframe">Vector Keyframes</a>,
 so instead of scalars keyframes have arrays with a single values.</p>
+<p>Static example (an opacity of <code>100</code>):</p>
+<pre><code class="language-json">{
+    &quot;a&quot;: 0,
+    &quot;k&quot;: 100,
+    &quot;ty&quot;: &quot;s&quot;
+}
+</code></pre>
+<p>Animated example (rotation from <code>0</code> to <code>360</code> degrees):</p>
+<pre><code class="language-json">{
+    &quot;a&quot;: 1,
+    &quot;k&quot;: [
+        {
+            &quot;t&quot;: 0,
+            &quot;s&quot;: [0],
+            &quot;o&quot;: {&quot;x&quot;: [0], &quot;y&quot;: [0]},
+            &quot;i&quot;: {&quot;x&quot;: [1], &quot;y&quot;: [1]}
+        },
+        {
+            &quot;t&quot;: 60,
+            &quot;s&quot;: [360]
+        }
+    ],
+    &quot;ty&quot;: &quot;s&quot;
+}
+</code></pre>
 <div>
 <details>
 <summary>Composition Diagram for Scalar Property</summary>
@@ -872,6 +950,16 @@ so instead of scalars keyframes have arrays with a single values.</p>
 </td>
 </tr>
 <tr>
+<td><code>ty</code></td>
+<td><a href="../constants/#property-type">Property Type</a> = <code>'s'</code></td>
+<td>
+<p>Property Type</p>
+</td>
+<td>
+<p>Property type, must be 's' for Scalar Property when present</p>
+</td>
+</tr>
+<tr>
 <td><code>a</code></td>
 <td><a href="../values/#int-boolean" style="white-space: nowrap;">0-1 <code>integer</code></a></td>
 <td>Animated</td>
@@ -889,6 +977,33 @@ so instead of scalars keyframes have arrays with a single values.</p>
 <h3 id="position-property">Position</h3>
 <p></p>
 <p>Animatable 2D <a href="../values/#vector">Vector</a> with optional spatial tangents.</p>
+<p>Static example (a position at <code>[256, 256]</code>):</p>
+<pre><code class="language-json">{
+    &quot;a&quot;: 0,
+    &quot;k&quot;: [256, 256],
+    &quot;ty&quot;: &quot;v2&quot;
+}
+</code></pre>
+<p>Animated example (position moving from <code>[0, 0]</code> to <code>[256, 256]</code> with spatial tangents):</p>
+<pre><code class="language-json">{
+    &quot;a&quot;: 1,
+    &quot;k&quot;: [
+        {
+            &quot;t&quot;: 0,
+            &quot;s&quot;: [0, 0],
+            &quot;ti&quot;: [0, 0],
+            &quot;to&quot;: [42.667, 42.667],
+            &quot;o&quot;: {&quot;x&quot;: [0.333], &quot;y&quot;: [0]},
+            &quot;i&quot;: {&quot;x&quot;: [0.667], &quot;y&quot;: [1]}
+        },
+        {
+            &quot;t&quot;: 60,
+            &quot;s&quot;: [256, 256]
+        }
+    ],
+    &quot;ty&quot;: &quot;v2&quot;
+}
+</code></pre>
 <div>
 <details>
 <summary>Composition Diagram for Position Property</summary>
@@ -972,6 +1087,16 @@ so instead of scalars keyframes have arrays with a single values.</p>
 </td>
 <td>
 <p>Static Value or Array of keyframes</p>
+</td>
+</tr>
+<tr>
+<td><code>ty</code></td>
+<td><a href="../constants/#property-type">Property Type</a> = <code>'v2'</code></td>
+<td>
+<p>Property Type</p>
+</td>
+<td>
+<p>Property type, must be 'v2' for Position Property when present</p>
 </td>
 </tr>
 <tr>
@@ -1171,6 +1296,46 @@ so instead of scalars keyframes have arrays with a single values.</p>
 <h3 id="bezier-property">Bezier Shape</h3>
 <p></p>
 <p>Animatable <a href="../values/#bezier">Bezier</a>.</p>
+<p>Static example (a triangular path):</p>
+<pre><code class="language-json">{
+    &quot;a&quot;: 0,
+    &quot;k&quot;: {
+        &quot;c&quot;: true,
+        &quot;v&quot;: [[256, 0], [512, 512], [0, 512]],
+        &quot;i&quot;: [[0, 0], [0, 0], [0, 0]],
+        &quot;o&quot;: [[0, 0], [0, 0], [0, 0]]
+    },
+    &quot;ty&quot;: &quot;b&quot;
+}
+</code></pre>
+<p>Animated example (a triangle morphing into a different shape):</p>
+<pre><code class="language-json">{
+    &quot;a&quot;: 1,
+    &quot;k&quot;: [
+        {
+            &quot;t&quot;: 0,
+            &quot;s&quot;: [{
+                &quot;c&quot;: true,
+                &quot;v&quot;: [[256, 0], [512, 512], [0, 512]],
+                &quot;i&quot;: [[0, 0], [0, 0], [0, 0]],
+                &quot;o&quot;: [[0, 0], [0, 0], [0, 0]]
+            }],
+            &quot;o&quot;: {&quot;x&quot;: [0.333], &quot;y&quot;: [0]},
+            &quot;i&quot;: {&quot;x&quot;: [0.667], &quot;y&quot;: [1]}
+        },
+        {
+            &quot;t&quot;: 60,
+            &quot;s&quot;: [{
+                &quot;c&quot;: true,
+                &quot;v&quot;: [[256, 0], [512, 256], [0, 256]],
+                &quot;i&quot;: [[0, 0], [0, 0], [0, 0]],
+                &quot;o&quot;: [[0, 0], [0, 0], [0, 0]]
+            }]
+        }
+    ],
+    &quot;ty&quot;: &quot;b&quot;
+}
+</code></pre>
 <div>
 <details>
 <summary>Composition Diagram for Bezier Property</summary>
@@ -1254,6 +1419,16 @@ so instead of scalars keyframes have arrays with a single values.</p>
 </td>
 <td>
 <p>Static Value or Array of keyframes</p>
+</td>
+</tr>
+<tr>
+<td><code>ty</code></td>
+<td><a href="../constants/#property-type">Property Type</a> = <code>'b'</code></td>
+<td>
+<p>Property Type</p>
+</td>
+<td>
+<p>Property type, must be 'b' for Bezier Property when present</p>
 </td>
 </tr>
 <tr>
@@ -1370,6 +1545,31 @@ so instead of scalars keyframes have arrays with a single values.</p>
 <h3 id="color-property">Color</h3>
 <p></p>
 <p>Animatable <a href="../values/#color">Color</a>.</p>
+<p>Static example (red):</p>
+<pre><code class="language-json">{
+    &quot;a&quot;: 0,
+    &quot;k&quot;: [1, 0, 0],
+    &quot;ty&quot;: &quot;c&quot;
+}
+</code></pre>
+<p>Animated example (color transitioning from red to blue):</p>
+<pre><code class="language-json">{
+    &quot;a&quot;: 1,
+    &quot;k&quot;: [
+        {
+            &quot;t&quot;: 0,
+            &quot;s&quot;: [1, 0, 0],
+            &quot;o&quot;: {&quot;x&quot;: [0.333], &quot;y&quot;: [0]},
+            &quot;i&quot;: {&quot;x&quot;: [0.667], &quot;y&quot;: [1]}
+        },
+        {
+            &quot;t&quot;: 60,
+            &quot;s&quot;: [0, 0, 1]
+        }
+    ],
+    &quot;ty&quot;: &quot;c&quot;
+}
+</code></pre>
 <div>
 <details>
 <summary>Composition Diagram for Color Property</summary>
@@ -1453,6 +1653,16 @@ so instead of scalars keyframes have arrays with a single values.</p>
 </td>
 <td>
 <p>Static Value or Array of keyframes</p>
+</td>
+</tr>
+<tr>
+<td><code>ty</code></td>
+<td><a href="../constants/#property-type">Property Type</a> = <code>'c'</code></td>
+<td>
+<p>Property Type</p>
+</td>
+<td>
+<p>Property type, must be 'c' for Color Property when present</p>
 </td>
 </tr>
 <tr>
@@ -1570,6 +1780,37 @@ so instead of scalars keyframes have arrays with a single values.</p>
 <h3 id="gradient-property">Gradient</h3>
 <p></p>
 <p>Animatable <a href="../values/#gradient">Gradient</a>.</p>
+<p>Static example (a gradient with 3 color stops):</p>
+<pre><code class="language-json">{
+    &quot;p&quot;: 3,
+    &quot;k&quot;: {
+        &quot;a&quot;: 0,
+        &quot;k&quot;: [0, 1, 0, 0, 0.5, 0, 1, 0, 1, 0, 0, 1]
+    },
+    &quot;ty&quot;: &quot;g&quot;
+}
+</code></pre>
+<p>Animated example (gradient transitioning between two color configurations):</p>
+<pre><code class="language-json">{
+    &quot;p&quot;: 2,
+    &quot;k&quot;: {
+        &quot;a&quot;: 1,
+        &quot;k&quot;: [
+            {
+                &quot;t&quot;: 0,
+                &quot;s&quot;: [0, 1, 0, 0, 1, 0, 0, 1],
+                &quot;o&quot;: {&quot;x&quot;: [0.333], &quot;y&quot;: [0]},
+                &quot;i&quot;: {&quot;x&quot;: [0.667], &quot;y&quot;: [1]}
+            },
+            {
+                &quot;t&quot;: 60,
+                &quot;s&quot;: [0, 0, 1, 0, 1, 1, 1, 0]
+            }
+        ]
+    },
+    &quot;ty&quot;: &quot;g&quot;
+}
+</code></pre>
 <div>
 <table>
 <thead>
@@ -1581,6 +1822,16 @@ so instead of scalars keyframes have arrays with a single values.</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><code>ty</code></td>
+<td><a href="../constants/#property-type">Property Type</a> = <code>'g'</code></td>
+<td>
+<p>Property Type</p>
+</td>
+<td>
+<p>Property type, must be 'g' for Gradient Property when present</p>
+</td>
+</tr>
 <tr>
 <td><code>p</code></td>
 <td><code>number</code></td>
