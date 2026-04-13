@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "integer",
     "title": "Gradient Type",
-    "description": "Whether a Gradient is a linear or radial.",
+    "description": "Whether a Gradient is a linear, radial, or conic.",
     "oneOf": [
         {
             "title": "Linear",
