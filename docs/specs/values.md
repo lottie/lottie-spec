@@ -101,7 +101,7 @@ All gradient types use a padded spread, meaning the color stays constant outside
 
 <h4>`1`: Linear Gradient</h4>
 
-The gradient changes colors across a straight line, with `s` inidicating the point
+The gradient changes colors across a straight line, with `s` indicating the point
 at offset 0 and `e` the point at offset 1.
 
 
@@ -129,7 +129,7 @@ The gradient changes colors across a circle around a point.
 
 `s` indicates the center of the circle.
 
-`a` Is the initial angle in degrees if absent, assume 0.
+`a` is the initial angle in degrees. If omitted, defaults to `0`.
 
 Offset values represent portions of a turn around the circle turning clockwise.
 A value of 0 will be at the angle `a`, a value of 0.25 will be 90 degrees from that.
