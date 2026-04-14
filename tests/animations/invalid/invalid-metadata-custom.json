@@ -53,6 +53,6 @@
     }
 ],
 "meta": {
-    "x": "should-be-an-object"
+    "custom": "should-be-an-object"
 }
 }

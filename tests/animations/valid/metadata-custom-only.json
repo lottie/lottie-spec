@@ -53,7 +53,7 @@
     }
 ],
 "meta": {
-    "x": {
+    "custom": {
         "anything": "goes here",
         "numbers": 42,
         "arrays": [1, 2, 3],

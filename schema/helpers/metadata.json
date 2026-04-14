@@ -32,7 +32,7 @@
             "description": "Theme color of the animation as a hex string (e.g. \"#FF0000\")",
             "type": "string"
         },
-        "x": {
+        "custom": {
             "title": "Custom Metadata",
             "description": "Object where authors can store any custom data. The contents of this property are not validated by the schema.",
             "type": "object",

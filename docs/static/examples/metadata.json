@@ -137,7 +137,7 @@
     "d": "Blue rectangle with stroke",
     "k": ["rectangle", "stroke", "blue"],
     "tc": "#2196F3",
-    "x": {
+    "custom": {
         "project_id": "abc-123",
         "exported_at": "2025-01-15T10:30:00Z",
         "custom_tags": ["production", "approved"]

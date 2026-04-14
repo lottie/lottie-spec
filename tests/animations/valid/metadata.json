@@ -58,7 +58,7 @@
     "d": "Test animation with metadata",
     "k": ["test", "metadata"],
     "tc": "#FF0000",
-    "x": {
+    "custom": {
         "build_number": 42,
         "is_draft": true,
         "nested": {
