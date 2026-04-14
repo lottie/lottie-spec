@@ -59,7 +59,6 @@ Example:
         "a": "Aidos S",
         "d": "Loading spinner animation",
         "k": ["spinner", "loading", "ui"],
-        "tc": "#2196F3",
         "custom": {
             "project_id": "abc-123",
             "exported_at": "2025-01-15T10:30:00Z"

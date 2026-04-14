@@ -57,7 +57,6 @@
     "a": "Aidos S",
     "d": "Test animation with metadata",
     "k": ["test", "metadata"],
-    "tc": "#FF0000",
     "custom": {
         "build_number": 42,
         "is_draft": true,
