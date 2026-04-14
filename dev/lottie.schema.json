@@ -398,7 +398,7 @@
             "gradient-type": {
                 "type": "integer",
                 "title": "Gradient Type",
-                "description": "Whether a Gradient is a linear or radial.",
+                "description": "Whether a Gradient is a linear, radial, or conic.",
                 "oneOf": [
                     {
                         "title": "Linear",
@@ -409,6 +409,11 @@
                         "title": "Radial",
                         "description": "Colors transition outward from a center point.",
                         "const": 2
+                    },
+                    {
+                        "title": "Conic",
+                        "description": "Colors radiate clockwise around a center point.",
+                        "const": 3
                     }
                 ]
             },

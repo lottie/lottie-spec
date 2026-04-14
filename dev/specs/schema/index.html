@@ -683,7 +683,7 @@ values to jump to the relevant section.</p>
             <a href="#/$defs/constants/gradient-type" id="/$defs/constants/gradient-type"><span class="hljs-attr">"gradient-type"</span></a> <a href="../constants/#gradient-type" title="Gradient Type"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gradient Type"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether a Gradient is a linear or radial."</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether a Gradient is a linear, radial, or conic."</span>,
                 <span class="hljs-attr">"oneOf"</span>: [
                     {
                         <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Linear"</span>,
@@ -694,6 +694,11 @@ values to jump to the relevant section.</p>
                         <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Radial"</span>,
                         <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Colors transition outward from a center point."</span>,
                         <span class="hljs-attr">"const"</span>: <span class="hljs-number">2</span>
+                    },
+                    {
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Conic"</span>,
+                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Colors radiate clockwise around a center point."</span>,
+                        <span class="hljs-attr">"const"</span>: <span class="hljs-number">3</span>
                     }
                 ]
             },

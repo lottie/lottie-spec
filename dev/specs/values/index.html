@@ -290,6 +290,7 @@
                 
                 <li class="third-level"><a href="#gradient-without-transparency">Gradient without transparency</a></li>
                 <li class="third-level"><a href="#gradient-with-transparency">Gradient with transparency</a></li>
+                <li class="third-level"><a href="#gradient-types">Gradient Types</a></li>
                 <li class="third-level"><a href="#gradient-example">Gradient Example</a></li>
             <li class="second-level"><a href="#bezier">Bezier Shape</a></li>
                 
@@ -443,6 +444,34 @@ not match the count and offset of color stops.</p>
 </tr>
 </tbody>
 </table>
+<h3 id="gradient-types">Gradient Types</h3>
+<p></p>
+<p>Gradient types are defined by <a href="../constants/#gradient-type">Gradient Type</a> with the following semantics
+(Properties are the ones from <a href="../shapes/#gradient-fill">Gradient</a> and <a href="../shapes/#gradient-stroke">Gradient Stroke</a>).</p>
+<p>All gradient types use a padded spread, meaning the color stays constant outside the range.</p>
+<h4 id="1-linear-gradient"><code>1</code>: Linear Gradient</h4>
+<p></p>
+<p>The gradient changes colors across a straight line, with <code>s</code> indicating the point
+at offset 0 and <code>e</code> the point at offset 1.</p>
+<h4 id="2-radial-gradient"><code>2</code>: Radial Gradient</h4>
+<p></p>
+<p>The gradient radiates between an outer circle and a point within it.</p>
+<p>The outer circle corresponds with offset 1 and is centered at <code>s</code> and has radius
+<code>|e - s|</code>.</p>
+<p>The inner point is defined in polar coordinates relative to <code>s</code> and <code>e</code>:</p>
+<p><code>h</code> is a percentange of the radius (between 0 and 100) indicating the distance
+from <code>s</code>. A value of 0 indicates being at <code>s</code> and a value of 100 being on 
+the edge of the outer circle.</p>
+<p><code>a</code> Is the angle in degrees the point is offset from the line between <code>s</code> and <code>e</code>.
+A value of 0 indicates the point is on that line, otherwise it's rotated clockwise
+by that many degrees.</p>
+<h4 id="3-conic-gradient"><code>3</code>: Conic Gradient</h4>
+<p></p>
+<p>The gradient changes colors across a circle around a point.</p>
+<p><code>s</code> indicates the center of the circle.</p>
+<p><code>a</code> is the initial angle in degrees. If omitted, defaults to <code>0</code>.</p>
+<p>Offset values represent portions of a turn around the circle turning clockwise.
+A value of 0 will be at the angle <code>a</code>, a value of 0.25 will be 90 degrees from that.</p>
 <h3 class="print-site-plugin-ignore" id="gradient-example">Gradient Example</h3>
 <p></p>
 <div class="playground playground-columns print-site-plugin-ignore">

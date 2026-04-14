@@ -498,6 +498,34 @@ not match the count and offset of color stops.</p>
 </tr>
 </tbody>
 </table>
+<h3 id="specs-values-gradient-types">Gradient Types</h3>
+<p></p>
+<p>Gradient types are defined by <a href="#specs-constants-gradient-type">Gradient Type</a> with the following semantics
+(Properties are the ones from <a href="#specs-shapes-gradient-fill">Gradient</a> and <a href="#specs-shapes-gradient-stroke">Gradient Stroke</a>).</p>
+<p>All gradient types use a padded spread, meaning the color stays constant outside the range.</p>
+<h4 id="specs-values-1-linear-gradient"><code>1</code>: Linear Gradient</h4>
+<p></p>
+<p>The gradient changes colors across a straight line, with <code>s</code> indicating the point
+at offset 0 and <code>e</code> the point at offset 1.</p>
+<h4 id="specs-values-2-radial-gradient"><code>2</code>: Radial Gradient</h4>
+<p></p>
+<p>The gradient radiates between an outer circle and a point within it.</p>
+<p>The outer circle corresponds with offset 1 and is centered at <code>s</code> and has radius
+<code>|e - s|</code>.</p>
+<p>The inner point is defined in polar coordinates relative to <code>s</code> and <code>e</code>:</p>
+<p><code>h</code> is a percentange of the radius (between 0 and 100) indicating the distance
+from <code>s</code>. A value of 0 indicates being at <code>s</code> and a value of 100 being on 
+the edge of the outer circle.</p>
+<p><code>a</code> Is the angle in degrees the point is offset from the line between <code>s</code> and <code>e</code>.
+A value of 0 indicates the point is on that line, otherwise it's rotated clockwise
+by that many degrees.</p>
+<h4 id="specs-values-3-conic-gradient"><code>3</code>: Conic Gradient</h4>
+<p></p>
+<p>The gradient changes colors across a circle around a point.</p>
+<p><code>s</code> indicates the center of the circle.</p>
+<p><code>a</code> is the initial angle in degrees. If omitted, defaults to <code>0</code>.</p>
+<p>Offset values represent portions of a turn around the circle turning clockwise.
+A value of 0 will be at the angle <code>a</code>, a value of 0.25 will be 90 degrees from that.</p>
 <h3 class="print-site-plugin-ignore" id="specs-values-gradient-example">Gradient Example</h3>
 <p></p>
 <div class="playground playground-columns print-site-plugin-ignore">
@@ -7524,7 +7552,7 @@ come before them in <a href="#specs-glossary-stacking-order">stacking order</a>.
 </tr>
 <tr>
 <td style="white-space: pre"><label>Type</label> </td>
-<td style="width: 100%"><select autocomplete="off" data-lottie-input="25" name="Type" oninput="lottie_player_25.reload();"><option selected="selected" value="1">Linear</option><option value="2">Radial</option></select></td>
+<td style="width: 100%"><select autocomplete="off" data-lottie-input="25" name="Type" oninput="lottie_player_25.reload();"><option selected="selected" value="1">Linear</option><option value="2">Radial</option><option value="3">Conic</option></select></td>
 </tr>
 <tr>
 <td style="white-space: pre"><label>Highlight</label> </td>
@@ -7871,7 +7899,7 @@ come before them in <a href="#specs-glossary-stacking-order">stacking order</a>.
 </tr>
 <tr>
 <td style="white-space: pre"><label>Type</label> </td>
-<td style="width: 100%"><select autocomplete="off" data-lottie-input="26" name="Type" oninput="lottie_player_26.reload();"><option selected="selected" value="1">Linear</option><option value="2">Radial</option></select></td>
+<td style="width: 100%"><select autocomplete="off" data-lottie-input="26" name="Type" oninput="lottie_player_26.reload();"><option selected="selected" value="1">Linear</option><option value="2">Radial</option><option value="3">Conic</option></select></td>
 </tr>
 <tr>
 <td style="white-space: pre"><label>Highlight</label> </td>
@@ -9305,7 +9333,7 @@ still stay within the <code>w</code>-<code>h</code> bounds when rendered.</p>
 </div>
 <h2 id="specs-constants-gradient-type">Gradient Type</h2>
 <p></p>
-<p><span>Whether a Gradient is a linear or radial.</span></p>
+<p><span>Whether a Gradient is a linear, radial, or conic.</span></p>
 <table>
 <thead>
 <tr>
@@ -9325,6 +9353,11 @@ still stay within the <code>w</code>-<code>h</code> bounds when rendered.</p>
 <td>Radial</td>
 <td>Colors transition outward from a center point.</td>
 </tr>
+<tr>
+<td><code>3</code></td>
+<td>Conic</td>
+<td>Colors radiate clockwise around a center point.</td>
+</tr>
 </tbody>
 </table>
 <p class="print-site-plugin-ignore">Example</p>
@@ -9332,7 +9365,7 @@ still stay within the <code>w</code>-<code>h</code> bounds when rendered.</p>
 <table class="table-plain" style="width: 100%">
 <tr>
 <td style="white-space: pre"><label>Type</label> </td>
-<td style="width: 100%"><select autocomplete="off" data-lottie-input="10" name="Type" oninput="lottie_player_10.reload();"><option selected="selected" value="1">Linear</option><option value="2">Radial</option></select></td>
+<td style="width: 100%"><select autocomplete="off" data-lottie-input="10" name="Type" oninput="lottie_player_10.reload();"><option selected="selected" value="1">Linear</option><option value="2">Radial</option><option value="3">Conic</option></select></td>
 </tr>
 </table>
 <div class="playground-columns">
@@ -11164,7 +11197,7 @@ values to jump to the relevant section.</p>
             <a href="#specs-schema-/$defs/constants/gradient-type" id="/$defs/constants/gradient-type"><span class="hljs-attr">"gradient-type"</span></a> <a href="#specs-constants-gradient-type" title="Gradient Type"><i class="fas fa-book-open"></i></a> : {
                 <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>,
                 <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Gradient Type"</span>,
-                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether a Gradient is a linear or radial."</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Whether a Gradient is a linear, radial, or conic."</span>,
                 <span class="hljs-attr">"oneOf"</span>: [
                     {
                         <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Linear"</span>,
@@ -11175,6 +11208,11 @@ values to jump to the relevant section.</p>
                         <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Radial"</span>,
                         <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Colors transition outward from a center point."</span>,
                         <span class="hljs-attr">"const"</span>: <span class="hljs-number">2</span>
+                    },
+                    {
+                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Conic"</span>,
+                        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Colors radiate clockwise around a center point."</span>,
+                        <span class="hljs-attr">"const"</span>: <span class="hljs-number">3</span>
                     }
                 ]
             },
