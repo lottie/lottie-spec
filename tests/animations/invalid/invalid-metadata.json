@@ -53,6 +53,7 @@
     }
 ],
 "meta": {
+    "k": "not-an-array",
     "custom": "should-be-an-object"
 }
 }
