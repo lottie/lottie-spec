@@ -522,16 +522,16 @@ Offset entry, if present, MUST be at the end of the array.
 
 {schema_object:shapes/gradient-fill}
 
-<lottie-playground example="gradient.json">
+<lottie-playground example="gradient.json" renderer="glaxnimate">
     <title>Example</title>
     <form>
         <input title="Start X" type="range" min="0" max="512"  value="256"/>
-        <input title="Start Y" type="range" min="0" max="512"  value="496"/>
+        <input title="Start Y" type="range" min="0" max="512"  value="256"/>
         <input title="End X" type="range" min="0" max="512"  value="256"/>
         <input title="End Y" type="range" min="0" max="512"  value="16"/>
         <enum title="Type" value="1">gradient-type</enum>
         <input title="Highlight" type="range" min="0" max="100"  value="0"/>
-        <input title="Highlight Angle" type="range" min="0" max="360"  value="0"/>
+        <input title="Angle" type="range" min="0" max="360"  value="0"/>
     </form>
     <json>lottie.layers[1].shapes[0].it[1]</json>
     <script>
@@ -541,17 +541,26 @@ Offset entry, if present, MUST be at the end of the array.
     gradient.s.k = start_marker.p.k = [data["Start X"], data["Start Y"]];
     gradient.e.k = end_marker.p.k = [data["End X"], data["End Y"]];
     gradient.t = Number(data["Type"]);
-    if (gradient.t === 2) {
+    if ( gradient.t === 2 ) 
+    {
         gradient.h = {
             a: 0,
             k: data["Highlight"]
         };
+    }
+    else 
+    {
+        delete gradient.h;
+    }
+    if ( gradient.t !== 1 ) 
+    {
         gradient.a = {
             a: 0,
-            k: data["Highlight Angle"]
+            k: data["Angle"]
         };
-    } else {
-        delete gradient.h;
+    } 
+    else 
+    {
         delete gradient.a;
     }
     </script>
@@ -563,16 +572,16 @@ Offset entry, if present, MUST be at the end of the array.
 
 {schema_object:shapes/gradient-stroke}
 
-<lottie-playground example="gradient-stroke.json">
+<lottie-playground example="gradient-stroke.json" renderer="glaxnimate">
     <title>Example</title>
     <form>
         <input title="Start X" type="range" min="0" max="512"  value="256"/>
-        <input title="Start Y" type="range" min="0" max="512"  value="496"/>
+        <input title="Start Y" type="range" min="0" max="512"  value="256"/>
         <input title="End X" type="range" min="0" max="512"  value="256"/>
         <input title="End Y" type="range" min="0" max="512"  value="16"/>
         <enum title="Type" value="1">gradient-type</enum>
         <input title="Highlight" type="range" min="0" max="100"  value="0"/>
-        <input title="Highlight Angle" type="range" min="0" max="360"  value="0"/>
+        <input title="Angle" type="range" min="0" max="360"  value="0"/>
     </form>
     <json>lottie.layers[1].shapes[1]</json>
     <script>
@@ -582,17 +591,26 @@ Offset entry, if present, MUST be at the end of the array.
     gradient.s.k = start_marker.p.k = [data["Start X"], data["Start Y"]];
     gradient.e.k = end_marker.p.k = [data["End X"], data["End Y"]];
     gradient.t = Number(data["Type"]);
-    if (gradient.t === 2) {
+    if ( gradient.t === 2 ) 
+    {
         gradient.h = {
             a: 0,
             k: data["Highlight"]
         };
+    }
+    else 
+    {
+        delete gradient.h;
+    }
+    if ( gradient.t !== 1 ) 
+    {
         gradient.a = {
             a: 0,
-            k: data["Highlight Angle"]
+            k: data["Angle"]
         };
-    } else {
-        delete gradient.h;
+    } 
+    else 
+    {
         delete gradient.a;
     }
     </script>

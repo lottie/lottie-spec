@@ -2,6 +2,7 @@ site_name: Lottie Specs
 site_description: Documentation for the Lottie animation format
 extra:
     lottie_player_version: 5.12.2
+    glaxnimate_player_version: 0.6.59
 theme:
     name: cinder
     custom_dir: tools/theme
