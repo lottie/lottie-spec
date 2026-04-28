@@ -50,7 +50,10 @@ class LottiePlayer
 
         if ( this.load_ok )
         {
-            this.anim = bodymovin.loadAnimation(options);
+            if ( options.renderer == "glaxnimate" )
+                this.anim = Glaxnimate.loadAnimation(options);
+            else
+                this.anim = bodymovin.loadAnimation(options);
             if ( frame != undefined )
                 this.go_to_frame(frame);
         }
