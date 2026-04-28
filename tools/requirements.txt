@@ -1,4 +1,4 @@
-lottie_specs[docs]==0.5
+lottie_specs[docs]==0.5.2
 mkdocs-cinder==1.2.0
 mkdocs-print-site-plugin==2.7.3
 # git+https://github.com/mbasaglia/mkdocs-print-site-plugin.git@rename-page
