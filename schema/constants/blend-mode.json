@@ -1,0 +1,76 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "integer",
+    "title": "Blend Mode",
+    "description": "Layer and shape blend mode",
+    "oneOf": [
+        {
+            "title": "Normal",
+            "const": 0
+        },
+        {
+            "title": "Multiply",
+            "const": 1
+        },
+        {
+            "title": "Screen",
+            "const": 2
+        },
+        {
+            "title": "Overlay",
+            "const": 3
+        },
+        {
+            "title": "Darken",
+            "const": 4
+        },
+        {
+            "title": "Lighten",
+            "const": 5
+        },
+        {
+            "title": "Color Dodge",
+            "const": 6
+        },
+        {
+            "title": "Color Burn",
+            "const": 7
+        },
+        {
+            "title": "Hard Light",
+            "const": 8
+        },
+        {
+            "title": "Soft Light",
+            "const": 9
+        },
+        {
+            "title": "Difference",
+            "const": 10
+        },
+        {
+            "title": "Exclusion",
+            "const": 11
+        },
+        {
+            "title": "Hue",
+            "const": 12
+        },
+        {
+            "title": "Saturation",
+            "const": 13
+        },
+        {
+            "title": "Color",
+            "const": 14
+        },
+        {
+            "title": "Luminosity",
+            "const": 15
+        },
+        {
+            "title": "Add",
+            "const": 16
+        }
+    ]
+}

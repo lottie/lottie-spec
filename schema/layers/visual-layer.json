@@ -38,6 +38,11 @@
                     "items": {
                       "$ref": "#/$defs/helpers/mask"
                     }
+                },
+                "bm": {
+                    "title": "Blend Mode",
+                    "$ref": "#/$defs/constants/blend-mode",
+                    "default": 0
                 }
             },
             "required": [
