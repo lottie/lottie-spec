@@ -38,6 +38,35 @@ specification and SHOULD issue a warning if:
 * The animation specifies a newer minor version.
 * No warning needed if the specified patch version is different.
 
+<h2 id="metadata">Metadata</h2>
+
+The `meta` property provides a place to store information about the animation
+itself, such as the authoring tool, author name, and keywords.
+
+The `custom` sub-property is an open object where authors can store any custom
+data that is not covered by the other metadata fields. Implementations SHOULD
+preserve the contents of `custom` when reading and writing animations but MUST
+NOT rely on any specific keys being present.
+
+{schema_object:helpers/metadata}
+
+Example:
+
+```json
+{
+    "meta": {
+        "g": "MyTool 1.0",
+        "a": "Aidos S",
+        "d": "Loading spinner animation",
+        "k": ["spinner", "loading", "ui"],
+        "custom": {
+            "project_id": "abc-123",
+            "exported_at": "2025-01-15T10:30:00Z"
+        }
+    }
+}
+```
+
 <h2 id="composition">Composition</h2>
 
 {schema_string:composition/composition/description}
