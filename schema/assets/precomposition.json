@@ -9,6 +9,18 @@
         },
         {
             "$ref": "#/$defs/composition/composition"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "ty": {
+                    "title": "Type",
+                    "description": "Asset type",
+                    "type": "integer",
+                    "const": 0
+                }
+            },
+            "required": ["ty"]
         }
     ]
 }

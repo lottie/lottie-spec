@@ -6,6 +6,12 @@
         },
         {
             "$ref": "#/$defs/assets/image"
+        },
+        {
+            "$ref": "#/$defs/assets/video"
+        },
+        {
+            "$ref": "#/$defs/assets/video-frame"
         }
     ]
 }
