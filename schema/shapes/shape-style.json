@@ -14,6 +14,11 @@
                     "title": "Opacity",
                     "description": "Opacity, 100 means fully opaque",
                     "$ref": "#/$defs/properties/scalar-property"
+                },
+                "bm": {
+                    "title": "Blend Mode",
+                    "$ref": "#/$defs/constants/blend-mode",
+                    "default": 0
                 }
             },
             "required": [
