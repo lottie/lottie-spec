@@ -1,0 +1,38 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "File Asset",
+    "description": "Common properties for file-based assets like images and videos",
+    "properties": {
+        "p": {
+            "title": "File Name",
+            "description": "Name of the file or a data url",
+            "type": "string"
+        },
+        "u": {
+            "title": "File Path",
+            "description": "Path to the file",
+            "type": "string"
+        },
+        "e": {
+            "title": "Embedded",
+            "description": "If '1', 'p' is a Data URL",
+            "$ref": "#/$defs/values/int-boolean"
+        }
+    },
+    "allOf": [
+        {
+            "if": {
+                "properties": {
+                    "e": {"const": 1}
+                },
+                "required": ["e"]
+            },
+            "then": {
+                "properties": {
+                    "p": {"$ref": "#/$defs/values/data-url"}
+                }
+            }
+        }
+    ]
+}

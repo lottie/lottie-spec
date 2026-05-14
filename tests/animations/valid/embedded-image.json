@@ -10,6 +10,7 @@
     "assets": [
       {
         "id": "image_0",
+        "ty": 1,
         "w": 1024,
         "h": 1024,
         "p": "data:image/jpeg;base64,/InvalidImageBits",
