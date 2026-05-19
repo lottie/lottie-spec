@@ -1,4 +1,5 @@
 docs/lottie.schema.json
+docs/lottie-flat.schema.json
 site/
 __pycache__
 node_modules
