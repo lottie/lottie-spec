@@ -286,7 +286,8 @@ any key/value pairs. Authors can use this to attach tool-specific or
 workflow-specific data to an animation without conflicting with the standard
 metadata fields.
 
-Implementations SHOULD preserve custom metadata when reading and writing animations. Implementations MUST NOT rely on any particular keys or structure
+Implementations SHOULD preserve custom metadata when reading and writing
+animations. Implementations MUST NOT rely on any particular keys or structure
 within `custom`.
 
 <h2 id="mask">Mask</h2>
