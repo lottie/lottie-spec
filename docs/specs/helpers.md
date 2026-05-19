@@ -281,14 +281,13 @@ Invalid example — scalar slot referenced by a vector property (type mismatch):
 
 {schema_object:helpers/metadata}
 
-The `custom` (Custom Metadata) property is an open-ended object that accepts
-any key/value pairs. Authors can use this to attach tool-specific or
-workflow-specific data to an animation without conflicting with the standard
-metadata fields.
+Authors can use `custom` to attach tool-specific or workflow-specific data
+without conflicting with the standard metadata fields above.
 
-Implementations SHOULD preserve custom metadata when reading and writing
-animations. Implementations MUST NOT rely on any particular keys or structure
-within `custom`.
+Implementations SHOULD preserve the `custom` object when reading and writing
+animations so that data added by other tools is not lost. Because `custom` has
+no defined schema, implementations MUST NOT require specific keys to be present,
+assume any particular structure, or fail when encountering unknown content.
 
 <h2 id="mask">Mask</h2>
 
