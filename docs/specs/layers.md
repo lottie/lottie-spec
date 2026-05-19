@@ -12,6 +12,15 @@ The `ty` property defines the specific layer type based on the following values:
 
 {schema_subtype_table:layers/all-layers:ty}
 
+#### Visibility Range
+
+A layer is visible on frame `t` when `ip <= t < op`. The `ip` (In Point) boundary is
+inclusive, and the `op` (Out Point) boundary is exclusive — the frame at `op` is NOT
+rendered. This matches the Animation-level [`ip`/`op`](composition.md#animation)
+semantics.
+
+`op` MUST be strictly greater than `ip`.
+
 <h3 id="visual-layer">Visual Layer</h3>
 
 {schema_string:layers/visual-layer/description}
@@ -143,10 +152,10 @@ The `tm` property specifies a time remap function as an animatable property, all
 over the precomp timeline (subset, speedup/slowdown, reverse, frame-freeze, or any other arbitrary
 transformation).
 
-It maps the current layer time (in the frame index $[ip \ldots op]$ domain) to a precomp time
+It maps the current layer time (in the half-open frame index $[ip, op)$ domain) to a precomp time
 expressed in seconds, and evaluates all animatable precomp properties based on the new time value:
 
-$$tm \colon \left[ip \ldots op\right] \mapsto seconds$$
+$$tm \colon \left[ip, op\right) \mapsto seconds$$
 $$t\prime = tm(t) \cdot FPS$$
 
 Note: the global frame rate factor $FPS$ ([Animation](composition.md#Animation) `fr` property) is

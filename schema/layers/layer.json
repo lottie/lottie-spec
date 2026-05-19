@@ -32,12 +32,12 @@
                 },
                 "ip": {
                     "title": "In Point",
-                    "description": "Frame when the layer becomes visible",
+                    "description": "Frame when the layer becomes visible (inclusive).",
                     "type": "number"
                 },
                 "op": {
                     "title": "Out Point",
-                    "description": "Frame when the layer becomes invisible",
+                    "description": "Frame when the layer becomes invisible (exclusive). The layer is visible while `ip <= t < op`.",
                     "type": "number"
                 }
             },

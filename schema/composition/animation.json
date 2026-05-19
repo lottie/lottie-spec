@@ -24,13 +24,14 @@
                 },
                 "ip": {
                     "title": "In Point",
-                    "description": "Frame the animation starts at (usually 0)",
+                    "description": "Frame the animation starts at (inclusive; usually 0)",
                     "type": "number"
                 },
                 "op": {
                     "title": "Out Point",
-                    "description": "Frame the animation stops/loops at, which makes this the duration in frames when `ip` is 0",
-                    "type": "number"
+                    "description": "Frame the animation stops/loops at (exclusive). The frame at `op` is NOT rendered; the animation duration in frames is `op - ip`.",
+                    "type": "number",
+                    "exclusiveMinimum": 0
                 },
                 "w": {
                     "title": "Width",
