@@ -19,7 +19,7 @@ inclusive, and the `op` (Out Point) boundary is exclusive — the frame at `op` 
 rendered. This matches the Animation-level [`ip`/`op`](composition.md#animation)
 semantics.
 
-`op` MUST be strictly greater than `ip`.
+`op` MUST NOT be less than `ip`.
 
 <h3 id="visual-layer">Visual Layer</h3>
 
