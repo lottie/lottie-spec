@@ -6,6 +6,21 @@
 
 {schema_object:composition/animation}
 
+### Time and Duration
+
+The animation's playable frame range is defined by `ip` (In Point, inclusive)
+and `op` (Out Point, exclusive). The frame at `op` is NOT rendered; the
+animation loops or stops at that boundary.
+
+The total duration in frames is `op - ip`, and the duration in seconds is
+`(op - ip) / fr`.
+
+Implementations MUST treat `op` as an exclusive boundary. `op` MUST be
+strictly greater than `ip`.
+
+Example: `ip: 0`, `op: 30`, `fr: 30` defines a 30-frame, 1-second animation
+playing frames `0..29`.
+
 ### Versioning Guidelines
 
 The Lottie specification version number uses a semantic versioning system,
