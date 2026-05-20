@@ -98,7 +98,7 @@ Drawing instructions will contain the following commands:
 ### Approximating Ellipses with Cubic Bezier
 
 An elliptical quadrant can be approximated by a cubic bezier segment
-with tangents of length $radius * E_t.
+with tangents of length $radius * E_t$.
 
 Where
 
@@ -684,6 +684,40 @@ separately, $start$ and $end$ being applied to each shape.
 as following each other in render order.  $start$ and $end$ refer to the whole
 length created by concatenating each shape.
 
+<h3 id="rounded-corners">Rounded Corners</h3>
+
+{schema_string:shapes/rounded-corners/description}
+
+{schema_object:shapes/rounded-corners}
+
+This modifier looks at the underlying shape, at each vertex it checks if the 
+tangents at that vertex have zero length. If both have zero length, the initial 
+vertex is replaced by two vertices `r` distance away from the original along
+the corresponding segment. These new vertices MUST merge with existing vertices
+if the line segments are shorter than the `r` distance. 
+The new vertices have the tangents towards the old initial vertex whose lengths
+are the distance to said vertex multiplied by the elliptical constant $E_t$.
+
+The first and last vertex in an open path MUST NOT be affected.
+
+If `r` is 0, the modifier MUST keep the target shapes unchanged.
+
+Follows a guide on how the modifier works:
+
+![Rounded corners rendering guide](../static/img/rounded-corners-guide.svg)
+
+Note that $a - v_i$ is generally equal to `r` but it might not be in the case
+where the line segment is shorter than `r`.
+
+<lottie-playground example="rounded_corners.json">
+    <form>
+        <input title="Radius" type="range" min="0" value="50" max="100"/>
+    </form>
+    <json>lottie.layers[0].shapes[0].it[1]</json>
+    <script>
+    lottie.layers[0].shapes[0].it[1].r.k = data["Radius"];
+    </script>
+</lottie-playground>
 
 <h3 id="pucker-bloat">Pucker / Bloat</h3>
 
