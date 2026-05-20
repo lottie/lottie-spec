@@ -275,6 +275,20 @@ Invalid example — scalar slot referenced by a vector property (type mismatch):
     </script>
 </lottie-playground>
 
+<h2 id="metadata">Metadata</h2>
+
+{schema_string:helpers/metadata/description}
+
+{schema_object:helpers/metadata}
+
+Authors can use `custom` to attach tool-specific or workflow-specific data
+without conflicting with the standard metadata fields above.
+
+Implementations SHOULD preserve the `custom` object when reading and writing
+animations so that data added by other tools is not lost. Because `custom` has
+no defined schema, implementations MUST NOT require specific keys to be present,
+assume any particular structure, or fail when encountering unknown content.
+
 <h2 id="mask">Mask</h2>
 
 {schema_string:helpers/mask/description}

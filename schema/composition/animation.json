@@ -67,6 +67,11 @@
                     "additionalProperties": {
                         "$ref": "#/$defs/helpers/slot"
                     }
+                },
+                "meta": {
+                    "title": "Metadata",
+                    "description": "Metadata about the animation",
+                    "$ref": "#/$defs/helpers/metadata"
                 }
             },
             "required": ["w", "h", "fr", "op", "ip"]

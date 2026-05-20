@@ -1,0 +1,37 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "Metadata",
+    "description": "Contains metadata about the animation, such as authoring information and custom data.",
+    "properties": {
+        "g": {
+            "title": "Generator",
+            "description": "Name and version of the software that generated this animation",
+            "type": "string"
+        },
+        "a": {
+            "title": "Author",
+            "description": "Author of the animation",
+            "type": "string"
+        },
+        "d": {
+            "title": "Description",
+            "description": "Human-readable description of the animation",
+            "type": "string"
+        },
+        "k": {
+            "title": "Keywords",
+            "description": "List of keywords relevant to the animation content",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "custom": {
+            "title": "Custom Metadata",
+            "description": "Object where authors can store any custom data. The contents of this property are not validated by the schema.",
+            "type": "object",
+            "additionalProperties": true
+        }
+    }
+}
