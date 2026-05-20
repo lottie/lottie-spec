@@ -43,11 +43,6 @@ specification and SHOULD issue a warning if:
 The `meta` property provides a place to store information about the animation
 itself, such as the authoring tool, author name, and keywords.
 
-The `custom` sub-property is an open object where authors can store any custom
-data that is not covered by the other metadata fields. Implementations SHOULD
-preserve the contents of `custom` when reading and writing animations but MUST
-NOT rely on any specific keys being present.
-
 {schema_object:helpers/metadata}
 
 Example:
