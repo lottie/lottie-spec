@@ -14,6 +14,7 @@
         {"$ref": "#/$defs/shapes/transform"},
         {"$ref": "#/$defs/shapes/trim-path"},
         {"$ref": "#/$defs/shapes/pucker-bloat"},
+        {"$ref": "#/$defs/shapes/rounded-corners"},
         {"$ref": "#/$defs/shapes/unknown-shape"}
     ]
 }
