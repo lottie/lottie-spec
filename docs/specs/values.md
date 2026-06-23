@@ -114,7 +114,7 @@ The outer circle corresponds with offset 1 and is centered at `s` and has radius
 
 The inner point is defined in polar coordinates relative to `s` and `e`:
 
-`h` is a percentange of the radius (between 0 and 100) indicating the distance
+`h` is a percentage of the radius (between 0 and 100) indicating the distance
 from `s`. A value of 0 indicates being at `s` and a value of 100 being on 
 the edge of the outer circle.
 
